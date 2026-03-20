@@ -85,7 +85,8 @@ cd "$PROJECT_DIR"
 "$GODOT" --headless --import 2>&1 | tail -3
 
 # --- Export APK ---
-APK_PATH="${EXPORT_DIR}/${APK_NAME}.apk"
+TIMESTAMP=$(date +%s)
+APK_PATH="${EXPORT_DIR}/${APK_NAME}-v${VERSION}-${TIMESTAMP}.apk"
 if [ "$RELEASE" = true ]; then
     echo "Exporting release APK..."
     "$GODOT" --headless --export-release "Android" "$APK_PATH" 2>&1 | tail -5

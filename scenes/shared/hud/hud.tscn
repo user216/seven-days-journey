@@ -61,8 +61,9 @@ show_percentage = false
 
 [node name="PauseBtn" type="Button" parent="TopBar/Panel/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "⏸"
+custom_minimum_size = Vector2(80, 0)
+theme_override_font_sizes/font_size = 32
+text = "⚙"
 
 [node name="HUDScript" type="Node" parent="."]
 script = ExtResource("1")

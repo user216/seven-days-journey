@@ -1,0 +1,517 @@
+extends SceneTree
+## End-to-end tests — scene loading, input handling, UI accessibility, regression guards.
+## Run with: godot --headless --script tests/test_e2e.gd
+##
+## Catches bugs we've hit before:
+##   - Controls eating touch input (mouse_filter = STOP on overlays)
+##   - Missing UI wiring (pause button not connected)
+##   - Scene load crashes
+##   - Invalid activity states ("missed")
+##
+## Uses call_deferred so Godot's project.godot autoloads are ready.
+
+var _pass_count: int = 0
+var _fail_count: int = 0
+var _test_count: int = 0
+var _current_suite: String = ""
+
+
+func _init() -> void:
+	call_deferred("_run_tests")
+
+
+func _run_tests() -> void:
+	print("\n══════════════════════════════════════════════")
+	print("  7 Days Journey — E2E Test Suite")
+	print("══════════════════════════════════════════════\n")
+
+	var GD := root.get_node("GameData")
+	var GS := root.get_node("GameState")
+	var TS := root.get_node("TimeSystem")
+	var SM := root.get_node("SaveManager")
+	var ST := root.get_node("SceneTransition")
+
+	if not GD or not GS or not TS or not SM:
+		print("  ✗ FATAL: Autoloads not found.")
+		quit(1)
+		return
+
+	_suite_scene_loading(GS, TS)
+	_suite_input_blocking(GS, TS)
+	_suite_pause_menu_wiring(GS, TS)
+	_suite_platform_tap_targets(GS, TS, GD)
+	_suite_no_missed_state(GS, TS, GD)
+	_suite_mini_interaction_contract()
+	_suite_scene_transition(ST)
+	_suite_hud_signals()
+	_suite_vignette_passthrough(GS, TS)
+	_suite_parallax_setup(GS, TS)
+
+	# Summary
+	print("\n══════════════════════════════════════════════")
+	if _fail_count == 0:
+		print("  ALL %d E2E TESTS PASSED ✓" % _test_count)
+	else:
+		print("  %d passed, %d FAILED out of %d tests" % [_pass_count, _fail_count, _test_count])
+	print("══════════════════════════════════════════════\n")
+
+	quit(0 if _fail_count == 0 else 1)
+
+
+# ── Helpers ──────────────────────────────────────────────────────
+
+func _suite(name: String) -> void:
+	_current_suite = name
+	print("── %s ──" % name)
+
+
+func _assert(condition: bool, msg: String) -> void:
+	_test_count += 1
+	if condition:
+		_pass_count += 1
+		print("  ✓ %s" % msg)
+	else:
+		_fail_count += 1
+		print("  ✗ FAIL: %s" % msg)
+
+
+func _assert_eq(actual, expected, msg: String) -> void:
+	_test_count += 1
+	if actual == expected:
+		_pass_count += 1
+		print("  ✓ %s" % msg)
+	else:
+		_fail_count += 1
+		print("  ✗ FAIL: %s (expected=%s, actual=%s)" % [msg, str(expected), str(actual)])
+
+
+## Recursively finds all Control nodes that have mouse_filter = STOP.
+func _find_blocking_controls(node: Node) -> Array[Node]:
+	var blockers: Array[Node] = []
+	if node is Control:
+		var ctrl: Control = node as Control
+		if ctrl.mouse_filter == Control.MOUSE_FILTER_STOP:
+			blockers.append(ctrl)
+	for child in node.get_children():
+		blockers.append_array(_find_blocking_controls(child))
+	return blockers
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Test Suites
+# ═══════════════════════════════════════════════════════════════════
+
+
+func _suite_scene_loading(GS: Node, TS: Node) -> void:
+	_suite("Scene Loading (crash-free instantiation)")
+
+	var scenes := [
+		"res://scenes/vertical_climb/vertical_level.tscn",
+		"res://scenes/main_menu/main_menu.tscn",
+		"res://scenes/gender_select/gender_select.tscn",
+		"res://scenes/shared/hud/hud.tscn",
+		"res://scenes/shared/pause_menu/pause_menu.tscn",
+		"res://scenes/shared/activity_popup/activity_popup.tscn",
+		"res://scenes/shared/day_summary/day_summary.tscn",
+		"res://scenes/shared/level_up/level_up.tscn",
+		"res://scenes/shared/achievement_toast/achievement_toast.tscn",
+	]
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	for scene_path in scenes:
+		var packed := load(scene_path)
+		var scene_name: String = scene_path.get_file()
+		_assert(packed != null, "Load '%s' — resource loaded" % scene_name)
+		if packed:
+			var instance: Node = (packed as PackedScene).instantiate()
+			_assert(instance != null, "Load '%s' — instantiated" % scene_name)
+			if instance:
+				root.add_child(instance)
+				_assert(instance.is_inside_tree(), "Load '%s' — in tree after _ready()" % scene_name)
+				instance.queue_free()
+
+	# Mini interaction scenes
+	var mini_scenes := [
+		"res://scenes/mini_interactions/breathing_exercise.tscn",
+		"res://scenes/mini_interactions/tap_sunrise.tscn",
+		"res://scenes/mini_interactions/swipe_droplets.tscn",
+		"res://scenes/mini_interactions/hold_pose.tscn",
+		"res://scenes/mini_interactions/drink_water.tscn",
+		"res://scenes/mini_interactions/collect_flowers.tscn",
+		"res://scenes/mini_interactions/flip_cards.tscn",
+		"res://scenes/mini_interactions/tap_journal.tscn",
+		"res://scenes/mini_interactions/thought_release.tscn",
+		"res://scenes/mini_interactions/tap_gratitude.tscn",
+		"res://scenes/mini_interactions/body_oil.tscn",
+		"res://scenes/mini_interactions/drag_food.tscn",
+		"res://scenes/mini_interactions/sufi_spin.tscn",
+		"res://scenes/mini_interactions/hold_candle.tscn",
+		"res://scenes/mini_interactions/slow_motion.tscn",
+		"res://scenes/mini_interactions/swipe_curtain.tscn",
+		"res://scenes/mini_interactions/gibberish_tap.tscn",
+	]
+
+	for scene_path in mini_scenes:
+		var packed := load(scene_path)
+		var scene_name: String = scene_path.get_file()
+		if packed:
+			var instance: Node = (packed as PackedScene).instantiate()
+			_assert(instance != null, "Mini '%s' — instantiated" % scene_name)
+			if instance:
+				root.add_child(instance)
+				_assert(instance.is_inside_tree(), "Mini '%s' — in tree" % scene_name)
+				instance.queue_free()
+		else:
+			_assert(false, "Mini '%s' — resource not found" % scene_name)
+
+
+func _suite_input_blocking(GS: Node, TS: Node) -> void:
+	_suite("Input Blocking (no Controls eating touch)")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	_assert(packed != null, "Vertical level packed scene loaded")
+	if not packed:
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	# Find all Controls with mouse_filter = STOP
+	var blockers := _find_blocking_controls(level)
+
+	# Filter out legitimate blockers
+	var bad_blockers: Array[Node] = []
+	for blocker in blockers:
+		var ctrl: Control = blocker as Control
+		if ctrl is Button:
+			continue
+		if not ctrl.visible:
+			continue
+		if ctrl is ProgressBar:
+			continue
+		# Controls inside CanvasLayer are fine (HUD, popups, overlays)
+		var parent: Node = ctrl.get_parent()
+		var in_canvas_layer := false
+		while parent:
+			if parent is CanvasLayer:
+				in_canvas_layer = true
+				break
+			parent = parent.get_parent()
+		if in_canvas_layer:
+			continue
+		bad_blockers.append(ctrl)
+
+	_assert(bad_blockers.size() == 0,
+		"No blocking Controls in main scene tree (found %d)" % bad_blockers.size())
+
+	# REGRESSION GUARD: Sky ColorRect must have MOUSE_FILTER_IGNORE
+	var sky_found := false
+	for child in level.get_children():
+		if child is ColorRect and child.z_index == -10:
+			sky_found = true
+			_assert_eq((child as Control).mouse_filter, Control.MOUSE_FILTER_IGNORE,
+				"Sky ColorRect has MOUSE_FILTER_IGNORE (v0.4.0 regression guard)")
+			break
+	_assert(sky_found, "Sky ColorRect found in vertical level")
+
+	level.queue_free()
+
+
+func _suite_pause_menu_wiring(GS: Node, TS: Node) -> void:
+	_suite("Pause Menu Wiring")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for pause test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	var has_pause := "_pause_menu" in level
+	_assert(has_pause, "Level has _pause_menu variable")
+	if has_pause:
+		_assert(level.get("_pause_menu") != null, "Pause menu instantiated (_pause_menu != null)")
+
+	var has_hero := "_hero" in level
+	_assert(has_hero, "Level has _hero variable")
+	if has_hero:
+		_assert(level.get("_hero") != null, "Hero instantiated")
+
+	level.queue_free()
+
+
+func _suite_platform_tap_targets(GS: Node, TS: Node, GD: Node) -> void:
+	_suite("Platform Tap Targets (reachable)")
+
+	GS.reset()
+	GS.start_game()
+	GS.developer_mode = true
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for tap target test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	_assert("platforms" in level, "Level has 'platforms' property")
+	if "platforms" in level:
+		var platforms: Array = level.get("platforms")
+		_assert_eq(platforms.size(), 16, "16 platforms created for day 1")
+
+		for i in range(platforms.size()):
+			var p: Dictionary = platforms[i]
+			_assert(p.has("pos"), "Platform %d has 'pos'" % i)
+			_assert(p.has("card"), "Platform %d has 'card'" % i)
+			_assert(p.has("state"), "Platform %d has 'state'" % i)
+
+		var tappable := 0
+		for p in platforms:
+			if p.state in ["current", "available_late"]:
+				tappable += 1
+		_assert(tappable > 0,
+			"At least one tappable platform in dev mode (found %d)" % tappable)
+
+		# Verify hero's jump_to method works directly
+		# (NOTE: _unhandled_input uses get_global_mouse_position() which is always
+		#  (0,0) in headless mode, so we test jump_to directly instead)
+		if tappable > 0:
+			for p in platforms:
+				if p.state in ["current", "available_late"]:
+					var hero: Node = level.get("_hero")
+					if hero and hero.has_method("jump_to"):
+						var target: Vector2 = p.pos + Vector2(140, -40)
+						hero.jump_to(target)
+						_assert(hero.get("is_jumping") == true,
+							"Hero starts jumping after jump_to()")
+						_assert(hero.get("target_pos") == target,
+							"Hero target_pos set correctly")
+					break
+
+	level.queue_free()
+	GS.developer_mode = false
+
+
+func _suite_no_missed_state(GS: Node, TS: Node, GD: Node) -> void:
+	_suite("No 'missed' State (regression)")
+
+	var valid_states := ["completed", "current", "available_late", "locked"]
+
+	for day in range(1, 8):
+		GS.reset()
+		GS.developer_mode = false
+		TS.start_day(day)
+
+		var cards: Array = GD.get_all_cards_for_day(day)
+		var has_missed := false
+		for card in cards:
+			var state: String = TS.get_activity_state(card.slot_id)
+			if state == "missed":
+				has_missed = true
+				_assert(false, "Day %d slot '%s' returned 'missed'" % [day, card.slot_id])
+
+		if not has_missed:
+			_assert(true, "Day %d: no 'missed' state in %d activities" % [day, cards.size()])
+
+
+func _suite_mini_interaction_contract() -> void:
+	_suite("Mini Interaction Contract (signals, lifecycle)")
+
+	var base_packed := load("res://scenes/mini_interactions/mini_interaction_base.tscn") as PackedScene
+	if not base_packed:
+		_assert(false, "mini_interaction_base.tscn loaded")
+		return
+
+	var base: Node = base_packed.instantiate()
+	_assert(base.has_signal("completed"), "MiniInteractionBase has 'completed' signal")
+	_assert(base.has_signal("failed"), "MiniInteractionBase has 'failed' signal")
+	_assert("duration" in base, "Has 'duration' property")
+	_assert("is_active" in base, "Has 'is_active' property")
+	_assert(base.has_method("complete_interaction"), "Has complete_interaction()")
+	_assert(base.has_method("get_progress"), "Has get_progress()")
+	base.queue_free()
+
+	var breathe_packed := load("res://scenes/mini_interactions/breathing_exercise.tscn") as PackedScene
+	if breathe_packed:
+		var breathe: Node = breathe_packed.instantiate()
+		root.add_child(breathe)
+		_assert(breathe.has_signal("completed"), "breathing_exercise has 'completed'")
+		_assert(breathe.has_signal("failed"), "breathing_exercise has 'failed'")
+		if "is_active" in breathe:
+			_assert(breathe.get("is_active") == true, "breathing_exercise auto-starts (is_active=true)")
+		breathe.queue_free()
+
+	var tap_packed := load("res://scenes/mini_interactions/tap_sunrise.tscn") as PackedScene
+	if tap_packed:
+		var tap: Node = tap_packed.instantiate()
+		var failed_emitted := false
+		tap.failed.connect(func(): failed_emitted = true)
+		root.add_child(tap)
+
+		if "duration" in tap and "elapsed" in tap:
+			tap.set("elapsed", tap.get("duration") + 1.0)
+			tap._process(0.016)
+			_assert(failed_emitted or tap.get("is_active") == false,
+				"tap_sunrise fails when elapsed > duration")
+		tap.queue_free()
+
+
+func _suite_scene_transition(ST: Node) -> void:
+	_suite("Scene Transition")
+
+	_assert(ST != null, "SceneTransition autoload exists")
+	if not ST:
+		return
+
+	_assert(ST.has_method("change_scene"), "Has change_scene()")
+	_assert(ST.has_method("reload_scene"), "Has reload_scene()")
+
+	if "_color_rect" in ST:
+		var cr: Control = ST.get("_color_rect") as Control
+		if cr:
+			_assert_eq(cr.mouse_filter, Control.MOUSE_FILTER_IGNORE,
+				"SceneTransition overlay has MOUSE_FILTER_IGNORE when idle")
+
+
+func _suite_hud_signals() -> void:
+	_suite("HUD Signal Wiring")
+
+	var hud_packed := load("res://scenes/shared/hud/hud.tscn") as PackedScene
+	if not hud_packed:
+		_assert(false, "HUD scene loaded")
+		return
+
+	var hud: Node = hud_packed.instantiate()
+	root.add_child(hud)
+
+	var hud_script: Node = hud.get_node_or_null("HUDScript")
+	_assert(hud_script != null, "HUDScript node exists in HUD scene")
+
+	if hud_script:
+		_assert(hud_script.has_signal("pause_pressed"),
+			"HUDScript has 'pause_pressed' signal")
+
+		# Verify the pause button exists and has a signal connection
+		if "pause_btn" in hud_script and hud_script.get("pause_btn"):
+			var btn: Button = hud_script.get("pause_btn")
+			var connections: Array = btn.get_signal_connection_list("pressed")
+			_assert(connections.size() > 0,
+				"PauseBtn has signal connections (%d)" % connections.size())
+		else:
+			_assert(false, "PauseBtn exists in HUD")
+
+	hud.queue_free()
+
+
+func _suite_vignette_passthrough(GS: Node, TS: Node) -> void:
+	_suite("Vignette & Overlay Passthrough")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for vignette test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	if "_vignette" in level:
+		var vignette: Control = level.get("_vignette") as Control
+		if vignette:
+			_assert_eq(vignette.mouse_filter, Control.MOUSE_FILTER_IGNORE,
+				"Vignette ColorRect has MOUSE_FILTER_IGNORE")
+		else:
+			_assert(false, "Vignette instance exists")
+	else:
+		_assert(false, "Level has _vignette property")
+
+	# Check visible CanvasLayer ColorRects — skip dimmers for hidden popups
+	for child in level.get_children():
+		if child is CanvasLayer:
+			# Skip popup/menu CanvasLayers that are hidden by default
+			if not child.visible:
+				continue
+			for overlay_child in child.get_children():
+				if overlay_child is ColorRect and overlay_child.visible:
+					# Skip named dimmers (intentional blockers for popups)
+					if overlay_child.name == "Dimmer":
+						continue
+					_assert_eq((overlay_child as Control).mouse_filter,
+						Control.MOUSE_FILTER_IGNORE,
+						"CanvasLayer child '%s' non-blocking" % overlay_child.name)
+
+	level.queue_free()
+
+
+func _suite_parallax_setup(GS: Node, TS: Node) -> void:
+	_suite("Parallax & Visual Setup")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for parallax test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	if "_parallax_bg" in level:
+		_assert(level.get("_parallax_bg") != null, "ParallaxBackground created")
+
+	for layer_name in ["_far_layer", "_mid_layer", "_near_layer"]:
+		if layer_name in level:
+			var layer: Node = level.get(layer_name)
+			_assert(layer != null, "%s exists" % layer_name)
+			if layer:
+				_assert(layer.get_child_count() > 0,
+					"%s has children (%d)" % [layer_name, layer.get_child_count()])
+
+	if "_leaf_particles" in level:
+		var lp: Node = level.get("_leaf_particles")
+		_assert(lp != null, "Leaf particles created")
+		if lp:
+			_assert(lp.get("emitting") == true, "Leaf particles emitting")
+
+	if "_firefly_particles" in level:
+		_assert(level.get("_firefly_particles") != null, "Firefly particles created")
+
+	if "_sparkle_particles" in level:
+		var sp: Node = level.get("_sparkle_particles")
+		_assert(sp != null, "Sparkle particles created")
+		if sp:
+			_assert(sp.get("one_shot") == true, "Sparkle particles are one_shot")
+
+	if "_camera" in level:
+		var cam: Node = level.get("_camera")
+		_assert(cam != null, "Camera2D created")
+		if cam:
+			_assert(cam.get("position_smoothing_enabled") == true,
+				"Camera has position smoothing")
+
+	if "_hero" in level:
+		_assert(level.get("_hero") != null, "Climbing hero exists")
+
+	if "_sky_material" in level:
+		_assert(level.get("_sky_material") != null, "Sky shader material exists")
+
+	level.queue_free()

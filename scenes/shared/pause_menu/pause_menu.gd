@@ -25,6 +25,16 @@ func _ready() -> void:
 	main_menu_btn.pressed.connect(_on_main_menu)
 	title_label.gui_input.connect(_on_title_input)
 
+	# Settings section
+	var sep := HSeparator.new()
+	$"../CenterContainer/VBox".add_child(sep)
+
+	var settings_header := Label.new()
+	settings_header.text = "⚙ Настройки"
+	settings_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	settings_header.add_theme_font_size_override("font_size", ThemeManager.font_size(22))
+	$"../CenterContainer/VBox".add_child(settings_header)
+
 	# Text size settings row
 	_scale_idx = _find_closest_scale_idx(GameState.ui_scale)
 	var scale_row := HBoxContainer.new()

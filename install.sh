@@ -3,8 +3,6 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 EXPORT_DIR="$SCRIPT_DIR/export/android"
-APK_NAME="7DaysJourney"
-APK_PATH="${EXPORT_DIR}/${APK_NAME}.apk"
 VERSION_FILE="$SCRIPT_DIR/VERSION"
 
 # --- Parse arguments ---
@@ -32,9 +30,10 @@ for arg in "$@"; do
     esac
 done
 
-# --- Check APK exists ---
-if [ ! -f "$APK_PATH" ]; then
-    echo "ERROR: APK not found at $APK_PATH"
+# --- Find latest APK ---
+APK_PATH=$(ls -t "$EXPORT_DIR"/7DaysJourney-*.apk 2>/dev/null | head -1 || true)
+if [ -z "$APK_PATH" ] || [ ! -f "$APK_PATH" ]; then
+    echo "ERROR: No APK found in $EXPORT_DIR"
     echo "Run ./build.sh first."
     exit 1
 fi
@@ -64,9 +63,8 @@ echo "Installed."
 # --- Launch ---
 if [ "$LAUNCH" = true ]; then
     PACKAGE="com.sevendaysjourney.game"
-    ACTIVITY="com.godot.game/com.godot.game.GodotApp"
     echo "Launching ${PACKAGE}..."
-    adb "${ADB_ARGS[@]}" shell am start -n "$ACTIVITY" 2>&1
+    adb "${ADB_ARGS[@]}" shell monkey -p "$PACKAGE" -c android.intent.category.LAUNCHER 1 2>&1
 fi
 
 echo "=== Done ==="

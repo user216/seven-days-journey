@@ -17,6 +17,9 @@ const PLATFORM_HEIGHT := 300.0
 const PLATFORM_WIDTH := 280.0
 const PLATFORM_TEX_HEIGHT := 40.0
 
+# Cloud drift tracking
+var _cloud_sprites: Array[Sprite2D] = []
+
 var _vine_tex: Texture2D = preload("res://assets/environment/vine_segment.svg")
 var _platform_tex: Texture2D = preload("res://assets/environment/platform.svg")
 var _flower_textures := [
@@ -125,7 +128,7 @@ func _update_sky_colors() -> void:
 
 func _setup_parallax() -> void:
 	_parallax_bg = ParallaxBackground.new()
-	_parallax_bg.z_index = -5
+	_parallax_bg.layer = -5
 	add_child(_parallax_bg)
 
 	_far_layer = ParallaxLayer.new()
@@ -145,15 +148,6 @@ func _populate_parallax(total_h: float) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 12345 + GameState.current_day
 
-	# Mountains in far layer (procedural)
-	for i in range(4):
-		var mx := rng.randf_range(-200, 800)
-		var my := rng.randf_range(total_h * 0.3, total_h * 0.9)
-		var mtn := Node2D.new()
-		mtn.set_script(preload("res://scripts/utils/procedural_drawing.gd").get_class())
-		_far_layer.add_child(mtn)
-		# We'll draw mountains in _draw via far layer ref
-
 	# Clouds
 	for i in range(10):
 		var cloud := Sprite2D.new()
@@ -162,6 +156,7 @@ func _populate_parallax(total_h: float) -> void:
 		cloud.scale = Vector2(rng.randf_range(2.0, 4.0), rng.randf_range(2.0, 4.0))
 		cloud.modulate.a = 0.35
 		_far_layer.add_child(cloud)
+		_cloud_sprites.append(cloud)
 
 	# Trees along both edges
 	for i in range(18):
@@ -192,6 +187,19 @@ func _populate_parallax(total_h: float) -> void:
 		_near_layer.add_child(flower)
 
 
+static func _make_soft_circle(radius: int, color: Color) -> ImageTexture:
+	var size := radius * 2
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var center := Vector2(radius, radius)
+	for y in range(size):
+		for x in range(size):
+			var dist := Vector2(x, y).distance_to(center)
+			var alpha := clampf(1.0 - dist / float(radius), 0.0, 1.0)
+			alpha *= alpha  # quadratic falloff for soft edge
+			img.set_pixel(x, y, Color(color.r, color.g, color.b, alpha))
+	return ImageTexture.create_from_image(img)
+
+
 func _setup_particles() -> void:
 	# Falling leaves
 	_leaf_particles = GPUParticles2D.new()
@@ -200,9 +208,7 @@ func _setup_particles() -> void:
 	_leaf_particles.lifetime = 8.0
 	_leaf_particles.visibility_rect = Rect2(-600, -1500, 2200, 3500)
 	_leaf_particles.process_material = _create_leaf_material()
-	var leaf_tex := PlaceholderTexture2D.new()
-	leaf_tex.size = Vector2(10, 6)
-	_leaf_particles.texture = leaf_tex
+	_leaf_particles.texture = _make_soft_circle(6, Color(0.5, 0.7, 0.3))
 	add_child(_leaf_particles)
 
 	# Fireflies
@@ -212,9 +218,7 @@ func _setup_particles() -> void:
 	_firefly_particles.lifetime = 5.0
 	_firefly_particles.visibility_rect = Rect2(-600, -1500, 2200, 3500)
 	_firefly_particles.process_material = _create_firefly_material()
-	var ff_tex := PlaceholderTexture2D.new()
-	ff_tex.size = Vector2(6, 6)
-	_firefly_particles.texture = ff_tex
+	_firefly_particles.texture = _make_soft_circle(5, Color(0.95, 1.0, 0.5))
 	_firefly_particles.emitting = false
 	add_child(_firefly_particles)
 
@@ -228,9 +232,7 @@ func _setup_sparkles() -> void:
 	_sparkle_particles.emitting = false
 	_sparkle_particles.visibility_rect = Rect2(-200, -200, 400, 400)
 	_sparkle_particles.process_material = _create_sparkle_material()
-	var sp_tex := PlaceholderTexture2D.new()
-	sp_tex.size = Vector2(6, 6)
-	_sparkle_particles.texture = sp_tex
+	_sparkle_particles.texture = _make_soft_circle(5, Color(1.0, 0.95, 0.5))
 	add_child(_sparkle_particles)
 
 
@@ -406,6 +408,12 @@ func _process(delta: float) -> void:
 	_leaf_particles.position = Vector2(500, cam_pos.y - 500)
 	_firefly_particles.position = Vector2(500, cam_pos.y - 300)
 
+	# Cloud drift
+	for cloud in _cloud_sprites:
+		cloud.position.x += 8.0 * delta
+		if cloud.position.x > 1300.0:
+			cloud.position.x = -400.0
+
 	# Screen shake decay
 	if _shake_amount > 0.01:
 		_shake_amount = lerpf(_shake_amount, 0.0, _shake_decay * delta)
@@ -432,6 +440,21 @@ func _refresh_platform_states() -> void:
 
 
 func _draw() -> void:
+	# Celestial body (sun/moon) — tracks camera view
+	var tf: float = TimeSystem.get_time_of_day_factor()
+	var cam_y: float = _hero.position.y if _hero else 0.0
+	if tf > 0.10 and tf < 0.80:
+		# Daytime: sun arcs across sky
+		var sun_t := (tf - 0.10) / 0.70
+		var sun_x := lerpf(200.0, 880.0, sun_t)
+		var sun_y := cam_y - 700.0 - sin(sun_t * PI) * 150.0
+		var sun_alpha := minf(1.0, minf((tf - 0.10) / 0.05, (0.80 - tf) / 0.08))
+		ProceduralDrawing.draw_sun(self, Vector2(sun_x, sun_y), 45.0,
+			Color(1.0, 0.95, 0.75, sun_alpha))
+	elif tf < 0.10 or tf > 0.85:
+		# Night: moon
+		ProceduralDrawing.draw_moon(self, Vector2(750.0, cam_y - 650.0), 35.0)
+
 	var font := ThemeDB.fallback_font
 	for i in range(platforms.size()):
 		var p: Dictionary = platforms[i]
