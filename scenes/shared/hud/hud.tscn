@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/shared/hud/hud.gd" id="1"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 10
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="Panel" type="Panel" parent="TopBar"]
+custom_minimum_size = Vector2(1080, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_right = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClockLabel" type="Label" parent="TopBar/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "04:30"
+horizontal_alignment = 1
+
+[node name="DayLabel" type="Label" parent="TopBar/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "День 1/7"
+horizontal_alignment = 1
+
+[node name="XPBar" type="ProgressBar" parent="TopBar/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="TopBar/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Ур. 1"
+horizontal_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="TopBar/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="PauseBtn" type="Button" parent="TopBar/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "⏸"
+
+[node name="HUDScript" type="Node" parent="."]
+script = ExtResource("1")

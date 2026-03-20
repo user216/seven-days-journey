@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 40">
+  <!-- Stem -->
+  <path d="M14,38 Q13,28 14,20" stroke="#5e8a3c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Leaves -->
+  <ellipse cx="9" cy="30" rx="5" ry="2" fill="#6a9545" transform="rotate(-20,9,30)"/>
+  <ellipse cx="19" cy="33" rx="4.5" ry="1.8" fill="#5e8a3c" transform="rotate(15,19,33)"/>
+  <!-- Tulip cup -->
+  <path d="M6,16 Q8,4 14,2 Q20,4 22,16 Q18,20 14,20 Q10,20 6,16Z" fill="#f0f0f0"/>
+  <!-- Inner shading -->
+  <path d="M9,14 Q11,6 14,4 Q17,6 19,14 Q16,17 14,18 Q12,17 9,14Z" fill="#e8e8e8" opacity="0.6"/>
+  <!-- Highlight -->
+  <path d="M10,10 Q12,5 14,4 Q14,6 12,12Z" fill="#fafafa" opacity="0.5"/>
+</svg>

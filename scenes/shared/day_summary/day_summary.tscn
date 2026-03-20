@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/shared/day_summary/day_summary.gd" id="1"]
+
+[node name="DaySummary" type="CanvasLayer"]
+layer = 25
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -500.0
+offset_right = 400.0
+offset_bottom = 500.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "День завершён!"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Выполнено: 0/16"
+horizontal_alignment = 1
+
+[node name="XPLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "XP за день: +0"
+horizontal_alignment = 1
+
+[node name="StreakLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Серия: 0 дней"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+
+[node name="NextBtn" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Следующий день"
+
+[node name="SummaryScript" type="Node" parent="."]
+script = ExtResource("1")

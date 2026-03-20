@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60">
+  <!-- Saucer -->
+  <ellipse cx="38" cy="55" rx="35" ry="5" fill="#e8e0d0"/>
+  <ellipse cx="38" cy="53" rx="30" ry="4" fill="#f0e8d8"/>
+  <!-- Cup body -->
+  <path d="M12,18 L16,45 Q16,50 38,50 Q60,50 60,45 L64,18Z" fill="#f5e6b8"/>
+  <!-- Cup interior -->
+  <ellipse cx="38" cy="18" rx="26" ry="8" fill="#e8d4a0"/>
+  <!-- Cup rim -->
+  <ellipse cx="38" cy="18" rx="26" ry="8" fill="none" stroke="#d4c090" stroke-width="1"/>
+  <!-- Handle -->
+  <path d="M64,24 Q78,24 78,36 Q78,46 64,44" fill="none" stroke="#d4b880" stroke-width="4" stroke-linecap="round"/>
+  <!-- Cup highlight -->
+  <path d="M20,22 L22,42" stroke="white" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <!-- Liquid surface hint -->
+  <ellipse cx="38" cy="22" rx="20" ry="5" fill="#c4a060" opacity="0.3"/>
+</svg>

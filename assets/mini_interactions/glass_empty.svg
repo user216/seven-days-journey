@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120">
+  <!-- Glass shadow -->
+  <ellipse cx="40" cy="115" rx="22" ry="4" fill="#000" opacity="0.08"/>
+  <!-- Glass body -->
+  <path d="M18,20 L22,100 Q22,108 40,108 Q58,108 58,100 L62,20Z" fill="white" opacity="0.25" stroke="#88c4cc" stroke-width="2"/>
+  <!-- Glass rim -->
+  <ellipse cx="40" cy="20" rx="22" ry="6" fill="white" opacity="0.15" stroke="#88c4cc" stroke-width="1.5"/>
+  <!-- Left highlight -->
+  <path d="M24,30 L26,95" stroke="white" stroke-width="2.5" opacity="0.4" stroke-linecap="round"/>
+  <!-- Right subtle reflection -->
+  <path d="M54,35 L53,80" stroke="white" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+  <!-- Glass base -->
+  <ellipse cx="40" cy="108" rx="18" ry="4" fill="#88c4cc" opacity="0.3"/>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 360">
+  <g id="shadow"><ellipse cx="80" cy="348" rx="40" ry="10" fill="black" opacity="0.15"/></g>
+  <!-- Feet — left forward -->
+  <ellipse cx="55" cy="340" rx="13" ry="6" fill="#8b7355"/>
+  <ellipse cx="105" cy="340" rx="13" ry="6" fill="#8b7355"/>
+  <!-- Legs — stride -->
+  <line x1="70" y1="322" x2="55" y2="336" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="90" y1="322" x2="105" y2="336" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <!-- Dress with sway -->
+  <polygon points="36,322 60,240 100,240 124,322" fill="#f0f0f0"/>
+  <line x1="38" y1="320" x2="122" y2="320" stroke="#e0e0e0" stroke-width="3"/>
+  <line x1="70" y1="245" x2="63" y2="318" stroke="#e0e0e0" stroke-width="1.5" opacity="0.5"/>
+  <line x1="90" y1="245" x2="97" y2="318" stroke="#e0e0e0" stroke-width="1.5" opacity="0.5"/>
+  <!-- Torso -->
+  <polygon points="60,240 56,178 104,178 100,240" fill="#f8f8f8"/>
+  <path d="M80,178 L70,200" stroke="#f0d4b8" stroke-width="4" fill="none"/>
+  <path d="M80,178 L90,200" stroke="#f0d4b8" stroke-width="4" fill="none"/>
+  <!-- Arms swinging (left back, right forward) -->
+  <line x1="56" y1="185" x2="42" y2="270" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="104" y1="185" x2="118" y2="240" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="42" cy="270" r="7" fill="#f0d4b8"/>
+  <circle cx="118" cy="240" r="7" fill="#f0d4b8"/>
+  <ellipse cx="56" cy="185" rx="12" ry="9" fill="#f2f2f2"/>
+  <ellipse cx="104" cy="185" rx="12" ry="9" fill="#f2f2f2"/>
+  <!-- Neck -->
+  <rect x="74" y="155" width="12" height="25" fill="#f0d4b8" rx="3"/>
+  <!-- Head -->
+  <ellipse cx="80" cy="130" rx="28" ry="32" fill="#f0d4b8"/>
+  <!-- Hair with wind sway -->
+  <polygon points="52,118 48,135 44,234 62,236 98,236 116,234 112,135 108,118" fill="#8b7355"/>
+  <polygon points="53,138 58,96 80,90 102,96 107,138" fill="#8b7355"/>
+  <line x1="72" y1="95" x2="68" y2="145" stroke="#a08060" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  <!-- Face -->
+  <ellipse cx="68" cy="132" rx="9" ry="7" fill="white"/>
+  <ellipse cx="92" cy="132" rx="9" ry="7" fill="white"/>
+  <circle cx="70" cy="132" r="5" fill="#5a3a1a"/>
+  <circle cx="94" cy="132" r="5" fill="#5a3a1a"/>
+  <circle cx="70" cy="132" r="2.5" fill="#1a0a00"/>
+  <circle cx="94" cy="132" r="2.5" fill="#1a0a00"/>
+  <circle cx="72" cy="130" r="1.8" fill="white" opacity="0.85"/>
+  <circle cx="96" cy="130" r="1.8" fill="white" opacity="0.85"/>
+  <path d="M59,128 Q64,123 77,128" stroke="#8b7355" stroke-width="2" fill="none"/>
+  <path d="M83,128 Q88,123 101,128" stroke="#8b7355" stroke-width="2" fill="none"/>
+  <line x1="60" y1="120" x2="76" y2="118" stroke="#8b7355" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="84" y1="118" x2="100" y2="120" stroke="#8b7355" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="80" y1="136" x2="82" y2="143" stroke="#d4b89a" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Wider smile when walking -->
+  <path d="M70,149 Q80,158 90,149" stroke="#d4886e" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="64" cy="145" rx="8" ry="4.5" fill="#ffb0a0" opacity="0.2"/>
+  <ellipse cx="96" cy="145" rx="8" ry="4.5" fill="#ffb0a0" opacity="0.2"/>
+  <!-- Flower -->
+  <g transform="translate(52,108)">
+    <circle cx="0" cy="-5" r="4" fill="#c9886e"/><circle cx="-5" cy="-2" r="4" fill="#c9886e"/>
+    <circle cx="5" cy="-2" r="4" fill="#c9886e"/><circle cx="-3" cy="3" r="4" fill="#c9886e"/>
+    <circle cx="3" cy="3" r="4" fill="#c9886e"/><circle cx="0" cy="0" r="3" fill="#d4a843"/>
+  </g>
+</svg>

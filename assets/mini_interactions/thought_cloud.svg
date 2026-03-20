@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 60">
+  <!-- Cloud body - overlapping circles -->
+  <circle cx="28" cy="30" r="20" fill="#3a3a5e" opacity="0.7"/>
+  <circle cx="50" cy="28" r="18" fill="#3a3a5e" opacity="0.7"/>
+  <circle cx="38" cy="22" r="16" fill="#4a4a6e" opacity="0.6"/>
+  <circle cx="55" cy="38" r="14" fill="#3a3a5e" opacity="0.65"/>
+  <circle cx="22" cy="38" r="12" fill="#3a3a5e" opacity="0.6"/>
+  <!-- Inner highlight -->
+  <circle cx="36" cy="26" r="10" fill="#5a5a8e" opacity="0.3"/>
+  <!-- Subtle outline -->
+  <circle cx="28" cy="30" r="20" fill="none" stroke="#5a5a7e" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="50" cy="28" r="18" fill="none" stroke="#5a5a7e" stroke-width="0.5" opacity="0.3"/>
+  <!-- Tail bubbles -->
+  <circle cx="18" cy="50" r="5" fill="#3a3a5e" opacity="0.5"/>
+  <circle cx="12" cy="56" r="3" fill="#3a3a5e" opacity="0.4"/>
+</svg>

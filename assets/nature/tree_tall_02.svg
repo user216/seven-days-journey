@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 200">
+  <!-- Roots -->
+  <line x1="33" y1="172" x2="24" y2="183" stroke="#6b5340" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="47" y1="172" x2="55" y2="182" stroke="#6b5340" stroke-width="2" stroke-linecap="round"/>
+  <!-- Trunk — slightly curved -->
+  <polygon points="34,178 46,178 43,105 37,108" fill="#8b7355"/>
+  <line x1="40" y1="165" x2="39" y2="150" stroke="#6b5340" stroke-width="1.2" opacity="0.5"/>
+  <line x1="41" y1="140" x2="42" y2="125" stroke="#6b5340" stroke-width="1" opacity="0.4"/>
+  <!-- Branch stub -->
+  <line x1="43" y1="130" x2="55" y2="122" stroke="#8b7355" stroke-width="3" stroke-linecap="round"/>
+  <!-- Crown shadow -->
+  <circle cx="30" cy="90" r="26" fill="#4a7030" opacity="0.6"/>
+  <circle cx="55" cy="85" r="24" fill="#4a7030" opacity="0.5"/>
+  <!-- Main foliage — wider spread -->
+  <circle cx="40" cy="78" r="30" fill="#5e8a3c"/>
+  <circle cx="22" cy="82" r="24" fill="#6a9545"/>
+  <circle cx="58" cy="80" r="25" fill="#5e8a3c"/>
+  <circle cx="40" cy="65" r="22" fill="#6a9545"/>
+  <circle cx="30" cy="72" r="18" fill="#5e8a3c"/>
+  <circle cx="52" cy="68" r="17" fill="#6a9545"/>
+  <!-- Highlights -->
+  <circle cx="36" cy="62" r="11" fill="#7da344" opacity="0.7"/>
+  <circle cx="50" cy="70" r="9" fill="#a8c97a" opacity="0.5"/>
+  <circle cx="26" cy="75" r="7" fill="#a8c97a" opacity="0.35"/>
+</svg>

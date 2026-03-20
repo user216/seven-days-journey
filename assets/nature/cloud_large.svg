@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60">
+  <!-- Bottom shadow -->
+  <ellipse cx="60" cy="42" rx="48" ry="12" fill="#d0d5da" opacity="0.4"/>
+  <!-- Main body -->
+  <circle cx="60" cy="30" r="20" fill="white"/>
+  <circle cx="40" cy="34" r="16" fill="white"/>
+  <circle cx="80" cy="33" r="17" fill="white"/>
+  <circle cx="50" cy="25" r="15" fill="white"/>
+  <circle cx="72" cy="26" r="14" fill="white"/>
+  <!-- Top highlight -->
+  <circle cx="55" cy="20" r="10" fill="white"/>
+  <circle cx="48" cy="18" r="8" fill="#fafeff" opacity="0.9"/>
+  <!-- Bright spots -->
+  <circle cx="50" cy="22" r="5" fill="#fafeff" opacity="0.7"/>
+</svg>

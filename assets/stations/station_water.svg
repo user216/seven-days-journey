@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Glass body -->
+  <polygon points="36,20 64,20 60,70 40,70" fill="#cce4f0" opacity="0.5"/>
+  <!-- Water fill -->
+  <polygon points="39,35 61,35 60,68 40,68" fill="#7cafc2" opacity="0.7"/>
+  <!-- Water surface highlight -->
+  <line x1="40" y1="36" x2="60" y2="36" stroke="#a0d0e0" stroke-width="1.5" opacity="0.6"/>
+  <!-- Glass rim -->
+  <line x1="36" y1="20" x2="64" y2="20" stroke="#e0eef5" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Glass edges -->
+  <line x1="36" y1="20" x2="40" y2="70" stroke="#cce4f0" stroke-width="1.5" opacity="0.5"/>
+  <line x1="64" y1="20" x2="60" y2="70" stroke="#cce4f0" stroke-width="1.5" opacity="0.5"/>
+  <!-- Water droplets outside -->
+  <circle cx="30" cy="45" r="3.5" fill="#7cafc2"/>
+  <circle cx="30" cy="45" r="1.5" fill="#a0d0e0" opacity="0.5"/>
+  <circle cx="70" cy="52" r="2.5" fill="#7cafc2" opacity="0.8"/>
+  <circle cx="70" cy="52" r="1" fill="#a0d0e0" opacity="0.4"/>
+  <!-- Glass highlight -->
+  <line x1="42" y1="22" x2="44" y2="62" stroke="white" stroke-width="1.5" opacity="0.3"/>
+</svg>

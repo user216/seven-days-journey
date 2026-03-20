@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 50">
+  <!-- Drop shadow -->
+  <ellipse cx="20" cy="46" rx="10" ry="3" fill="#000" opacity="0.08"/>
+  <!-- Droplet body -->
+  <path d="M20,4 Q8,24 8,32 A12,12 0 0,0 32,32 Q32,24 20,4Z" fill="#7ec8e3"/>
+  <!-- Inner depth -->
+  <path d="M20,10 Q12,26 12,32 A8,8 0 0,0 28,32 Q28,26 20,10Z" fill="#a0daf0" opacity="0.5"/>
+  <!-- Specular highlight -->
+  <ellipse cx="15" cy="22" rx="4" ry="6" fill="white" opacity="0.55" transform="rotate(-15,15,22)"/>
+  <circle cx="14" cy="18" r="2" fill="white" opacity="0.7"/>
+</svg>

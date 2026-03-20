@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Shower pipe -->
+  <line x1="50" y1="5" x2="50" y2="18" stroke="#5a8ea0" stroke-width="4" stroke-linecap="round"/>
+  <!-- Shower head -->
+  <rect x="36" y="2" width="28" height="8" rx="3" fill="#5a8ea0"/>
+  <rect x="38" y="8" width="24" height="4" rx="1" fill="#7cafc2"/>
+  <!-- Water drops -->
+  <g fill="#7cafc2">
+    <ellipse cx="40" cy="28" rx="3" ry="5"/>
+    <ellipse cx="50" cy="32" rx="3.5" ry="5.5"/>
+    <ellipse cx="60" cy="26" rx="3" ry="5"/>
+    <ellipse cx="45" cy="42" rx="2.5" ry="4.5"/>
+    <ellipse cx="55" cy="44" rx="3" ry="5"/>
+  </g>
+  <!-- Splash droplets -->
+  <circle cx="38" cy="50" r="2" fill="#7cafc2" opacity="0.5"/>
+  <circle cx="62" cy="48" r="1.5" fill="#7cafc2" opacity="0.4"/>
+  <!-- Highlight on drops -->
+  <circle cx="49" cy="30" r="1.2" fill="white" opacity="0.6"/>
+  <circle cx="59" cy="24" r="1" fill="white" opacity="0.5"/>
+</svg>

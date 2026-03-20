@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100">
+  <!-- Shadow -->
+  <rect x="3" y="3" width="594" height="94" rx="47" fill="#000" opacity="0.06"/>
+  <!-- Toast body -->
+  <rect x="0" y="0" width="594" height="94" rx="47" fill="#faf5e8" opacity="0.95"/>
+  <!-- Border -->
+  <rect x="0" y="0" width="594" height="94" rx="47" fill="none" stroke="#88b890" stroke-width="2"/>
+</svg>

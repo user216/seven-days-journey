@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 100">
+  <!-- Candle holder -->
+  <ellipse cx="30" cy="90" rx="22" ry="6" fill="#8b7355"/>
+  <rect x="16" y="82" width="28" height="10" rx="2" fill="#a08060"/>
+  <ellipse cx="30" cy="82" rx="14" ry="4" fill="#b89070"/>
+  <!-- Candle body -->
+  <rect x="20" y="28" width="20" height="56" rx="2" fill="#f5e6b8"/>
+  <!-- Wax drip left -->
+  <path d="M20,35 Q18,40 20,45" fill="#f0daa0" stroke="none"/>
+  <!-- Wax drip right -->
+  <path d="M40,42 Q42,48 40,52" fill="#f0daa0" stroke="none"/>
+  <!-- Candle top curve -->
+  <ellipse cx="30" cy="28" rx="10" ry="3" fill="#f8eccc"/>
+  <!-- Wick -->
+  <line x1="30" y1="28" x2="30" y2="18" stroke="#3a2a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Wick curl -->
+  <path d="M30,18 Q31,16 30,15" stroke="#3a2a1a" stroke-width="1" fill="none"/>
+</svg>

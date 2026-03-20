@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <!-- Curtain body -->
+  <rect width="300" height="400" fill="#c9886e"/>
+  <!-- Fabric folds (vertical shading) -->
+  <g opacity="0.15">
+    <rect x="0" y="0" width="12" height="400" fill="#000"/>
+    <rect x="30" y="0" width="8" height="400" fill="#fff"/>
+    <rect x="60" y="0" width="12" height="400" fill="#000"/>
+    <rect x="90" y="0" width="8" height="400" fill="#fff"/>
+    <rect x="120" y="0" width="12" height="400" fill="#000"/>
+    <rect x="150" y="0" width="8" height="400" fill="#fff"/>
+    <rect x="180" y="0" width="12" height="400" fill="#000"/>
+    <rect x="210" y="0" width="8" height="400" fill="#fff"/>
+    <rect x="240" y="0" width="12" height="400" fill="#000"/>
+    <rect x="270" y="0" width="8" height="400" fill="#fff"/>
+  </g>
+  <!-- Bottom fringe -->
+  <g fill="#b87858">
+    <path d="M0,385 Q15,400 30,385 Q45,400 60,385 Q75,400 90,385 Q105,400 120,385 Q135,400 150,385 Q165,400 180,385 Q195,400 210,385 Q225,400 240,385 Q255,400 270,385 Q285,400 300,385 L300,400 L0,400Z"/>
+  </g>
+  <!-- Top rod highlight -->
+  <rect y="0" width="300" height="8" fill="#a06848" opacity="0.5"/>
+  <!-- Handle circle -->
+  <circle cx="295" cy="200" r="12" fill="#d4a843" stroke="#b89030" stroke-width="1.5"/>
+  <circle cx="295" cy="200" r="6" fill="#e0bc60"/>
+</svg>

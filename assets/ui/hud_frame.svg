@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 100">
+  <!-- HUD bar background -->
+  <rect width="1080" height="100" fill="#faf5e8" opacity="0.92"/>
+  <!-- Bottom border -->
+  <line x1="0" y1="98" x2="1080" y2="98" stroke="#88b890" stroke-width="2"/>
+  <!-- Subtle pattern -->
+  <g opacity="0.04">
+    <circle cx="50" cy="50" r="30" fill="#88b890"/>
+    <circle cx="150" cy="50" r="20" fill="#88b890"/>
+    <circle cx="260" cy="50" r="25" fill="#88b890"/>
+    <circle cx="900" cy="50" r="28" fill="#88b890"/>
+    <circle cx="1020" cy="50" r="22" fill="#88b890"/>
+  </g>
+</svg>

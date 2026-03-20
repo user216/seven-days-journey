@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <ellipse cx="24" cy="42" rx="16" ry="5" fill="black" opacity="0.12"/>
+  <!-- Body shifted slightly -->
+  <ellipse cx="24" cy="27" rx="14" ry="11" fill="#f0f0f0"/>
+  <ellipse cx="24" cy="35" rx="13" ry="3" fill="#e0e0e0" opacity="0.5"/>
+  <!-- Head bobbed up -->
+  <circle cx="24" cy="14" r="11" fill="#f0d4b8"/>
+  <path d="M13,13 Q13,3 24,3 Q35,3 35,13" fill="#8b7355"/>
+  <circle cx="24" cy="7" r="8" fill="#8b7355"/>
+  <circle cx="16" cy="9" r="3" fill="#c9886e"/>
+  <circle cx="16" cy="9" r="1.5" fill="#d4a843"/>
+</svg>

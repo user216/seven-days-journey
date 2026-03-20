@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Shadow -->
+  <rect x="4" y="4" width="392" height="292" rx="16" fill="#000" opacity="0.06"/>
+  <!-- Panel body -->
+  <rect x="0" y="0" width="392" height="292" rx="14" fill="#faf5e8"/>
+  <!-- Border -->
+  <rect x="0" y="0" width="392" height="292" rx="14" fill="none" stroke="#88b890" stroke-width="2.5"/>
+  <!-- Inner decorative line -->
+  <rect x="10" y="10" width="372" height="272" rx="10" fill="none" stroke="#c8e0c8" stroke-width="1" opacity="0.5"/>
+  <!-- Corner flourish TL -->
+  <path d="M18,18 Q18,30 30,30" fill="none" stroke="#88b890" stroke-width="1.5" opacity="0.4"/>
+  <!-- Corner flourish TR -->
+  <path d="M374,18 Q374,30 362,30" fill="none" stroke="#88b890" stroke-width="1.5" opacity="0.4"/>
+  <!-- Corner flourish BL -->
+  <path d="M18,274 Q18,262 30,262" fill="none" stroke="#88b890" stroke-width="1.5" opacity="0.4"/>
+  <!-- Corner flourish BR -->
+  <path d="M374,274 Q374,262 362,262" fill="none" stroke="#88b890" stroke-width="1.5" opacity="0.4"/>
+</svg>

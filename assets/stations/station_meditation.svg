@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Meditation cushion -->
+  <ellipse cx="50" cy="62" rx="28" ry="10" fill="#c9886e"/>
+  <ellipse cx="50" cy="58" rx="26" ry="9" fill="#d4a0a0"/>
+  <!-- Om glow circle -->
+  <circle cx="50" cy="30" r="22" fill="#d4a843" opacity="0.15"/>
+  <circle cx="50" cy="30" r="16" fill="#d4a843" opacity="0.25"/>
+  <circle cx="50" cy="30" r="10" fill="#d4a843" opacity="0.35"/>
+  <!-- Om symbol hint (abstract) -->
+  <path d="M44,30 Q44,24 50,24 Q56,24 56,30 Q56,36 50,36 Q44,36 44,30" stroke="#d4a843" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M50,24 L50,18" stroke="#d4a843" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="52" cy="20" r="2" fill="#d4a843" opacity="0.5"/>
+</svg>

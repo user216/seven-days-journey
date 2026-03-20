@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 960">
+  <!-- Sky gradient bands -->
+  <rect y="0" width="540" height="300" fill="#1a1a3e"/>
+  <rect y="300" width="540" height="200" fill="#2a2a5e"/>
+  <rect y="500" width="540" height="150" fill="#c97a4a"/>
+  <rect y="650" width="540" height="50" fill="#e8a060"/>
+  <!-- Horizon glow -->
+  <ellipse cx="270" cy="700" rx="400" ry="80" fill="#f0c070" opacity="0.4"/>
+  <!-- Hills silhouette -->
+  <path d="M0,720 Q80,660 160,700 Q240,680 320,710 Q400,670 480,700 L540,720 L540,960 L0,960Z" fill="#2a5a3a"/>
+  <path d="M0,750 Q120,700 220,740 Q340,710 440,740 L540,750 L540,960 L0,960Z" fill="#3a7a4a"/>
+  <!-- Grass foreground -->
+  <rect y="780" width="540" height="180" fill="#4a8a3a"/>
+  <!-- Scattered grass blades -->
+  <g stroke="#3a7030" stroke-width="1.5" fill="none" opacity="0.5">
+    <line x1="50" y1="780" x2="46" y2="760"/>
+    <line x1="55" y1="780" x2="58" y2="762"/>
+    <line x1="150" y1="780" x2="147" y2="758"/>
+    <line x1="250" y1="780" x2="254" y2="763"/>
+    <line x1="350" y1="780" x2="346" y2="759"/>
+    <line x1="450" y1="780" x2="453" y2="761"/>
+  </g>
+</svg>

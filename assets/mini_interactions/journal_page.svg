@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- Page shadow -->
+  <rect x="6" y="6" width="288" height="188" rx="4" fill="#000" opacity="0.06"/>
+  <!-- Page body -->
+  <rect x="2" y="2" width="288" height="188" rx="3" fill="#faf8f0"/>
+  <!-- Page border -->
+  <rect x="2" y="2" width="288" height="188" rx="3" fill="none" stroke="#c9b896" stroke-width="1.5"/>
+  <!-- Margin line -->
+  <line x1="40" y1="8" x2="40" y2="185" stroke="#e8c8a8" stroke-width="0.8" opacity="0.5"/>
+  <!-- Horizontal ruled lines -->
+  <g stroke="#e0d8c8" stroke-width="0.5" opacity="0.45">
+    <line x1="20" y1="35" x2="278" y2="35"/>
+    <line x1="20" y1="55" x2="278" y2="55"/>
+    <line x1="20" y1="75" x2="278" y2="75"/>
+    <line x1="20" y1="95" x2="278" y2="95"/>
+    <line x1="20" y1="115" x2="278" y2="115"/>
+    <line x1="20" y1="135" x2="278" y2="135"/>
+    <line x1="20" y1="155" x2="278" y2="155"/>
+    <line x1="20" y1="175" x2="278" y2="175"/>
+  </g>
+  <!-- Corner curl -->
+  <path d="M268,190 L290,190 L290,168 Z" fill="#f0e8d8"/>
+  <path d="M268,190 Q280,188 290,168" fill="none" stroke="#d0c8b0" stroke-width="0.8"/>
+</svg>

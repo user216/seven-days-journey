@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400">
+  <!-- Shadow -->
+  <ellipse cx="100" cy="390" rx="60" ry="8" fill="#000" opacity="0.06"/>
+  <!-- Body - torso -->
+  <path d="M65,140 Q55,200 58,270 Q60,310 65,350 L135,350 Q140,310 142,270 Q145,200 135,140Z" fill="#e8d4c8"/>
+  <!-- Neck -->
+  <rect x="85" y="110" width="30" height="35" rx="12" fill="#e8d4c8"/>
+  <!-- Head -->
+  <circle cx="100" cy="85" r="40" fill="#e8d4c8"/>
+  <!-- Hair -->
+  <path d="M60,80 Q60,40 100,35 Q140,40 140,80 Q145,60 130,50 Q100,30 70,50 Q55,60 60,80Z" fill="#8b7355"/>
+  <!-- Shoulders -->
+  <path d="M65,140 Q50,142 40,155 L40,180 Q50,168 65,165Z" fill="#e8d4c8"/>
+  <path d="M135,140 Q150,142 160,155 L160,180 Q150,168 135,165Z" fill="#e8d4c8"/>
+  <!-- Arms -->
+  <path d="M40,155 Q35,210 40,270 Q42,275 48,270 Q50,210 48,160Z" fill="#e8d4c8"/>
+  <path d="M160,155 Q165,210 160,270 Q158,275 152,270 Q150,210 152,160Z" fill="#e8d4c8"/>
+  <!-- Legs -->
+  <path d="M70,340 Q68,370 70,395 L90,395 Q88,370 88,340Z" fill="#e8d4c8"/>
+  <path d="M112,340 Q112,370 110,395 L130,395 Q132,370 130,340Z" fill="#e8d4c8"/>
+  <!-- Target areas (shoulders/back/legs) - subtle circles -->
+  <circle cx="100" cy="170" r="30" fill="#fff" opacity="0.15" stroke="#d4b89a" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="100" cy="260" r="28" fill="#fff" opacity="0.15" stroke="#d4b89a" stroke-width="1" stroke-dasharray="4,3"/>
+  <circle cx="100" cy="350" r="25" fill="#fff" opacity="0.15" stroke="#d4b89a" stroke-width="1" stroke-dasharray="4,3"/>
+</svg>

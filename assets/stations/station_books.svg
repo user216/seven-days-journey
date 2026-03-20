@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Book stack -->
+  <rect x="28" y="52" width="44" height="10" rx="2" fill="#5e8a3c"/>
+  <line x1="30" y1="57" x2="70" y2="57" stroke="#4a7030" stroke-width="0.8" opacity="0.5"/>
+  <rect x="30" y="42" width="40" height="10" rx="2" fill="#d4a843"/>
+  <line x1="32" y1="47" x2="68" y2="47" stroke="#b89038" stroke-width="0.8" opacity="0.5"/>
+  <rect x="26" y="32" width="48" height="10" rx="2" fill="#c9886e"/>
+  <line x1="28" y1="37" x2="72" y2="37" stroke="#a87058" stroke-width="0.8" opacity="0.5"/>
+  <!-- Open book on top -->
+  <polygon points="28,30 48,25 48,5 28,10" fill="#f5e6b8"/>
+  <polygon points="52,25 72,30 72,10 52,5" fill="#f8eed0"/>
+  <!-- Spine -->
+  <line x1="50" y1="5" x2="50" y2="28" stroke="#8b7355" stroke-width="2"/>
+  <!-- Page lines -->
+  <line x1="32" y1="15" x2="46" y2="13" stroke="#9e9578" stroke-width="0.6" opacity="0.4"/>
+  <line x1="32" y1="19" x2="46" y2="17" stroke="#9e9578" stroke-width="0.6" opacity="0.4"/>
+  <line x1="54" y1="13" x2="68" y2="15" stroke="#9e9578" stroke-width="0.6" opacity="0.4"/>
+  <line x1="54" y1="17" x2="68" y2="19" stroke="#9e9578" stroke-width="0.6" opacity="0.4"/>
+</svg>

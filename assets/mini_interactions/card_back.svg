@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 170">
+  <!-- Card shadow -->
+  <rect x="4" y="4" width="112" height="162" rx="8" fill="#000" opacity="0.1"/>
+  <!-- Card body -->
+  <rect x="0" y="0" width="112" height="162" rx="8" fill="#2a5a3a"/>
+  <!-- Border -->
+  <rect x="6" y="6" width="100" height="150" rx="5" fill="none" stroke="#88b890" stroke-width="1.2"/>
+  <!-- Inner decorative frame -->
+  <rect x="14" y="14" width="84" height="134" rx="3" fill="none" stroke="#6a9a6a" stroke-width="0.8" opacity="0.5"/>
+  <!-- Leaf pattern center -->
+  <g fill="#4a8a4a" opacity="0.6">
+    <!-- Central leaf -->
+    <path d="M56,60 Q40,50 56,35 Q72,50 56,60Z"/>
+    <path d="M56,100 Q40,110 56,125 Q72,110 56,100Z"/>
+    <!-- Side leaves -->
+    <path d="M36,80 Q26,68 36,58 Q46,68 36,80Z"/>
+    <path d="M76,80 Q86,68 76,58 Q66,68 76,80Z"/>
+    <path d="M36,80 Q26,92 36,102 Q46,92 36,80Z"/>
+    <path d="M76,80 Q86,92 76,102 Q66,92 76,80Z"/>
+  </g>
+  <!-- Center dot -->
+  <circle cx="56" cy="80" r="4" fill="#88c868" opacity="0.7"/>
+  <!-- Corner dots -->
+  <circle cx="20" cy="20" r="2" fill="#6a9a6a" opacity="0.4"/>
+  <circle cx="92" cy="20" r="2" fill="#6a9a6a" opacity="0.4"/>
+  <circle cx="20" cy="142" r="2" fill="#6a9a6a" opacity="0.4"/>
+  <circle cx="92" cy="142" r="2" fill="#6a9a6a" opacity="0.4"/>
+</svg>

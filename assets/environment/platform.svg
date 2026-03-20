@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 25">
+  <!-- Platform body -->
+  <rect x="0" y="3" width="250" height="19" rx="4" fill="#8b7355"/>
+  <!-- Top surface -->
+  <rect x="0" y="0" width="250" height="8" rx="4" fill="#a08060"/>
+  <!-- Highlights -->
+  <rect x="5" y="2" width="240" height="3" rx="2" fill="#b89070" opacity="0.5"/>
+  <!-- Moss patches -->
+  <g fill="#4a8a3a" opacity="0.3">
+    <ellipse cx="30" cy="5" rx="12" ry="3"/>
+    <ellipse cx="120" cy="4" rx="15" ry="3"/>
+    <ellipse cx="210" cy="5" rx="10" ry="3"/>
+  </g>
+  <!-- Bottom shadow -->
+  <rect x="5" y="22" width="240" height="3" rx="2" fill="#000" opacity="0.08"/>
+</svg>

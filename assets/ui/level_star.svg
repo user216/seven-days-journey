@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Outer glow -->
+  <circle cx="60" cy="60" r="58" fill="#d4a843" opacity="0.15"/>
+  <!-- Star rays -->
+  <g stroke="#d4a843" stroke-width="3" opacity="0.4">
+    <line x1="60" y1="5" x2="60" y2="25"/>
+    <line x1="60" y1="95" x2="60" y2="115"/>
+    <line x1="5" y1="60" x2="25" y2="60"/>
+    <line x1="95" y1="60" x2="115" y2="60"/>
+    <line x1="20" y1="20" x2="34" y2="34"/>
+    <line x1="86" y1="86" x2="100" y2="100"/>
+    <line x1="100" y1="20" x2="86" y2="34"/>
+    <line x1="34" y1="86" x2="20" y2="100"/>
+  </g>
+  <!-- Star body -->
+  <polygon points="60,12 72,45 108,45 78,68 88,102 60,80 32,102 42,68 12,45 48,45" fill="#d4a843"/>
+  <!-- Inner star highlight -->
+  <polygon points="60,25 68,48 92,48 72,62 80,85 60,72 40,85 48,62 28,48 52,48" fill="#e8c060" opacity="0.6"/>
+  <!-- Center sparkle -->
+  <circle cx="60" cy="58" r="6" fill="#f0daa0" opacity="0.5"/>
+</svg>

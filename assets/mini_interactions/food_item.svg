@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Shadow -->
+  <ellipse cx="20" cy="36" rx="14" ry="3" fill="#000" opacity="0.06"/>
+  <!-- Food ball body -->
+  <circle cx="20" cy="20" r="16" fill="#e8d4b0"/>
+  <!-- Depth shading -->
+  <circle cx="20" cy="22" r="14" fill="#d8c4a0" opacity="0.4"/>
+  <!-- Highlight -->
+  <ellipse cx="15" cy="14" rx="6" ry="4" fill="#f0e0c8" opacity="0.6" transform="rotate(-15,15,14)"/>
+  <circle cx="14" cy="12" r="2.5" fill="white" opacity="0.3"/>
+  <!-- Surface detail -->
+  <circle cx="24" cy="18" r="2" fill="#c8b490" opacity="0.3"/>
+  <circle cx="18" cy="24" r="1.5" fill="#c8b490" opacity="0.25"/>
+</svg>

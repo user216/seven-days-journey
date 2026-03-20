@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Bathtub outer -->
+  <polygon points="20,25 80,25 75,65 25,65" fill="white"/>
+  <!-- Bathtub rim -->
+  <path d="M18,25 L82,25" stroke="#e0e0e0" stroke-width="3" stroke-linecap="round"/>
+  <!-- Water -->
+  <polygon points="24,30 76,30 74,62 26,62" fill="#7cafc2" opacity="0.4"/>
+  <polygon points="24,30 76,30 74,45 26,45" fill="#7cafc2" opacity="0.25"/>
+  <!-- Tub feet -->
+  <circle cx="28" cy="68" r="4" fill="#e0e0e0"/>
+  <circle cx="72" cy="68" r="4" fill="#e0e0e0"/>
+  <!-- Bubbles -->
+  <circle cx="35" cy="24" r="5" fill="white" opacity="0.7"/>
+  <circle cx="45" cy="22" r="6" fill="white" opacity="0.6"/>
+  <circle cx="55" cy="23" r="4.5" fill="white" opacity="0.65"/>
+  <circle cx="65" cy="24" r="5.5" fill="white" opacity="0.6"/>
+  <circle cx="40" cy="18" r="3.5" fill="white" opacity="0.5"/>
+  <circle cx="58" cy="18" r="4" fill="white" opacity="0.5"/>
+  <!-- Bubble highlights -->
+  <circle cx="44" cy="20" r="1.5" fill="white" opacity="0.8"/>
+  <circle cx="54" cy="21" r="1.2" fill="white" opacity="0.7"/>
+  <!-- Steam -->
+  <path d="M38,14 Q40,10 38,6" stroke="white" stroke-width="1.2" fill="none" opacity="0.3"/>
+  <path d="M62,12 Q64,8 62,4" stroke="white" stroke-width="1.2" fill="none" opacity="0.25"/>
+</svg>

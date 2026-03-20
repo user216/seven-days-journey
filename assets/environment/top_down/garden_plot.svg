@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 250">
+  <!-- Garden soil base -->
+  <rect width="820" height="250" fill="#6a8a3a"/>
+  <!-- Winding path -->
+  <path d="M0,125 Q100,80 200,125 Q300,170 400,125 Q500,80 600,125 Q700,170 820,125" fill="none" stroke="#c4a878" stroke-width="40" opacity="0.6"/>
+  <path d="M0,125 Q100,80 200,125 Q300,170 400,125 Q500,80 600,125 Q700,170 820,125" fill="none" stroke="#d4b888" stroke-width="20" opacity="0.4"/>
+  <!-- Flower beds left -->
+  <g fill="#e8a0a0" opacity="0.6">
+    <circle cx="50" cy="40" r="6"/>
+    <circle cx="70" cy="35" r="5"/>
+    <circle cx="40" cy="55" r="5"/>
+  </g>
+  <g fill="#c8a0d8" opacity="0.6">
+    <circle cx="150" cy="200" r="6"/>
+    <circle cx="170" cy="210" r="5"/>
+    <circle cx="140" cy="215" r="5"/>
+  </g>
+  <!-- Bushes -->
+  <g fill="#4a7a2a" opacity="0.5">
+    <circle cx="300" cy="30" r="18"/>
+    <circle cx="320" cy="35" r="15"/>
+    <circle cx="500" cy="220" r="20"/>
+    <circle cx="520" cy="215" r="16"/>
+  </g>
+  <!-- Flowers scattered -->
+  <g fill="#f0c060" opacity="0.6">
+    <circle cx="420" cy="50" r="4"/>
+    <circle cx="435" cy="45" r="3.5"/>
+    <circle cx="600" cy="40" r="4"/>
+  </g>
+  <g fill="#e880a0" opacity="0.5">
+    <circle cx="250" cy="210" r="4"/>
+    <circle cx="700" cy="50" r="5"/>
+    <circle cx="720" cy="55" r="4"/>
+  </g>
+  <!-- Small trees -->
+  <g>
+    <circle cx="100" cy="200" r="22" fill="#3a6a2a" opacity="0.5"/>
+    <circle cx="100" cy="195" r="18" fill="#4a8a3a" opacity="0.5"/>
+    <circle cx="750" cy="40" r="20" fill="#3a6a2a" opacity="0.5"/>
+    <circle cx="750" cy="35" r="16" fill="#4a8a3a" opacity="0.5"/>
+  </g>
+  <!-- Stepping stones -->
+  <g fill="#d0c8b0" opacity="0.3">
+    <ellipse cx="60" cy="125" rx="12" ry="8"/>
+    <ellipse cx="180" cy="125" rx="10" ry="7"/>
+    <ellipse cx="350" cy="125" rx="12" ry="8"/>
+    <ellipse cx="470" cy="125" rx="10" ry="7"/>
+    <ellipse cx="640" cy="125" rx="12" ry="8"/>
+    <ellipse cx="770" cy="125" rx="10" ry="7"/>
+  </g>
+</svg>

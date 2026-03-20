@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Outer glow -->
+  <circle cx="100" cy="100" r="95" fill="#88b890" opacity="0.08"/>
+  <!-- Main leaf -->
+  <path d="M100,180 Q60,130 80,80 Q90,50 100,20 Q110,50 120,80 Q140,130 100,180Z" fill="#88b890"/>
+  <!-- Leaf vein center -->
+  <line x1="100" y1="30" x2="100" y2="170" stroke="#6a9a6a" stroke-width="2" opacity="0.4"/>
+  <!-- Leaf veins -->
+  <g stroke="#6a9a6a" stroke-width="1" opacity="0.3">
+    <line x1="100" y1="60" x2="85" y2="75"/>
+    <line x1="100" y1="60" x2="115" y2="75"/>
+    <line x1="100" y1="90" x2="80" y2="105"/>
+    <line x1="100" y1="90" x2="120" y2="105"/>
+    <line x1="100" y1="120" x2="82" y2="135"/>
+    <line x1="100" y1="120" x2="118" y2="135"/>
+  </g>
+  <!-- Small secondary leaf -->
+  <path d="M130,140 Q140,120 155,110 Q145,130 130,140Z" fill="#a0c8a0" opacity="0.6"/>
+  <!-- Tiny bloom -->
+  <circle cx="155" cy="108" r="5" fill="#c9886e" opacity="0.5"/>
+  <circle cx="155" cy="108" r="2.5" fill="#d4a843" opacity="0.6"/>
+</svg>

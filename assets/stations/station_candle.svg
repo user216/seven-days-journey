@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Glow -->
+  <circle cx="50" cy="28" r="25" fill="#d4a843" opacity="0.08"/>
+  <circle cx="50" cy="28" r="18" fill="#d4a843" opacity="0.12"/>
+  <!-- Candle holder -->
+  <ellipse cx="50" cy="68" rx="16" ry="5" fill="#8b7355"/>
+  <rect x="48" y="64" width="4" height="5" fill="#8b7355"/>
+  <!-- Candle body -->
+  <rect x="44" y="30" width="12" height="35" rx="2" fill="#f5f0e0"/>
+  <!-- Wax drip -->
+  <path d="M44,40 Q42,42 44,44" stroke="#e8e0d0" stroke-width="1.5" fill="none"/>
+  <circle cx="42" cy="44" r="1.5" fill="#e8e0d0"/>
+  <!-- Wick -->
+  <line x1="50" y1="30" x2="50" y2="24" stroke="#3d3929" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Flame outer -->
+  <path d="M50,8 Q44,18 46,24 Q48,28 50,26 Q52,28 54,24 Q56,18 50,8Z" fill="#d4a843" opacity="0.9"/>
+  <!-- Flame inner -->
+  <path d="M50,12 Q47,18 48,22 Q49,24 50,23 Q51,24 52,22 Q53,18 50,12Z" fill="#f5e6b8"/>
+  <!-- Flame hot center -->
+  <ellipse cx="50" cy="20" rx="2" ry="4" fill="#fffde8" opacity="0.7"/>
+</svg>

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/shared/achievement_toast/achievement_toast.gd" id="1"]
+
+[node name="AchievementToast" type="CanvasLayer"]
+layer = 35
+
+[node name="ToastPanel" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 220.0
+
+[node name="HBox" type="HBoxContainer" parent="ToastPanel"]
+layout_mode = 2
+
+[node name="EmojiLabel" type="Label" parent="ToastPanel/HBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "🌟"
+
+[node name="VBox" type="VBoxContainer" parent="ToastPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLabel" type="Label" parent="ToastPanel/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Достижение!"
+
+[node name="DescLabel" type="Label" parent="ToastPanel/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "..."
+
+[node name="ToastScript" type="Node" parent="."]
+script = ExtResource("1")

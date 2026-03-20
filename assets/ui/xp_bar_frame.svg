@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 30">
+  <!-- Bar background -->
+  <rect width="200" height="30" rx="15" fill="#e0dcd0"/>
+  <!-- Border -->
+  <rect width="200" height="30" rx="15" fill="none" stroke="#88b890" stroke-width="2"/>
+  <!-- Inner highlight -->
+  <rect x="3" y="3" width="194" height="12" rx="6" fill="white" opacity="0.15"/>
+</svg>

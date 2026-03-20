@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 360">
+  <!-- Ground shadow -->
+  <g id="shadow">
+    <ellipse cx="80" cy="348" rx="40" ry="10" fill="black" opacity="0.15"/>
+  </g>
+
+  <!-- Feet / shoes -->
+  <ellipse cx="67" cy="340" rx="13" ry="6" fill="#8b7355"/>
+  <ellipse cx="93" cy="340" rx="13" ry="6" fill="#8b7355"/>
+
+  <!-- Legs -->
+  <line x1="70" y1="322" x2="67" y2="336" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="90" y1="322" x2="93" y2="336" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Dress / skirt -->
+  <polygon points="40,322 60,240 100,240 120,322" fill="#f0f0f0"/>
+  <!-- Hem decoration -->
+  <line x1="42" y1="320" x2="118" y2="320" stroke="#e0e0e0" stroke-width="3"/>
+  <!-- Fold lines -->
+  <line x1="70" y1="245" x2="65" y2="318" stroke="#e0e0e0" stroke-width="1.5" opacity="0.5"/>
+  <line x1="90" y1="245" x2="95" y2="318" stroke="#e0e0e0" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Torso / blouse -->
+  <polygon points="60,240 56,178 104,178 100,240" fill="#f8f8f8"/>
+  <!-- Neckline V -->
+  <path d="M80,178 L70,200" stroke="#f0d4b8" stroke-width="4" fill="none"/>
+  <path d="M80,178 L90,200" stroke="#f0d4b8" stroke-width="4" fill="none"/>
+
+  <!-- Arms -->
+  <line x1="56" y1="185" x2="32" y2="260" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <line x1="104" y1="185" x2="128" y2="260" stroke="#f0d4b8" stroke-width="8" stroke-linecap="round"/>
+  <!-- Hands -->
+  <circle cx="32" cy="260" r="7" fill="#f0d4b8"/>
+  <circle cx="128" cy="260" r="7" fill="#f0d4b8"/>
+  <!-- Sleeve caps -->
+  <ellipse cx="56" cy="185" rx="12" ry="9" fill="#f2f2f2"/>
+  <ellipse cx="104" cy="185" rx="12" ry="9" fill="#f2f2f2"/>
+
+  <!-- Neck -->
+  <rect x="74" y="155" width="12" height="25" fill="#f0d4b8" rx="3"/>
+
+  <!-- Head -->
+  <ellipse cx="80" cy="130" rx="28" ry="32" fill="#f0d4b8"/>
+
+  <!-- Hair — back strands (behind head, flowing down) -->
+  <polygon points="52,118 48,135 46,230 62,232 98,232 114,230 112,135 108,118" fill="#8b7355"/>
+  <!-- Hair — crown top -->
+  <polygon points="53,138 58,96 80,90 102,96 107,138" fill="#8b7355"/>
+  <!-- Hair highlight -->
+  <line x1="72" y1="95" x2="68" y2="145" stroke="#a08060" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Face — Eye whites -->
+  <ellipse cx="68" cy="132" rx="9" ry="7" fill="white"/>
+  <ellipse cx="92" cy="132" rx="9" ry="7" fill="white"/>
+  <!-- Iris -->
+  <circle cx="70" cy="132" r="5" fill="#5a3a1a"/>
+  <circle cx="94" cy="132" r="5" fill="#5a3a1a"/>
+  <!-- Pupils -->
+  <circle cx="70" cy="132" r="2.5" fill="#1a0a00"/>
+  <circle cx="94" cy="132" r="2.5" fill="#1a0a00"/>
+  <!-- Eye shine -->
+  <circle cx="72" cy="130" r="1.8" fill="white" opacity="0.85"/>
+  <circle cx="96" cy="130" r="1.8" fill="white" opacity="0.85"/>
+  <!-- Eyelashes -->
+  <path d="M59,128 Q64,123 77,128" stroke="#8b7355" stroke-width="2" fill="none"/>
+  <path d="M83,128 Q88,123 101,128" stroke="#8b7355" stroke-width="2" fill="none"/>
+  <!-- Eyebrows -->
+  <line x1="60" y1="120" x2="76" y2="118" stroke="#8b7355" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="84" y1="118" x2="100" y2="120" stroke="#8b7355" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Nose -->
+  <line x1="80" y1="136" x2="82" y2="143" stroke="#d4b89a" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Mouth — gentle smile -->
+  <path d="M72,150 Q80,156 88,150" stroke="#c9886e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Blush -->
+  <ellipse cx="64" cy="145" rx="8" ry="4.5" fill="#ffb0a0" opacity="0.2"/>
+  <ellipse cx="96" cy="145" rx="8" ry="4.5" fill="#ffb0a0" opacity="0.2"/>
+
+  <!-- Flower accessory in hair -->
+  <g transform="translate(52,108)">
+    <circle cx="0" cy="-5" r="4" fill="#c9886e" opacity="0.9"/>
+    <circle cx="-5" cy="-2" r="4" fill="#c9886e" opacity="0.85"/>
+    <circle cx="5" cy="-2" r="4" fill="#c9886e" opacity="0.85"/>
+    <circle cx="-3" cy="3" r="4" fill="#c9886e" opacity="0.8"/>
+    <circle cx="3" cy="3" r="4" fill="#c9886e" opacity="0.8"/>
+    <circle cx="0" cy="0" r="3" fill="#d4a843"/>
+    <circle cx="-1" cy="-1" r="1.2" fill="#f5e6b8" opacity="0.7"/>
+  </g>
+</svg>

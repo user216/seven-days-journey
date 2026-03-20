@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Floor -->
+  <rect width="200" height="200" fill="#f0ead4"/>
+  <!-- Rug -->
+  <rect x="30" y="100" width="140" height="80" rx="3" fill="#c9886e" opacity="0.2"/>
+  <!-- Desk -->
+  <rect x="20" y="10" width="160" height="60" rx="3" fill="#8b7355"/>
+  <rect x="22" y="12" width="156" height="56" rx="2" fill="#a08060"/>
+  <!-- Open book on desk -->
+  <rect x="60" y="25" width="35" height="25" rx="1" fill="#faf8f0"/>
+  <rect x="97" y="25" width="35" height="25" rx="1" fill="#f5f0e0"/>
+  <g stroke="#c4b090" stroke-width="0.3" opacity="0.5">
+    <line x1="65" y1="32" x2="90" y2="32"/>
+    <line x1="65" y1="37" x2="88" y2="37"/>
+    <line x1="65" y1="42" x2="85" y2="42"/>
+    <line x1="102" y1="32" x2="127" y2="32"/>
+    <line x1="102" y1="37" x2="125" y2="37"/>
+  </g>
+  <!-- Book stack -->
+  <rect x="140" y="20" width="25" height="6" rx="1" fill="#b8cfe0"/>
+  <rect x="138" y="26" width="27" height="6" rx="1" fill="#c9886e"/>
+  <rect x="139" y="32" width="26" height="5" rx="1" fill="#88b890"/>
+  <!-- Desk lamp -->
+  <rect x="30" y="20" width="4" height="25" fill="#c0c0c0"/>
+  <path d="M25,20 L40,20 L35,12 L28,12 Z" fill="#f0daa0"/>
+  <circle cx="32" cy="17" r="3" fill="#f5e6b8" opacity="0.4"/>
+  <!-- Chair -->
+  <rect x="70" y="75" width="55" height="40" rx="5" fill="#8b7355"/>
+  <rect x="75" y="80" width="45" height="30" rx="3" fill="#a08060"/>
+</svg>

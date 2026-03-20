@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <!-- Shadow -->
+  <rect x="2" y="2" width="196" height="56" rx="28" fill="#000" opacity="0.06"/>
+  <!-- Button body -->
+  <rect x="0" y="0" width="196" height="56" rx="28" fill="#f0ead4"/>
+  <!-- Highlight -->
+  <rect x="4" y="2" width="188" height="26" rx="14" fill="white" opacity="0.15"/>
+  <!-- Border -->
+  <rect x="0" y="0" width="196" height="56" rx="28" fill="none" stroke="#88b890" stroke-width="1.5"/>
+</svg>

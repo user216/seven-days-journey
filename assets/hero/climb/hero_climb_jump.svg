@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 120">
+  <!-- No shadow when jumping -->
+  <!-- Legs — stretched down -->
+  <line x1="24" y1="88" x2="22" y2="112" stroke="#8b7355" stroke-width="6" stroke-linecap="round"/>
+  <line x1="40" y1="88" x2="42" y2="112" stroke="#8b7355" stroke-width="6" stroke-linecap="round"/>
+  <!-- Dress body -->
+  <polygon points="16,88 22,52 42,52 48,88" fill="#f0f0f0"/>
+  <line x1="18" y1="86" x2="46" y2="86" stroke="#e0e0e0" stroke-width="2"/>
+  <!-- Arms raised up! -->
+  <line x1="22" y1="56" x2="8" y2="34" stroke="#f0d4b8" stroke-width="6" stroke-linecap="round"/>
+  <line x1="42" y1="56" x2="56" y2="34" stroke="#f0d4b8" stroke-width="6" stroke-linecap="round"/>
+  <!-- Hands -->
+  <circle cx="8" cy="34" r="4" fill="#f0d4b8"/>
+  <circle cx="56" cy="34" r="4" fill="#f0d4b8"/>
+  <!-- Head -->
+  <circle cx="32" cy="38" r="16" fill="#f0d4b8"/>
+  <!-- Hair -->
+  <path d="M16,36 Q16,22 32,20 Q48,22 48,36" fill="#8b7355"/>
+  <circle cx="32" cy="26" r="12" fill="#8b7355"/>
+  <!-- Eyes — excited -->
+  <circle cx="27" cy="38" r="3" fill="#3d3929"/>
+  <circle cx="37" cy="38" r="3" fill="#3d3929"/>
+  <circle cx="28" cy="37" r="1" fill="white" opacity="0.8"/>
+  <circle cx="38" cy="37" r="1" fill="white" opacity="0.8"/>
+  <!-- Open mouth smile -->
+  <path d="M27,44 Q32,50 37,44" stroke="#d4886e" stroke-width="2" fill="none"/>
+</svg>

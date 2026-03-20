@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200">
+  <!-- Floor -->
+  <rect width="250" height="200" fill="#f0ead4"/>
+  <!-- Yoga mat -->
+  <rect x="40" y="50" width="170" height="80" rx="4" fill="#88b890" opacity="0.5"/>
+  <rect x="45" y="55" width="160" height="70" rx="3" fill="#88b890" opacity="0.3"/>
+  <!-- Mat center line -->
+  <line x1="125" y1="55" x2="125" y2="125" stroke="#6a9a6a" stroke-width="0.8" opacity="0.3"/>
+  <!-- Meditation cushion -->
+  <ellipse cx="125" cy="90" rx="25" ry="15" fill="#c9886e"/>
+  <ellipse cx="125" cy="87" rx="22" ry="12" fill="#d4987e"/>
+  <!-- Candle left -->
+  <rect x="20" y="140" width="8" height="20" rx="1" fill="#f5e6b8"/>
+  <circle cx="24" cy="137" r="4" fill="#f0c060" opacity="0.6"/>
+  <!-- Candle right -->
+  <rect x="222" y="140" width="8" height="20" rx="1" fill="#f5e6b8"/>
+  <circle cx="226" cy="137" r="4" fill="#f0c060" opacity="0.6"/>
+  <!-- Incense holder -->
+  <rect x="10" y="20" width="20" height="5" rx="2" fill="#8b7355"/>
+  <line x1="20" y1="20" x2="20" y2="8" stroke="#c0c0c0" stroke-width="0.8"/>
+  <circle cx="20" cy="6" r="2" fill="#e0e0e0" opacity="0.4"/>
+  <!-- Om symbol (simplified) -->
+  <circle cx="125" cy="25" r="12" fill="none" stroke="#d4a843" stroke-width="1" opacity="0.3"/>
+</svg>

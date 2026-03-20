@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 960">
+  <!-- Sky gradient bands -->
+  <rect y="0" width="540" height="400" fill="#0d1b3e"/>
+  <rect y="400" width="540" height="200" fill="#152848"/>
+  <rect y="600" width="540" height="360" fill="#1a3058"/>
+  <!-- Stars -->
+  <g fill="#f5e6b8">
+    <circle cx="60" cy="80" r="2" opacity="0.7"/>
+    <circle cx="140" cy="40" r="1.5" opacity="0.5"/>
+    <circle cx="220" cy="100" r="2.5" opacity="0.65"/>
+    <circle cx="310" cy="55" r="1.8" opacity="0.5"/>
+    <circle cx="400" cy="90" r="2" opacity="0.55"/>
+    <circle cx="480" cy="30" r="1.5" opacity="0.6"/>
+    <circle cx="90" cy="180" r="1.8" opacity="0.45"/>
+    <circle cx="200" cy="220" r="2" opacity="0.5"/>
+    <circle cx="350" cy="160" r="2.2" opacity="0.6"/>
+    <circle cx="450" cy="200" r="1.5" opacity="0.5"/>
+    <circle cx="120" cy="300" r="2" opacity="0.55"/>
+    <circle cx="280" cy="320" r="1.8" opacity="0.45"/>
+    <circle cx="430" cy="280" r="2" opacity="0.5"/>
+    <circle cx="70" cy="400" r="1.5" opacity="0.4"/>
+    <circle cx="250" cy="450" r="2" opacity="0.45"/>
+    <circle cx="380" cy="380" r="1.8" opacity="0.5"/>
+    <circle cx="500" cy="350" r="1.5" opacity="0.4"/>
+  </g>
+  <!-- Star crosses (twinkle) -->
+  <g stroke="#f5e6b8" stroke-width="0.8" opacity="0.4">
+    <line x1="220" y1="97" x2="220" y2="103"/>
+    <line x1="217" y1="100" x2="223" y2="100"/>
+    <line x1="350" y1="157" x2="350" y2="163"/>
+    <line x1="347" y1="160" x2="353" y2="160"/>
+    <line x1="60" y1="77" x2="60" y2="83"/>
+    <line x1="57" y1="80" x2="63" y2="80"/>
+  </g>
+  <!-- Moon -->
+  <circle cx="440" cy="120" r="35" fill="#f0f0e0" opacity="0.8"/>
+  <circle cx="452" cy="110" r="28" fill="#0d1b3e" opacity="0.8"/>
+  <!-- Moon craters -->
+  <circle cx="432" cy="130" r="4" fill="#e0e0d0" opacity="0.15"/>
+  <circle cx="440" cy="115" r="2.5" fill="#e0e0d0" opacity="0.12"/>
+  <!-- Subtle ground -->
+  <path d="M0,850 Q100,830 200,845 Q350,825 540,850 L540,960 L0,960Z" fill="#0a1530" opacity="0.5"/>
+</svg>

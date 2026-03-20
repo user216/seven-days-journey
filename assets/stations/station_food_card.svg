@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80">
+  <!-- Card -->
+  <rect x="28" y="10" width="44" height="58" rx="4" fill="white"/>
+  <rect x="28" y="10" width="44" height="58" rx="4" fill="none" stroke="#5e8a3c" stroke-width="2.5"/>
+  <!-- Food circle icon -->
+  <circle cx="50" cy="32" r="12" fill="#5e8a3c" opacity="0.2"/>
+  <circle cx="50" cy="32" r="8" fill="#7da344" opacity="0.4"/>
+  <!-- Leaf icon in center -->
+  <path d="M46,32 Q50,24 54,32 Q50,28 46,32Z" fill="#5e8a3c"/>
+  <line x1="50" y1="28" x2="50" y2="36" stroke="#5e8a3c" stroke-width="1" opacity="0.6"/>
+  <!-- Text lines -->
+  <line x1="34" y1="50" x2="66" y2="50" stroke="#9e9578" stroke-width="1" opacity="0.4"/>
+  <line x1="34" y1="55" x2="66" y2="55" stroke="#9e9578" stroke-width="1" opacity="0.4"/>
+  <line x1="34" y1="60" x2="56" y2="60" stroke="#9e9578" stroke-width="1" opacity="0.4"/>
+</svg>

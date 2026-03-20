@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Badge circle -->
+  <circle cx="40" cy="40" r="36" fill="#88b890"/>
+  <circle cx="40" cy="40" r="36" fill="none" stroke="#6a9a6a" stroke-width="2"/>
+  <!-- Inner ring -->
+  <circle cx="40" cy="40" r="28" fill="#faf5e8"/>
+  <circle cx="40" cy="40" r="28" fill="none" stroke="#88b890" stroke-width="1"/>
+  <!-- Laurel left -->
+  <g fill="#6a9a6a" opacity="0.5">
+    <path d="M16,52 Q12,44 16,36 Q20,44 16,52Z"/>
+    <path d="M14,46 Q10,40 14,32 Q18,40 14,46Z"/>
+    <path d="M18,56 Q14,48 18,42 Q22,48 18,56Z"/>
+  </g>
+  <!-- Laurel right -->
+  <g fill="#6a9a6a" opacity="0.5">
+    <path d="M64,52 Q68,44 64,36 Q60,44 64,52Z"/>
+    <path d="M66,46 Q70,40 66,32 Q62,40 66,46Z"/>
+    <path d="M62,56 Q66,48 62,42 Q58,48 62,56Z"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Floor tiles -->
+  <rect width="200" height="200" fill="#e8e4dc"/>
+  <g stroke="#d0ccc4" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="50" x2="200" y2="50"/>
+    <line x1="0" y1="100" x2="200" y2="100"/>
+    <line x1="0" y1="150" x2="200" y2="150"/>
+    <line x1="50" y1="0" x2="50" y2="200"/>
+    <line x1="100" y1="0" x2="100" y2="200"/>
+    <line x1="150" y1="0" x2="150" y2="200"/>
+  </g>
+  <!-- Bathtub -->
+  <rect x="10" y="10" width="80" height="50" rx="10" fill="white" stroke="#c0c0c0" stroke-width="1.5"/>
+  <rect x="15" y="15" width="70" height="40" rx="8" fill="#e0f0f8"/>
+  <!-- Bubbles -->
+  <circle cx="35" cy="30" r="4" fill="white" opacity="0.6"/>
+  <circle cx="50" cy="25" r="3" fill="white" opacity="0.5"/>
+  <circle cx="60" cy="32" r="5" fill="white" opacity="0.45"/>
+  <!-- Faucet -->
+  <rect x="45" y="5" width="10" height="8" rx="2" fill="#c0c0c0"/>
+  <path d="M48,5 Q48,0 55,0 L55,3" fill="none" stroke="#c0c0c0" stroke-width="2"/>
+  <!-- Sink -->
+  <rect x="130" y="10" width="50" height="35" rx="8" fill="white" stroke="#c0c0c0" stroke-width="1"/>
+  <ellipse cx="155" cy="25" rx="18" ry="10" fill="#e8f0f0"/>
+  <!-- Mirror -->
+  <rect x="133" y="50" width="44" height="35" rx="5" fill="#d0e8f0" stroke="#c4b090" stroke-width="1.5"/>
+  <ellipse cx="155" cy="62" rx="8" ry="5" fill="white" opacity="0.3"/>
+  <!-- Bath mat -->
+  <rect x="20" y="70" width="60" height="30" rx="3" fill="#88b890" opacity="0.4"/>
+</svg>

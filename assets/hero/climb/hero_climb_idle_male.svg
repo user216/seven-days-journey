@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 120">
+  <!-- Shadow -->
+  <ellipse cx="32" cy="115" rx="22" ry="5" fill="black" opacity="0.12"/>
+  <!-- Legs -->
+  <line x1="22" y1="88" x2="20" y2="110" stroke="#8b7355" stroke-width="6" stroke-linecap="round"/>
+  <line x1="42" y1="88" x2="44" y2="110" stroke="#8b7355" stroke-width="6" stroke-linecap="round"/>
+  <!-- Pants -->
+  <polygon points="18,74 22,88 32,88 32,74" fill="#8b7355"/>
+  <polygon points="32,74 32,88 42,88 46,74" fill="#8b7355"/>
+  <!-- Shirt body -->
+  <rect x="18" y="52" width="28" height="24" rx="3" fill="#f0f0f0"/>
+  <line x1="32" y1="52" x2="32" y2="76" stroke="#e0e0e0" stroke-width="1"/>
+  <!-- Arms at sides -->
+  <line x1="18" y1="56" x2="6" y2="78" stroke="#f0d4b8" stroke-width="6" stroke-linecap="round"/>
+  <line x1="46" y1="56" x2="58" y2="78" stroke="#f0d4b8" stroke-width="6" stroke-linecap="round"/>
+  <!-- Head -->
+  <circle cx="32" cy="38" r="16" fill="#f0d4b8"/>
+  <!-- Short hair -->
+  <path d="M18,34 Q18,20 32,18 Q46,20 46,34" fill="#6b5339"/>
+  <circle cx="32" cy="24" r="10" fill="#6b5339"/>
+  <!-- Eyes -->
+  <circle cx="27" cy="38" r="2.5" fill="#3d3929"/>
+  <circle cx="37" cy="38" r="2.5" fill="#3d3929"/>
+  <!-- Eyebrows -->
+  <line x1="24" y1="33" x2="30" y2="34" stroke="#6b5339" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="34" y1="34" x2="40" y2="33" stroke="#6b5339" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M28,44 Q32,48 36,44" stroke="#c9886e" stroke-width="1.5" fill="none"/>
+</svg>

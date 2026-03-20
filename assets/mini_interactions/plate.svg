@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Plate shadow -->
+  <ellipse cx="60" cy="65" rx="52" ry="18" fill="#000" opacity="0.06"/>
+  <!-- Outer plate rim -->
+  <ellipse cx="60" cy="60" rx="55" ry="45" fill="#f5f5f0"/>
+  <!-- Inner rim ring -->
+  <ellipse cx="60" cy="60" rx="55" ry="45" fill="none" stroke="#e0ddd0" stroke-width="1"/>
+  <!-- Plate well -->
+  <ellipse cx="60" cy="58" rx="40" ry="32" fill="#fafaf5"/>
+  <!-- Inner ring decoration -->
+  <ellipse cx="60" cy="58" rx="40" ry="32" fill="none" stroke="#e8e4d8" stroke-width="0.8"/>
+  <!-- Subtle rim highlight -->
+  <path d="M15,48 Q60,30 105,48" fill="none" stroke="white" stroke-width="1.5" opacity="0.5"/>
+  <!-- Bottom shadow curve -->
+  <path d="M25,72 Q60,82 95,72" fill="none" stroke="#d8d4c8" stroke-width="0.8" opacity="0.5"/>
+</svg>

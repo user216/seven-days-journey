@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/shared/pause_menu/pause_menu.gd" id="1"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+layer = 40
+visible = false
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 32
+text = "Пауза"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Продолжить"
+
+[node name="SaveBtn" type="Button" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Сохранить"
+
+[node name="MainMenuBtn" type="Button" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Главное меню"
+
+[node name="PauseScript" type="Node" parent="."]
+script = ExtResource("1")

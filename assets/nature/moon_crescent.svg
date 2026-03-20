@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Glow -->
+  <circle cx="40" cy="40" r="38" fill="#f0f0e0" opacity="0.1"/>
+  <!-- Moon body -->
+  <circle cx="40" cy="40" r="30" fill="#f0f0e0"/>
+  <!-- Crescent shadow (makes it a crescent) -->
+  <circle cx="50" cy="37" r="26" fill="#0d1b3e"/>
+  <!-- Craters -->
+  <circle cx="30" cy="48" r="3" fill="#ddddc8" opacity="0.4"/>
+  <circle cx="24" cy="36" r="2" fill="#ddddc8" opacity="0.3"/>
+  <circle cx="35" cy="32" r="1.5" fill="#ddddc8" opacity="0.25"/>
+  <!-- Subtle highlight -->
+  <circle cx="32" cy="30" r="8" fill="#f8f8ee" opacity="0.2"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100">
+  <!-- Shadow -->
+  <rect x="6" y="6" width="888" height="1088" rx="20" fill="#000" opacity="0.08"/>
+  <!-- Panel body -->
+  <rect x="0" y="0" width="888" height="1088" rx="18" fill="#faf5e8"/>
+  <!-- Border -->
+  <rect x="0" y="0" width="888" height="1088" rx="18" fill="none" stroke="#88b890" stroke-width="3"/>
+  <!-- Header area -->
+  <rect x="3" y="3" width="882" height="80" rx="16" fill="#88b890" opacity="0.15"/>
+  <!-- Decorative corners -->
+  <g stroke="#88b890" stroke-width="2" fill="none" opacity="0.4">
+    <path d="M20,20 Q20,40 40,40"/>
+    <path d="M868,20 Q868,40 848,40"/>
+    <path d="M20,1068 Q20,1048 40,1048"/>
+    <path d="M868,1068 Q868,1048 848,1048"/>
+  </g>
+  <!-- Leaf decoration top -->
+  <g fill="#88b890" opacity="0.15">
+    <path d="M430,10 Q420,20 430,30 Q440,20 430,10Z"/>
+    <path d="M445,15 Q440,25 450,30 Q455,20 445,15Z"/>
+    <path d="M415,15 Q420,25 410,30 Q405,20 415,15Z"/>
+  </g>
+</svg>

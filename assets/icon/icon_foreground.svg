@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
+  <!-- Adaptive icon foreground — mountain + climber + sun, transparent bg -->
+  <defs>
+    <radialGradient id="fg_sun_glow" cx="50%" cy="25%" r="30%">
+      <stop offset="0%" stop-color="#d4a843" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fg_mountain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5e8a3c"/>
+      <stop offset="100%" stop-color="#7da344"/>
+    </linearGradient>
+  </defs>
+  <!-- Sun glow -->
+  <circle cx="216" cy="100" r="140" fill="url(#fg_sun_glow)"/>
+  <!-- Sun -->
+  <circle cx="216" cy="85" r="40" fill="#d4a843" opacity="0.9"/>
+  <circle cx="216" cy="85" r="28" fill="#f5e6b8" opacity="0.5"/>
+  <!-- "7" -->
+  <text x="216" y="100" text-anchor="middle" font-size="34" font-weight="bold" fill="white" font-family="sans-serif" opacity="0.9">7</text>
+  <!-- Far mountain -->
+  <polygon points="0,350 100,200 200,170 300,220 432,350" fill="#a8c97a" opacity="0.5"/>
+  <!-- Main mountain -->
+  <polygon points="70,380 170,190 216,130 280,200 380,380" fill="url(#fg_mountain)"/>
+  <!-- Snow cap -->
+  <polygon points="205,145 216,120 227,145" fill="white" opacity="0.6"/>
+  <!-- Path -->
+  <path d="M180,360 Q200,310 210,270 Q220,230 218,170" stroke="#f5e6b8" stroke-width="2.5" fill="none" stroke-dasharray="7,5" opacity="0.5"/>
+  <!-- Climbing figure -->
+  <g transform="translate(228, 175)">
+    <circle cx="0" cy="-10" r="6" fill="#f0d4b8"/>
+    <line x1="0" y1="-4" x2="0" y2="10" stroke="#f0d4b8" stroke-width="2.5"/>
+    <line x1="0" y1="10" x2="-5" y2="18" stroke="#f0d4b8" stroke-width="2"/>
+    <line x1="0" y1="10" x2="5" y2="18" stroke="#f0d4b8" stroke-width="2"/>
+    <line x1="0" y1="0" x2="-7" y2="-8" stroke="#f0d4b8" stroke-width="2"/>
+    <line x1="0" y1="0" x2="7" y2="-8" stroke="#f0d4b8" stroke-width="2"/>
+    <line x1="0" y1="-3" x2="0" y2="8" stroke="#d4a843" stroke-width="4" opacity="0.5"/>
+  </g>
+  <!-- Trees -->
+  <rect x="65" y="340" width="6" height="30" fill="#8b7355"/>
+  <polygon points="50,345 68,300 86,345" fill="#5e8a3c"/>
+  <rect x="355" y="335" width="6" height="35" fill="#8b7355"/>
+  <polygon points="340,340 358,290 376,340" fill="#5e8a3c"/>
+  <!-- Flowers -->
+  <circle cx="110" cy="370" r="4" fill="#c9886e"/>
+  <circle cx="320" cy="375" r="4" fill="#f2e0d6"/>
+</svg>

@@ -1,0 +1,13 @@
+# Godot
+.godot/
+*.import
+
+# Exports
+export/
+
+# Archive (old APKs)
+archive/
+
+# OS
+.DS_Store
+Thumbs.db

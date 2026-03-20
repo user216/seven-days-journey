@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 60">
+  <!-- Shadow -->
+  <ellipse cx="45" cy="55" rx="38" ry="7" fill="#4a7030" opacity="0.25"/>
+  <!-- Main body -->
+  <circle cx="30" cy="35" r="18" fill="#7da344"/>
+  <circle cx="50" cy="32" r="20" fill="#6a9545"/>
+  <circle cx="40" cy="28" r="16" fill="#7da344"/>
+  <circle cx="55" cy="38" r="15" fill="#5e8a3c"/>
+  <circle cx="25" cy="40" r="14" fill="#6a9545"/>
+  <!-- Flowers -->
+  <g transform="translate(28,22)">
+    <circle cx="0" cy="0" r="3.5" fill="#c9886e" opacity="0.9"/>
+    <circle cx="-3" cy="-2" r="2.5" fill="#d4a0a0"/>
+    <circle cx="3" cy="-2" r="2.5" fill="#d4a0a0"/>
+    <circle cx="0" cy="0" r="1.5" fill="#d4a843"/>
+  </g>
+  <g transform="translate(52,26)">
+    <circle cx="0" cy="0" r="3" fill="#c9886e" opacity="0.9"/>
+    <circle cx="-2.5" cy="-1.5" r="2" fill="#e8a0c0"/>
+    <circle cx="2.5" cy="-1.5" r="2" fill="#e8a0c0"/>
+    <circle cx="0" cy="0" r="1.2" fill="#d4a843"/>
+  </g>
+  <g transform="translate(40,20)">
+    <circle cx="0" cy="-1" r="2.8" fill="#c0b0e0" opacity="0.8"/>
+    <circle cx="-2" cy="-2" r="2" fill="#c0b0e0"/>
+    <circle cx="2" cy="-2" r="2" fill="#c0b0e0"/>
+    <circle cx="0" cy="0" r="1.3" fill="#d4a843"/>
+  </g>
+  <!-- Highlights -->
+  <circle cx="36" cy="24" r="7" fill="#a8c97a" opacity="0.5"/>
+</svg>
