@@ -22,11 +22,11 @@ func _ready() -> void:
 
 func _on_continue() -> void:
 	if SaveManager.load_game():
-		get_tree().change_scene_to_file("res://scenes/vertical_climb/vertical_level.tscn")
+		SceneTransition.change_scene("res://scenes/vertical_climb/vertical_level.tscn")
 
 
 func _on_new_game() -> void:
-	get_tree().change_scene_to_file("res://scenes/gender_select/gender_select.tscn")
+	SceneTransition.change_scene("res://scenes/gender_select/gender_select.tscn")
 
 
 func _on_title_input(event: InputEvent) -> void:

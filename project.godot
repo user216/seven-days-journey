@@ -17,6 +17,7 @@ GameData="*res://autoload/game_data.gd"
 GameState="*res://autoload/game_state.gd"
 TimeSystem="*res://autoload/time_system.gd"
 SaveManager="*res://autoload/save_manager.gd"
+SceneTransition="*res://autoload/scene_transition.gd"
 
 [display]
 

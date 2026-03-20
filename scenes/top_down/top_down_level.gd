@@ -102,8 +102,8 @@ func _build_level() -> void:
 	var sum_inst := preload("res://scenes/shared/day_summary/day_summary.tscn").instantiate()
 	add_child(sum_inst)
 	_day_summary = sum_inst.get_node("SummaryScript")
-	_day_summary.next_day_pressed.connect(func(): GameState.advance_day(); get_tree().reload_current_scene())
-	_day_summary.game_finished.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn"))
+	_day_summary.next_day_pressed.connect(func(): GameState.advance_day(); SceneTransition.reload_scene())
+	_day_summary.game_finished.connect(func(): SceneTransition.change_scene("res://scenes/main_menu/main_menu.tscn"))
 
 	add_child(preload("res://scenes/shared/level_up/level_up.tscn").instantiate())
 	add_child(preload("res://scenes/shared/achievement_toast/achievement_toast.tscn").instantiate())

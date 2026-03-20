@@ -16,4 +16,4 @@ func _select(chosen_gender: String) -> void:
 	GameState.gender = chosen_gender
 	GameState.start_game()
 	SaveManager.save_game()
-	get_tree().change_scene_to_file("res://scenes/vertical_climb/vertical_level.tscn")
+	SceneTransition.change_scene("res://scenes/vertical_climb/vertical_level.tscn")

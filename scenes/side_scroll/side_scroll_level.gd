@@ -81,7 +81,7 @@ func _build_day() -> void:
 	var pause_inst := pause_scene.instantiate()
 	add_child(pause_inst)
 	_pause_menu = pause_inst.get_node("PauseScript")
-	_pause_menu.main_menu_pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn"))
+	_pause_menu.main_menu_pressed.connect(func(): SceneTransition.change_scene("res://scenes/main_menu/main_menu.tscn"))
 
 
 func _draw() -> void:
@@ -129,12 +129,12 @@ func _on_day_ended() -> void:
 func _on_next_day() -> void:
 	GameState.advance_day()
 	SaveManager.save_game()
-	get_tree().reload_current_scene()
+	SceneTransition.reload_scene()
 
 
 func _on_game_finished() -> void:
 	SaveManager.save_game()
-	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
+	SceneTransition.change_scene("res://scenes/main_menu/main_menu.tscn")
 
 
 func _unhandled_input(event: InputEvent) -> void:

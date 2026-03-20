@@ -3,6 +3,20 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.0] — 2026-03-20
+
+### Added
+- Smooth sky gradient shader — replaces 20 flat color bands with GPU-rendered gradient + twinkling stars at night
+- Falling leaf particles — gentle ambient drift with fade-in/out and color aging (green to brown)
+- Night fireflies — warm yellow-green glowing particles, visible only after dark
+- Parallax background — 3 depth layers (far: clouds, mid: trees, near: bushes/flowers) with independent scroll rates
+- Textured platforms — SVG sprite with moss patches, highlights, and shadows replaces flat rectangles
+- Wavy vine bridges with leaf dots between completed platforms
+- Fade-to-black scene transitions on all screen changes
+- `SceneTransition` autoload — `change_scene()` and `reload_scene()` with configurable duration
+- Separate `build.sh` and `install.sh` scripts
+- Game moved to standalone git repo (submodule `seven_days_game/`)
+
 ## [0.3.0] — 2026-03-20
 
 ### Added
