@@ -1,16 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 25">
-  <!-- Platform body -->
-  <rect x="0" y="3" width="250" height="19" rx="4" fill="#8b7355"/>
-  <!-- Top surface -->
-  <rect x="0" y="0" width="250" height="8" rx="4" fill="#a08060"/>
-  <!-- Highlights -->
-  <rect x="5" y="2" width="240" height="3" rx="2" fill="#b89070" opacity="0.5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 40">
+  <!-- Drop shadow -->
+  <rect x="8" y="28" width="234" height="10" rx="5" fill="black" opacity="0.1"/>
+  <!-- Platform body — stone/earth -->
+  <rect x="0" y="5" width="250" height="28" rx="8" fill="#8b7355"/>
+  <!-- Inner stone texture -->
+  <rect x="3" y="8" width="244" height="22" rx="6" fill="#9b8365"/>
+  <!-- Top surface highlight -->
+  <rect x="0" y="2" width="250" height="14" rx="8" fill="#a89070"/>
+  <!-- Top edge bright strip -->
+  <rect x="6" y="3" width="238" height="5" rx="3" fill="#c4a880" opacity="0.7"/>
+  <!-- Stone cracks -->
+  <line x1="60" y1="10" x2="65" y2="26" stroke="#7a6345" stroke-width="1" opacity="0.4"/>
+  <line x1="140" y1="8" x2="138" y2="24" stroke="#7a6345" stroke-width="1" opacity="0.3"/>
+  <line x1="195" y1="12" x2="200" y2="28" stroke="#7a6345" stroke-width="1" opacity="0.35"/>
   <!-- Moss patches -->
-  <g fill="#4a8a3a" opacity="0.3">
-    <ellipse cx="30" cy="5" rx="12" ry="3"/>
-    <ellipse cx="120" cy="4" rx="15" ry="3"/>
-    <ellipse cx="210" cy="5" rx="10" ry="3"/>
+  <g fill="#5e8a3c" opacity="0.5">
+    <ellipse cx="25" cy="6" rx="15" ry="4"/>
+    <ellipse cx="80" cy="5" rx="12" ry="3.5"/>
+    <ellipse cx="130" cy="4" rx="18" ry="4"/>
+    <ellipse cx="200" cy="6" rx="14" ry="3.5"/>
   </g>
-  <!-- Bottom shadow -->
-  <rect x="5" y="22" width="240" height="3" rx="2" fill="#000" opacity="0.08"/>
+  <!-- Moss highlights -->
+  <g fill="#7da344" opacity="0.35">
+    <ellipse cx="28" cy="5" rx="6" ry="2"/>
+    <ellipse cx="125" cy="4" rx="8" ry="2.5"/>
+    <ellipse cx="205" cy="5" rx="5" ry="2"/>
+  </g>
+  <!-- Tiny flowers on moss -->
+  <circle cx="35" cy="4" r="2" fill="#c9886e" opacity="0.6"/>
+  <circle cx="135" cy="3" r="1.8" fill="#d4a843" opacity="0.5"/>
+  <circle cx="210" cy="4" r="2" fill="#c9886e" opacity="0.5"/>
+  <!-- Embedded pebbles -->
+  <ellipse cx="55" cy="22" rx="6" ry="4" fill="#7a6345" opacity="0.3"/>
+  <ellipse cx="160" cy="24" rx="5" ry="3" fill="#7a6345" opacity="0.25"/>
+  <!-- Bottom edge shadow -->
+  <rect x="6" y="30" width="238" height="3" rx="2" fill="#000" opacity="0.08"/>
 </svg>

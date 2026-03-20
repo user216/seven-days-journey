@@ -3,6 +3,31 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.5.0] — 2026-03-20
+
+### Added
+- Vignette shader overlay — darkened screen edges for cinematic depth
+- Platform glow shader — soft radial emission on active platforms
+- Ambient glow shader — reusable soft radial light effect
+- Completion sparkle burst — gold particle explosion when finishing activity
+- Screen shake on activity completion (decaying camera offset)
+- Hero squash & stretch — landing bounce, jump stretch, idle bob
+- Pause menu accessible from HUD pause button (was missing in vertical mode)
+- Wavy vine bridges with alternating leaf pairs
+- Wider platforms (280px), taller platform texture (40px)
+- More parallax nature: 18 trees, 22 bushes, 14 flowers, 10 clouds
+
+### Changed
+- Climb hero SVGs completely redrawn — 4x more detail (face, clothing, accessories match side hero quality)
+- Platform SVG upgraded — stone cracks, moss highlights, embedded pebbles, tiny flowers, rounded edges, drop shadow
+- Hero 50% larger (scale 1.8 vs 1.2) with higher-res viewBox (80×150 vs 64×120)
+- More/denser particles: 30 leaves, 25 fireflies (was 20/15)
+- Move speed increased (600 vs 500)
+
+### Fixed
+- Movement blocked by sky ColorRect absorbing touch events (added mouse_filter=IGNORE)
+- Settings menu inaccessible — pause menu now added to vertical level with HUD button connection
+
 ## [0.4.0] — 2026-03-20
 
 ### Added
