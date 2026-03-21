@@ -1,0 +1,101 @@
+{
+  "scene_id": "sacred_garden",
+  "day": 7,
+  "title": "Священный сад",
+  "background": "res://assets/hopa/backgrounds/sacred_garden.svg",
+  "ambient_audio": "res://assets/hopa/audio/sacred_garden_ambient.ogg",
+  "time_limit_seconds": 240,
+  "hint_cooldown_seconds": 25,
+  "objects": [
+    {
+      "id": "golden_key_2",
+      "name": "Золотой ключ",
+      "texture": "res://assets/hopa/objects/golden_key.svg",
+      "position": [250, 700],
+      "scale": 0.6,
+      "rotation_deg": -15,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "singing_bowl_2",
+      "name": "Поющая чаша",
+      "texture": "res://assets/hopa/objects/singing_bowl.svg",
+      "position": [800, 500],
+      "scale": 0.7,
+      "rotation_deg": 0,
+      "hint_radius": 65,
+      "is_key_item": false
+    },
+    {
+      "id": "lotus_flower_2",
+      "name": "Лотос",
+      "texture": "res://assets/hopa/objects/lotus_flower.svg",
+      "position": [500, 1400],
+      "scale": 0.7,
+      "rotation_deg": 10,
+      "hint_radius": 65,
+      "is_key_item": false
+    },
+    {
+      "id": "stone_rune_2",
+      "name": "Камень с руной",
+      "texture": "res://assets/hopa/objects/stone_rune.svg",
+      "position": [150, 1100],
+      "scale": 0.6,
+      "rotation_deg": 20,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "origami_crane_2",
+      "name": "Журавлик",
+      "texture": "res://assets/hopa/objects/origami_crane.svg",
+      "position": [700, 900],
+      "scale": 0.65,
+      "rotation_deg": -10,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "prism_2",
+      "name": "Призма",
+      "texture": "res://assets/hopa/objects/prism.svg",
+      "position": [900, 1300],
+      "scale": 0.6,
+      "rotation_deg": 25,
+      "hint_radius": 50,
+      "is_key_item": false
+    },
+    {
+      "id": "fountain_gem",
+      "name": "Камень фонтана",
+      "texture": "res://assets/hopa/objects/fountain_gem.svg",
+      "position": [400, 350],
+      "scale": 0.7,
+      "rotation_deg": 0,
+      "hint_radius": 65,
+      "is_key_item": true
+    },
+    {
+      "id": "sacred_scroll",
+      "name": "Священный свиток",
+      "texture": "res://assets/hopa/objects/sacred_scroll.svg",
+      "position": [600, 1700],
+      "scale": 0.7,
+      "rotation_deg": 5,
+      "hint_radius": 70,
+      "is_key_item": true
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "jigsaw",
+      "trigger": "after_all_found",
+      "data": {"pieces": 16}
+    }
+  ],
+  "next_scene": "",
+  "story_before": "Золотой свет заливает фонтан и цветущий пруд. Найди знакомые предметы.",
+  "story_after": "Сад Тайн раскрыл все свои секреты. Ты прошла путь гармонии!"
+}

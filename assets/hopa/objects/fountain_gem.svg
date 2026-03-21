@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="fg-glow" cx="0.5" cy="0.45" r="0.55">
+      <stop offset="0%" stop-color="#88ccff" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#4488dd" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4488dd" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fg-gem-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a0d8ff"/>
+      <stop offset="30%" stop-color="#5098e0"/>
+      <stop offset="70%" stop-color="#2860b0"/>
+      <stop offset="100%" stop-color="#183878"/>
+    </linearGradient>
+    <linearGradient id="fg-gem-r" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#78b8f0"/>
+      <stop offset="50%" stop-color="#3878c8"/>
+      <stop offset="100%" stop-color="#1c3870"/>
+    </linearGradient>
+    <linearGradient id="fg-gem-top" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0%" stop-color="#4888d0"/>
+      <stop offset="50%" stop-color="#90c8f8"/>
+      <stop offset="100%" stop-color="#c8e8ff"/>
+    </linearGradient>
+    <linearGradient id="fg-frame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fae080"/>
+      <stop offset="50%" stop-color="#d8a838"/>
+      <stop offset="100%" stop-color="#a07020"/>
+    </linearGradient>
+    <radialGradient id="fg-inner" cx="0.4" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#d0eaff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#2060a0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer glow -->
+  <ellipse cx="60" cy="58" rx="55" ry="50" fill="url(#fg-glow)"/>
+  <!-- Golden frame/mount - bottom cradle -->
+  <path d="M28 78 Q24 72 26 65 L34 55 Q36 52 40 52 L80 52 Q84 52 86 55 L94 65 Q96 72 92 78 Z" fill="url(#fg-frame)" stroke="#a07020" stroke-width="1"/>
+  <!-- Frame filigree -->
+  <path d="M36 72 Q48 68 60 72 Q72 68 84 72" fill="none" stroke="#fae080" stroke-width="1" opacity="0.5"/>
+  <circle cx="42" cy="72" r="2.5" fill="#fae080" opacity="0.4"/>
+  <circle cx="60" cy="74" r="2.5" fill="#fae080" opacity="0.4"/>
+  <circle cx="78" cy="72" r="2.5" fill="#fae080" opacity="0.4"/>
+  <!-- Frame prongs holding gem -->
+  <path d="M36 52 L40 42 L44 48" fill="url(#fg-frame)" stroke="#a07020" stroke-width="0.8"/>
+  <path d="M84 52 L80 42 L76 48" fill="url(#fg-frame)" stroke="#a07020" stroke-width="0.8"/>
+  <path d="M56 52 L60 40 L64 52" fill="url(#fg-frame)" stroke="#a07020" stroke-width="0.8"/>
+  <!-- Gem - multifaceted brilliant cut -->
+  <!-- Top table facet -->
+  <polygon points="60,20 44,35 50,48 70,48 76,35" fill="url(#fg-gem-top)" stroke="#3870b0" stroke-width="0.5"/>
+  <!-- Upper left facets -->
+  <polygon points="60,20 44,35 34,50" fill="url(#fg-gem-l)" stroke="#2860a0" stroke-width="0.4" opacity="0.9"/>
+  <polygon points="44,35 34,50 50,48" fill="#4080c8" stroke="#2860a0" stroke-width="0.4" opacity="0.8"/>
+  <!-- Upper right facets -->
+  <polygon points="60,20 76,35 86,50" fill="url(#fg-gem-r)" stroke="#2860a0" stroke-width="0.4" opacity="0.9"/>
+  <polygon points="76,35 86,50 70,48" fill="#3070b8" stroke="#2860a0" stroke-width="0.4" opacity="0.8"/>
+  <!-- Lower pavilion facets -->
+  <polygon points="34,50 50,48 60,78" fill="#2858a0" stroke="#1c3870" stroke-width="0.4"/>
+  <polygon points="50,48 70,48 60,78" fill="#3068b8" stroke="#1c3870" stroke-width="0.4"/>
+  <polygon points="70,48 86,50 60,78" fill="#205090" stroke="#1c3870" stroke-width="0.4"/>
+  <!-- Inner light/fire -->
+  <ellipse cx="58" cy="40" rx="10" ry="8" fill="url(#fg-inner)"/>
+  <!-- Facet highlight lines -->
+  <line x1="60" y1="20" x2="50" y2="48" stroke="white" stroke-width="0.5" opacity="0.15"/>
+  <line x1="60" y1="20" x2="70" y2="48" stroke="white" stroke-width="0.5" opacity="0.15"/>
+  <line x1="60" y1="48" x2="60" y2="78" stroke="#90c0f0" stroke-width="0.5" opacity="0.2"/>
+  <!-- Specular highlights -->
+  <polygon points="50,24 56,22 52,32 46,30" fill="white" opacity="0.35"/>
+  <polygon points="64,26 70,28 68,34 62,32" fill="white" opacity="0.2"/>
+  <!-- Sparkle on top -->
+  <path d="M60 12 L62 16 L60 20 L58 16 Z" fill="white" opacity="0.6"/>
+  <path d="M56 14 L60 16 L64 14 L60 12 Z" fill="white" opacity="0.4"/>
+  <!-- Light rays from gem -->
+  <line x1="38" y1="24" x2="44" y2="30" stroke="#88ccff" stroke-width="1" opacity="0.25"/>
+  <line x1="82" y1="24" x2="76" y2="30" stroke="#88ccff" stroke-width="1" opacity="0.25"/>
+  <line x1="26" y1="42" x2="34" y2="46" stroke="#88ccff" stroke-width="0.8" opacity="0.2"/>
+  <line x1="94" y1="42" x2="86" y2="46" stroke="#88ccff" stroke-width="0.8" opacity="0.2"/>
+  <!-- Frame base decorative feet -->
+  <ellipse cx="34" cy="80" rx="6" ry="3" fill="#c89828" opacity="0.5"/>
+  <ellipse cx="86" cy="80" rx="6" ry="3" fill="#c89828" opacity="0.5"/>
+  <ellipse cx="60" cy="82" rx="8" ry="3" fill="#c89828" opacity="0.4"/>
+</svg>

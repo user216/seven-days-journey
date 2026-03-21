@@ -1,0 +1,81 @@
+{
+  "scene_id": "stargazing_tower",
+  "day": 6,
+  "title": "Башня звездочёта",
+  "background": "res://assets/hopa/backgrounds/stargazing_tower.svg",
+  "ambient_audio": "res://assets/hopa/audio/stargazing_tower_ambient.ogg",
+  "time_limit_seconds": 180,
+  "hint_cooldown_seconds": 30,
+  "objects": [
+    {
+      "id": "telescope_lens",
+      "name": "Линза",
+      "texture": "res://assets/hopa/objects/telescope_lens.svg",
+      "position": [400, 600],
+      "scale": 0.65,
+      "rotation_deg": 0,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "star_map",
+      "name": "Карта звёзд",
+      "texture": "res://assets/hopa/objects/star_map.svg",
+      "position": [200, 1100],
+      "scale": 0.75,
+      "rotation_deg": -10,
+      "hint_radius": 70,
+      "is_key_item": false
+    },
+    {
+      "id": "prism",
+      "name": "Призма",
+      "texture": "res://assets/hopa/objects/prism.svg",
+      "position": [850, 800],
+      "scale": 0.6,
+      "rotation_deg": 30,
+      "hint_radius": 50,
+      "is_key_item": true
+    },
+    {
+      "id": "compass",
+      "name": "Компас",
+      "texture": "res://assets/hopa/objects/compass.svg",
+      "position": [650, 1400],
+      "scale": 0.65,
+      "rotation_deg": 15,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "moonstone",
+      "name": "Лунный камень",
+      "texture": "res://assets/hopa/objects/moonstone.svg",
+      "position": [300, 400],
+      "scale": 0.55,
+      "rotation_deg": -20,
+      "hint_radius": 50,
+      "is_key_item": false
+    },
+    {
+      "id": "quill",
+      "name": "Перо для письма",
+      "texture": "res://assets/hopa/objects/quill.svg",
+      "position": [750, 1200],
+      "scale": 0.6,
+      "rotation_deg": 35,
+      "hint_radius": 55,
+      "is_key_item": true
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "connect_runes",
+      "trigger": "after_all_found",
+      "data": {"pairs": 5}
+    }
+  ],
+  "next_scene": "sacred_garden",
+  "story_before": "Сумерки окутали башню. Небо полно звёзд. Найди инструменты звездочёта.",
+  "story_after": "Звёзды рассказали свою историю. Впереди — Священный сад..."
+}

@@ -8,6 +8,7 @@ var _hero: Node2D = null
 var _activity_popup = null
 var _day_summary = null
 var _pause_menu = null
+var _stats_page = null
 var _day_cards: Array[Dictionary] = []
 var _current_platform: int = 0
 var _anim_time: float = 0.0
@@ -50,6 +51,7 @@ var _sky_material: ShaderMaterial = null
 
 # Vignette overlay
 var _vignette: ColorRect = null
+var _vignette_material: ShaderMaterial = null
 
 # Parallax layers
 var _parallax_bg: ParallaxBackground = null
@@ -97,7 +99,6 @@ func _setup_sky() -> void:
 
 
 func _setup_vignette() -> void:
-	# Vignette is a CanvasLayer overlay so it stays fixed on screen
 	var vignette_layer := CanvasLayer.new()
 	vignette_layer.layer = 5
 	add_child(vignette_layer)
@@ -105,11 +106,12 @@ func _setup_vignette() -> void:
 	_vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_vignette.set_anchors_preset(Control.PRESET_FULL_RECT)
 	var vig_shader := load("res://shaders/vignette.gdshader") as Shader
-	var vig_mat := ShaderMaterial.new()
-	vig_mat.shader = vig_shader
-	vig_mat.set_shader_parameter("intensity", 0.35)
-	vig_mat.set_shader_parameter("softness", 0.8)
-	_vignette.material = vig_mat
+	_vignette_material = ShaderMaterial.new()
+	_vignette_material.shader = vig_shader
+	_vignette_material.set_shader_parameter("intensity", 0.35)
+	_vignette_material.set_shader_parameter("softness", 0.8)
+	_vignette_material.set_shader_parameter("time_factor", TimeSystem.get_time_of_day_factor())
+	_vignette.material = _vignette_material
 	vignette_layer.add_child(_vignette)
 
 
@@ -124,6 +126,9 @@ func _update_sky_colors() -> void:
 	elif tf > 0.85:
 		star_vis = (tf - 0.85) / 0.15
 	_sky_material.set_shader_parameter("star_density", star_vis)
+	# Sync vignette to time of day
+	if _vignette_material:
+		_vignette_material.set_shader_parameter("time_factor", tf)
 
 
 func _setup_parallax() -> void:
@@ -360,6 +365,7 @@ func _build_level() -> void:
 	add_child(hud_inst)
 	var hud_script = hud_inst.get_node("HUDScript")
 	hud_script.pause_pressed.connect(_on_pause_pressed)
+	hud_script.stats_pressed.connect(_on_stats_pressed)
 
 	var popup_inst := preload("res://scenes/shared/activity_popup/activity_popup.tscn").instantiate()
 	add_child(popup_inst)
@@ -381,6 +387,11 @@ func _build_level() -> void:
 	_pause_menu = pause_inst.get_node("PauseScript")
 	_pause_menu.main_menu_pressed.connect(func(): SceneTransition.change_scene("res://scenes/main_menu/main_menu.tscn"))
 
+	# Stats page
+	var stats_inst := preload("res://scenes/shared/stats_page/stats_page.tscn").instantiate()
+	add_child(stats_inst)
+	_stats_page = stats_inst.get_node("StatsScript")
+
 	# Side vines (decorative)
 	var total_h: float = _day_cards.size() * PLATFORM_HEIGHT
 	for i in range(int(total_h / 180)):
@@ -396,6 +407,11 @@ func _build_level() -> void:
 func _on_pause_pressed() -> void:
 	if _pause_menu:
 		_pause_menu.show_menu()
+
+
+func _on_stats_pressed() -> void:
+	if _stats_page:
+		_stats_page.show_page()
 
 
 func _process(delta: float) -> void:
@@ -479,19 +495,25 @@ func _draw() -> void:
 				platform_modulate = Color(0.55, 0.9, 0.45, 1.0)
 				glow_color = ThemeManager.DEEP_LEAF
 
-		# Glow aura behind platform
+		# Glow aura behind platform — soft elliptical layers
 		if draw_glow:
 			var glow_pulse: float = 0.12 + sin(_anim_time * 2.0) * 0.08
-			# Outer soft glow
-			draw_rect(
-				Rect2(pos.x - 25, pos.y - 55, PLATFORM_WIDTH + 50, 100),
-				Color(glow_color.r, glow_color.g, glow_color.b, glow_pulse * 0.5)
-			)
-			# Inner bright glow
-			draw_rect(
-				Rect2(pos.x - 10, pos.y - 35, PLATFORM_WIDTH + 20, 65),
-				Color(glow_color.r, glow_color.g, glow_color.b, glow_pulse)
-			)
+			var center := pos + Vector2(PLATFORM_WIDTH * 0.5, PLATFORM_TEX_HEIGHT * 0.5)
+			# Draw concentric ellipses (outer to inner) for soft gradient
+			var layers := 6
+			for l in range(layers):
+				var t := float(l) / float(layers)
+				var rx := (PLATFORM_WIDTH * 0.5 + 40.0) * (1.0 - t * 0.5)
+				var ry := 55.0 * (1.0 - t * 0.4)
+				var alpha := glow_pulse * (0.15 + t * 0.6)
+				var c := Color(glow_color.r, glow_color.g, glow_color.b, alpha)
+				# Approximate ellipse with polygon
+				var pts := PackedVector2Array()
+				var segs := 24
+				for s in range(segs + 1):
+					var angle := float(s) / float(segs) * TAU
+					pts.append(center + Vector2(cos(angle) * rx, sin(angle) * ry))
+				draw_colored_polygon(pts, c)
 
 		# Platform SVG texture
 		draw_texture_rect(
@@ -508,28 +530,28 @@ func _draw() -> void:
 			title_text = title_text.substr(0, 14) + "…"
 
 		if p.state == "locked":
-			draw_string(font, pos + Vector2(12, -12), "🔒",
+			draw_string(font, pos + Vector2(12, PLATFORM_TEX_HEIGHT + 22), "🔒",
 				HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(22))
-			draw_string(font, pos + Vector2(52, -12), title_text,
+			draw_string(font, pos + Vector2(52, PLATFORM_TEX_HEIGHT + 22), title_text,
 				HORIZONTAL_ALIGNMENT_LEFT, 200, ThemeManager.font_size(15), Color(0.5, 0.5, 0.5, 0.55))
 			var time_str: String = card.get("time", "")
-			draw_string(font, pos + Vector2(PLATFORM_WIDTH - 65, -12), time_str,
+			draw_string(font, pos + Vector2(PLATFORM_WIDTH - 65, PLATFORM_TEX_HEIGHT + 22), time_str,
 				HORIZONTAL_ALIGNMENT_RIGHT, 65, ThemeManager.font_size(13), Color(0.5, 0.5, 0.5, 0.7))
 		else:
-			draw_string(font, pos + Vector2(12, -12), emoji_text,
+			draw_string(font, pos + Vector2(12, PLATFORM_TEX_HEIGHT + 22), emoji_text,
 				HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(26))
 			var title_color: Color = ThemeManager.TEXT_BROWN
 			if p.state == "completed":
 				title_color = Color(1, 1, 1, 0.9)
 			elif p.state == "available_late":
 				title_color = ThemeManager.TEXT_BROWN.darkened(0.15)
-			draw_string(font, pos + Vector2(52, -12), title_text,
+			draw_string(font, pos + Vector2(52, PLATFORM_TEX_HEIGHT + 22), title_text,
 				HORIZONTAL_ALIGNMENT_LEFT, 220, ThemeManager.font_size(15), title_color)
 			if p.state == "completed":
-				draw_string(font, pos + Vector2(PLATFORM_WIDTH - 35, -12), "✅",
+				draw_string(font, pos + Vector2(PLATFORM_WIDTH - 35, PLATFORM_TEX_HEIGHT + 22), "✅",
 					HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(18))
 			elif p.state == "available_late":
-				draw_string(font, pos + Vector2(PLATFORM_WIDTH - 35, -12), "⏰",
+				draw_string(font, pos + Vector2(PLATFORM_WIDTH - 35, PLATFORM_TEX_HEIGHT + 22), "⏰",
 					HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(16))
 
 		# Bridge to next platform — wavy vine with leaves

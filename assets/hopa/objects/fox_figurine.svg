@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Body wood gradient: warm orange-brown -->
+    <radialGradient id="bodyGrad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#D4944A"/>
+      <stop offset="40%" stop-color="#C07830"/>
+      <stop offset="80%" stop-color="#A06020"/>
+      <stop offset="100%" stop-color="#7A4818"/>
+    </radialGradient>
+    <!-- Head gradient (slightly lighter) -->
+    <radialGradient id="headGrad" cx="45%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#E0A050"/>
+      <stop offset="40%" stop-color="#CC8838"/>
+      <stop offset="100%" stop-color="#A86828"/>
+    </radialGradient>
+    <!-- Belly lighter patch -->
+    <radialGradient id="bellyGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0C878"/>
+      <stop offset="60%" stop-color="#DCA850"/>
+      <stop offset="100%" stop-color="#C08838" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Tail gradient: darker tip -->
+    <linearGradient id="tailGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C07830"/>
+      <stop offset="70%" stop-color="#A06020"/>
+      <stop offset="100%" stop-color="#F0E0C8"/>
+    </linearGradient>
+    <!-- Ear inner -->
+    <radialGradient id="earInner" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8B060"/>
+      <stop offset="100%" stop-color="#C08030"/>
+    </radialGradient>
+    <!-- Wood grain texture -->
+    <linearGradient id="woodGrain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7A4818" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#7A4818" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#7A4818" stop-opacity="0.1"/>
+    </linearGradient>
+    <!-- Base/pedestal -->
+    <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B6D4A"/>
+      <stop offset="100%" stop-color="#5A4430"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="58" cy="112" rx="30" ry="5" fill="#3D3020" opacity="0.2"/>
+
+  <!-- Small wooden base/pedestal -->
+  <ellipse cx="58" cy="104" rx="22" ry="6" fill="url(#baseGrad)" stroke="#4A3620" stroke-width="0.5"/>
+  <ellipse cx="58" cy="102" rx="22" ry="6" fill="#7A5C3A" stroke="#4A3620" stroke-width="0.5"/>
+
+  <!-- Tail (behind body) — large fluffy curved tail -->
+  <path d="M72,80 Q95,68 100,48 Q102,36 92,32 Q82,30 78,40 Q74,52 72,68Z" fill="url(#tailGrad)" stroke="#8B6020" stroke-width="0.8"/>
+  <!-- Tail white tip -->
+  <path d="M92,32 Q86,30 82,36 Q88,34 92,32Z" fill="#F8F0E0" opacity="0.8"/>
+  <!-- Tail fur texture -->
+  <path d="M80,60 Q86,52 90,42" fill="none" stroke="#A06020" stroke-width="0.8" opacity="0.3"/>
+  <path d="M76,70 Q82,60 88,48" fill="none" stroke="#A06020" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Body (sitting pose — rounded shape) -->
+  <ellipse cx="55" cy="80" rx="22" ry="24" fill="url(#bodyGrad)" stroke="#7A4818" stroke-width="0.5"/>
+
+  <!-- Wood grain texture overlay on body -->
+  <ellipse cx="55" cy="80" rx="20" ry="22" fill="url(#woodGrain)"/>
+
+  <!-- Belly patch (lighter) -->
+  <ellipse cx="52" cy="84" rx="12" ry="14" fill="url(#bellyGrad)" opacity="0.6"/>
+
+  <!-- Front paws -->
+  <ellipse cx="42" cy="98" rx="7" ry="5" fill="#C07830" stroke="#8B5820" stroke-width="0.5" transform="rotate(-5,42,98)"/>
+  <ellipse cx="64" cy="98" rx="7" ry="5" fill="#C07830" stroke="#8B5820" stroke-width="0.5" transform="rotate(5,64,98)"/>
+  <!-- Paw details -->
+  <path d="M38,96 Q40,94 42,96" fill="none" stroke="#8B5820" stroke-width="0.5" opacity="0.4"/>
+  <path d="M60,96 Q62,94 64,96" fill="none" stroke="#8B5820" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Head -->
+  <ellipse cx="55" cy="48" rx="20" ry="18" fill="url(#headGrad)" stroke="#8B5820" stroke-width="0.5"/>
+
+  <!-- Ears -->
+  <!-- Left ear -->
+  <path d="M38,36 L32,16 L46,30Z" fill="#C07830" stroke="#8B5820" stroke-width="0.5"/>
+  <path d="M40,34 L35,20 L44,32Z" fill="url(#earInner)"/>
+  <!-- Right ear -->
+  <path d="M68,34 L74,14 L62,28Z" fill="#C07830" stroke="#8B5820" stroke-width="0.5"/>
+  <path d="M66,32 L72,18 L63,30Z" fill="url(#earInner)"/>
+
+  <!-- Face muzzle area (lighter) -->
+  <ellipse cx="55" cy="54" rx="12" ry="9" fill="#E0A858" opacity="0.5"/>
+
+  <!-- Eyes — stylized carved dots -->
+  <ellipse cx="46" cy="44" rx="3" ry="3.5" fill="#2D1A0A"/>
+  <ellipse cx="64" cy="44" rx="3" ry="3.5" fill="#2D1A0A"/>
+  <!-- Eye shine (carved highlight) -->
+  <circle cx="47.5" cy="43" r="1.2" fill="#E0A858" opacity="0.7"/>
+  <circle cx="65.5" cy="43" r="1.2" fill="#E0A858" opacity="0.7"/>
+
+  <!-- Nose -->
+  <ellipse cx="55" cy="52" rx="3.5" ry="2.5" fill="#2D1A0A"/>
+  <!-- Nose highlight -->
+  <ellipse cx="54" cy="51" rx="1.5" ry="1" fill="#5A3820" opacity="0.5"/>
+
+  <!-- Mouth carved lines -->
+  <path d="M55,54 Q50,58 48,56" fill="none" stroke="#6B4020" stroke-width="0.8" stroke-linecap="round"/>
+  <path d="M55,54 Q60,58 62,56" fill="none" stroke="#6B4020" stroke-width="0.8" stroke-linecap="round"/>
+
+  <!-- Whisker marks (carved) -->
+  <line x1="38" y1="50" x2="28" y2="48" stroke="#8B5820" stroke-width="0.6" opacity="0.4"/>
+  <line x1="38" y1="54" x2="28" y2="55" stroke="#8B5820" stroke-width="0.6" opacity="0.4"/>
+  <line x1="72" y1="50" x2="82" y2="48" stroke="#8B5820" stroke-width="0.6" opacity="0.4"/>
+  <line x1="72" y1="54" x2="82" y2="55" stroke="#8B5820" stroke-width="0.6" opacity="0.4"/>
+
+  <!-- Carved wood texture lines on body -->
+  <path d="M40,72 Q48,68 55,72" fill="none" stroke="#7A4818" stroke-width="0.5" opacity="0.2"/>
+  <path d="M44,78 Q52,75 60,78" fill="none" stroke="#7A4818" stroke-width="0.5" opacity="0.2"/>
+</svg>

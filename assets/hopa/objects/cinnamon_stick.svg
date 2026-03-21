@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="bark_outer" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a06830"/>
+      <stop offset="40%" stop-color="#c08040"/>
+      <stop offset="70%" stop-color="#8a5828"/>
+      <stop offset="100%" stop-color="#704820"/>
+    </linearGradient>
+    <linearGradient id="bark_mid" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b07838"/>
+      <stop offset="50%" stop-color="#d09050"/>
+      <stop offset="100%" stop-color="#906030"/>
+    </linearGradient>
+    <linearGradient id="bark_inner" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c08848"/>
+      <stop offset="50%" stop-color="#daa060"/>
+      <stop offset="100%" stop-color="#a07038"/>
+    </linearGradient>
+    <linearGradient id="twine_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8b890"/>
+      <stop offset="50%" stop-color="#a89870"/>
+      <stop offset="100%" stop-color="#908060"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="108" rx="38" ry="5" fill="#3a3228" opacity="0.15"/>
+  <!-- Bottom stick (slightly offset) -->
+  <g transform="translate(0,8)">
+    <rect x="12" y="52" width="96" height="14" rx="7" fill="url(#bark_outer)"/>
+    <!-- Rolled bark lines -->
+    <line x1="16" y1="55" x2="16" y2="63" stroke="#8a5828" stroke-width="0.7" opacity="0.5"/>
+    <line x1="24" y1="54" x2="24" y2="64" stroke="#704820" stroke-width="0.5" opacity="0.4"/>
+    <line x1="38" y1="53" x2="38" y2="65" stroke="#8a5828" stroke-width="0.6" opacity="0.4"/>
+    <line x1="55" y1="53" x2="55" y2="65" stroke="#704820" stroke-width="0.5" opacity="0.4"/>
+    <line x1="72" y1="53" x2="72" y2="65" stroke="#8a5828" stroke-width="0.6" opacity="0.4"/>
+    <line x1="88" y1="54" x2="88" y2="64" stroke="#704820" stroke-width="0.5" opacity="0.4"/>
+    <line x1="100" y1="55" x2="100" y2="63" stroke="#8a5828" stroke-width="0.6" opacity="0.4"/>
+    <!-- End spiral -->
+    <circle cx="12" cy="59" r="7" fill="#8a5828" stroke="#704820" stroke-width="1"/>
+    <circle cx="12" cy="59" r="4" fill="#a06830"/>
+    <circle cx="12" cy="59" r="2" fill="#c08040"/>
+    <circle cx="108" cy="59" r="7" fill="#8a5828" stroke="#704820" stroke-width="1"/>
+    <circle cx="108" cy="59" r="4" fill="#a06830"/>
+    <circle cx="108" cy="59" r="2" fill="#c08040"/>
+    <!-- Highlight -->
+    <rect x="20" y="53" width="80" height="2" rx="1" fill="white" opacity="0.12"/>
+  </g>
+  <!-- Middle stick -->
+  <g transform="translate(2,-2)">
+    <rect x="12" y="48" width="96" height="14" rx="7" fill="url(#bark_mid)"/>
+    <line x1="18" y1="51" x2="18" y2="59" stroke="#906030" stroke-width="0.6" opacity="0.4"/>
+    <line x1="32" y1="50" x2="32" y2="61" stroke="#8a5828" stroke-width="0.5" opacity="0.4"/>
+    <line x1="50" y1="49" x2="50" y2="61" stroke="#906030" stroke-width="0.6" opacity="0.4"/>
+    <line x1="68" y1="49" x2="68" y2="61" stroke="#8a5828" stroke-width="0.5" opacity="0.4"/>
+    <line x1="85" y1="50" x2="85" y2="60" stroke="#906030" stroke-width="0.6" opacity="0.4"/>
+    <line x1="98" y1="51" x2="98" y2="59" stroke="#8a5828" stroke-width="0.5" opacity="0.4"/>
+    <circle cx="14" cy="55" r="7" fill="#906030" stroke="#7a5028" stroke-width="1"/>
+    <circle cx="14" cy="55" r="4" fill="#b07838"/>
+    <circle cx="14" cy="55" r="2" fill="#d09050"/>
+    <circle cx="106" cy="55" r="7" fill="#906030" stroke="#7a5028" stroke-width="1"/>
+    <circle cx="106" cy="55" r="4" fill="#b07838"/>
+    <circle cx="106" cy="55" r="2" fill="#d09050"/>
+    <rect x="22" y="49" width="76" height="2" rx="1" fill="white" opacity="0.12"/>
+  </g>
+  <!-- Top stick -->
+  <g transform="translate(-1,-12)">
+    <rect x="12" y="48" width="96" height="14" rx="7" fill="url(#bark_inner)"/>
+    <line x1="20" y1="51" x2="20" y2="59" stroke="#a07038" stroke-width="0.6" opacity="0.4"/>
+    <line x1="36" y1="50" x2="36" y2="61" stroke="#906030" stroke-width="0.5" opacity="0.4"/>
+    <line x1="52" y1="49" x2="52" y2="61" stroke="#a07038" stroke-width="0.6" opacity="0.4"/>
+    <line x1="70" y1="49" x2="70" y2="61" stroke="#906030" stroke-width="0.5" opacity="0.4"/>
+    <line x1="86" y1="50" x2="86" y2="60" stroke="#a07038" stroke-width="0.6" opacity="0.4"/>
+    <circle cx="11" cy="55" r="7" fill="#a07038" stroke="#8a5828" stroke-width="1"/>
+    <circle cx="11" cy="55" r="4" fill="#c08848"/>
+    <circle cx="11" cy="55" r="2" fill="#daa060"/>
+    <circle cx="108" cy="55" r="7" fill="#a07038" stroke="#8a5828" stroke-width="1"/>
+    <circle cx="108" cy="55" r="4" fill="#c08848"/>
+    <circle cx="108" cy="55" r="2" fill="#daa060"/>
+    <rect x="18" y="49" width="82" height="2" rx="1" fill="white" opacity="0.15"/>
+  </g>
+  <!-- Twine wrapping (left) -->
+  <g opacity="0.9">
+    <line x1="35" y1="30" x2="35" y2="78" stroke="url(#twine_grad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="33" y1="32" x2="37" y2="76" stroke="#a89870" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Cross wrap -->
+    <line x1="30" y1="40" x2="40" y2="68" stroke="url(#twine_grad)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="40" y1="40" x2="30" y2="68" stroke="url(#twine_grad)" stroke-width="2" stroke-linecap="round"/>
+    <!-- Bow loops -->
+    <ellipse cx="28" cy="48" rx="6" ry="3" fill="none" stroke="#a89870" stroke-width="1.5" transform="rotate(-30,28,48)"/>
+    <ellipse cx="42" cy="48" rx="6" ry="3" fill="none" stroke="#a89870" stroke-width="1.5" transform="rotate(30,42,48)"/>
+    <!-- Dangling ends -->
+    <path d="M28,52 Q24,60 26,66" fill="none" stroke="#a89870" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M42,52 Q46,58 44,64" fill="none" stroke="#a89870" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Twine wrapping (right) -->
+  <g opacity="0.85">
+    <line x1="85" y1="32" x2="85" y2="76" stroke="url(#twine_grad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="83" y1="34" x2="87" y2="74" stroke="#a89870" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

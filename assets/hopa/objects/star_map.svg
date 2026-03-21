@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="smPaper" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e6c8"/>
+      <stop offset="40%" stop-color="#ecdbb0"/>
+      <stop offset="100%" stop-color="#d4c49a"/>
+    </linearGradient>
+    <linearGradient id="smRoll" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8d5a8"/>
+      <stop offset="30%" stop-color="#d4c090"/>
+      <stop offset="70%" stop-color="#c8b080"/>
+      <stop offset="100%" stop-color="#baa070"/>
+    </linearGradient>
+    <linearGradient id="smRollShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b89868"/>
+      <stop offset="50%" stop-color="#a08058"/>
+      <stop offset="100%" stop-color="#c0a878"/>
+    </linearGradient>
+    <linearGradient id="smEdge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c8a870" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c8a870" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="smStar" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f0e8c0"/>
+      <stop offset="100%" stop-color="#d4b870"/>
+    </radialGradient>
+  </defs>
+  <!-- Drop shadow -->
+  <ellipse cx="62" cy="105" rx="38" ry="5" fill="#8a7a60" opacity="0.2"/>
+  <!-- Unrolled flat portion -->
+  <path d="M 22 30 L 90 18 L 95 90 L 22 98 Z" fill="url(#smPaper)" stroke="#b8a078" stroke-width="0.8"/>
+  <!-- Aged paper texture lines -->
+  <line x1="26" y1="40" x2="88" y2="30" stroke="#d0b888" stroke-width="0.3" opacity="0.5"/>
+  <line x1="24" y1="55" x2="92" y2="44" stroke="#d0b888" stroke-width="0.3" opacity="0.4"/>
+  <line x1="24" y1="70" x2="93" y2="60" stroke="#d0b888" stroke-width="0.3" opacity="0.5"/>
+  <line x1="23" y1="85" x2="94" y2="75" stroke="#d0b888" stroke-width="0.3" opacity="0.4"/>
+  <!-- Constellation: Ursa Minor style -->
+  <circle cx="42" cy="42" r="2.5" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="55" cy="38" r="2" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="68" cy="35" r="1.8" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="74" cy="46" r="2.2" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="65" cy="55" r="1.5" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <line x1="42" y1="42" x2="55" y2="38" stroke="#a08850" stroke-width="0.7" opacity="0.7"/>
+  <line x1="55" y1="38" x2="68" y2="35" stroke="#a08850" stroke-width="0.7" opacity="0.7"/>
+  <line x1="68" y1="35" x2="74" y2="46" stroke="#a08850" stroke-width="0.7" opacity="0.7"/>
+  <line x1="74" y1="46" x2="65" y2="55" stroke="#a08850" stroke-width="0.7" opacity="0.7"/>
+  <!-- Constellation: triangle -->
+  <circle cx="36" cy="65" r="1.8" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="52" cy="72" r="2" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <circle cx="40" cy="80" r="1.5" fill="url(#smStar)" stroke="#a08040" stroke-width="0.4"/>
+  <line x1="36" y1="65" x2="52" y2="72" stroke="#a08850" stroke-width="0.6" opacity="0.6"/>
+  <line x1="52" y1="72" x2="40" y2="80" stroke="#a08850" stroke-width="0.6" opacity="0.6"/>
+  <line x1="40" y1="80" x2="36" y2="65" stroke="#a08850" stroke-width="0.6" opacity="0.6"/>
+  <!-- Scattered tiny stars -->
+  <circle cx="80" cy="62" r="1" fill="#d4b870" opacity="0.7"/>
+  <circle cx="30" cy="52" r="0.8" fill="#d4b870" opacity="0.6"/>
+  <circle cx="70" cy="75" r="1.2" fill="#d4b870" opacity="0.7"/>
+  <circle cx="85" cy="50" r="0.8" fill="#d4b870" opacity="0.5"/>
+  <circle cx="60" cy="85" r="1" fill="#d4b870" opacity="0.6"/>
+  <!-- Paper edge shadow left -->
+  <path d="M 22 30 L 26 30 L 26 98 L 22 98 Z" fill="url(#smEdge)"/>
+  <!-- Rolled top portion -->
+  <ellipse cx="56" cy="18" rx="38" ry="8" fill="url(#smRoll)" stroke="#a08858" stroke-width="0.8"/>
+  <!-- Roll cylinder shading -->
+  <ellipse cx="56" cy="18" rx="38" ry="8" fill="none" stroke="#8a7048" stroke-width="0.4" opacity="0.5"/>
+  <path d="M 18 18 A 38 8 0 0 0 94 18" fill="none" stroke="#f0e0c0" stroke-width="0.6" opacity="0.4"/>
+  <!-- Roll end caps -->
+  <ellipse cx="18" cy="18" rx="3" ry="8" fill="url(#smRollShadow)" stroke="#907850" stroke-width="0.5"/>
+  <ellipse cx="94" cy="18" rx="3" ry="8" fill="url(#smRollShadow)" stroke="#907850" stroke-width="0.5"/>
+  <!-- Roll highlight -->
+  <path d="M 25 13 Q 56 9 87 13" fill="none" stroke="#f8f0d8" stroke-width="0.8" opacity="0.5"/>
+  <!-- Curl connection -->
+  <path d="M 22 30 Q 18 24 18 18" fill="none" stroke="#b8a078" stroke-width="0.6"/>
+  <path d="M 90 18 Q 92 24 90 28" fill="none" stroke="#b8a078" stroke-width="0.6" opacity="0.5"/>
+</svg>

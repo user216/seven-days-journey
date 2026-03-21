@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hopa_scene_base"]
+
+[ext_resource type="Script" path="res://scenes/hopa/hopa_scene_base.gd" id="1_base"]
+
+[node name="HopaScene" type="Node2D"]
+script = ExtResource("1_base")

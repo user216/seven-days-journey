@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="lt2-center" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#fff8d0"/>
+      <stop offset="60%" stop-color="#f8d848"/>
+      <stop offset="100%" stop-color="#d0a020"/>
+    </radialGradient>
+    <linearGradient id="lt2-petal-o" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0%" stop-color="#d8a830"/>
+      <stop offset="50%" stop-color="#f0c840"/>
+      <stop offset="100%" stop-color="#fae880"/>
+    </linearGradient>
+    <linearGradient id="lt2-petal-i" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0%" stop-color="#c89020"/>
+      <stop offset="40%" stop-color="#e8c040"/>
+      <stop offset="100%" stop-color="#fff0a0"/>
+    </linearGradient>
+    <radialGradient id="lt2-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fae888" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#fae888" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Radiant glow behind flower -->
+  <circle cx="60" cy="58" r="50" fill="url(#lt2-glow)"/>
+  <!-- Outer petals (8) - golden -->
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(0,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(45,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(90,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(135,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(180,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(225,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(270,60,58)"/>
+  <ellipse cx="60" cy="30" rx="10" ry="22" fill="url(#lt2-petal-o)" opacity="0.85" transform="rotate(315,60,58)"/>
+  <!-- Inner petals (6) - brighter gold -->
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(0,60,58)"/>
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(60,60,58)"/>
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(120,60,58)"/>
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(180,60,58)"/>
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(240,60,58)"/>
+  <ellipse cx="60" cy="38" rx="7" ry="16" fill="url(#lt2-petal-i)" transform="rotate(300,60,58)"/>
+  <!-- Central seed pod -->
+  <circle cx="60" cy="58" r="10" fill="url(#lt2-center)"/>
+  <!-- Seed dots -->
+  <circle cx="57" cy="55" r="1.5" fill="#c89020" opacity="0.6"/>
+  <circle cx="63" cy="55" r="1.5" fill="#c89020" opacity="0.6"/>
+  <circle cx="60" cy="60" r="1.5" fill="#c89020" opacity="0.6"/>
+  <circle cx="55" cy="59" r="1.2" fill="#c89020" opacity="0.4"/>
+  <circle cx="65" cy="59" r="1.2" fill="#c89020" opacity="0.4"/>
+  <!-- Petal vein lines on front petals -->
+  <line x1="60" y1="42" x2="60" y2="30" stroke="#d8a828" stroke-width="0.6" opacity="0.3"/>
+  <line x1="60" y1="74" x2="60" y2="86" stroke="#d8a828" stroke-width="0.6" opacity="0.3"/>
+  <!-- Light rays emanating -->
+  <line x1="60" y1="8" x2="60" y2="14" stroke="#fae888" stroke-width="1" opacity="0.3"/>
+  <line x1="28" y1="26" x2="32" y2="30" stroke="#fae888" stroke-width="1" opacity="0.25"/>
+  <line x1="92" y1="26" x2="88" y2="30" stroke="#fae888" stroke-width="1" opacity="0.25"/>
+  <line x1="16" y1="58" x2="22" y2="58" stroke="#fae888" stroke-width="1" opacity="0.2"/>
+  <line x1="104" y1="58" x2="98" y2="58" stroke="#fae888" stroke-width="1" opacity="0.2"/>
+  <!-- Specular highlights -->
+  <ellipse cx="54" cy="48" rx="4" ry="6" fill="white" opacity="0.2" transform="rotate(-15,54,48)"/>
+  <!-- Water lily pad hint at bottom -->
+  <ellipse cx="60" cy="100" rx="32" ry="8" fill="#6a8a48" opacity="0.3"/>
+  <ellipse cx="60" cy="100" rx="30" ry="7" fill="#7a9a58" opacity="0.25"/>
+  <path d="M60 93 L60 100" stroke="#5a7a38" stroke-width="1" opacity="0.2"/>
+</svg>

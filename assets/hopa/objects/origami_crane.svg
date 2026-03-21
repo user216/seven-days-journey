@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="crane-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0c8c0"/>
+      <stop offset="50%" stop-color="#e8a098"/>
+      <stop offset="100%" stop-color="#d08878"/>
+    </linearGradient>
+    <linearGradient id="crane-wing-l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4d0c8"/>
+      <stop offset="60%" stop-color="#e0a090"/>
+      <stop offset="100%" stop-color="#c87868"/>
+    </linearGradient>
+    <linearGradient id="crane-wing-r" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ecc0b4"/>
+      <stop offset="60%" stop-color="#d89080"/>
+      <stop offset="100%" stop-color="#c07060"/>
+    </linearGradient>
+    <linearGradient id="crane-tail" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8a898"/>
+      <stop offset="100%" stop-color="#d08070"/>
+    </linearGradient>
+    <linearGradient id="crane-neck" x1="0" y1="1" x2="0.3" y2="0">
+      <stop offset="0%" stop-color="#ebb0a4"/>
+      <stop offset="100%" stop-color="#d89484"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="62" cy="102" rx="30" ry="5" fill="#8b6050" opacity="0.15"/>
+  <!-- Left wing (large triangular fold, sweeping up-left) -->
+  <polygon points="60,58 14,32 42,78" fill="url(#crane-wing-l)"/>
+  <!-- Left wing fold crease -->
+  <line x1="60" y1="58" x2="28" y2="55" stroke="#c88878" stroke-width="0.8" opacity="0.4"/>
+  <line x1="38" y1="70" x2="20" y2="40" stroke="#d89888" stroke-width="0.6" opacity="0.3"/>
+  <!-- Right wing (large triangular fold, sweeping up-right) -->
+  <polygon points="60,58 106,32 78,78" fill="url(#crane-wing-r)"/>
+  <!-- Right wing fold crease -->
+  <line x1="60" y1="58" x2="92" y2="55" stroke="#c07868" stroke-width="0.8" opacity="0.4"/>
+  <line x1="82" y1="70" x2="100" y2="40" stroke="#c88070" stroke-width="0.6" opacity="0.3"/>
+  <!-- Body (central diamond shape) -->
+  <polygon points="48,52 60,38 72,52 60,80" fill="url(#crane-body)"/>
+  <!-- Body center fold line -->
+  <line x1="60" y1="38" x2="60" y2="80" stroke="#c08070" stroke-width="0.7" opacity="0.35"/>
+  <!-- Neck (thin triangle pointing forward-up) -->
+  <polygon points="56,50 44,22 52,48" fill="url(#crane-neck)"/>
+  <!-- Head (small angled diamond at neck tip) -->
+  <polygon points="44,22 38,18 44,14 48,22" fill="#d89484"/>
+  <!-- Beak -->
+  <polygon points="38,18 32,16 38,14" fill="#b87060"/>
+  <!-- Neck fold crease -->
+  <line x1="50" y1="48" x2="44" y2="22" stroke="#c08070" stroke-width="0.5" opacity="0.3"/>
+  <!-- Tail (two small triangular folds pointing back) -->
+  <polygon points="60,78 52,96 58,80" fill="url(#crane-tail)"/>
+  <polygon points="60,78 68,96 62,80" fill="url(#crane-tail)" opacity="0.85"/>
+  <!-- Tail fold line -->
+  <line x1="60" y1="78" x2="56" y2="94" stroke="#b87060" stroke-width="0.5" opacity="0.3"/>
+  <line x1="60" y1="78" x2="64" y2="94" stroke="#b87060" stroke-width="0.5" opacity="0.3"/>
+  <!-- Wing tip highlights -->
+  <polygon points="14,32 22,36 18,44" fill="white" opacity="0.12"/>
+  <polygon points="106,32 98,36 102,44" fill="white" opacity="0.1"/>
+  <!-- Body specular -->
+  <polygon points="54,46 60,40 64,46 60,58" fill="white" opacity="0.1"/>
+</svg>

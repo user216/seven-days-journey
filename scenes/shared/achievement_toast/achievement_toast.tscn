@@ -1,40 +1,60 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/shared/achievement_toast/achievement_toast.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="toast_bg"]
+bg_color = Color(0.1, 0.1, 0.08, 0.9)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 12.0
 
 [node name="AchievementToast" type="CanvasLayer"]
 layer = 35
 
 [node name="ToastPanel" type="PanelContainer" parent="."]
 visible = false
-anchors_preset = 5
+mouse_filter = 2
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -300.0
-offset_top = 120.0
-offset_right = 300.0
-offset_bottom = 220.0
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -240.0
+offset_right = 350.0
+offset_bottom = -120.0
+theme_override_styles/panel = SubResource("toast_bg")
 
 [node name="HBox" type="HBoxContainer" parent="ToastPanel"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="EmojiLabel" type="Label" parent="ToastPanel/HBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+mouse_filter = 2
+theme_override_font_sizes/font_size = 38
 text = "🌟"
 
 [node name="VBox" type="VBoxContainer" parent="ToastPanel/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="TitleLabel" type="Label" parent="ToastPanel/HBox/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+mouse_filter = 2
+theme_override_font_sizes/font_size = 26
 text = "Достижение!"
 
 [node name="DescLabel" type="Label" parent="ToastPanel/HBox/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
 text = "..."
 
 [node name="ToastScript" type="Node" parent="."]

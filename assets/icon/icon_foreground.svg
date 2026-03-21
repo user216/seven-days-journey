@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
-  <!-- Adaptive icon foreground — mountain + climber + sun, transparent bg -->
+  <!-- Adaptive icon foreground — hero on mountain with sun, transparent bg -->
   <defs>
     <radialGradient id="fg_sun_glow" cx="50%" cy="25%" r="30%">
       <stop offset="0%" stop-color="#d4a843" stop-opacity="0.6"/>
@@ -9,7 +9,32 @@
       <stop offset="0%" stop-color="#5e8a3c"/>
       <stop offset="100%" stop-color="#7da344"/>
     </linearGradient>
+    <radialGradient id="fg_skin" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#fce4cc"/>
+      <stop offset="100%" stop-color="#e8c4a0"/>
+    </radialGradient>
+    <linearGradient id="fg_hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a0784e"/>
+      <stop offset="100%" stop-color="#6b4226"/>
+    </linearGradient>
+    <linearGradient id="fg_dress" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c5deb0"/>
+      <stop offset="100%" stop-color="#98c47a"/>
+    </linearGradient>
+    <radialGradient id="fg_hero_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#d4a843" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fg_shoe" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#a08868"/>
+      <stop offset="100%" stop-color="#6b5238"/>
+    </radialGradient>
+    <filter id="fg_shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
   </defs>
+
   <!-- Sun glow -->
   <circle cx="216" cy="100" r="140" fill="url(#fg_sun_glow)"/>
   <!-- Sun -->
@@ -17,6 +42,7 @@
   <circle cx="216" cy="85" r="28" fill="#f5e6b8" opacity="0.5"/>
   <!-- "7" -->
   <text x="216" y="100" text-anchor="middle" font-size="34" font-weight="bold" fill="white" font-family="sans-serif" opacity="0.9">7</text>
+
   <!-- Far mountain -->
   <polygon points="0,350 100,200 200,170 300,220 432,350" fill="#a8c97a" opacity="0.5"/>
   <!-- Main mountain -->
@@ -25,16 +51,70 @@
   <polygon points="205,145 216,120 227,145" fill="white" opacity="0.6"/>
   <!-- Path -->
   <path d="M180,360 Q200,310 210,270 Q220,230 218,170" stroke="#f5e6b8" stroke-width="2.5" fill="none" stroke-dasharray="7,5" opacity="0.5"/>
-  <!-- Climbing figure -->
-  <g transform="translate(228, 175)">
-    <circle cx="0" cy="-10" r="6" fill="#f0d4b8"/>
-    <line x1="0" y1="-4" x2="0" y2="10" stroke="#f0d4b8" stroke-width="2.5"/>
-    <line x1="0" y1="10" x2="-5" y2="18" stroke="#f0d4b8" stroke-width="2"/>
-    <line x1="0" y1="10" x2="5" y2="18" stroke="#f0d4b8" stroke-width="2"/>
-    <line x1="0" y1="0" x2="-7" y2="-8" stroke="#f0d4b8" stroke-width="2"/>
-    <line x1="0" y1="0" x2="7" y2="-8" stroke="#f0d4b8" stroke-width="2"/>
-    <line x1="0" y1="-3" x2="0" y2="8" stroke="#d4a843" stroke-width="4" opacity="0.5"/>
+
+  <!-- Hero glow aura -->
+  <circle cx="228" cy="215" r="65" fill="url(#fg_hero_glow)"/>
+
+  <!-- === HERO (scaled for 432px icon) === -->
+  <g transform="translate(196, 145) scale(0.45)">
+    <!-- Legs -->
+    <line x1="47" y1="158" x2="44" y2="180" stroke="url(#fg_skin)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="73" y1="158" x2="76" y2="180" stroke="url(#fg_skin)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Shoes -->
+    <ellipse cx="44" cy="186" rx="13" ry="7" fill="url(#fg_shoe)"/>
+    <ellipse cx="76" cy="186" rx="13" ry="7" fill="url(#fg_shoe)"/>
+    <!-- Dress -->
+    <polygon points="26,162 40,110 80,110 94,162" fill="url(#fg_dress)" filter="url(#fg_shadow)"/>
+    <path d="M26,162 Q38,166 50,160 Q62,166 74,160 Q86,166 94,162" fill="url(#fg_dress)" stroke="#88b470" stroke-width="1"/>
+    <rect x="38" y="108" width="44" height="6" rx="3" fill="#88b470" opacity="0.4"/>
+    <!-- Torso -->
+    <polygon points="40,110 36,80 84,80 80,110" fill="white" filter="url(#fg_shadow)"/>
+    <path d="M60,80 L52,94" stroke="#f0d4b8" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M60,80 L68,94" stroke="#f0d4b8" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Arms -->
+    <line x1="36" y1="84" x2="22" y2="120" stroke="url(#fg_skin)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="22" cy="120" r="7" fill="url(#fg_skin)"/>
+    <line x1="84" y1="84" x2="98" y2="118" stroke="url(#fg_skin)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="98" cy="118" r="7" fill="url(#fg_skin)"/>
+    <ellipse cx="36" cy="84" rx="12" ry="10" fill="white"/>
+    <ellipse cx="84" cy="84" rx="12" ry="10" fill="white"/>
+    <!-- Neck -->
+    <rect x="53" y="62" width="14" height="20" fill="url(#fg_skin)" rx="4"/>
+    <!-- Head -->
+    <ellipse cx="60" cy="46" rx="28" ry="30" fill="url(#fg_skin)" filter="url(#fg_shadow)"/>
+    <ellipse cx="38" cy="54" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
+    <ellipse cx="82" cy="54" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
+    <!-- Hair -->
+    <path d="M32,42 L34,24 L60,16 L86,24 L88,42 L86,105 L76,108 L44,108 L34,105 Z" fill="url(#fg_hair)"/>
+    <path d="M33,48 L36,24 L60,16 L84,24 L87,48" fill="url(#fg_hair)"/>
+    <path d="M44,20 Q52,16 60,18" stroke="#c4985e" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <!-- Eyes -->
+    <ellipse cx="48" cy="48" rx="9" ry="8" fill="white" stroke="#e8d8c8" stroke-width="0.5"/>
+    <ellipse cx="72" cy="48" rx="9" ry="8" fill="white" stroke="#e8d8c8" stroke-width="0.5"/>
+    <circle cx="50" cy="48" r="5.5" fill="#5a3a1a"/>
+    <circle cx="74" cy="48" r="5.5" fill="#5a3a1a"/>
+    <circle cx="50" cy="48" r="2.8" fill="#0a0400"/>
+    <circle cx="74" cy="48" r="2.8" fill="#0a0400"/>
+    <circle cx="52" cy="46" r="2.2" fill="white" opacity="0.9"/>
+    <circle cx="76" cy="46" r="2.2" fill="white" opacity="0.9"/>
+    <path d="M39,43 Q48,38 57,43" stroke="#7a5a3a" stroke-width="2" fill="none"/>
+    <path d="M63,43 Q72,38 81,43" stroke="#7a5a3a" stroke-width="2" fill="none"/>
+    <path d="M40,36 Q48,32 56,35" stroke="#7a5a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M64,35 Q72,32 80,36" stroke="#7a5a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Nose & mouth -->
+    <path d="M60,52 Q61,57 60,58" stroke="#d4b89a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M52,63 Q60,69 68,63" stroke="#c07858" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Flower accessory -->
+    <g transform="translate(34,30)">
+      <circle cx="0" cy="-4" r="4.5" fill="#e8705e" opacity="0.9"/>
+      <circle cx="-5" cy="-1" r="4.5" fill="#e8705e" opacity="0.85"/>
+      <circle cx="5" cy="-1" r="4.5" fill="#e8705e" opacity="0.85"/>
+      <circle cx="-3" cy="4" r="4.5" fill="#e8705e" opacity="0.8"/>
+      <circle cx="3" cy="4" r="4.5" fill="#e8705e" opacity="0.8"/>
+      <circle cx="0" cy="0" r="3.2" fill="#d4a843"/>
+    </g>
   </g>
+
   <!-- Trees -->
   <rect x="65" y="340" width="6" height="30" fill="#8b7355"/>
   <polygon points="50,345 68,300 86,345" fill="#5e8a3c"/>

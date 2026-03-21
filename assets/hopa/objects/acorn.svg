@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Acorn cap gradient: darker textured brown -->
+    <radialGradient id="capGrad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#9B7A4A"/>
+      <stop offset="40%" stop-color="#7A5C34"/>
+      <stop offset="80%" stop-color="#5C4024"/>
+      <stop offset="100%" stop-color="#3E2A18"/>
+    </radialGradient>
+    <!-- Acorn nut gradient: warm polished brown -->
+    <radialGradient id="nutGrad" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#D4A050"/>
+      <stop offset="35%" stop-color="#C08838"/>
+      <stop offset="70%" stop-color="#A06828"/>
+      <stop offset="100%" stop-color="#7A4C1A"/>
+    </radialGradient>
+    <!-- Nut highlight -->
+    <radialGradient id="nutHighlight" cx="38%" cy="35%" r="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Cap texture cross-hatch base -->
+    <radialGradient id="capTexture" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#8B6840" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#5C4024" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Leaf gradient -->
+    <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7BC462"/>
+      <stop offset="40%" stop-color="#5AA044"/>
+      <stop offset="100%" stop-color="#3D7A2E"/>
+    </linearGradient>
+    <!-- Stem gradient -->
+    <linearGradient id="stemGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6B5035"/>
+      <stop offset="100%" stop-color="#4A3624"/>
+    </linearGradient>
+    <!-- Cap highlight -->
+    <radialGradient id="capHighlight" cx="40%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#C4A060" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#C4A060" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="58" cy="112" rx="28" ry="5" fill="#3D3020" opacity="0.2"/>
+
+  <!-- Small stem on top of cap -->
+  <rect x="56" y="22" width="5" height="12" rx="2" fill="url(#stemGrad)" stroke="#3E2A18" stroke-width="0.5"/>
+
+  <!-- Leaf attached to stem -->
+  <g transform="translate(61,24) rotate(25)">
+    <path d="M0,0 Q12,-8 24,-4 Q18,0 24,4 Q12,8 0,0Z" fill="url(#leafGrad)" stroke="#3D7A2E" stroke-width="0.5"/>
+    <!-- Leaf vein -->
+    <line x1="2" y1="0" x2="20" y2="0" stroke="#2D6B20" stroke-width="0.6" opacity="0.5"/>
+    <line x1="8" y1="0" x2="12" y2="-3" stroke="#2D6B20" stroke-width="0.4" opacity="0.4"/>
+    <line x1="12" y1="0" x2="16" y2="-2.5" stroke="#2D6B20" stroke-width="0.4" opacity="0.4"/>
+    <line x1="8" y1="0" x2="12" y2="3" stroke="#2D6B20" stroke-width="0.4" opacity="0.4"/>
+    <line x1="12" y1="0" x2="16" y2="2.5" stroke="#2D6B20" stroke-width="0.4" opacity="0.4"/>
+  </g>
+
+  <!-- Cap (top half-dome) -->
+  <path d="M26,52 Q26,28 58,26 Q90,28 90,52Z" fill="url(#capGrad)" stroke="#3E2A18" stroke-width="0.8"/>
+
+  <!-- Cap cross-hatch texture (rows of small scales) -->
+  <g stroke="#5C4024" stroke-width="0.6" fill="none" opacity="0.35">
+    <!-- Row 1 -->
+    <path d="M34,34 Q38,32 42,34 Q46,32 50,34 Q54,32 58,34 Q62,32 66,34 Q70,32 74,34 Q78,32 82,34"/>
+    <!-- Row 2 -->
+    <path d="M30,40 Q34,38 38,40 Q42,38 46,40 Q50,38 54,40 Q58,38 62,40 Q66,38 70,40 Q74,38 78,40 Q82,38 86,40"/>
+    <!-- Row 3 -->
+    <path d="M28,46 Q32,44 36,46 Q40,44 44,46 Q48,44 52,46 Q56,44 60,46 Q64,44 68,46 Q72,44 76,46 Q80,44 84,46 Q88,44 90,46"/>
+    <!-- Vertical connecting lines -->
+    <path d="M38,32 L36,38"/>
+    <path d="M46,32 L44,38"/>
+    <path d="M54,32 L52,38"/>
+    <path d="M62,32 L60,38"/>
+    <path d="M70,32 L68,38"/>
+    <path d="M78,32 L76,38"/>
+    <path d="M34,38 L32,44"/>
+    <path d="M42,38 L40,44"/>
+    <path d="M50,38 L48,44"/>
+    <path d="M58,38 L56,44"/>
+    <path d="M66,38 L64,44"/>
+    <path d="M74,38 L72,44"/>
+    <path d="M82,38 L80,44"/>
+  </g>
+
+  <!-- Cap highlight -->
+  <path d="M34,40 Q50,28 70,34" fill="none" stroke="#C4A060" stroke-width="1.5" opacity="0.2"/>
+  <ellipse cx="50" cy="38" rx="16" ry="8" fill="url(#capHighlight)"/>
+
+  <!-- Cap rim (bottom edge, slightly thicker) -->
+  <path d="M26,52 Q58,58 90,52" fill="none" stroke="#5C4024" stroke-width="1.5"/>
+
+  <!-- Nut body (bottom rounded section) -->
+  <path d="M28,52 Q28,56 30,66 Q34,82 44,92 Q52,100 58,102 Q64,100 72,92 Q82,82 86,66 Q88,56 88,52Z" fill="url(#nutGrad)" stroke="#7A4C1A" stroke-width="0.5"/>
+
+  <!-- Nut highlight sheen -->
+  <path d="M38,56 Q48,54 52,60 Q54,70 48,78" fill="none" stroke="#E0C070" stroke-width="2" opacity="0.2" stroke-linecap="round"/>
+  <ellipse cx="46" cy="64" rx="10" ry="12" fill="url(#nutHighlight)"/>
+
+  <!-- Nut point at bottom -->
+  <path d="M52,98 Q58,108 64,98" fill="url(#nutGrad)" stroke="#7A4C1A" stroke-width="0.5"/>
+
+  <!-- Subtle nut surface lines -->
+  <path d="M42,58 Q58,54 76,58" fill="none" stroke="#8B6028" stroke-width="0.4" opacity="0.25"/>
+  <path d="M38,68 Q58,64 78,68" fill="none" stroke="#8B6028" stroke-width="0.4" opacity="0.2"/>
+</svg>

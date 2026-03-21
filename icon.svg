@@ -19,9 +19,36 @@
       <stop offset="0%" stop-color="#5e8a3c"/>
       <stop offset="100%" stop-color="#7da344"/>
     </linearGradient>
+    <!-- Hero gradients -->
+    <radialGradient id="skin" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#fce4cc"/>
+      <stop offset="100%" stop-color="#e8c4a0"/>
+    </radialGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a0784e"/>
+      <stop offset="100%" stop-color="#6b4226"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c5deb0"/>
+      <stop offset="100%" stop-color="#98c47a"/>
+    </linearGradient>
+    <radialGradient id="hero_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#d4a843" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shoe" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#a08868"/>
+      <stop offset="100%" stop-color="#6b5238"/>
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
   </defs>
+
   <!-- Rounded background -->
   <rect width="512" height="512" rx="80" fill="url(#sky)"/>
+
   <!-- Sun glow -->
   <circle cx="256" cy="110" r="180" fill="url(#sun_glow)"/>
   <!-- Sun body -->
@@ -35,73 +62,128 @@
     <line x1="217" y1="42" x2="207" y2="28"/>
     <line x1="187" y1="62" x2="172" y2="52"/>
   </g>
-  <!-- Far mountain (left) -->
+
+  <!-- Far mountains -->
   <polygon points="0,400 80,220 180,180 280,240 350,400" fill="url(#mountain_far)" opacity="0.5"/>
-  <!-- Far mountain (right) -->
   <polygon points="200,400 320,260 420,230 512,300 512,400" fill="url(#mountain_far)" opacity="0.4"/>
   <!-- Main mountain -->
   <polygon points="80,450 190,200 256,140 330,210 440,450" fill="url(#mountain_near)"/>
   <!-- Snow cap -->
   <polygon points="240,155 256,130 272,155 268,155 256,140 244,155" fill="white" opacity="0.7"/>
-  <!-- Mountain texture lines -->
+  <!-- Mountain texture -->
   <path d="M210,250 L240,260 L260,240 L290,270" stroke="#5e8a3c" stroke-width="1.5" fill="none" opacity="0.4"/>
   <path d="M180,320 L220,310 L260,330 L310,300" stroke="#5e8a3c" stroke-width="1.5" fill="none" opacity="0.3"/>
-  <!-- Dotted path up mountain -->
+  <!-- Dotted path -->
   <path d="M200,420 Q220,380 230,340 Q240,300 250,260 Q255,230 258,180" stroke="#f5e6b8" stroke-width="3" fill="none" stroke-dasharray="8,6" opacity="0.6"/>
-  <!-- Ground/grass -->
+
+  <!-- Ground -->
   <rect x="0" y="410" width="512" height="102" rx="0" fill="#8b7355" opacity="0.4"/>
   <rect x="0" y="420" width="512" height="92" rx="0" fill="#a8c97a" opacity="0.3"/>
-  <!-- Trees at base -->
+
+  <!-- Trees -->
   <g opacity="0.9">
-    <!-- Left tree -->
     <rect x="75" y="380" width="8" height="40" fill="#8b7355"/>
     <polygon points="55,385 79,330 103,385" fill="#5e8a3c"/>
     <polygon points="60,360 79,315 98,360" fill="#7da344"/>
-    <!-- Right tree -->
     <rect x="408" y="375" width="8" height="45" fill="#8b7355"/>
     <polygon points="390,380 412,320 434,380" fill="#5e8a3c"/>
     <polygon points="394,355 412,305 430,355" fill="#7da344"/>
-    <!-- Small bush left -->
     <ellipse cx="140" cy="420" rx="25" ry="18" fill="#7da344"/>
     <ellipse cx="155" cy="418" rx="20" ry="15" fill="#a8c97a"/>
-    <!-- Small bush right -->
     <ellipse cx="370" cy="425" rx="22" ry="15" fill="#7da344"/>
     <ellipse cx="382" cy="423" rx="18" ry="13" fill="#a8c97a"/>
   </g>
-  <!-- Climbing figure near summit -->
-  <g transform="translate(268, 185)">
-    <!-- Body -->
-    <circle cx="0" cy="-12" r="7" fill="#f0d4b8"/>
-    <line x1="0" y1="-5" x2="0" y2="12" stroke="#f0d4b8" stroke-width="3"/>
+
+  <!-- Hero glow aura -->
+  <circle cx="268" cy="250" r="80" fill="url(#hero_glow)"/>
+
+  <!-- === HERO (scaled and positioned on mountain path) === -->
+  <g transform="translate(230, 170) scale(0.55)">
+    <!-- Ground shadow -->
+    <ellipse cx="60" cy="194" rx="32" ry="6" fill="#000" opacity="0.12"/>
     <!-- Legs -->
-    <line x1="0" y1="12" x2="-6" y2="22" stroke="#f0d4b8" stroke-width="2.5"/>
-    <line x1="0" y1="12" x2="6" y2="22" stroke="#f0d4b8" stroke-width="2.5"/>
-    <!-- Arms reaching up -->
-    <line x1="0" y1="0" x2="-8" y2="-10" stroke="#f0d4b8" stroke-width="2.5"/>
-    <line x1="0" y1="0" x2="8" y2="-10" stroke="#f0d4b8" stroke-width="2.5"/>
-    <!-- Shirt color -->
-    <line x1="0" y1="-4" x2="0" y2="10" stroke="#d4a843" stroke-width="5" opacity="0.6"/>
+    <line x1="47" y1="158" x2="44" y2="180" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
+    <line x1="73" y1="158" x2="76" y2="180" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Shoes -->
+    <ellipse cx="44" cy="186" rx="13" ry="7" fill="url(#shoe)" filter="url(#shadow)"/>
+    <ellipse cx="76" cy="186" rx="13" ry="7" fill="url(#shoe)" filter="url(#shadow)"/>
+    <!-- Dress -->
+    <polygon points="26,162 40,110 80,110 94,162" fill="url(#dress)" filter="url(#shadow)"/>
+    <path d="M26,162 Q38,166 50,160 Q62,166 74,160 Q86,166 94,162" fill="url(#dress)" stroke="#88b470" stroke-width="1"/>
+    <line x1="50" y1="114" x2="47" y2="158" stroke="#a8c97a" stroke-width="1.5" opacity="0.4"/>
+    <line x1="70" y1="114" x2="73" y2="158" stroke="#a8c97a" stroke-width="1.5" opacity="0.4"/>
+    <rect x="38" y="108" width="44" height="6" rx="3" fill="#88b470" opacity="0.4"/>
+    <!-- Torso -->
+    <polygon points="40,110 36,80 84,80 80,110" fill="white" filter="url(#shadow)"/>
+    <path d="M60,80 L52,94" stroke="#f0d4b8" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M60,80 L68,94" stroke="#f0d4b8" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Arms -->
+    <line x1="36" y1="84" x2="22" y2="120" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="22" cy="120" r="7" fill="url(#skin)"/>
+    <line x1="84" y1="84" x2="98" y2="118" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="98" cy="118" r="7" fill="url(#skin)"/>
+    <!-- Sleeves -->
+    <ellipse cx="36" cy="84" rx="12" ry="10" fill="white"/>
+    <ellipse cx="84" cy="84" rx="12" ry="10" fill="white"/>
+    <!-- Neck -->
+    <rect x="53" y="62" width="14" height="20" fill="url(#skin)" rx="4"/>
+    <!-- Head -->
+    <ellipse cx="60" cy="46" rx="28" ry="30" fill="url(#skin)" filter="url(#shadow)"/>
+    <ellipse cx="38" cy="54" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
+    <ellipse cx="82" cy="54" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
+    <!-- Hair -->
+    <path d="M32,42 L34,24 L60,16 L86,24 L88,42 L86,105 L76,108 L44,108 L34,105 Z" fill="url(#hair)"/>
+    <path d="M33,48 L36,24 L60,16 L84,24 L87,48" fill="url(#hair)"/>
+    <path d="M44,20 Q52,16 60,18" stroke="#c4985e" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+    <!-- Eyes -->
+    <ellipse cx="48" cy="48" rx="9" ry="8" fill="white" stroke="#e8d8c8" stroke-width="0.5"/>
+    <ellipse cx="72" cy="48" rx="9" ry="8" fill="white" stroke="#e8d8c8" stroke-width="0.5"/>
+    <circle cx="50" cy="48" r="5.5" fill="#5a3a1a"/>
+    <circle cx="74" cy="48" r="5.5" fill="#5a3a1a"/>
+    <circle cx="50" cy="48" r="2.8" fill="#0a0400"/>
+    <circle cx="74" cy="48" r="2.8" fill="#0a0400"/>
+    <circle cx="52" cy="46" r="2.2" fill="white" opacity="0.9"/>
+    <circle cx="76" cy="46" r="2.2" fill="white" opacity="0.9"/>
+    <path d="M39,43 Q48,38 57,43" stroke="#7a5a3a" stroke-width="2" fill="none"/>
+    <path d="M63,43 Q72,38 81,43" stroke="#7a5a3a" stroke-width="2" fill="none"/>
+    <path d="M40,36 Q48,32 56,35" stroke="#7a5a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M64,35 Q72,32 80,36" stroke="#7a5a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Nose & mouth -->
+    <path d="M60,52 Q61,57 60,58" stroke="#d4b89a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M52,63 Q60,69 68,63" stroke="#c07858" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Flower accessory -->
+    <g transform="translate(34,30)">
+      <circle cx="0" cy="-4" r="4.5" fill="#e8705e" opacity="0.9"/>
+      <circle cx="-5" cy="-1" r="4.5" fill="#e8705e" opacity="0.85"/>
+      <circle cx="5" cy="-1" r="4.5" fill="#e8705e" opacity="0.85"/>
+      <circle cx="-3" cy="4" r="4.5" fill="#e8705e" opacity="0.8"/>
+      <circle cx="3" cy="4" r="4.5" fill="#e8705e" opacity="0.8"/>
+      <circle cx="0" cy="0" r="3.2" fill="#d4a843"/>
+    </g>
   </g>
+
   <!-- Flowers at base -->
   <circle cx="120" cy="435" r="5" fill="#c9886e"/>
   <circle cx="125" cy="432" r="4" fill="#f2e0d6"/>
   <circle cx="380" cy="440" r="4" fill="#c9886e"/>
   <circle cx="350" cy="435" r="5" fill="#f2e0d6"/>
   <circle cx="250" cy="445" r="4" fill="#c9886e"/>
-  <!-- "7" at summit -->
+
+  <!-- "7" in sun -->
   <text x="256" y="118" text-anchor="middle" font-size="40" font-weight="bold" fill="white" font-family="sans-serif" opacity="0.9">7</text>
-  <!-- Small clouds -->
+
+  <!-- Clouds -->
   <g opacity="0.5">
     <ellipse cx="100" cy="80" rx="40" ry="15" fill="white"/>
     <ellipse cx="90" cy="78" rx="25" ry="12" fill="white"/>
     <ellipse cx="420" cy="100" rx="35" ry="12" fill="white"/>
     <ellipse cx="430" cy="98" rx="22" ry="10" fill="white"/>
   </g>
-  <!-- Vines on left side -->
+
+  <!-- Vines -->
   <path d="M30,460 Q25,400 35,340 Q30,280 40,220" stroke="#7da344" stroke-width="3" fill="none" opacity="0.4"/>
   <circle cx="33" cy="300" r="4" fill="#a8c97a" opacity="0.5"/>
   <circle cx="37" cy="260" r="3" fill="#a8c97a" opacity="0.5"/>
-  <!-- Vines on right side -->
   <path d="M480,460 Q485,400 475,340 Q480,280 470,220" stroke="#7da344" stroke-width="3" fill="none" opacity="0.4"/>
   <circle cx="478" cy="310" r="4" fill="#a8c97a" opacity="0.5"/>
   <circle cx="473" cy="270" r="3" fill="#a8c97a" opacity="0.5"/>

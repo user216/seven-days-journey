@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="gold_handle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0d878"/>
+      <stop offset="30%" stop-color="#e8c848"/>
+      <stop offset="60%" stop-color="#d4a830"/>
+      <stop offset="100%" stop-color="#c09020"/>
+    </linearGradient>
+    <linearGradient id="gold_bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0d878"/>
+      <stop offset="40%" stop-color="#e8c848"/>
+      <stop offset="100%" stop-color="#c8a028"/>
+    </linearGradient>
+    <radialGradient id="bowl_inner" cx="0.5" cy="0.3" r="0.6">
+      <stop offset="0%" stop-color="#f8e898"/>
+      <stop offset="100%" stop-color="#d4a830"/>
+    </radialGradient>
+    <linearGradient id="gold_shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="white" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="110" rx="35" ry="4" fill="#3a3228" opacity="0.15"/>
+  <!-- Handle shaft -->
+  <rect x="38" y="58" width="6" height="50" rx="3" fill="url(#gold_handle)"/>
+  <!-- Handle decorative top finial -->
+  <ellipse cx="41" cy="56" rx="6" ry="4" fill="#e8c848"/>
+  <circle cx="41" cy="52" r="5" fill="#d4a830"/>
+  <circle cx="41" cy="52" r="3.5" fill="#e8c848"/>
+  <circle cx="41" cy="52" r="2" fill="#f0d878"/>
+  <!-- Decorative rings on handle -->
+  <ellipse cx="41" cy="68" rx="4.5" ry="2" fill="none" stroke="#d4a830" stroke-width="1.5"/>
+  <ellipse cx="41" cy="74" rx="3.5" ry="1.5" fill="none" stroke="#c8a028" stroke-width="1"/>
+  <ellipse cx="41" cy="80" rx="4.5" ry="2" fill="none" stroke="#d4a830" stroke-width="1.5"/>
+  <ellipse cx="41" cy="86" rx="3.5" ry="1.5" fill="none" stroke="#c8a028" stroke-width="1"/>
+  <!-- Decorative scroll at bottom of handle -->
+  <path d="M38,98 Q34,102 36,106 Q38,108 41,108 Q44,108 46,106 Q48,102 44,98" fill="#d4a830" stroke="#c09020" stroke-width="0.8"/>
+  <circle cx="37" cy="104" r="2.5" fill="#e8c848"/>
+  <circle cx="45" cy="104" r="2.5" fill="#e8c848"/>
+  <!-- Neck connecting handle to bowl -->
+  <path d="M38,58 Q36,52 34,48 L48,48 Q46,52 44,58" fill="url(#gold_handle)"/>
+  <!-- Spoon bowl -->
+  <ellipse cx="41" cy="32" rx="24" ry="18" fill="url(#gold_bowl)"/>
+  <!-- Inner bowl concavity -->
+  <ellipse cx="41" cy="30" rx="19" ry="14" fill="url(#bowl_inner)"/>
+  <!-- Bowl edge highlight -->
+  <ellipse cx="41" cy="24" rx="16" ry="8" fill="none" stroke="white" stroke-width="1" opacity="0.25"/>
+  <!-- Shine on bowl -->
+  <ellipse cx="34" cy="26" rx="8" ry="5" fill="white" opacity="0.2" transform="rotate(-15,34,26)"/>
+  <!-- Handle highlight line -->
+  <rect x="40" y="60" width="1.5" height="38" rx="0.75" fill="white" opacity="0.2"/>
+  <!-- Sparkle on bowl -->
+  <g transform="translate(30,22)" opacity="0.6">
+    <line x1="0" y1="-4" x2="0" y2="4" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="-4" y1="0" x2="4" y2="0" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="-2.5" y1="-2.5" x2="2.5" y2="2.5" stroke="white" stroke-width="0.8" stroke-linecap="round"/>
+    <line x1="2.5" y1="-2.5" x2="-2.5" y2="2.5" stroke="white" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+  <!-- Small sparkle -->
+  <circle cx="55" cy="20" r="1.5" fill="white" opacity="0.5"/>
+</svg>

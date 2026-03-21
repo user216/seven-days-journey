@@ -2,7 +2,7 @@ extends Node
 ## Save/load game state via ConfigFile to user://save_data.cfg.
 
 const SAVE_PATH := "user://save_data.cfg"
-const SAVE_VERSION := 2
+const SAVE_VERSION := 3
 
 func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
@@ -39,6 +39,14 @@ func save_game() -> void:
 	cfg.set_value("settings", "gender", GameState.gender)
 	cfg.set_value("settings", "developer_mode", GameState.developer_mode)
 	cfg.set_value("settings", "ui_scale", GameState.ui_scale)
+	cfg.set_value("settings", "hero_skin_idx", GameState.hero_skin_idx)
+	cfg.set_value("settings", "hero_hair_idx", GameState.hero_hair_idx)
+	cfg.set_value("settings", "hero_hair_style_idx", GameState.hero_hair_style_idx)
+
+	# HOPA progress (v3)
+	cfg.set_value("hopa", "progress", JSON.stringify(GameState.hopa_progress))
+	cfg.set_value("hopa", "inventory", ",".join(GameState.hopa_inventory))
+	cfg.set_value("hopa", "current_level", GameState.hopa_current_level)
 
 	cfg.save(SAVE_PATH)
 
@@ -88,6 +96,21 @@ func load_game() -> bool:
 	GameState.gender = cfg.get_value("settings", "gender", "female")
 	GameState.developer_mode = cfg.get_value("settings", "developer_mode", false)
 	GameState.ui_scale = cfg.get_value("settings", "ui_scale", 1.0)
+	GameState.hero_skin_idx = cfg.get_value("settings", "hero_skin_idx", 0)
+	GameState.hero_hair_idx = cfg.get_value("settings", "hero_hair_idx", 0)
+	GameState.hero_hair_style_idx = cfg.get_value("settings", "hero_hair_style_idx", 0)
+
+	# HOPA progress (v3 — missing keys default to empty)
+	var hopa_str: String = cfg.get_value("hopa", "progress", "{}")
+	var hopa_parsed = JSON.parse_string(hopa_str)
+	if hopa_parsed is Dictionary:
+		GameState.hopa_progress = hopa_parsed
+	var hopa_inv_str: String = cfg.get_value("hopa", "inventory", "")
+	if hopa_inv_str.length() > 0:
+		GameState.hopa_inventory.assign(hopa_inv_str.split(","))
+	else:
+		GameState.hopa_inventory = []
+	GameState.hopa_current_level = cfg.get_value("hopa", "current_level", "")
 
 	return true
 

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="flame_core" cx="0.5" cy="0.7" r="0.5">
+      <stop offset="0%" stop-color="#fff8e0"/>
+      <stop offset="40%" stop-color="#ffe070"/>
+      <stop offset="70%" stop-color="#f0a830"/>
+      <stop offset="100%" stop-color="#e07020" stop-opacity="0.8"/>
+    </radialGradient>
+    <radialGradient id="flame_glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffe870" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#f0a830" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#f08030" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="wax_body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8c868"/>
+      <stop offset="30%" stop-color="#f0d878"/>
+      <stop offset="70%" stop-color="#e8c858"/>
+      <stop offset="100%" stop-color="#d8b848"/>
+    </linearGradient>
+    <linearGradient id="holder_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a038"/>
+      <stop offset="50%" stop-color="#a88028"/>
+      <stop offset="100%" stop-color="#886820"/>
+    </linearGradient>
+    <radialGradient id="holder_inner" cx="0.5" cy="0.3" r="0.6">
+      <stop offset="0%" stop-color="#d8b048"/>
+      <stop offset="100%" stop-color="#a88028"/>
+    </radialGradient>
+  </defs>
+  <!-- Ambient glow on surface -->
+  <ellipse cx="60" cy="108" rx="40" ry="8" fill="#f0a830" opacity="0.08"/>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="110" rx="28" ry="4" fill="#3a3228" opacity="0.15"/>
+  <!-- Holder base plate -->
+  <ellipse cx="60" cy="104" rx="28" ry="7" fill="url(#holder_grad)"/>
+  <ellipse cx="60" cy="102" rx="28" ry="7" fill="url(#holder_inner)"/>
+  <ellipse cx="60" cy="102" rx="24" ry="5" fill="#b89038" opacity="0.5"/>
+  <!-- Holder rim highlight -->
+  <ellipse cx="52" cy="100" rx="10" ry="3" fill="white" opacity="0.12"/>
+  <!-- Holder cup walls -->
+  <path d="M44,90 L42,102 Q42,106 60,106 Q78,106 78,102 L76,90 Z" fill="url(#holder_grad)"/>
+  <ellipse cx="60" cy="90" rx="17" ry="5" fill="#c8a038"/>
+  <ellipse cx="60" cy="90" rx="14" ry="3.5" fill="#b89038"/>
+  <!-- Candle body -->
+  <rect x="48" y="42" width="24" height="50" rx="2" fill="url(#wax_body)"/>
+  <!-- Candle top -->
+  <ellipse cx="60" cy="42" rx="12" ry="4" fill="#f0d878"/>
+  <!-- Wax well around wick -->
+  <ellipse cx="60" cy="42" rx="6" ry="2" fill="#e8c048"/>
+  <!-- Honeycomb texture hints -->
+  <circle cx="54" cy="55" r="2" fill="none" stroke="#d8b848" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="62" cy="60" r="2" fill="none" stroke="#d8b848" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="55" cy="72" r="2" fill="none" stroke="#d8b848" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="66" cy="68" r="2" fill="none" stroke="#d8b848" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="58" cy="82" r="2" fill="none" stroke="#d8b848" stroke-width="0.5" opacity="0.3"/>
+  <!-- Wax drip left -->
+  <path d="M48,55 Q46,55 46,60 Q46,68 47,68 Q48,68 48,60 Z" fill="#e8c858" opacity="0.8"/>
+  <circle cx="46.5" cy="68" r="2.5" fill="#e8c858" opacity="0.8"/>
+  <!-- Wax drip right -->
+  <path d="M72,48 Q74,48 74,54 Q74,60 73,60 Q72,60 72,54 Z" fill="#f0d878" opacity="0.7"/>
+  <circle cx="73" cy="60" r="2" fill="#f0d878" opacity="0.7"/>
+  <!-- Wax drip center-right -->
+  <path d="M70,62 Q72,62 72,67 Q72,72 71,72 Q70,72 70,67 Z" fill="#e8c858" opacity="0.6"/>
+  <circle cx="71" cy="72" r="1.8" fill="#e8c858" opacity="0.6"/>
+  <!-- Wick -->
+  <line x1="60" y1="42" x2="60" y2="28" stroke="#4a4038" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Flame glow (large, behind) -->
+  <ellipse cx="60" cy="22" rx="18" ry="22" fill="url(#flame_glow)"/>
+  <!-- Outer flame -->
+  <path d="M60,8 Q54,18 54,24 Q54,30 60,32 Q66,30 66,24 Q66,18 60,8 Z" fill="#f0a830" opacity="0.8"/>
+  <!-- Inner flame -->
+  <path d="M60,12 Q56,20 56,24 Q56,29 60,30 Q64,29 64,24 Q64,20 60,12 Z" fill="url(#flame_core)"/>
+  <!-- Flame bright core -->
+  <path d="M60,18 Q58,22 58,25 Q58,28 60,28 Q62,28 62,25 Q62,22 60,18 Z" fill="#fff8e0" opacity="0.9"/>
+  <!-- Candle body highlight -->
+  <rect x="50" y="44" width="3" height="44" rx="1.5" fill="white" opacity="0.15"/>
+</svg>

@@ -41,6 +41,8 @@ func _run_tests() -> void:
 	_suite_time_blocking(GS, TS, GD)
 	_suite_gender_and_settings(GS, SM)
 	_suite_activity_states(GS, TS, GD)
+	_suite_hopa_data()
+	_suite_hopa_save(GS, SM)
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -137,7 +139,7 @@ func _suite_game_data(GD: Node) -> void:
 	_assert_eq(GD.LEVEL_THRESHOLDS[0].level, 1, "First level is 1")
 	_assert_eq(GD.LEVEL_THRESHOLDS[9].level, 10, "Last level is 10")
 
-	_assert_eq(GD.ACHIEVEMENTS.size(), 8, "8 achievements defined")
+	_assert_eq(GD.ACHIEVEMENTS.size(), 12, "12 achievements defined")
 
 
 # ── GameState Tests ──────────────────────────────────────────────
@@ -299,7 +301,7 @@ func _suite_save_manager(GS: Node, SM: Node, GD: Node) -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(SM.SAVE_PATH)
 	var version: int = cfg.get_value("meta", "version", 0)
-	_assert_eq(version, 2, "Save version is 2")
+	_assert_eq(version, 3, "Save version is 3")
 
 	cfg.set_value("meta", "version", 1)
 	cfg.save(SM.SAVE_PATH)
@@ -498,4 +500,92 @@ func _suite_activity_states(GS: Node, TS: Node, GD: Node) -> void:
 		_assert("slot_id" in next, "Next activity has slot_id")
 		_assert("time" in next, "Next activity has time")
 
+	GS.reset()
+
+
+# ── HOPA Data Tests ─────────────────────────────────────────────
+
+func _suite_hopa_data() -> void:
+	_suite("HOPA Data")
+
+	_assert_eq(HopaData.LEVEL_ORDER.size(), 7, "7 HOPA levels defined")
+
+	for level_id in HopaData.LEVEL_ORDER:
+		_assert(level_id in HopaData.LEVEL_TITLES, "Title exists for '%s'" % level_id)
+		_assert(level_id in HopaData.STORY_TEXT, "Story exists for '%s'" % level_id)
+		_assert(level_id in HopaData.LEVEL_OBJECTS, "Objects exist for '%s'" % level_id)
+		_assert(level_id in HopaData.LEVEL_PUZZLES, "Puzzle exists for '%s'" % level_id)
+
+	_assert_eq(HopaData.get_level_for_day(1), "garden_morning", "Day 1 = garden_morning")
+	_assert_eq(HopaData.get_level_for_day(7), "sacred_garden", "Day 7 = sacred_garden")
+	_assert_eq(HopaData.get_level_for_day(0), "", "Day 0 = empty")
+	_assert_eq(HopaData.get_level_for_day(8), "", "Day 8 = empty")
+
+	_assert_eq(HopaData.get_next_level("garden_morning"), "kitchen_pantry",
+		"Next after garden_morning is kitchen_pantry")
+	_assert_eq(HopaData.get_next_level("sacred_garden"), "",
+		"No next after sacred_garden")
+
+	_assert_eq(HopaData.get_day_number("garden_morning"), 1, "garden_morning is day 1")
+	_assert_eq(HopaData.get_day_number("sacred_garden"), 7, "sacred_garden is day 7")
+	_assert_eq(HopaData.get_day_number("nonexistent"), 0, "Unknown scene returns 0")
+
+	var objects: Array = HopaData.get_objects("garden_morning")
+	_assert(objects.size() >= 5, "garden_morning has 5+ objects")
+	for obj in objects:
+		_assert("id" in obj, "Object has 'id' field")
+		_assert("name" in obj, "Object has 'name' field")
+		_assert("is_key_item" in obj, "Object has 'is_key_item' field")
+
+	var puzzle: Dictionary = HopaData.get_puzzle("garden_morning")
+	_assert("type" in puzzle, "Puzzle has 'type'")
+	_assert(puzzle.type in HopaData.PUZZLE_SCENES, "Puzzle type has scene mapping")
+
+	# Level loader — test JSON file
+	var test_data := HopaLevelLoader.load_level("res://tests/test_hopa_level.json")
+	_assert(test_data.size() > 0, "Test JSON loads successfully")
+	_assert_eq(test_data.get("scene_id", ""), "test_level", "Test JSON scene_id correct")
+	_assert_eq(test_data.get("day", 0), 1, "Test JSON day correct")
+
+	var test_objects: Array = test_data.get("objects", [])
+	_assert_eq(test_objects.size(), 2, "Test JSON has 2 objects")
+	if test_objects.size() >= 2:
+		_assert_eq(test_objects[0].get("id", ""), "test_obj_1", "First object id correct")
+		var pos: Vector2 = test_objects[0].get("position", Vector2.ZERO)
+		_assert_eq(pos, Vector2(540, 960), "Object position parsed correctly")
+		_assert_eq(test_objects[1].get("is_key_item", false), true, "Key item flag parsed")
+
+	# Missing file
+	var missing := HopaLevelLoader.load_level("res://nonexistent.json")
+	_assert_eq(missing.size(), 0, "Missing file returns empty dict")
+
+
+# ── HOPA Save/Load Tests ────────────────────────────────────────
+
+func _suite_hopa_save(GS: Node, SM: Node) -> void:
+	_suite("HOPA Save/Load")
+
+	GS.reset()
+	GS.complete_hopa_level("garden_morning", 95.5, 7, 1)
+	_assert("garden_morning" in GS.hopa_progress, "HOPA progress recorded")
+	_assert_eq(GS.hopa_progress["garden_morning"]["completed"], true, "Level marked completed")
+	_assert_eq(GS.hopa_progress["garden_morning"]["hints_used"], 1, "Hints count saved")
+	_assert("hopa_first_level" in GS.achievements_earned, "hopa_first_level achievement earned")
+
+	GS.hopa_current_level = "kitchen_pantry"
+	GS.hopa_inventory.append("golden_key")
+	GS.hopa_inventory.append("scroll")
+	SM.save_game()
+
+	GS.reset()
+	_assert_eq(GS.hopa_progress.size(), 0, "Reset clears hopa_progress")
+	_assert_eq(GS.hopa_inventory.size(), 0, "Reset clears hopa_inventory")
+
+	SM.load_game()
+	_assert("garden_morning" in GS.hopa_progress, "HOPA progress loaded")
+	_assert_eq(GS.hopa_current_level, "kitchen_pantry", "Current level loaded")
+	_assert_eq(GS.hopa_inventory.size(), 2, "Inventory loaded with 2 items")
+	_assert("golden_key" in GS.hopa_inventory, "Inventory contains golden_key")
+
+	SM.delete_save()
 	GS.reset()

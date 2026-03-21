@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Main crystal gradient - deep amethyst -->
+    <linearGradient id="crystalMain" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#D8C4E8"/>
+      <stop offset="25%" stop-color="#B88DD4"/>
+      <stop offset="55%" stop-color="#8B5CA8"/>
+      <stop offset="85%" stop-color="#6B3C8A"/>
+      <stop offset="100%" stop-color="#4A2668"/>
+    </linearGradient>
+    <!-- Crystal face light -->
+    <linearGradient id="crystalLight" x1="0" y1="0" x2="1" y2="0.5">
+      <stop offset="0%" stop-color="#E8D8F4"/>
+      <stop offset="40%" stop-color="#C9A8DC"/>
+      <stop offset="100%" stop-color="#9B6CB0"/>
+    </linearGradient>
+    <!-- Crystal face dark -->
+    <linearGradient id="crystalDark" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B5CA8"/>
+      <stop offset="50%" stop-color="#6B3C8A"/>
+      <stop offset="100%" stop-color="#4A2668"/>
+    </linearGradient>
+    <!-- Crystal face medium -->
+    <linearGradient id="crystalMed" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#C9A8DC"/>
+      <stop offset="50%" stop-color="#A07AB8"/>
+      <stop offset="100%" stop-color="#7B4F9A"/>
+    </linearGradient>
+    <!-- Small crystal gradient -->
+    <linearGradient id="crystalSmall" x1="0" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#E0D0F0"/>
+      <stop offset="50%" stop-color="#B88DD4"/>
+      <stop offset="100%" stop-color="#7B4F9A"/>
+    </linearGradient>
+    <!-- Base rock gradient -->
+    <linearGradient id="rockBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B7B70"/>
+      <stop offset="40%" stop-color="#6B5B50"/>
+      <stop offset="100%" stop-color="#4A3E38"/>
+    </linearGradient>
+    <!-- Highlight glow -->
+    <radialGradient id="hlGlow" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ambient glow around cluster -->
+    <radialGradient id="ambientGlow" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#B88DD4" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#8B5CA8" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#6B3C8A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="crystalShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#4A2668" flood-opacity="0.3"/>
+    </filter>
+    <filter id="innerGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient glow -->
+  <ellipse cx="60" cy="70" rx="50" ry="40" fill="url(#ambientGlow)"/>
+
+  <!-- Rock base -->
+  <path d="M20,95 L28,82 L48,78 L72,78 L92,82 L100,95 L88,102 L32,102Z"
+        fill="url(#rockBase)" stroke="#3A2E28" stroke-width="0.8" filter="url(#crystalShadow)"/>
+  <!-- Rock texture lines -->
+  <line x1="35" y1="88" x2="50" y2="85" stroke="#5A4E48" stroke-width="0.5" opacity="0.5"/>
+  <line x1="65" y1="84" x2="85" y2="90" stroke="#5A4E48" stroke-width="0.5" opacity="0.5"/>
+  <line x1="40" y1="96" x2="75" y2="96" stroke="#5A4E48" stroke-width="0.4" opacity="0.4"/>
+
+  <!-- Main large crystal (center) -->
+  <g filter="url(#crystalShadow)">
+    <!-- Left face -->
+    <polygon points="52,78 60,14 60,78" fill="url(#crystalLight)" stroke="#9B6CB0" stroke-width="0.5"/>
+    <!-- Right face -->
+    <polygon points="68,78 60,14 60,78" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.5"/>
+    <!-- Left edge face -->
+    <polygon points="48,82 52,78 60,14 54,18" fill="url(#crystalMed)" stroke="#8B5CA8" stroke-width="0.4" opacity="0.9"/>
+    <!-- Right edge face -->
+    <polygon points="72,82 68,78 60,14 66,18" fill="#6B3C8A" stroke="#5A2C78" stroke-width="0.4" opacity="0.8"/>
+    <!-- Top facet highlight -->
+    <polygon points="54,18 60,14 66,18 60,22" fill="#D8C4E8" opacity="0.6"/>
+  </g>
+
+  <!-- Second crystal (left, medium) -->
+  <g filter="url(#crystalShadow)">
+    <polygon points="32,82 38,32 38,82" fill="url(#crystalLight)" stroke="#9B6CB0" stroke-width="0.4"/>
+    <polygon points="44,84 38,32 38,82" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.4"/>
+    <polygon points="30,86 32,82 38,32 34,36" fill="url(#crystalMed)" stroke="#8B5CA8" stroke-width="0.3" opacity="0.9"/>
+    <polygon points="34,36 38,32 42,36 38,40" fill="#D8C4E8" opacity="0.5"/>
+  </g>
+
+  <!-- Third crystal (right, medium) -->
+  <g filter="url(#crystalShadow)">
+    <polygon points="76,80 82,28 82,80" fill="url(#crystalLight)" stroke="#9B6CB0" stroke-width="0.4"/>
+    <polygon points="88,82 82,28 82,80" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.4"/>
+    <polygon points="90,84 88,82 82,28 86,32" fill="#5A2C78" stroke="#4A2668" stroke-width="0.3" opacity="0.8"/>
+    <polygon points="78,32 82,28 86,32 82,36" fill="#D8C4E8" opacity="0.5"/>
+  </g>
+
+  <!-- Small crystal (far left) -->
+  <g>
+    <polygon points="24,90 28,58 28,88" fill="url(#crystalSmall)" stroke="#9B6CB0" stroke-width="0.3"/>
+    <polygon points="32,90 28,58 28,88" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.3"/>
+    <polygon points="26,60 28,58 30,60 28,62" fill="#E0D0F0" opacity="0.5"/>
+  </g>
+
+  <!-- Small crystal (far right, tilted) -->
+  <g transform="rotate(8 92 75)">
+    <polygon points="88,88 92,52 92,86" fill="url(#crystalSmall)" stroke="#9B6CB0" stroke-width="0.3"/>
+    <polygon points="96,88 92,52 92,86" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.3"/>
+    <polygon points="90,55 92,52 94,55 92,57" fill="#E0D0F0" opacity="0.5"/>
+  </g>
+
+  <!-- Tiny crystal shard (between main and left) -->
+  <polygon points="44,84 46,62 48,84" fill="url(#crystalMed)" stroke="#8B5CA8" stroke-width="0.3"/>
+  <polygon points="46,62 48,84 50,86" fill="url(#crystalDark)" stroke="#7B4F9A" stroke-width="0.3"/>
+
+  <!-- Light reflections on main crystal -->
+  <line x1="56" y1="28" x2="56" y2="50" stroke="#FFFFFF" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
+  <line x1="54" y1="55" x2="55" y2="68" stroke="#FFFFFF" stroke-width="0.8" opacity="0.25" stroke-linecap="round"/>
+
+  <!-- Light reflection on left crystal -->
+  <line x1="35" y1="45" x2="36" y2="60" stroke="#FFFFFF" stroke-width="0.8" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Light reflection on right crystal -->
+  <line x1="80" y1="40" x2="80" y2="56" stroke="#FFFFFF" stroke-width="0.8" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Sparkle highlights -->
+  <g fill="#FFFFFF">
+    <circle cx="56" cy="26" r="1.5" opacity="0.7"/>
+    <circle cx="35" cy="42" r="1" opacity="0.6"/>
+    <circle cx="80" cy="38" r="1.2" opacity="0.6"/>
+    <circle cx="28" cy="60" r="0.8" opacity="0.5"/>
+    <circle cx="92" cy="54" r="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Star sparkle on top of main crystal -->
+  <g transform="translate(60, 14)" fill="#FFFFFF" opacity="0.8">
+    <rect x="-0.5" y="-4" width="1" height="8" rx="0.5"/>
+    <rect x="-4" y="-0.5" width="8" height="1" rx="0.5"/>
+    <rect x="-2.5" y="-2.5" width="5" height="1" rx="0.5" transform="rotate(45)"/>
+    <rect x="-2.5" y="-2.5" width="5" height="1" rx="0.5" transform="rotate(-45)"/>
+  </g>
+</svg>

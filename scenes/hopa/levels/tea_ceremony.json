@@ -1,0 +1,71 @@
+{
+  "scene_id": "tea_ceremony",
+  "day": 5,
+  "title": "Чайная церемония",
+  "background": "res://assets/hopa/backgrounds/tea_ceremony.svg",
+  "ambient_audio": "res://assets/hopa/audio/tea_ceremony_ambient.ogg",
+  "time_limit_seconds": 180,
+  "hint_cooldown_seconds": 30,
+  "objects": [
+    {
+      "id": "tea_whisk",
+      "name": "Венчик для чая",
+      "texture": "res://assets/hopa/objects/tea_whisk.svg",
+      "position": [350, 900],
+      "scale": 0.65,
+      "rotation_deg": 10,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "jade_stone",
+      "name": "Нефрит",
+      "texture": "res://assets/hopa/objects/jade_stone.svg",
+      "position": [800, 500],
+      "scale": 0.6,
+      "rotation_deg": 0,
+      "hint_radius": 50,
+      "is_key_item": false
+    },
+    {
+      "id": "origami_crane",
+      "name": "Журавлик",
+      "texture": "res://assets/hopa/objects/origami_crane.svg",
+      "position": [600, 1400],
+      "scale": 0.65,
+      "rotation_deg": -15,
+      "hint_radius": 55,
+      "is_key_item": true
+    },
+    {
+      "id": "bonsai_scissors",
+      "name": "Ножницы",
+      "texture": "res://assets/hopa/objects/bonsai_scissors.svg",
+      "position": [150, 700],
+      "scale": 0.6,
+      "rotation_deg": 25,
+      "hint_radius": 50,
+      "is_key_item": false
+    },
+    {
+      "id": "bell",
+      "name": "Колокольчик",
+      "texture": "res://assets/hopa/objects/bell.svg",
+      "position": [900, 1100],
+      "scale": 0.6,
+      "rotation_deg": -5,
+      "hint_radius": 55,
+      "is_key_item": false
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "match_pairs",
+      "trigger": "after_all_found",
+      "data": {"pairs": 6}
+    }
+  ],
+  "next_scene": "stargazing_tower",
+  "story_before": "Бамбуковый коврик, тонкий фарфор, аромат жасмина. Найди всё для чаепития.",
+  "story_after": "Каждый глоток — момент осознанности. Вечереет. Пора на башню звездочёта..."
+}

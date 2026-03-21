@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fce4b8"/>
+      <stop offset="35%" stop-color="#f7d89a"/>
+      <stop offset="70%" stop-color="#c8e6c0"/>
+      <stop offset="100%" stop-color="#89b87a"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="75%" cy="12%" r="22%">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#fce4a8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#fce4a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b9e5a"/>
+      <stop offset="100%" stop-color="#4a7840"/>
+    </linearGradient>
+    <linearGradient id="path_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4b896"/>
+      <stop offset="100%" stop-color="#b89878"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8dcc8"/>
+      <stop offset="100%" stop-color="#c8b8a0"/>
+    </linearGradient>
+    <filter id="soft" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="#3a5a2a" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <rect width="1080" height="1920" fill="url(#sun)"/>
+
+  <!-- Distant hills -->
+  <ellipse cx="300" cy="520" rx="500" ry="120" fill="#9aba8e" opacity="0.5"/>
+  <ellipse cx="800" cy="540" rx="450" ry="100" fill="#8aaa7e" opacity="0.4"/>
+
+  <!-- Garden wall background -->
+  <rect x="0" y="500" width="1080" height="180" rx="8" fill="url(#wall)" opacity="0.7"/>
+  <rect x="30" y="510" width="80" height="160" rx="4" fill="#a09a88" opacity="0.3"/>
+  <rect x="200" y="510" width="80" height="160" rx="4" fill="#a09a88" opacity="0.3"/>
+  <rect x="800" y="510" width="80" height="160" rx="4" fill="#a09a88" opacity="0.3"/>
+  <rect x="970" y="510" width="80" height="160" rx="4" fill="#a09a88" opacity="0.3"/>
+
+  <!-- Garden arch -->
+  <path d="M380,680 Q380,420 540,400 Q700,420 700,680" fill="none" stroke="#8b7860" stroke-width="28" stroke-linecap="round"/>
+  <path d="M380,680 Q380,430 540,415 Q700,430 700,680" fill="none" stroke="#a09070" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- Climbing roses on arch -->
+  <circle cx="395" cy="500" r="14" fill="#e8a0a0" opacity="0.8"/>
+  <circle cx="410" cy="530" r="10" fill="#d48888" opacity="0.7"/>
+  <circle cx="685" cy="480" r="12" fill="#e8a0a0" opacity="0.8"/>
+  <circle cx="670" cy="530" r="15" fill="#d48888" opacity="0.7"/>
+  <circle cx="420" cy="460" r="8" fill="#eab0b0" opacity="0.6"/>
+  <circle cx="660" cy="445" r="10" fill="#eab0b0" opacity="0.6"/>
+  <!-- Rose leaves -->
+  <ellipse cx="405" cy="515" rx="10" ry="5" fill="#5a8a4a" transform="rotate(-20,405,515)"/>
+  <ellipse cx="675" cy="505" rx="10" ry="5" fill="#5a8a4a" transform="rotate(15,675,505)"/>
+
+  <!-- Main grass area -->
+  <rect x="0" y="900" width="1080" height="1020" fill="url(#grass)"/>
+  <!-- Grass texture lines -->
+  <path d="M0,920 Q100,910 200,925 Q350,915 500,928 Q700,912 900,922 Q1000,930 1080,920" fill="none" stroke="#5a8a48" stroke-width="3" opacity="0.4"/>
+
+  <!-- Stone path -->
+  <path d="M440,920 Q460,1100 490,1300 Q520,1500 500,1920" fill="url(#path_grad)" stroke="#b0987a" stroke-width="2" opacity="0.9"/>
+  <path d="M640,920 Q620,1100 590,1300 Q560,1500 580,1920" fill="url(#path_grad)" stroke="#b0987a" stroke-width="2" opacity="0.9"/>
+  <rect x="440" y="920" width="200" height="1000" rx="4" fill="url(#path_grad)" opacity="0.85"/>
+  <!-- Stepping stones -->
+  <ellipse cx="540" cy="980" rx="70" ry="20" fill="#c8b498" opacity="0.6"/>
+  <ellipse cx="535" cy="1080" rx="65" ry="18" fill="#c0ac90" opacity="0.5"/>
+  <ellipse cx="545" cy="1180" rx="68" ry="19" fill="#c8b498" opacity="0.55"/>
+  <ellipse cx="538" cy="1300" rx="60" ry="17" fill="#c0ac90" opacity="0.5"/>
+
+  <!-- Left flower bed -->
+  <ellipse cx="160" cy="920" rx="180" ry="50" fill="#5a8848" opacity="0.7"/>
+  <!-- Flowers -->
+  <circle cx="80" cy="880" r="16" fill="#e8c858"/>
+  <circle cx="80" cy="880" r="8" fill="#d4a830"/>
+  <circle cx="150" cy="870" r="18" fill="#d89090"/>
+  <circle cx="150" cy="870" r="9" fill="#c07070"/>
+  <circle cx="230" cy="885" r="14" fill="#c8a0d8"/>
+  <circle cx="230" cy="885" r="7" fill="#a880b8"/>
+  <circle cx="110" cy="895" r="12" fill="#e8d068"/>
+  <circle cx="200" cy="890" r="15" fill="#e0a0a0"/>
+
+  <!-- Right flower garden -->
+  <ellipse cx="920" cy="920" rx="170" ry="45" fill="#5a8848" opacity="0.7"/>
+  <circle cx="850" cy="885" r="15" fill="#a0c8e0"/>
+  <circle cx="850" cy="885" r="7" fill="#80a8c0"/>
+  <circle cx="930" cy="878" r="18" fill="#e8c858"/>
+  <circle cx="930" cy="878" r="9" fill="#d4a830"/>
+  <circle cx="1000" cy="890" r="13" fill="#d89090"/>
+  <circle cx="1000" cy="890" r="6" fill="#c07070"/>
+  <circle cx="880" cy="898" r="11" fill="#c8a0d8"/>
+  <circle cx="960" cy="895" r="14" fill="#e0b8a0"/>
+
+  <!-- Tree left -->
+  <rect x="30" y="550" width="40" height="380" rx="8" fill="#8b7255" filter="url(#shadow)"/>
+  <ellipse cx="50" cy="520" rx="110" ry="140" fill="#6a9a58" opacity="0.85"/>
+  <ellipse cx="30" cy="480" rx="80" ry="100" fill="#78a868" opacity="0.7"/>
+  <ellipse cx="80" cy="500" rx="70" ry="90" fill="#5a8a48" opacity="0.6"/>
+
+  <!-- Tree right -->
+  <rect x="980" y="580" width="35" height="350" rx="8" fill="#8b7255" filter="url(#shadow)"/>
+  <ellipse cx="998" cy="550" rx="100" ry="130" fill="#6a9a58" opacity="0.85"/>
+  <ellipse cx="1020" cy="510" rx="75" ry="100" fill="#78a868" opacity="0.7"/>
+
+  <!-- Bushes -->
+  <ellipse cx="100" cy="950" rx="90" ry="50" fill="#5a8a4a" opacity="0.7"/>
+  <ellipse cx="980" cy="960" rx="80" ry="45" fill="#5a8a4a" opacity="0.65"/>
+  <ellipse cx="350" cy="940" rx="50" ry="30" fill="#6a9a5a" opacity="0.5"/>
+  <ellipse cx="730" cy="935" rx="55" ry="35" fill="#6a9a5a" opacity="0.5"/>
+
+  <!-- Wooden bench -->
+  <rect x="720" y="1100" width="200" height="12" rx="3" fill="#a08060"/>
+  <rect x="730" y="1112" width="8" height="50" rx="2" fill="#8a6a48"/>
+  <rect x="902" y="1112" width="8" height="50" rx="2" fill="#8a6a48"/>
+  <rect x="720" y="1090" width="200" height="6" rx="2" fill="#b09070"/>
+
+  <!-- Watering station -->
+  <rect x="120" y="1200" width="60" height="80" rx="4" fill="#808080" opacity="0.5"/>
+  <rect x="115" y="1190" width="70" height="12" rx="3" fill="#909090" opacity="0.5"/>
+
+  <!-- Small decorative fountain -->
+  <ellipse cx="540" cy="1500" rx="80" ry="30" fill="#7aa8c0" opacity="0.5"/>
+  <ellipse cx="540" cy="1500" rx="60" ry="20" fill="#8ab8d0" opacity="0.4"/>
+  <rect x="525" y="1430" width="30" height="70" rx="4" fill="#a0a0a0" opacity="0.5"/>
+
+  <!-- Butterflies -->
+  <g transform="translate(300,350)" opacity="0.6">
+    <ellipse cx="-8" cy="0" rx="8" ry="5" fill="#e8c858" transform="rotate(-20)"/>
+    <ellipse cx="8" cy="0" rx="8" ry="5" fill="#e8c858" transform="rotate(20)"/>
+    <circle cx="0" cy="0" r="2" fill="#8a6a30"/>
+  </g>
+  <g transform="translate(750,300)" opacity="0.5">
+    <ellipse cx="-7" cy="0" rx="7" ry="4" fill="#c8a0d8" transform="rotate(-25)"/>
+    <ellipse cx="7" cy="0" rx="7" ry="4" fill="#c8a0d8" transform="rotate(25)"/>
+    <circle cx="0" cy="0" r="2" fill="#6a4080"/>
+  </g>
+
+  <!-- Warm light overlay -->
+  <rect width="1080" height="1920" fill="#fce8a0" opacity="0.06"/>
+
+  <!-- Dew sparkles -->
+  <circle cx="180" cy="860" r="3" fill="white" opacity="0.7"/>
+  <circle cx="400" cy="900" r="2" fill="white" opacity="0.6"/>
+  <circle cx="700" cy="870" r="2.5" fill="white" opacity="0.65"/>
+  <circle cx="950" cy="885" r="2" fill="white" opacity="0.55"/>
+</svg>

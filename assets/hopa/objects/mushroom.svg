@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Cap gradient: warm red -->
+    <radialGradient id="capGrad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#E8453C"/>
+      <stop offset="60%" stop-color="#C0302A"/>
+      <stop offset="100%" stop-color="#8B1A15"/>
+    </radialGradient>
+    <!-- Stem gradient: creamy white -->
+    <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#E8DDD0"/>
+      <stop offset="40%" stop-color="#FFF8F0"/>
+      <stop offset="100%" stop-color="#D6C8B8"/>
+    </linearGradient>
+    <!-- Cap shadow -->
+    <radialGradient id="capShadow" cx="50%" cy="80%" r="50%">
+      <stop offset="0%" stop-color="#6B0F0A" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6B0F0A" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Grass gradient -->
+    <linearGradient id="grassGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#4A7A3B"/>
+      <stop offset="100%" stop-color="#7BC462"/>
+    </linearGradient>
+    <!-- Cap highlight -->
+    <radialGradient id="capHighlight" cx="38%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="60" cy="108" rx="32" ry="6" fill="#3D6B2E" opacity="0.3"/>
+
+  <!-- Grass blades behind mushroom -->
+  <g fill="url(#grassGrad)">
+    <path d="M25,110 Q28,88 22,78 Q30,90 32,110Z"/>
+    <path d="M35,110 Q34,85 30,75 Q38,87 40,110Z"/>
+    <path d="M80,110 Q84,86 90,76 Q82,88 78,110Z"/>
+    <path d="M90,110 Q88,90 94,80 Q86,92 85,110Z"/>
+  </g>
+
+  <!-- Stem -->
+  <path d="M47,68 Q44,85 42,100 Q42,110 60,112 Q78,110 78,100 Q76,85 73,68Z" fill="url(#stemGrad)" stroke="#C4B5A2" stroke-width="0.5"/>
+  <!-- Stem ring detail -->
+  <path d="M46,75 Q60,80 74,75" fill="none" stroke="#D6C8B8" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Cap -->
+  <ellipse cx="60" cy="52" rx="40" ry="28" fill="url(#capGrad)"/>
+  <!-- Cap underside shadow -->
+  <ellipse cx="60" cy="66" rx="36" ry="8" fill="url(#capShadow)"/>
+  <!-- Cap rim (underside) -->
+  <path d="M24,58 Q60,76 96,58" fill="none" stroke="#8B1A15" stroke-width="1" opacity="0.5"/>
+
+  <!-- White spots on cap -->
+  <ellipse cx="42" cy="42" rx="7" ry="6" fill="#FFF8F0" opacity="0.9"/>
+  <ellipse cx="68" cy="36" rx="8" ry="6.5" fill="#FFF8F0" opacity="0.9"/>
+  <ellipse cx="52" cy="55" rx="5.5" ry="5" fill="#FFF8F0" opacity="0.85"/>
+  <ellipse cx="78" cy="50" rx="6" ry="5" fill="#FFF8F0" opacity="0.85"/>
+  <ellipse cx="38" cy="58" rx="4" ry="3.5" fill="#FFF8F0" opacity="0.8"/>
+  <ellipse cx="85" cy="44" rx="4.5" ry="4" fill="#FFF8F0" opacity="0.75"/>
+
+  <!-- Cap highlight/sheen -->
+  <ellipse cx="50" cy="40" rx="22" ry="14" fill="url(#capHighlight)"/>
+
+  <!-- Grass blades in front -->
+  <g fill="url(#grassGrad)">
+    <path d="M50,112 Q48,95 44,86 Q52,96 54,112Z"/>
+    <path d="M65,112 Q68,94 74,84 Q66,95 64,112Z"/>
+  </g>
+</svg>

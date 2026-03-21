@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="sr2-stone" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#f0d868"/>
+      <stop offset="40%" stop-color="#d0a838"/>
+      <stop offset="100%" stop-color="#907020"/>
+    </radialGradient>
+    <radialGradient id="sr2-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fae888" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#f0c840" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#f0c840" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sr2-rune" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff8d0"/>
+      <stop offset="100%" stop-color="#f8d848"/>
+    </linearGradient>
+    <radialGradient id="sr2-edge" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="70%" stop-color="#c89828" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#705818" stop-opacity="0.4"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer glow -->
+  <ellipse cx="60" cy="62" rx="52" ry="48" fill="url(#sr2-glow)"/>
+  <!-- Stone body - rounded rectangle -->
+  <rect x="20" y="18" width="80" height="90" rx="18" ry="18" fill="url(#sr2-stone)"/>
+  <!-- Edge shadow/depth -->
+  <rect x="20" y="18" width="80" height="90" rx="18" ry="18" fill="url(#sr2-edge)"/>
+  <!-- Stone texture - subtle cracks -->
+  <path d="M38 24 Q45 30 42 40" fill="none" stroke="#a08028" stroke-width="0.6" opacity="0.3"/>
+  <path d="M82 90 Q78 95 85 100" fill="none" stroke="#a08028" stroke-width="0.5" opacity="0.25"/>
+  <!-- Decorative border carved into stone -->
+  <rect x="30" y="28" width="60" height="70" rx="10" ry="10" fill="none" stroke="#c89828" stroke-width="1.5" opacity="0.4"/>
+  <!-- Corner ornaments -->
+  <circle cx="34" cy="32" r="3" fill="#e8c040" opacity="0.4"/>
+  <circle cx="86" cy="32" r="3" fill="#e8c040" opacity="0.4"/>
+  <circle cx="34" cy="94" r="3" fill="#e8c040" opacity="0.4"/>
+  <circle cx="86" cy="94" r="3" fill="#e8c040" opacity="0.4"/>
+  <!-- Ornate rune symbol - stylized sun/star -->
+  <line x1="60" y1="38" x2="60" y2="88" stroke="url(#sr2-rune)" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="40" y1="63" x2="80" y2="63" stroke="url(#sr2-rune)" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Diagonal arms -->
+  <line x1="44" y1="45" x2="76" y2="81" stroke="url(#sr2-rune)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="76" y1="45" x2="44" y2="81" stroke="url(#sr2-rune)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Central circle -->
+  <circle cx="60" cy="63" r="8" fill="none" stroke="url(#sr2-rune)" stroke-width="2.5"/>
+  <circle cx="60" cy="63" r="4" fill="#fff8d0" opacity="0.6"/>
+  <!-- Diamond tips at arms -->
+  <polygon points="60,34 63,38 60,42 57,38" fill="#fff8d0" opacity="0.5"/>
+  <polygon points="60,84 63,88 60,92 57,88" fill="#fff8d0" opacity="0.5"/>
+  <polygon points="36,63 40,60 44,63 40,66" fill="#fff8d0" opacity="0.5"/>
+  <polygon points="76,63 80,60 84,63 80,66" fill="#fff8d0" opacity="0.5"/>
+  <!-- Rune glow effect -->
+  <line x1="60" y1="38" x2="60" y2="88" stroke="#fae888" stroke-width="6" stroke-linecap="round" opacity="0.15"/>
+  <line x1="40" y1="63" x2="80" y2="63" stroke="#fae888" stroke-width="6" stroke-linecap="round" opacity="0.15"/>
+  <!-- Specular on stone -->
+  <ellipse cx="48" cy="38" rx="10" ry="8" fill="white" opacity="0.12" transform="rotate(-10,48,38)"/>
+  <!-- Sparkle dots -->
+  <circle cx="60" cy="63" r="2" fill="white" opacity="0.5"/>
+  <circle cx="50" cy="50" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="72" cy="76" r="1.5" fill="white" opacity="0.3"/>
+</svg>

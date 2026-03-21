@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="bell-body" cx="0.4" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#f0d878"/>
+      <stop offset="35%" stop-color="#e0c050"/>
+      <stop offset="70%" stop-color="#c8a030"/>
+      <stop offset="100%" stop-color="#a08020"/>
+    </radialGradient>
+    <linearGradient id="bell-rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8b840"/>
+      <stop offset="100%" stop-color="#a07818"/>
+    </linearGradient>
+    <linearGradient id="bell-handle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8c848"/>
+      <stop offset="50%" stop-color="#d0a830"/>
+      <stop offset="100%" stop-color="#b89020"/>
+    </linearGradient>
+    <radialGradient id="bell-inner" cx="0.5" cy="0.2" r="0.7">
+      <stop offset="0%" stop-color="#907018"/>
+      <stop offset="100%" stop-color="#685010"/>
+    </radialGradient>
+    <linearGradient id="clapper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8a838"/>
+      <stop offset="100%" stop-color="#907020"/>
+    </linearGradient>
+    <radialGradient id="bell-specular" cx="0.35" cy="0.3" r="0.35">
+      <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="62" cy="106" rx="28" ry="5" fill="#705820" opacity="0.18"/>
+  <!-- Handle loop on top -->
+  <path d="M50,22 Q50,10 60,10 Q70,10 70,22" fill="none" stroke="url(#bell-handle)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Handle highlight -->
+  <path d="M54,20 Q54,14 60,14 Q66,14 66,20" fill="none" stroke="#f0d878" stroke-width="1.5" opacity="0.4"/>
+  <!-- Bell body (curved bell shape) -->
+  <path d="M38,28 Q36,26 38,22 L82,22 Q84,26 82,28 Q86,40 88,60 Q90,78 92,86 L28,86 Q30,78 32,60 Q34,40 38,28 Z" fill="url(#bell-body)"/>
+  <!-- Bell body contour (left edge shadow) -->
+  <path d="M38,28 Q34,40 32,60 Q30,78 28,86" fill="none" stroke="#907020" stroke-width="1" opacity="0.3"/>
+  <!-- Bell body contour (right edge highlight) -->
+  <path d="M82,28 Q86,40 88,60 Q90,78 92,86" fill="none" stroke="#f0d878" stroke-width="1" opacity="0.2"/>
+  <!-- Decorative band near rim -->
+  <rect x="30" y="76" width="60" height="3" rx="1" fill="#b89828" opacity="0.5"/>
+  <rect x="32" y="72" width="56" height="1.5" rx="0.5" fill="#d0b040" opacity="0.3"/>
+  <!-- Bell rim (thicker bottom edge) -->
+  <ellipse cx="60" cy="86" rx="32" ry="5" fill="url(#bell-rim)"/>
+  <!-- Bell inner opening hint -->
+  <ellipse cx="60" cy="86" rx="26" ry="3.5" fill="url(#bell-inner)" opacity="0.6"/>
+  <!-- Clapper rod -->
+  <line x1="60" y1="50" x2="60" y2="82" stroke="url(#clapper)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Clapper ball -->
+  <circle cx="60" cy="84" r="5" fill="url(#clapper)"/>
+  <circle cx="58" cy="82" r="1.5" fill="white" opacity="0.2"/>
+  <!-- Main specular highlight on bell body -->
+  <ellipse cx="48" cy="44" rx="10" ry="18" fill="url(#bell-specular)"/>
+  <!-- Secondary small specular -->
+  <ellipse cx="72" cy="60" rx="4" ry="8" fill="white" opacity="0.08"/>
+  <!-- Top crown specular -->
+  <ellipse cx="56" cy="26" rx="8" ry="3" fill="white" opacity="0.15"/>
+  <!-- Sound vibration lines -->
+  <path d="M22,68 Q18,62 22,56" fill="none" stroke="#e8c848" stroke-width="1" opacity="0.2"/>
+  <path d="M16,72 Q11,64 16,56" fill="none" stroke="#e8c848" stroke-width="1" opacity="0.15"/>
+</svg>

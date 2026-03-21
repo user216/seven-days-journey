@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="glass_body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d0e8d0" stop-opacity="0.7"/>
+      <stop offset="30%" stop-color="#e8f4e8" stop-opacity="0.5"/>
+      <stop offset="70%" stop-color="#d8ecd8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c0d8c0" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="herbs_fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a9a5a"/>
+      <stop offset="40%" stop-color="#5a8a4a"/>
+      <stop offset="100%" stop-color="#4a7a3a"/>
+    </linearGradient>
+    <linearGradient id="cork_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8b880"/>
+      <stop offset="50%" stop-color="#c8a870"/>
+      <stop offset="100%" stop-color="#b89860"/>
+    </linearGradient>
+    <linearGradient id="label_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f0e0"/>
+      <stop offset="100%" stop-color="#e8d8c0"/>
+    </linearGradient>
+    <radialGradient id="glass_shine" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="112" rx="24" ry="4" fill="#3a3228" opacity="0.15"/>
+  <!-- Jar body (glass) -->
+  <path d="M36,35 L34,100 Q34,110 60,110 Q86,110 86,100 L84,35 Z" fill="url(#glass_body)" stroke="#a0c0a0" stroke-width="1"/>
+  <!-- Herbs inside (visible through glass) -->
+  <path d="M38,55 L36,100 Q36,108 60,108 Q84,108 84,100 L82,55 Z" fill="url(#herbs_fill)" opacity="0.7"/>
+  <!-- Herb texture details -->
+  <ellipse cx="50" cy="70" rx="6" ry="3" fill="#7aaa6a" opacity="0.5" transform="rotate(-20,50,70)"/>
+  <ellipse cx="70" cy="80" rx="5" ry="2.5" fill="#5a9a4a" opacity="0.4" transform="rotate(15,70,80)"/>
+  <ellipse cx="55" cy="90" rx="7" ry="3" fill="#6a9a5a" opacity="0.4" transform="rotate(-10,55,90)"/>
+  <ellipse cx="65" cy="65" rx="4" ry="2" fill="#8aba7a" opacity="0.4" transform="rotate(25,65,65)"/>
+  <!-- Small leaf shapes -->
+  <path d="M45,75 Q48,72 51,75 Q48,78 45,75" fill="#7aaa6a" opacity="0.5"/>
+  <path d="M62,85 Q65,82 68,85 Q65,88 62,85" fill="#6a9a5a" opacity="0.4"/>
+  <path d="M72,72 Q75,69 78,72 Q75,75 72,72" fill="#8aba7a" opacity="0.4"/>
+  <!-- Air gap at top of herbs -->
+  <path d="M38,55 Q50,50 60,52 Q72,50 82,55 L82,48 Q70,45 60,47 Q50,45 38,48 Z" fill="#e8f4e8" opacity="0.3"/>
+  <!-- Glass highlight streak -->
+  <rect x="40" y="40" width="3" height="60" rx="1.5" fill="white" opacity="0.25"/>
+  <rect x="76" y="45" width="2" height="50" rx="1" fill="white" opacity="0.12"/>
+  <!-- Glass shine -->
+  <ellipse cx="48" cy="50" rx="8" ry="20" fill="url(#glass_shine)"/>
+  <!-- Jar neck -->
+  <rect x="42" y="28" width="36" height="10" rx="2" fill="#d8ecd8" stroke="#a0c0a0" stroke-width="0.8" opacity="0.8"/>
+  <!-- Jar rim -->
+  <rect x="40" y="27" width="40" height="4" rx="2" fill="#c8dcc8" stroke="#a0c0a0" stroke-width="0.8"/>
+  <!-- Cork stopper -->
+  <path d="M44,14 L42,27 L78,27 L76,14 Z" fill="url(#cork_grad)" rx="3"/>
+  <rect x="43" y="13" width="34" height="5" rx="2.5" fill="#d8b880"/>
+  <!-- Cork texture -->
+  <circle cx="52" cy="20" r="1" fill="#b89860" opacity="0.4"/>
+  <circle cx="62" cy="18" r="0.8" fill="#a88850" opacity="0.3"/>
+  <circle cx="68" cy="22" r="1.2" fill="#b89860" opacity="0.3"/>
+  <circle cx="56" cy="24" r="0.8" fill="#a88850" opacity="0.3"/>
+  <line x1="48" y1="16" x2="48" y2="25" stroke="#c8a870" stroke-width="0.5" opacity="0.3"/>
+  <line x1="72" y1="16" x2="72" y2="25" stroke="#c8a870" stroke-width="0.5" opacity="0.3"/>
+  <!-- Label on front -->
+  <rect x="44" y="72" width="32" height="22" rx="2" fill="url(#label_grad)" stroke="#c8b898" stroke-width="0.8"/>
+  <!-- Label text lines (decorative) -->
+  <line x1="50" y1="78" x2="70" y2="78" stroke="#8a7a5a" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="52" y1="82" x2="68" y2="82" stroke="#a08a6a" stroke-width="0.8" stroke-linecap="round"/>
+  <line x1="54" y1="86" x2="66" y2="86" stroke="#a08a6a" stroke-width="0.8" stroke-linecap="round"/>
+  <!-- Small herb icon on label -->
+  <path d="M58,89 Q60,86 62,89" fill="none" stroke="#6a9a5a" stroke-width="1" stroke-linecap="round"/>
+  <line x1="60" y1="89" x2="60" y2="92" stroke="#6a9a5a" stroke-width="0.8" stroke-linecap="round"/>
+</svg>

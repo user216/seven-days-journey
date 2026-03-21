@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Cup body gradient - warm cream ceramic -->
+    <linearGradient id="cupBody" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F5ECD7"/>
+      <stop offset="30%" stop-color="#FFF8EC"/>
+      <stop offset="60%" stop-color="#FFF5E0"/>
+      <stop offset="100%" stop-color="#E8D9BF"/>
+    </linearGradient>
+    <!-- Cup interior shadow -->
+    <radialGradient id="cupInterior" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#C8A87A"/>
+      <stop offset="40%" stop-color="#B89060"/>
+      <stop offset="100%" stop-color="#A07848"/>
+    </radialGradient>
+    <!-- Saucer gradient -->
+    <linearGradient id="saucerGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8EC"/>
+      <stop offset="50%" stop-color="#F5ECD7"/>
+      <stop offset="100%" stop-color="#E0D0B8"/>
+    </linearGradient>
+    <!-- Saucer rim highlight -->
+    <linearGradient id="saucerRim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8EC"/>
+      <stop offset="100%" stop-color="#E8D9BF"/>
+    </linearGradient>
+    <!-- Tea liquid -->
+    <radialGradient id="teaLiquid" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D4A650"/>
+      <stop offset="60%" stop-color="#C49040"/>
+      <stop offset="100%" stop-color="#A87830"/>
+    </radialGradient>
+    <!-- Floral accent -->
+    <radialGradient id="floral" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#A8C4A0"/>
+      <stop offset="100%" stop-color="#7BA87A"/>
+    </radialGradient>
+    <!-- Steam gradient -->
+    <linearGradient id="steamGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#C8A87A" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#C8A87A" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Gold rim -->
+    <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D4A020"/>
+      <stop offset="30%" stop-color="#F5D978"/>
+      <stop offset="50%" stop-color="#E8C840"/>
+      <stop offset="70%" stop-color="#F5D978"/>
+      <stop offset="100%" stop-color="#D4A020"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#8B7355" flood-opacity="0.25"/>
+    </filter>
+    <filter id="steamBlur">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+  </defs>
+
+  <!-- Steam wisps -->
+  <g filter="url(#steamBlur)" opacity="0.5">
+    <path d="M48,32 C46,24 50,18 48,10" fill="none" stroke="#B89060" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+    <path d="M56,30 C58,20 54,14 56,6" fill="none" stroke="#B89060" stroke-width="2.5" stroke-linecap="round" opacity="0.3"/>
+    <path d="M64,32 C62,22 66,16 64,8" fill="none" stroke="#B89060" stroke-width="2" stroke-linecap="round" opacity="0.25"/>
+  </g>
+
+  <!-- Saucer - bottom plate -->
+  <ellipse cx="60" cy="100" rx="48" ry="10" fill="url(#saucerGrad)" stroke="#D4C4A8" stroke-width="0.8" filter="url(#shadow)"/>
+  <!-- Saucer gold rim -->
+  <ellipse cx="60" cy="100" rx="48" ry="10" fill="none" stroke="url(#goldRim)" stroke-width="1.2"/>
+  <!-- Saucer inner ring -->
+  <ellipse cx="60" cy="99" rx="30" ry="6" fill="none" stroke="#D4C4A8" stroke-width="0.5" opacity="0.6"/>
+  <!-- Saucer top surface highlight -->
+  <ellipse cx="60" cy="98" rx="44" ry="8" fill="#FFF8EC" opacity="0.3"/>
+
+  <!-- Cup body -->
+  <path d="M30,42 C28,42 26,80 32,90 C36,96 50,100 60,100 C70,100 84,96 88,90 C94,80 92,42 90,42Z"
+        fill="url(#cupBody)" stroke="#D4C4A8" stroke-width="0.8" filter="url(#shadow)"/>
+
+  <!-- Cup gold rim top -->
+  <ellipse cx="60" cy="42" rx="31" ry="8" fill="none" stroke="url(#goldRim)" stroke-width="1.5"/>
+
+  <!-- Cup interior (tea visible) -->
+  <ellipse cx="60" cy="44" rx="28" ry="6.5" fill="url(#cupInterior)"/>
+  <!-- Tea liquid surface -->
+  <ellipse cx="60" cy="45" rx="24" ry="5" fill="url(#teaLiquid)" opacity="0.8"/>
+  <!-- Tea surface highlight -->
+  <ellipse cx="52" cy="44" rx="8" ry="2" fill="#E8C840" opacity="0.25"/>
+
+  <!-- Handle -->
+  <path d="M90,52 C102,52 108,62 108,72 C108,82 102,88 90,86"
+        fill="none" stroke="url(#cupBody)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M90,52 C102,52 108,62 108,72 C108,82 102,88 90,86"
+        fill="none" stroke="#D4C4A8" stroke-width="0.8"/>
+  <!-- Handle inner edge -->
+  <path d="M92,56 C100,56 104,64 104,72 C104,80 100,84 92,83"
+        fill="none" stroke="#E8D9BF" stroke-width="0.5" opacity="0.6"/>
+  <!-- Handle gold accent -->
+  <path d="M90,52 C100,52 106,60 106,72 C106,82 100,88 90,86"
+        fill="none" stroke="url(#goldRim)" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Floral pattern on cup -->
+  <!-- Small flower cluster - left side -->
+  <g transform="translate(42, 62)" opacity="0.7">
+    <circle cx="0" cy="0" r="3" fill="#C4A0A0"/>
+    <circle cx="-2.5" cy="-2" r="2" fill="#D4B0B0"/>
+    <circle cx="2.5" cy="-2" r="2" fill="#D4B0B0"/>
+    <circle cx="-2.5" cy="2" r="2" fill="#D4B0B0"/>
+    <circle cx="2.5" cy="2" r="2" fill="#D4B0B0"/>
+    <circle cx="0" cy="0" r="1.5" fill="#F5D978"/>
+    <!-- Leaf -->
+    <ellipse cx="-5" cy="3" rx="3" ry="1.5" fill="url(#floral)" transform="rotate(-30 -5 3)"/>
+    <ellipse cx="5" cy="3" rx="3" ry="1.5" fill="url(#floral)" transform="rotate(30 5 3)"/>
+  </g>
+  <!-- Small flower - right side -->
+  <g transform="translate(76, 68)" opacity="0.6">
+    <circle cx="0" cy="0" r="2.5" fill="#C4A0A0"/>
+    <circle cx="-2" cy="-1.5" r="1.5" fill="#D4B0B0"/>
+    <circle cx="2" cy="-1.5" r="1.5" fill="#D4B0B0"/>
+    <circle cx="0" cy="0" r="1.2" fill="#F5D978"/>
+    <ellipse cx="-4" cy="2" rx="2.5" ry="1" fill="url(#floral)" transform="rotate(-20 -4 2)"/>
+  </g>
+  <!-- Small leaf accent -->
+  <ellipse cx="58" cy="76" rx="4" ry="1.5" fill="url(#floral)" opacity="0.5" transform="rotate(15 58 76)"/>
+
+  <!-- Cup body highlight (reflection) -->
+  <path d="M36,48 C34,58 34,72 36,82" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+
+  <!-- Gold band near bottom of cup -->
+  <path d="M34,88 C42,94 78,94 86,88" fill="none" stroke="url(#goldRim)" stroke-width="0.8" opacity="0.6"/>
+</svg>

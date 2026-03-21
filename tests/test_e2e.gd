@@ -46,6 +46,11 @@ func _run_tests() -> void:
 	_suite_hud_signals()
 	_suite_vignette_passthrough(GS, TS)
 	_suite_parallax_setup(GS, TS)
+	_suite_main_menu()
+	_suite_scene_transition_iris(ST)
+	_suite_character_customize()
+	_suite_popup_backgrounds()
+	_suite_hopa_scene()
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -515,3 +520,286 @@ func _suite_parallax_setup(GS: Node, TS: Node) -> void:
 		_assert(level.get("_sky_material") != null, "Sky shader material exists")
 
 	level.queue_free()
+
+
+func _suite_main_menu() -> void:
+	_suite("Main Menu — Buttons & DrawLayer")
+
+	var mm_packed := load("res://scenes/main_menu/main_menu.tscn") as PackedScene
+	_assert(mm_packed != null, "Main menu scene loads")
+	if not mm_packed:
+		return
+
+	var mm: Node = mm_packed.instantiate()
+	root.add_child(mm)
+
+	# Verify core node structure
+	var bg := mm.get_node_or_null("Background")
+	_assert(bg != null, "Background node exists")
+
+	var draw_layer := mm.get_node_or_null("DrawLayer")
+	_assert(draw_layer != null, "DrawLayer node exists")
+
+	var vbox := mm.get_node_or_null("VBox")
+	_assert(vbox != null, "VBox node exists")
+
+	# DrawLayer must not eat input
+	if draw_layer:
+		_assert_eq(draw_layer.mouse_filter, Control.MOUSE_FILTER_IGNORE,
+			"DrawLayer has MOUSE_FILTER_IGNORE")
+
+	# Buttons exist and are wired
+	var continue_btn := mm.get_node_or_null("VBox/ContinueBtn")
+	_assert(continue_btn != null, "ContinueBtn exists")
+
+	var new_game_btn := mm.get_node_or_null("VBox/NewGameBtn")
+	_assert(new_game_btn != null, "NewGameBtn exists")
+
+	if new_game_btn:
+		_assert(new_game_btn is Button, "NewGameBtn is a Button")
+		var connections := new_game_btn.get_signal_connection_list("pressed")
+		_assert(connections.size() > 0,
+			"NewGameBtn.pressed has connections (%d)" % connections.size())
+
+	if continue_btn:
+		_assert(continue_btn is Button, "ContinueBtn is a Button")
+		var connections := continue_btn.get_signal_connection_list("pressed")
+		_assert(connections.size() > 0,
+			"ContinueBtn.pressed has connections (%d)" % connections.size())
+
+	# Title and subtitle exist
+	var title := mm.get_node_or_null("VBox/TitleLabel")
+	_assert(title != null, "TitleLabel exists")
+	if title:
+		_assert(title.text == "7 Days Journey", "Title text is correct")
+
+	var subtitle := mm.get_node_or_null("VBox/SubtitleLabel")
+	_assert(subtitle != null, "SubtitleLabel exists")
+
+	# Z-ordering: DrawLayer must be between Background and VBox
+	if bg and draw_layer and vbox:
+		var bg_idx := bg.get_index()
+		var dl_idx := draw_layer.get_index()
+		var vbox_idx := vbox.get_index()
+		_assert(bg_idx < dl_idx and dl_idx < vbox_idx,
+			"Z-order: Background(%d) < DrawLayer(%d) < VBox(%d)" % [bg_idx, dl_idx, vbox_idx])
+
+	# Script references correct scene paths
+	var mm_script := mm.get_script() as Script
+	_assert(mm_script != null, "MainMenu has script attached")
+	if mm_script:
+		var source: String = mm_script.source_code
+		_assert(source.contains("_on_continue"), "Script has _on_continue handler")
+		_assert(source.contains("_on_new_game"), "Script has _on_new_game handler")
+		_assert(source.contains("change_scene_iris"), "New game uses iris transition")
+
+	mm.queue_free()
+
+
+func _suite_scene_transition_iris(ST: Node) -> void:
+	_suite("Scene Transition — Iris Wipe")
+
+	_assert(ST.has_method("change_scene_iris"), "Has change_scene_iris()")
+
+	# Iris rect exists and is hidden by default
+	if "_iris_rect" in ST:
+		var ir: Control = ST.get("_iris_rect") as Control
+		_assert(ir != null, "Iris rect exists")
+		if ir:
+			_assert(ir.visible == false, "Iris rect hidden by default")
+			_assert_eq(ir.mouse_filter, Control.MOUSE_FILTER_IGNORE,
+				"Iris rect MOUSE_FILTER_IGNORE when idle")
+
+	# Iris shader material exists
+	if "_iris_material" in ST:
+		var mat: ShaderMaterial = ST.get("_iris_material") as ShaderMaterial
+		_assert(mat != null, "Iris shader material exists")
+		if mat:
+			_assert(mat.shader != null, "Iris shader loaded")
+
+
+func _suite_character_customize() -> void:
+	_suite("Character Customization")
+
+	# Scene loads
+	var scene := load("res://scenes/character_customize/character_customize.tscn")
+	_assert(scene != null, "character_customize.tscn loads")
+	if not scene:
+		return
+
+	var cc: Control = scene.instantiate()
+	root.add_child(cc)
+
+	# Core nodes exist
+	_assert(cc.get_node_or_null("VBox/Preview") != null, "Preview TextureRect exists")
+	_assert(cc.get_node_or_null("VBox/TitleLabel") != null, "TitleLabel exists")
+	_assert(cc.get_node_or_null("VBox/StartBtn") != null, "StartBtn exists")
+
+	# Customization rows exist
+	_assert(cc.get_node_or_null("VBox/SkinRow/SkinPrev") != null, "SkinPrev button exists")
+	_assert(cc.get_node_or_null("VBox/SkinRow/SkinNext") != null, "SkinNext button exists")
+	_assert(cc.get_node_or_null("VBox/SkinRow/SkinLabel") != null, "SkinLabel exists")
+	_assert(cc.get_node_or_null("VBox/HairRow/HairPrev") != null, "HairPrev button exists")
+	_assert(cc.get_node_or_null("VBox/HairRow/HairNext") != null, "HairNext button exists")
+	_assert(cc.get_node_or_null("VBox/HairRow/HairLabel") != null, "HairLabel exists")
+	_assert(cc.get_node_or_null("VBox/StyleRow/StylePrev") != null, "StylePrev button exists")
+	_assert(cc.get_node_or_null("VBox/StyleRow/StyleNext") != null, "StyleNext button exists")
+	_assert(cc.get_node_or_null("VBox/StyleRow/StyleLabel") != null, "StyleLabel exists")
+
+	# Buttons are large enough for touch
+	var start_btn := cc.get_node_or_null("VBox/StartBtn") as Button
+	if start_btn:
+		_assert(start_btn.custom_minimum_size.y >= 80, "StartBtn min height >= 80px")
+
+	var skin_prev := cc.get_node_or_null("VBox/SkinRow/SkinPrev") as Button
+	if skin_prev:
+		_assert(skin_prev.custom_minimum_size.x >= 80 and skin_prev.custom_minimum_size.y >= 80,
+			"SkinPrev min size >= 80x80")
+
+	# Gender select navigates to customize
+	var gs_scene := load("res://scenes/gender_select/gender_select.tscn")
+	_assert(gs_scene != null, "gender_select.tscn loads")
+	if gs_scene:
+		var gs: Node = gs_scene.instantiate()
+		root.add_child(gs)
+		var gs_script := gs.get_script() as Script
+		if gs_script:
+			_assert(gs_script.source_code.contains("character_customize"),
+				"Gender select navigates to character_customize")
+		gs.queue_free()
+
+	cc.queue_free()
+
+
+func _suite_popup_backgrounds() -> void:
+	_suite("Popup Dark Backgrounds")
+
+	# Level-up has Panel with dark background
+	var lu_scene := load("res://scenes/shared/level_up/level_up.tscn")
+	_assert(lu_scene != null, "level_up.tscn loads")
+	if lu_scene:
+		var lu: Node = lu_scene.instantiate()
+		root.add_child(lu)
+		var panel := lu.get_node_or_null("CenterContainer/Panel") as PanelContainer
+		_assert(panel != null, "LevelUp has Panel wrapper")
+		if panel:
+			var vbox := panel.get_node_or_null("VBox")
+			_assert(vbox != null, "LevelUp VBox inside Panel")
+		lu.queue_free()
+
+	# Day summary has dark panel style
+	var ds_scene := load("res://scenes/shared/day_summary/day_summary.tscn")
+	_assert(ds_scene != null, "day_summary.tscn loads")
+	if ds_scene:
+		var ds: Node = ds_scene.instantiate()
+		root.add_child(ds)
+		var panel := ds.get_node_or_null("Panel") as PanelContainer
+		_assert(panel != null, "DaySummary has PanelContainer")
+		ds.queue_free()
+
+	# Activity popup has dark panel style
+	var ap_scene := load("res://scenes/shared/activity_popup/activity_popup.tscn")
+	_assert(ap_scene != null, "activity_popup.tscn loads")
+	if ap_scene:
+		var ap: Node = ap_scene.instantiate()
+		root.add_child(ap)
+		var panel := ap.get_node_or_null("Panel") as PanelContainer
+		_assert(panel != null, "ActivityPopup has PanelContainer")
+		ap.queue_free()
+
+	# Achievement toast has dark panel and mouse_filter IGNORE
+	var at_scene := load("res://scenes/shared/achievement_toast/achievement_toast.tscn")
+	_assert(at_scene != null, "achievement_toast.tscn loads")
+	if at_scene:
+		var at: Node = at_scene.instantiate()
+		root.add_child(at)
+		var toast := at.get_node_or_null("ToastPanel") as PanelContainer
+		_assert(toast != null, "AchievementToast has ToastPanel")
+		if toast:
+			_assert_eq(toast.mouse_filter, Control.MOUSE_FILTER_IGNORE,
+				"ToastPanel MOUSE_FILTER_IGNORE")
+		at.queue_free()
+
+
+func _suite_hopa_scene() -> void:
+	_suite("HOPA Scene (Сад Тайн)")
+
+	var GS := root.get_node("GameState")
+	GS.reset()
+
+	# HOPA scene loads without crash
+	var hopa_packed := load("res://scenes/hopa/hopa_scene_base.tscn") as PackedScene
+	_assert(hopa_packed != null, "hopa_scene_base.tscn loads")
+	if not hopa_packed:
+		return
+
+	# Set a level before instantiating
+	GS.hopa_current_level = "garden_morning"
+	var hopa: Node = hopa_packed.instantiate()
+	root.add_child(hopa)
+	_assert(hopa.is_inside_tree(), "HOPA scene in tree after _ready()")
+
+	# Core script properties
+	_assert("_found_objects" in hopa, "Has _found_objects property")
+	_assert("_time_remaining" in hopa, "Has _time_remaining property")
+	_assert("_level_data" in hopa, "Has _level_data property")
+
+	# HUD should be created
+	_assert("_hud" in hopa, "Has _hud property")
+	if "_hud" in hopa:
+		_assert(hopa.get("_hud") != null, "HUD instantiated")
+
+	# Hint system should be created
+	_assert("_hint_system" in hopa, "Has _hint_system property")
+	if "_hint_system" in hopa:
+		_assert(hopa.get("_hint_system") != null, "HintSystem instantiated")
+
+	# Signals exist
+	_assert(hopa.has_signal("level_completed"), "Has level_completed signal")
+	_assert(hopa.has_signal("object_found"), "Has object_found signal")
+
+	hopa.queue_free()
+
+	# Puzzle scenes load
+	var puzzle_scenes := [
+		"res://scenes/hopa/puzzles/jigsaw_puzzle.tscn",
+		"res://scenes/hopa/puzzles/match_pairs_puzzle.tscn",
+		"res://scenes/hopa/puzzles/connect_runes_puzzle.tscn",
+	]
+
+	for scene_path in puzzle_scenes:
+		var packed := load(scene_path) as PackedScene
+		var scene_name: String = scene_path.get_file()
+		_assert(packed != null, "Puzzle '%s' loads" % scene_name)
+		if packed:
+			var instance: Node = packed.instantiate()
+			root.add_child(instance)
+			_assert(instance.is_inside_tree(), "Puzzle '%s' in tree" % scene_name)
+			_assert(instance.has_signal("completed"), "Puzzle '%s' has completed signal" % scene_name)
+			_assert(instance.has_signal("failed"), "Puzzle '%s' has failed signal" % scene_name)
+			instance.queue_free()
+
+	# MainMenu has HOPA button
+	var mm_packed := load("res://scenes/main_menu/main_menu.tscn") as PackedScene
+	if mm_packed:
+		var mm: Node = mm_packed.instantiate()
+		root.add_child(mm)
+		var mm_script := mm.get_script() as Script
+		if mm_script:
+			_assert(mm_script.source_code.contains("_on_hopa"),
+				"Main menu has _on_hopa handler")
+			_assert(mm_script.source_code.contains("Сад Тайн"),
+				"Main menu has 'Сад Тайн' button text")
+		mm.queue_free()
+
+	# HOPA level JSONs are valid
+	for level_id in HopaData.LEVEL_ORDER:
+		var json_path := "res://scenes/hopa/levels/%s.json" % level_id
+		var data := HopaLevelLoader.load_level(json_path)
+		_assert(data.size() > 0, "Level JSON '%s' loads" % level_id)
+		if data.size() > 0:
+			_assert("objects" in data, "Level '%s' has objects" % level_id)
+			var objs: Array = data.get("objects", [])
+			_assert(objs.size() >= 5, "Level '%s' has 5+ objects (%d)" % [level_id, objs.size()])
+
+	GS.reset()

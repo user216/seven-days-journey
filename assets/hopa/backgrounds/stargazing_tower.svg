@@ -1,0 +1,763 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <!-- Wall gradients -->
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1535"/>
+      <stop offset="50%" stop-color="#252048"/>
+      <stop offset="100%" stop-color="#2e2850"/>
+    </linearGradient>
+    <linearGradient id="wall_curve" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e1838"/>
+      <stop offset="50%" stop-color="#2a2448"/>
+      <stop offset="100%" stop-color="#1e1838"/>
+    </linearGradient>
+    <!-- Floor gradient -->
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#35305a"/>
+      <stop offset="100%" stop-color="#2a2548"/>
+    </linearGradient>
+    <!-- Sky through window -->
+    <linearGradient id="night_sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0820"/>
+      <stop offset="40%" stop-color="#101040"/>
+      <stop offset="100%" stop-color="#1a1555"/>
+    </linearGradient>
+    <!-- Candle glow radials -->
+    <radialGradient id="candle_glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd060" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#ffaa30" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffaa30" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="candle_glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd060" stop-opacity="0.45"/>
+      <stop offset="40%" stop-color="#ffaa30" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffaa30" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="candle_glow3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffd060" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffaa30" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ambient moonlight from window -->
+    <radialGradient id="moonbeam" cx="50%" cy="18%" r="45%">
+      <stop offset="0%" stop-color="#8090c0" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#8090c0" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Crystal glow -->
+    <radialGradient id="crystal_glow_purple" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c0a0ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c0a0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crystal_glow_blue" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#80b0ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#80b0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crystal_glow_amber" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffc860" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ffc860" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Desk wood gradient -->
+    <linearGradient id="desk_wood" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a3528"/>
+      <stop offset="50%" stop-color="#5a4535"/>
+      <stop offset="100%" stop-color="#4a3528"/>
+    </linearGradient>
+    <!-- Bookshelf wood -->
+    <linearGradient id="shelf_wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a2a20"/>
+      <stop offset="100%" stop-color="#302018"/>
+    </linearGradient>
+    <!-- Globe gradient -->
+    <radialGradient id="globe_surface" cx="40%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#2a4070"/>
+      <stop offset="50%" stop-color="#1a3060"/>
+      <stop offset="100%" stop-color="#102040"/>
+    </radialGradient>
+    <!-- Star glow filter -->
+    <filter id="star_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="star_glow_big" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- General shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="3" stdDeviation="5" flood-color="#0a0818" flood-opacity="0.5"/>
+    </filter>
+    <filter id="shadow_light" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#0a0818" flood-opacity="0.35"/>
+    </filter>
+    <!-- Soft glow for candle flames -->
+    <filter id="flame_glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <!-- Constellation line glow -->
+    <filter id="constellation_glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <!-- Telescope metal gradient -->
+    <linearGradient id="telescope_body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a5068"/>
+      <stop offset="30%" stop-color="#8a7898"/>
+      <stop offset="70%" stop-color="#8a7898"/>
+      <stop offset="100%" stop-color="#5a5068"/>
+    </linearGradient>
+    <linearGradient id="telescope_brass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a7030"/>
+      <stop offset="30%" stop-color="#c8a850"/>
+      <stop offset="70%" stop-color="#c8a850"/>
+      <stop offset="100%" stop-color="#8a7030"/>
+    </linearGradient>
+    <!-- Warm ambient overlay -->
+    <radialGradient id="warm_ambient" cx="45%" cy="65%" r="55%">
+      <stop offset="0%" stop-color="#ffa840" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#ffa840" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Staircase shadow gradient -->
+    <linearGradient id="stair_shadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a0818" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0a0818" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============ LAYER 1: BACKGROUND — WALLS & WINDOW ============ -->
+
+  <!-- Base wall fill — circular stone room -->
+  <rect width="1080" height="1920" fill="url(#wall)"/>
+
+  <!-- Curved wall edges to suggest circular room -->
+  <path d="M0,0 Q80,960 0,1920" fill="url(#stair_shadow)" opacity="0.4"/>
+  <path d="M1080,0 Q1000,960 1080,1920" fill="url(#stair_shadow)" opacity="0.4"/>
+
+  <!-- Stone block texture on walls -->
+  <g opacity="0.12" stroke="#4a4068" stroke-width="1" fill="none">
+    <line x1="0" y1="200" x2="1080" y2="200"/>
+    <line x1="0" y1="400" x2="1080" y2="400"/>
+    <line x1="0" y1="600" x2="1080" y2="600"/>
+    <line x1="0" y1="800" x2="1080" y2="800"/>
+    <line x1="0" y1="1000" x2="1080" y2="1000"/>
+    <!-- Vertical joints staggered -->
+    <line x1="200" y1="0" x2="200" y2="200"/>
+    <line x1="500" y1="0" x2="500" y2="200"/>
+    <line x1="800" y1="0" x2="800" y2="200"/>
+    <line x1="100" y1="200" x2="100" y2="400"/>
+    <line x1="350" y1="200" x2="350" y2="400"/>
+    <line x1="600" y1="200" x2="600" y2="400"/>
+    <line x1="900" y1="200" x2="900" y2="400"/>
+    <line x1="180" y1="400" x2="180" y2="600"/>
+    <line x1="450" y1="400" x2="450" y2="600"/>
+    <line x1="720" y1="400" x2="720" y2="600"/>
+    <line x1="980" y1="400" x2="980" y2="600"/>
+    <line x1="120" y1="600" x2="120" y2="800"/>
+    <line x1="400" y1="600" x2="400" y2="800"/>
+    <line x1="680" y1="600" x2="680" y2="800"/>
+    <line x1="950" y1="600" x2="950" y2="800"/>
+    <line x1="250" y1="800" x2="250" y2="1000"/>
+    <line x1="540" y1="800" x2="540" y2="1000"/>
+    <line x1="830" y1="800" x2="830" y2="1000"/>
+  </g>
+
+  <!-- Large arched window — center-top -->
+  <path d="M300,180 L300,720 L780,720 L780,180 Q780,20 540,20 Q300,20 300,180 Z" fill="url(#night_sky)"/>
+  <!-- Window inner bevel -->
+  <path d="M320,200 L320,700 L760,700 L760,200 Q760,50 540,50 Q320,50 320,200 Z" fill="#0c0a28"/>
+
+  <!-- Stars through window — background layer -->
+  <g>
+    <!-- Tiny stars -->
+    <circle cx="400" cy="120" r="1.2" fill="#e8e4f0" opacity="0.7"/>
+    <circle cx="520" cy="80" r="1" fill="#e8e4f0" opacity="0.6"/>
+    <circle cx="640" cy="100" r="1.3" fill="#e8e4f0" opacity="0.8"/>
+    <circle cx="700" cy="150" r="1" fill="#e0dce8" opacity="0.5"/>
+    <circle cx="450" cy="200" r="0.8" fill="#e8e4f0" opacity="0.6"/>
+    <circle cx="380" cy="300" r="1.1" fill="#e0dce8" opacity="0.65"/>
+    <circle cx="600" cy="250" r="1" fill="#e8e4f0" opacity="0.55"/>
+    <circle cx="680" cy="350" r="0.9" fill="#e0dce8" opacity="0.5"/>
+    <circle cx="500" cy="400" r="1.2" fill="#e8e4f0" opacity="0.6"/>
+    <circle cx="420" cy="500" r="1" fill="#e0dce8" opacity="0.55"/>
+    <circle cx="720" cy="450" r="1.1" fill="#e8e4f0" opacity="0.5"/>
+    <circle cx="350" cy="450" r="0.8" fill="#e8e4f0" opacity="0.6"/>
+    <circle cx="560" cy="550" r="1" fill="#e0dce8" opacity="0.45"/>
+    <circle cx="650" cy="600" r="0.9" fill="#e8e4f0" opacity="0.5"/>
+    <circle cx="480" cy="650" r="1.1" fill="#e0dce8" opacity="0.55"/>
+    <circle cx="370" cy="620" r="0.8" fill="#e8e4f0" opacity="0.45"/>
+    <circle cx="730" cy="550" r="1" fill="#e0dce8" opacity="0.4"/>
+
+    <!-- Medium stars with glow -->
+    <circle cx="470" cy="150" r="2.5" fill="#f0e8ff" opacity="0.9" filter="url(#star_glow)"/>
+    <circle cx="620" cy="180" r="2" fill="#e8f0ff" opacity="0.85" filter="url(#star_glow)"/>
+    <circle cx="550" cy="320" r="2.2" fill="#f0e8ff" opacity="0.8" filter="url(#star_glow)"/>
+    <circle cx="400" cy="380" r="1.8" fill="#e8f0ff" opacity="0.75" filter="url(#star_glow)"/>
+    <circle cx="690" cy="280" r="2" fill="#ffe8f0" opacity="0.7" filter="url(#star_glow)"/>
+    <circle cx="500" cy="520" r="1.8" fill="#f0e8ff" opacity="0.65" filter="url(#star_glow)"/>
+
+    <!-- Bright stars -->
+    <circle cx="540" cy="140" r="3.5" fill="#fff8e0" opacity="0.95" filter="url(#star_glow_big)"/>
+    <circle cx="660" cy="400" r="3" fill="#e8f0ff" opacity="0.9" filter="url(#star_glow_big)"/>
+    <circle cx="380" cy="250" r="2.8" fill="#ffe8d0" opacity="0.85" filter="url(#star_glow_big)"/>
+  </g>
+
+  <!-- Constellation lines visible through window -->
+  <g stroke="#6080c0" stroke-width="0.8" fill="none" opacity="0.3" filter="url(#constellation_glow)">
+    <line x1="470" y1="150" x2="540" y2="140"/>
+    <line x1="540" y1="140" x2="620" y2="180"/>
+    <line x1="620" y1="180" x2="660" y2="400"/>
+    <line x1="380" y1="250" x2="470" y2="150"/>
+    <line x1="380" y1="250" x2="400" y2="380"/>
+    <line x1="400" y1="380" x2="550" y2="320"/>
+    <line x1="550" y1="320" x2="690" y2="280"/>
+  </g>
+
+  <!-- Window stone frame -->
+  <path d="M300,180 L300,720 L780,720 L780,180 Q780,20 540,20 Q300,20 300,180 Z"
+        fill="none" stroke="#4a4568" stroke-width="18"/>
+  <path d="M300,180 L300,720 L780,720 L780,180 Q780,20 540,20 Q300,20 300,180 Z"
+        fill="none" stroke="#5a5578" stroke-width="8"/>
+  <!-- Window mullion (vertical divider) -->
+  <line x1="540" y1="50" x2="540" y2="720" stroke="#4a4568" stroke-width="12"/>
+  <line x1="540" y1="50" x2="540" y2="720" stroke="#5a5578" stroke-width="5"/>
+  <!-- Window cross bar -->
+  <line x1="320" y1="400" x2="760" y2="400" stroke="#4a4568" stroke-width="10"/>
+  <line x1="320" y1="400" x2="760" y2="400" stroke="#5a5578" stroke-width="4"/>
+
+  <!-- Window sill -->
+  <rect x="270" y="710" width="540" height="30" rx="4" fill="#4a4060"/>
+  <rect x="275" y="710" width="530" height="12" rx="3" fill="#5a5575"/>
+
+  <!-- Moonlight beam from window -->
+  <rect width="1080" height="1920" fill="url(#moonbeam)"/>
+
+  <!-- ============ CONSTELLATION ETCHINGS ON WALLS ============ -->
+
+  <!-- Left wall constellation etching -->
+  <g stroke="#5060a0" stroke-width="1" fill="none" opacity="0.15">
+    <line x1="40" y1="300" x2="80" y2="340"/>
+    <line x1="80" y1="340" x2="130" y2="320"/>
+    <line x1="130" y1="320" x2="170" y2="380"/>
+    <line x1="170" y1="380" x2="220" y2="360"/>
+    <circle cx="40" cy="300" r="3" fill="#5060a0"/>
+    <circle cx="80" cy="340" r="2" fill="#5060a0"/>
+    <circle cx="130" cy="320" r="2.5" fill="#5060a0"/>
+    <circle cx="170" cy="380" r="2" fill="#5060a0"/>
+    <circle cx="220" cy="360" r="3" fill="#5060a0"/>
+  </g>
+
+  <!-- Right wall constellation etching -->
+  <g stroke="#5060a0" stroke-width="1" fill="none" opacity="0.15">
+    <line x1="880" y1="280" x2="920" y2="340"/>
+    <line x1="920" y1="340" x2="980" y2="310"/>
+    <line x1="980" y1="310" x2="1020" y2="360"/>
+    <line x1="1020" y1="360" x2="1050" y2="330"/>
+    <circle cx="880" cy="280" r="2.5" fill="#5060a0"/>
+    <circle cx="920" cy="340" r="2" fill="#5060a0"/>
+    <circle cx="980" cy="310" r="3" fill="#5060a0"/>
+    <circle cx="1020" cy="360" r="2" fill="#5060a0"/>
+    <circle cx="1050" cy="330" r="2.5" fill="#5060a0"/>
+  </g>
+
+  <!-- ============ LAYER 2: SPIRAL STAIRCASE (left side) ============ -->
+
+  <!-- Staircase opening suggestion — left edge -->
+  <path d="M0,1100 Q60,1050 80,1100 L80,1920 L0,1920 Z" fill="#18142e"/>
+  <!-- Spiral rail -->
+  <path d="M75,1100 Q55,1020 70,940 Q85,860 65,780 Q50,700 70,620"
+        fill="none" stroke="#5a5068" stroke-width="6" stroke-linecap="round"/>
+  <path d="M75,1100 Q55,1020 70,940 Q85,860 65,780 Q50,700 70,620"
+        fill="none" stroke="#706080" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rail balusters -->
+  <line x1="70" y1="650" x2="70" y2="620" stroke="#5a5068" stroke-width="4"/>
+  <line x1="62" y1="730" x2="62" y2="700" stroke="#5a5068" stroke-width="4"/>
+  <line x1="72" y1="810" x2="72" y2="780" stroke="#5a5068" stroke-width="4"/>
+  <line x1="65" y1="890" x2="65" y2="860" stroke="#5a5068" stroke-width="4"/>
+  <line x1="58" y1="970" x2="58" y2="940" stroke="#5a5068" stroke-width="4"/>
+  <!-- Visible stair treads -->
+  <rect x="0" y="1120" width="75" height="8" rx="2" fill="#3a3558"/>
+  <rect x="0" y="1170" width="70" height="8" rx="2" fill="#3a3558"/>
+  <rect x="0" y="1220" width="65" height="8" rx="2" fill="#3a3558"/>
+
+  <!-- ============ LAYER 3: BOOKSHELVES (right wall) ============ -->
+
+  <!-- Bookshelf frame -->
+  <rect x="840" y="500" width="220" height="640" rx="4" fill="url(#shelf_wood)" filter="url(#shadow)"/>
+  <!-- Shelves -->
+  <rect x="845" y="500" width="210" height="8" rx="2" fill="#4a3a2a"/>
+  <rect x="845" y="650" width="210" height="8" rx="2" fill="#4a3a2a"/>
+  <rect x="845" y="800" width="210" height="8" rx="2" fill="#4a3a2a"/>
+  <rect x="845" y="950" width="210" height="8" rx="2" fill="#4a3a2a"/>
+  <rect x="845" y="1100" width="210" height="8" rx="2" fill="#4a3a2a"/>
+  <rect x="845" y="1130" width="210" height="12" rx="2" fill="#4a3a2a"/>
+
+  <!-- Books — top shelf -->
+  <rect x="855" y="518" width="18" height="125" rx="2" fill="#6a2030"/>
+  <rect x="876" y="525" width="15" height="118" rx="2" fill="#2a4060"/>
+  <rect x="894" y="510" width="20" height="133" rx="2" fill="#5a3020"/>
+  <rect x="917" y="520" width="14" height="123" rx="2" fill="#304030"/>
+  <rect x="934" y="515" width="22" height="128" rx="2" fill="#4a2848"/>
+  <rect x="960" y="525" width="16" height="118" rx="2" fill="#2a3050"/>
+  <rect x="979" y="512" width="19" height="131" rx="2" fill="#6a3828"/>
+  <rect x="1002" y="528" width="14" height="115" rx="2" fill="#3a4a30"/>
+  <rect x="1019" y="518" width="20" height="125" rx="2" fill="#503060"/>
+
+  <!-- Books — second shelf -->
+  <rect x="855" y="668" width="20" height="125" rx="2" fill="#3a2a50"/>
+  <rect x="878" y="675" width="16" height="118" rx="2" fill="#6a4028"/>
+  <rect x="897" y="660" width="18" height="133" rx="2" fill="#2a5040"/>
+  <rect x="918" y="670" width="15" height="123" rx="2" fill="#602830"/>
+  <rect x="936" y="665" width="22" height="128" rx="2" fill="#3a3060"/>
+  <rect x="962" y="672" width="14" height="121" rx="2" fill="#504028"/>
+  <!-- Leaning book -->
+  <rect x="980" y="668" width="18" height="125" rx="2" fill="#2a4848" transform="rotate(-8,989,730)"/>
+  <!-- Gap with small object -->
+  <rect x="1010" y="760" width="30" height="30" rx="6" fill="#5a4a68" opacity="0.5"/>
+
+  <!-- Books — third shelf -->
+  <rect x="855" y="818" width="16" height="125" rx="2" fill="#4a3828"/>
+  <rect x="874" y="822" width="20" height="121" rx="2" fill="#2a3860"/>
+  <rect x="898" y="815" width="15" height="128" rx="2" fill="#5a2040"/>
+  <rect x="916" y="825" width="18" height="118" rx="2" fill="#3a5030"/>
+  <!-- Scroll rolled up -->
+  <ellipse cx="955" cy="940" rx="12" ry="8" fill="#d8c8a0" opacity="0.7"/>
+  <rect x="943" y="930" width="24" height="12" rx="6" fill="#c8b890"/>
+  <!-- More books -->
+  <rect x="975" y="820" width="22" height="123" rx="2" fill="#4a2858"/>
+  <rect x="1000" y="828" width="16" height="115" rx="2" fill="#6a5028"/>
+  <rect x="1020" y="815" width="18" height="128" rx="2" fill="#2a3048"/>
+
+  <!-- Crystals on shelf — fourth shelf -->
+  <!-- Amethyst cluster -->
+  <polygon points="860,1080 870,1030 880,1080" fill="#9070c0" opacity="0.8"/>
+  <polygon points="873,1085 886,1020 896,1085" fill="#8060b0" opacity="0.75"/>
+  <polygon points="850,1085 858,1055 868,1085" fill="#a080d0" opacity="0.7"/>
+  <ellipse cx="873" cy="1050" rx="30" ry="35" fill="url(#crystal_glow_purple)" filter="url(#flame_glow)"/>
+
+  <!-- Blue crystal -->
+  <polygon points="930,1085 940,1040 950,1085" fill="#6090d0" opacity="0.8"/>
+  <polygon points="942,1088 953,1028 963,1088" fill="#5080c0" opacity="0.75"/>
+  <ellipse cx="946" cy="1055" rx="25" ry="30" fill="url(#crystal_glow_blue)" filter="url(#flame_glow)"/>
+
+  <!-- Amber crystal -->
+  <polygon points="1000,1085 1008,1050 1016,1085" fill="#d0a040" opacity="0.8"/>
+  <polygon points="1015,1088 1025,1040 1035,1088" fill="#c09030" opacity="0.75"/>
+  <ellipse cx="1017" cy="1060" rx="25" ry="28" fill="url(#crystal_glow_amber)" filter="url(#flame_glow)"/>
+
+  <!-- Small items on bottom shelf area -->
+  <rect x="860" y="1108" width="40" height="20" rx="3" fill="#5a4838"/>
+  <rect x="920" y="1110" width="35" height="18" rx="3" fill="#4a3828"/>
+
+  <!-- ============ LAYER 4: FLOOR WITH GEOMETRIC PATTERN ============ -->
+
+  <rect x="0" y="1350" width="1080" height="570" fill="url(#floor)"/>
+
+  <!-- Geometric floor pattern — concentric circles suggest tower roundness -->
+  <g stroke="#4a4578" stroke-width="1.5" fill="none" opacity="0.2">
+    <ellipse cx="540" cy="1650" rx="480" ry="200"/>
+    <ellipse cx="540" cy="1650" rx="380" ry="160"/>
+    <ellipse cx="540" cy="1650" rx="280" ry="120"/>
+    <ellipse cx="540" cy="1650" rx="180" ry="80"/>
+    <ellipse cx="540" cy="1650" rx="80" ry="35"/>
+    <!-- Radial lines -->
+    <line x1="540" y1="1450" x2="540" y2="1850"/>
+    <line x1="140" y1="1590" x2="940" y2="1710"/>
+    <line x1="940" y1="1590" x2="140" y2="1710"/>
+    <line x1="60" y1="1650" x2="1020" y2="1650"/>
+  </g>
+
+  <!-- Center floor medallion -->
+  <ellipse cx="540" cy="1650" rx="60" ry="26" fill="#3a3568" opacity="0.5"/>
+  <ellipse cx="540" cy="1650" rx="60" ry="26" fill="none" stroke="#c8a850" stroke-width="1.5" opacity="0.3"/>
+  <!-- Star pattern in medallion -->
+  <polygon points="540,1628 548,1643 565,1643 552,1653 557,1668 540,1658 523,1668 528,1653 515,1643 532,1643"
+           fill="#c8a850" opacity="0.2"/>
+
+  <!-- Floor tile accents -->
+  <g fill="#3a3568" opacity="0.15">
+    <rect x="100" y="1400" width="120" height="60" rx="2"/>
+    <rect x="250" y="1380" width="100" height="55" rx="2"/>
+    <rect x="780" y="1390" width="110" height="58" rx="2"/>
+    <rect x="920" y="1410" width="100" height="52" rx="2"/>
+  </g>
+
+  <!-- ============ LAYER 5: TELESCOPE ============ -->
+
+  <!-- Telescope tripod -->
+  <g filter="url(#shadow_light)">
+    <line x1="420" y1="1350" x2="380" y2="1080" stroke="#5a4838" stroke-width="8" stroke-linecap="round"/>
+    <line x1="520" y1="1350" x2="380" y2="1080" stroke="#5a4838" stroke-width="8" stroke-linecap="round"/>
+    <line x1="340" y1="1380" x2="380" y2="1080" stroke="#5a4838" stroke-width="8" stroke-linecap="round"/>
+    <!-- Tripod hub -->
+    <circle cx="380" cy="1080" r="12" fill="#6a5838"/>
+    <circle cx="380" cy="1080" r="8" fill="#806840"/>
+  </g>
+
+  <!-- Telescope body — angled toward window -->
+  <g filter="url(#shadow)">
+    <!-- Main tube -->
+    <rect x="280" y="860" width="200" height="40" rx="20" fill="url(#telescope_body)"
+          transform="rotate(-30,380,880)"/>
+    <!-- Brass rings -->
+    <rect x="300" y="867" width="15" height="26" rx="4" fill="url(#telescope_brass)"
+          transform="rotate(-30,380,880)"/>
+    <rect x="440" y="867" width="15" height="26" rx="4" fill="url(#telescope_brass)"
+          transform="rotate(-30,380,880)"/>
+    <!-- Eyepiece -->
+    <rect x="460" y="863" width="35" height="34" rx="6" fill="#3a3048"
+          transform="rotate(-30,380,880)"/>
+    <!-- Lens end -->
+    <ellipse cx="290" cy="880" rx="24" ry="22" fill="#1a2040" transform="rotate(-30,380,880)"/>
+    <ellipse cx="290" cy="880" rx="20" ry="18" fill="#283060" transform="rotate(-30,380,880)" opacity="0.6"/>
+    <!-- Lens glint -->
+    <ellipse cx="286" cy="874" rx="8" ry="6" fill="#6080c0" transform="rotate(-30,380,880)" opacity="0.3"/>
+  </g>
+
+  <!-- ============ LAYER 6: CURVED DESK ============ -->
+
+  <!-- Desk — curved front, positioned center-right lower area -->
+  <g filter="url(#shadow)">
+    <!-- Desk top surface -->
+    <path d="M200,1220 Q540,1180 880,1220 L870,1240 Q540,1200 210,1240 Z" fill="#5a4535"/>
+    <path d="M210,1240 Q540,1200 870,1240 L870,1260 Q540,1220 210,1260 Z" fill="url(#desk_wood)"/>
+    <!-- Desk front panel -->
+    <path d="M210,1260 Q540,1220 870,1260 L870,1380 Q540,1350 210,1380 Z" fill="#4a3828"/>
+    <!-- Desk legs visible -->
+    <rect x="230" y="1380" width="15" height="80" rx="3" fill="#3a2818"/>
+    <rect x="850" y="1375" width="15" height="85" rx="3" fill="#3a2818"/>
+  </g>
+
+  <!-- Drawer handles -->
+  <ellipse cx="400" cy="1320" rx="18" ry="6" fill="#a08840" opacity="0.6"/>
+  <ellipse cx="680" cy="1315" rx="18" ry="6" fill="#a08840" opacity="0.6"/>
+
+  <!-- ============ LAYER 7: DESK ITEMS ============ -->
+
+  <!-- Star map / large scroll unfurled -->
+  <g filter="url(#shadow_light)">
+    <rect x="350" y="1185" width="280" height="40" rx="4" fill="#d8c8a0" opacity="0.85"/>
+    <!-- Star map markings -->
+    <circle cx="400" cy="1200" r="2" fill="#4a4060" opacity="0.5"/>
+    <circle cx="430" cy="1195" r="1.5" fill="#4a4060" opacity="0.4"/>
+    <circle cx="460" cy="1205" r="1.8" fill="#4a4060" opacity="0.45"/>
+    <circle cx="500" cy="1198" r="2" fill="#4a4060" opacity="0.5"/>
+    <circle cx="530" cy="1208" r="1.5" fill="#4a4060" opacity="0.4"/>
+    <circle cx="560" cy="1193" r="1.8" fill="#4a4060" opacity="0.45"/>
+    <circle cx="590" cy="1202" r="2" fill="#4a4060" opacity="0.5"/>
+    <line x1="400" y1="1200" x2="430" y2="1195" stroke="#4a4060" stroke-width="0.5" opacity="0.35"/>
+    <line x1="430" y1="1195" x2="460" y2="1205" stroke="#4a4060" stroke-width="0.5" opacity="0.35"/>
+    <line x1="500" y1="1198" x2="530" y2="1208" stroke="#4a4060" stroke-width="0.5" opacity="0.35"/>
+    <line x1="530" y1="1208" x2="560" y2="1193" stroke="#4a4060" stroke-width="0.5" opacity="0.35"/>
+    <!-- Scroll rolled ends -->
+    <ellipse cx="350" cy="1205" rx="8" ry="20" fill="#c8b890"/>
+    <ellipse cx="630" cy="1205" rx="8" ry="20" fill="#c8b890"/>
+  </g>
+
+  <!-- Smaller scrolls stacked -->
+  <rect x="660" y="1200" width="80" height="12" rx="6" fill="#c8b890" opacity="0.7" transform="rotate(-5,700,1206)"/>
+  <rect x="665" y="1190" width="75" height="12" rx="6" fill="#d0c098" opacity="0.65" transform="rotate(3,700,1196)"/>
+
+  <!-- Quill pen in inkwell -->
+  <rect x="280" y="1200" width="16" height="22" rx="4" fill="#2a2838"/>
+  <circle cx="288" cy="1200" r="8" fill="#1a1828"/>
+  <line x1="288" y1="1200" x2="260" y2="1140" stroke="#c8b8a0" stroke-width="2" stroke-linecap="round"/>
+  <!-- Feather -->
+  <path d="M260,1140 Q245,1125 255,1110 Q260,1120 265,1130 Q270,1120 260,1140" fill="#c8b8a0" opacity="0.8"/>
+
+  <!-- Small candle on desk -->
+  <rect x="770" y="1190" width="12" height="28" rx="3" fill="#e8dcc0"/>
+  <ellipse cx="776" cy="1186" rx="5" ry="8" fill="#ffd040" opacity="0.9"/>
+  <ellipse cx="776" cy="1178" rx="22" ry="26" fill="url(#candle_glow3)" filter="url(#flame_glow)"/>
+
+  <!-- ============ LAYER 8: ASTROLABE ON DESK ============ -->
+
+  <!-- Astrolabe — intricate brass instrument -->
+  <g transform="translate(830,1185)" filter="url(#shadow_light)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#c8a850" stroke-width="3"/>
+    <circle cx="0" cy="0" r="32" fill="#2a2040" opacity="0.6"/>
+    <!-- Inner rings -->
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#c8a850" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#c8a850" stroke-width="1" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#c8a850" stroke-width="1" opacity="0.5"/>
+    <!-- Cross lines -->
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#c8a850" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="-30" x2="0" y2="30" stroke="#c8a850" stroke-width="1" opacity="0.5"/>
+    <!-- Pointer arm -->
+    <line x1="0" y1="0" x2="20" y2="-22" stroke="#dab860" stroke-width="2"/>
+    <circle cx="0" cy="0" r="4" fill="#dab860"/>
+    <!-- Degree marks -->
+    <g stroke="#c8a850" stroke-width="0.8" opacity="0.4">
+      <line x1="0" y1="-35" x2="0" y2="-32"/>
+      <line x1="35" y1="0" x2="32" y2="0"/>
+      <line x1="0" y1="35" x2="0" y2="32"/>
+      <line x1="-35" y1="0" x2="-32" y2="0"/>
+      <line x1="24.7" y1="-24.7" x2="22.6" y2="-22.6"/>
+      <line x1="24.7" y1="24.7" x2="22.6" y2="22.6"/>
+      <line x1="-24.7" y1="24.7" x2="-22.6" y2="22.6"/>
+      <line x1="-24.7" y1="-24.7" x2="-22.6" y2="-22.6"/>
+    </g>
+  </g>
+
+  <!-- ============ LAYER 9: CELESTIAL GLOBE (left of desk) ============ -->
+
+  <!-- Globe stand -->
+  <g transform="translate(160,1200)" filter="url(#shadow_light)">
+    <!-- Base plate -->
+    <ellipse cx="0" cy="50" rx="35" ry="10" fill="#5a4838"/>
+    <!-- Vertical post -->
+    <rect x="-5" y="0" width="10" height="50" rx="2" fill="#6a5838"/>
+    <!-- Meridian ring (tilted) -->
+    <ellipse cx="0" cy="-20" rx="45" ry="50" fill="none" stroke="#c8a850" stroke-width="2.5"/>
+    <!-- Globe sphere -->
+    <circle cx="0" cy="-20" r="38" fill="url(#globe_surface)"/>
+    <!-- Continent shapes suggestion -->
+    <path d="M-15,-35 Q-5,-40 5,-32 Q10,-28 5,-20 Q-5,-18 -15,-25 Z" fill="#3a6050" opacity="0.5"/>
+    <path d="M10,-10 Q20,-15 25,-5 Q22,5 12,3 Z" fill="#3a6050" opacity="0.4"/>
+    <path d="M-25,-5 Q-18,-10 -12,-2 Q-15,5 -25,2 Z" fill="#3a6050" opacity="0.45"/>
+    <!-- Grid lines on globe -->
+    <ellipse cx="0" cy="-20" rx="38" ry="15" fill="none" stroke="#4a6080" stroke-width="0.6" opacity="0.4"/>
+    <ellipse cx="0" cy="-20" rx="15" ry="38" fill="none" stroke="#4a6080" stroke-width="0.6" opacity="0.4" transform="rotate(20,0,-20)"/>
+    <!-- Globe shine -->
+    <ellipse cx="-12" cy="-32" rx="12" ry="10" fill="#6090c0" opacity="0.15"/>
+  </g>
+
+  <!-- ============ LAYER 10: CANDELABRAS ============ -->
+
+  <!-- Left candelabra on wall bracket -->
+  <g filter="url(#shadow_light)">
+    <!-- Wall bracket -->
+    <rect x="110" y="780" width="12" height="30" rx="2" fill="#6a5838"/>
+    <path d="M105,810 Q116,830 127,810" fill="#6a5838"/>
+    <!-- Main stem -->
+    <rect x="112" y="810" width="8" height="80" rx="2" fill="#b09030"/>
+    <!-- Left arm -->
+    <path d="M116,830 Q90,825 85,850" fill="none" stroke="#b09030" stroke-width="4" stroke-linecap="round"/>
+    <!-- Right arm -->
+    <path d="M116,830 Q142,825 147,850" fill="none" stroke="#b09030" stroke-width="4" stroke-linecap="round"/>
+    <!-- Candle holders -->
+    <rect x="108" y="802" width="16" height="8" rx="2" fill="#c8a840"/>
+    <rect x="78" y="842" width="16" height="8" rx="2" fill="#c8a840"/>
+    <rect x="140" y="842" width="16" height="8" rx="2" fill="#c8a840"/>
+    <!-- Candles -->
+    <rect x="111" y="770" width="10" height="32" rx="2" fill="#e8dcc0"/>
+    <rect x="81" y="812" width="10" height="30" rx="2" fill="#e8dcc0"/>
+    <rect x="143" y="814" width="10" height="28" rx="2" fill="#e8dcc0"/>
+    <!-- Flames -->
+    <ellipse cx="116" cy="764" rx="5" ry="9" fill="#ffd040" opacity="0.9"/>
+    <ellipse cx="86" cy="807" rx="4" ry="8" fill="#ffd040" opacity="0.85"/>
+    <ellipse cx="148" cy="809" rx="4.5" ry="8" fill="#ffd040" opacity="0.85"/>
+    <!-- Flame glows -->
+    <ellipse cx="116" cy="756" rx="30" ry="35" fill="url(#candle_glow1)" filter="url(#flame_glow)"/>
+    <ellipse cx="86" cy="800" rx="25" ry="30" fill="url(#candle_glow2)" filter="url(#flame_glow)"/>
+    <ellipse cx="148" cy="802" rx="25" ry="30" fill="url(#candle_glow2)" filter="url(#flame_glow)"/>
+  </g>
+
+  <!-- Right candelabra — free-standing on desk area -->
+  <g filter="url(#shadow_light)">
+    <!-- Base -->
+    <ellipse cx="920" cy="1212" rx="22" ry="6" fill="#a08030"/>
+    <!-- Stem -->
+    <rect x="916" y="1140" width="8" height="72" rx="2" fill="#b09030"/>
+    <!-- Left arm -->
+    <path d="M920,1155 Q900,1150 895,1170" fill="none" stroke="#b09030" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Right arm -->
+    <path d="M920,1155 Q940,1150 945,1170" fill="none" stroke="#b09030" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- Holders -->
+    <rect x="913" y="1133" width="14" height="7" rx="2" fill="#c8a840"/>
+    <rect x="888" y="1163" width="14" height="7" rx="2" fill="#c8a840"/>
+    <rect x="938" y="1163" width="14" height="7" rx="2" fill="#c8a840"/>
+    <!-- Candles -->
+    <rect x="916" y="1105" width="8" height="28" rx="2" fill="#e8dcc0"/>
+    <rect x="891" y="1138" width="8" height="25" rx="2" fill="#e8dcc0"/>
+    <rect x="941" y="1140" width="8" height="23" rx="2" fill="#e8dcc0"/>
+    <!-- Flames -->
+    <ellipse cx="920" cy="1100" rx="4.5" ry="8" fill="#ffd040" opacity="0.9"/>
+    <ellipse cx="895" cy="1133" rx="4" ry="7" fill="#ffd040" opacity="0.85"/>
+    <ellipse cx="945" cy="1136" rx="4" ry="7" fill="#ffd040" opacity="0.85"/>
+    <!-- Glows -->
+    <ellipse cx="920" cy="1092" rx="28" ry="32" fill="url(#candle_glow1)" filter="url(#flame_glow)"/>
+    <ellipse cx="895" cy="1126" rx="22" ry="26" fill="url(#candle_glow2)" filter="url(#flame_glow)"/>
+    <ellipse cx="945" cy="1128" rx="22" ry="26" fill="url(#candle_glow2)" filter="url(#flame_glow)"/>
+  </g>
+
+  <!-- ============ LAYER 11: HANGING PLANET MOBILE ============ -->
+
+  <!-- Mobile hangs from ceiling center-right -->
+  <g opacity="0.85">
+    <!-- Anchor point on ceiling -->
+    <circle cx="700" cy="5" r="4" fill="#5a5068"/>
+    <!-- Main string -->
+    <line x1="700" y1="5" x2="700" y2="100" stroke="#8a8098" stroke-width="1"/>
+    <!-- Cross bar -->
+    <line x1="640" y1="100" x2="760" y2="100" stroke="#8a7040" stroke-width="2.5"/>
+    <!-- Planet strings -->
+    <line x1="650" y1="100" x2="650" y2="160" stroke="#8a8098" stroke-width="0.8"/>
+    <line x1="700" y1="100" x2="700" y2="190" stroke="#8a8098" stroke-width="0.8"/>
+    <line x1="750" y1="100" x2="750" y2="145" stroke="#8a8098" stroke-width="0.8"/>
+    <!-- Sub bar -->
+    <line x1="665" y1="130" x2="735" y2="130" stroke="#8a7040" stroke-width="2"/>
+    <line x1="675" y1="130" x2="675" y2="170" stroke="#8a8098" stroke-width="0.8"/>
+    <line x1="725" y1="130" x2="725" y2="185" stroke="#8a8098" stroke-width="0.8"/>
+
+    <!-- Planets -->
+    <!-- Large ringed planet (Saturn-like) -->
+    <circle cx="650" cy="168" r="12" fill="#c8a870"/>
+    <ellipse cx="650" cy="168" rx="22" ry="5" fill="none" stroke="#d8b878" stroke-width="2" opacity="0.6"/>
+    <!-- Blue planet -->
+    <circle cx="700" cy="198" r="10" fill="#5080b0"/>
+    <ellipse cx="696" cy="193" rx="4" ry="3" fill="#6090c0" opacity="0.3"/>
+    <!-- Small red planet -->
+    <circle cx="750" cy="150" r="7" fill="#c06040"/>
+    <!-- Green planet -->
+    <circle cx="675" cy="176" r="8" fill="#508060"/>
+    <ellipse cx="672" cy="172" rx="3" ry="2.5" fill="#60a070" opacity="0.3"/>
+    <!-- Tiny moon -->
+    <circle cx="725" cy="190" r="5" fill="#c8c0b0"/>
+  </g>
+
+  <!-- ============ LAYER 12: WINDOW SILL ITEMS ============ -->
+
+  <!-- Items on window sill — hide-able surfaces -->
+  <!-- Small crystal ball -->
+  <circle cx="370" cy="700" r="18" fill="#2a2850" opacity="0.7" filter="url(#shadow_light)"/>
+  <circle cx="370" cy="700" r="16" fill="#3a3868" opacity="0.5"/>
+  <ellipse cx="364" cy="693" rx="7" ry="6" fill="#6080c0" opacity="0.2"/>
+  <!-- Crystal ball base -->
+  <path d="M356,716 Q370,722 384,716" fill="#5a4838" stroke="#5a4838" stroke-width="2"/>
+
+  <!-- Hourglass on sill -->
+  <g transform="translate(470,685)" filter="url(#shadow_light)">
+    <rect x="-12" y="-20" width="24" height="4" rx="1" fill="#c8a850"/>
+    <rect x="-12" y="16" width="24" height="4" rx="1" fill="#c8a850"/>
+    <path d="M-9,-16 Q0,0 9,-16" fill="#e8d8b0" opacity="0.5"/>
+    <path d="M-9,16 Q0,0 9,16" fill="#e8d8b0" opacity="0.3"/>
+    <!-- Sand -->
+    <path d="M-6,-16 Q0,-6 6,-16" fill="#d8b870" opacity="0.4"/>
+    <path d="M-7,16 L7,16 L0,8 Z" fill="#d8b870" opacity="0.5"/>
+  </g>
+
+  <!-- Small potted plant on sill -->
+  <rect x="600" y="692" width="22" height="20" rx="3" fill="#6a4838"/>
+  <ellipse cx="611" cy="685" rx="16" ry="15" fill="#3a6840" opacity="0.7"/>
+  <ellipse cx="606" cy="680" rx="10" ry="12" fill="#4a7848" opacity="0.5"/>
+
+  <!-- Compass on sill -->
+  <circle cx="710" cy="705" r="14" fill="#c8a850" filter="url(#shadow_light)"/>
+  <circle cx="710" cy="705" r="11" fill="#1a1828"/>
+  <line x1="710" y1="695" x2="710" y2="700" stroke="#e04040" stroke-width="1.5"/>
+  <line x1="710" y1="710" x2="710" y2="715" stroke="#e0e0e0" stroke-width="1.5"/>
+  <line x1="700" y1="705" x2="705" y2="705" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="715" y1="705" x2="720" y2="705" stroke="#e0e0e0" stroke-width="1"/>
+  <circle cx="710" cy="705" r="2" fill="#c8a850"/>
+
+  <!-- ============ LAYER 13: ADDITIONAL SHELF / WALL ITEMS ============ -->
+
+  <!-- Small wall shelf on left — below candelabra -->
+  <rect x="60" y="960" width="150" height="10" rx="3" fill="#4a3a2a" filter="url(#shadow_light)"/>
+  <!-- Bracket -->
+  <path d="M70,970 L70,1000 L85,970" fill="#4a3a2a"/>
+  <path d="M195,970 L195,1000 L180,970" fill="#4a3a2a"/>
+
+  <!-- Items on small shelf -->
+  <!-- Old clock -->
+  <circle cx="100" cy="948" r="18" fill="#5a4838" filter="url(#shadow_light)"/>
+  <circle cx="100" cy="948" r="15" fill="#e8d8c0" opacity="0.6"/>
+  <circle cx="100" cy="948" r="12" fill="#2a2838"/>
+  <line x1="100" y1="948" x2="100" y2="938" stroke="#c8a850" stroke-width="1.5"/>
+  <line x1="100" y1="948" x2="108" y2="952" stroke="#c8a850" stroke-width="1"/>
+
+  <!-- Potion bottle -->
+  <rect x="148" y="935" width="14" height="25" rx="3" fill="#3060a0" opacity="0.6"/>
+  <rect x="151" y="928" width="8" height="10" rx="2" fill="#3a3048"/>
+  <ellipse cx="155" cy="940" rx="4" ry="5" fill="#4080c0" opacity="0.3"/>
+
+  <!-- Small potion bottle -->
+  <rect x="178" y="942" width="10" height="18" rx="3" fill="#806030" opacity="0.6"/>
+  <rect x="180" y="938" width="6" height="6" rx="2" fill="#3a3048"/>
+
+  <!-- ============ LAYER 14: FOREGROUND DETAILS ============ -->
+
+  <!-- Open book on floor near desk -->
+  <g transform="translate(540,1480) rotate(-15)" filter="url(#shadow_light)">
+    <path d="M-50,0 Q-25,-8 0,0" fill="#d8c8a0" opacity="0.8"/>
+    <path d="M0,0 Q25,-8 50,0" fill="#d0c098" opacity="0.75"/>
+    <!-- Text lines suggestion -->
+    <line x1="-40" y1="-2" x2="-8" y2="-5" stroke="#4a4060" stroke-width="0.8" opacity="0.3"/>
+    <line x1="-38" y1="2" x2="-10" y2="-1" stroke="#4a4060" stroke-width="0.8" opacity="0.3"/>
+    <line x1="8" y1="-5" x2="40" y2="-2" stroke="#4a4060" stroke-width="0.8" opacity="0.3"/>
+    <line x1="10" y1="-1" x2="38" y2="2" stroke="#4a4060" stroke-width="0.8" opacity="0.3"/>
+    <!-- Spine -->
+    <line x1="0" y1="2" x2="0" y2="-6" stroke="#b8a880" stroke-width="1.5"/>
+  </g>
+
+  <!-- Fallen scroll on floor -->
+  <rect x="700" y="1440" width="60" height="14" rx="7" fill="#c8b890" opacity="0.6" transform="rotate(12,730,1447)"/>
+
+  <!-- Magnifying glass on desk -->
+  <g transform="translate(310,1195)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#c8a850" stroke-width="3"/>
+    <circle cx="0" cy="0" r="12" fill="#283050" opacity="0.3"/>
+    <ellipse cx="-4" cy="-4" rx="5" ry="4" fill="#6080c0" opacity="0.15"/>
+    <line x1="10" y1="10" x2="25" y2="28" stroke="#c8a850" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Small key on desk -->
+  <g transform="translate(750,1210) rotate(20)">
+    <circle cx="0" cy="0" r="5" fill="none" stroke="#c8a850" stroke-width="2"/>
+    <line x1="5" y1="0" x2="20" y2="0" stroke="#c8a850" stroke-width="2"/>
+    <line x1="18" y1="0" x2="18" y2="5" stroke="#c8a850" stroke-width="1.5"/>
+    <line x1="14" y1="0" x2="14" y2="4" stroke="#c8a850" stroke-width="1.5"/>
+  </g>
+
+  <!-- ============ LAYER 15: RUG NEAR DESK ============ -->
+
+  <!-- Circular rug on floor -->
+  <ellipse cx="540" cy="1550" rx="200" ry="60" fill="#3a2040" opacity="0.35"/>
+  <ellipse cx="540" cy="1550" rx="170" ry="50" fill="#4a2850" opacity="0.25"/>
+  <ellipse cx="540" cy="1550" rx="140" ry="40" fill="#3a2040" opacity="0.15"/>
+  <!-- Rug border pattern -->
+  <ellipse cx="540" cy="1550" rx="200" ry="60" fill="none" stroke="#c8a850" stroke-width="1.5" opacity="0.15"/>
+  <ellipse cx="540" cy="1550" rx="185" ry="55" fill="none" stroke="#c8a850" stroke-width="0.8" opacity="0.1"/>
+
+  <!-- ============ LAYER 16: LOWER FOREGROUND ============ -->
+
+  <!-- Stack of books on floor (left) -->
+  <g filter="url(#shadow_light)">
+    <rect x="130" y="1410" width="80" height="14" rx="2" fill="#5a2030"/>
+    <rect x="125" y="1396" width="85" height="14" rx="2" fill="#2a4060"/>
+    <rect x="132" y="1382" width="78" height="14" rx="2" fill="#4a3028"/>
+    <rect x="128" y="1370" width="82" height="12" rx="2" fill="#304830"/>
+  </g>
+
+  <!-- Candle on floor (front-right) -->
+  <g filter="url(#shadow_light)">
+    <!-- Candle plate -->
+    <ellipse cx="850" cy="1500" rx="25" ry="8" fill="#6a5838"/>
+    <!-- Candle -->
+    <rect x="844" y="1460" width="12" height="40" rx="3" fill="#e8dcc0"/>
+    <!-- Wax drips -->
+    <path d="M844,1480 Q840,1490 844,1500" fill="#e8dcc0" opacity="0.6"/>
+    <!-- Flame -->
+    <ellipse cx="850" cy="1454" rx="5" ry="9" fill="#ffd040" opacity="0.9"/>
+    <ellipse cx="850" cy="1445" rx="28" ry="32" fill="url(#candle_glow2)" filter="url(#flame_glow)"/>
+  </g>
+
+  <!-- ============ LAYER 17: AMBIENT LIGHTING ============ -->
+
+  <!-- Overall warm candlelight ambient -->
+  <rect width="1080" height="1920" fill="url(#warm_ambient)"/>
+
+  <!-- Subtle vignette for depth -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="65%">
+    <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#0a0818" stop-opacity="0.35"/>
+  </radialGradient>
+  <rect width="1080" height="1920" fill="url(#vignette)"/>
+
+  <!-- Very subtle blue-purple tint overlay -->
+  <rect width="1080" height="1920" fill="#2a1848" opacity="0.04"/>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Twig brown gradient -->
+    <linearGradient id="twigGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8B6D4A"/>
+      <stop offset="50%" stop-color="#6B5035"/>
+      <stop offset="100%" stop-color="#4A3624"/>
+    </linearGradient>
+    <!-- Inner nest (darker) -->
+    <radialGradient id="nestInner" cx="50%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#3E2A18"/>
+      <stop offset="60%" stop-color="#5A3F28"/>
+      <stop offset="100%" stop-color="#7A5C3E"/>
+    </radialGradient>
+    <!-- Egg gradient: robin's egg blue -->
+    <radialGradient id="eggGrad1" cx="45%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#B8DDE8"/>
+      <stop offset="40%" stop-color="#82C4D8"/>
+      <stop offset="100%" stop-color="#5AA0B8"/>
+    </radialGradient>
+    <radialGradient id="eggGrad2" cx="45%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#B0D8E5"/>
+      <stop offset="40%" stop-color="#78BCD0"/>
+      <stop offset="100%" stop-color="#5298B0"/>
+    </radialGradient>
+    <!-- Egg highlight -->
+    <radialGradient id="eggShine" cx="40%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Feather gradient -->
+    <linearGradient id="featherGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8DDD0"/>
+      <stop offset="50%" stop-color="#D0C0A8"/>
+      <stop offset="100%" stop-color="#B8A088"/>
+    </linearGradient>
+    <!-- Blue feather gradient -->
+    <linearGradient id="featherBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8D0E0"/>
+      <stop offset="50%" stop-color="#78A8C0"/>
+      <stop offset="100%" stop-color="#5888A0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shadow under nest -->
+  <ellipse cx="60" cy="105" rx="38" ry="8" fill="#3D3020" opacity="0.2"/>
+
+  <!-- Outer nest rim — woven twigs -->
+  <ellipse cx="60" cy="72" rx="44" ry="22" fill="url(#twigGrad)"/>
+  <!-- Twig texture lines on outer rim -->
+  <path d="M20,68 Q40,60 60,66 Q80,60 100,68" fill="none" stroke="#4A3624" stroke-width="1.5" opacity="0.5"/>
+  <path d="M18,72 Q38,80 60,74 Q82,80 102,72" fill="none" stroke="#8B6D4A" stroke-width="1" opacity="0.4"/>
+  <path d="M22,76 Q42,70 62,76 Q82,70 98,76" fill="none" stroke="#4A3624" stroke-width="1" opacity="0.3"/>
+
+  <!-- Inner nest bowl -->
+  <ellipse cx="60" cy="68" rx="34" ry="16" fill="url(#nestInner)"/>
+
+  <!-- Soft lining inside -->
+  <ellipse cx="60" cy="66" rx="28" ry="11" fill="#5A4030" opacity="0.6"/>
+
+  <!-- Egg 1 (left) -->
+  <ellipse cx="44" cy="62" rx="9" ry="11" fill="url(#eggGrad1)" transform="rotate(-8,44,62)"/>
+  <ellipse cx="42" cy="58" rx="5" ry="6" fill="url(#eggShine)" transform="rotate(-8,44,62)"/>
+  <!-- Egg speckles -->
+  <circle cx="40" cy="66" r="1" fill="#4A8898" opacity="0.4"/>
+  <circle cx="47" cy="58" r="0.8" fill="#4A8898" opacity="0.3"/>
+
+  <!-- Egg 2 (center) -->
+  <ellipse cx="60" cy="60" rx="9" ry="12" fill="url(#eggGrad2)" transform="rotate(3,60,60)"/>
+  <ellipse cx="58" cy="55" rx="5" ry="7" fill="url(#eggShine)" transform="rotate(3,60,60)"/>
+  <!-- Egg speckles -->
+  <circle cx="63" cy="56" r="0.9" fill="#4A8898" opacity="0.35"/>
+  <circle cx="57" cy="64" r="1" fill="#4A8898" opacity="0.4"/>
+
+  <!-- Egg 3 (right) -->
+  <ellipse cx="76" cy="62" rx="9" ry="11" fill="url(#eggGrad1)" transform="rotate(10,76,62)"/>
+  <ellipse cx="74" cy="58" rx="5" ry="6" fill="url(#eggShine)" transform="rotate(10,76,62)"/>
+  <!-- Egg speckles -->
+  <circle cx="79" cy="60" r="0.8" fill="#4A8898" opacity="0.3"/>
+  <circle cx="73" cy="66" r="1" fill="#4A8898" opacity="0.35"/>
+
+  <!-- Feather 1 — sticking out upper-left -->
+  <path d="M28,48 Q22,38 20,26 Q24,38 30,46Z" fill="url(#featherGrad)" stroke="#B8A088" stroke-width="0.3"/>
+  <line x1="24" y1="30" x2="29" y2="47" stroke="#C4B098" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Feather 2 — sticking out upper-right, blue -->
+  <path d="M88,44 Q94,32 98,22 Q92,34 86,44Z" fill="url(#featherBlue)" stroke="#5888A0" stroke-width="0.3"/>
+  <line x1="95" y1="26" x2="87" y2="44" stroke="#78A8C0" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Feather 3 — small one poking out right -->
+  <path d="M96,64 Q102,58 106,50 Q100,60 94,66Z" fill="url(#featherGrad)" stroke="#B8A088" stroke-width="0.3"/>
+
+  <!-- Front rim twigs (overlap eggs slightly) -->
+  <path d="M22,78 Q40,88 60,82 Q80,88 98,78" fill="none" stroke="#6B5035" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M26,82 Q44,74 60,80 Q76,74 94,82" fill="none" stroke="#8B6D4A" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Stray twig sticking out left -->
+  <path d="M18,74 Q12,68 8,60" fill="none" stroke="#6B5035" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Stray twig sticking out right -->
+  <path d="M102,70 Q108,64 112,58" fill="none" stroke="#6B5035" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

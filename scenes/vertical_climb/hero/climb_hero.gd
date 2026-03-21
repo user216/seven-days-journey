@@ -1,6 +1,7 @@
 extends Node2D
 ## Climbing hero for vertical mode — SVG sprite, gender-aware.
-## Enhanced: arc jump, squash & stretch, rotation tilt, landing dust, ghost trail.
+## Enhanced: arc jump, squash & stretch, rotation tilt, landing dust, ghost trail,
+## skin/hair tint shader, ambient glow.
 
 var target_pos: Vector2 = Vector2.ZERO
 var speed: float = 600.0
@@ -15,6 +16,7 @@ var _jump_duration: float = 0.0
 var _idle_tex: Texture2D
 var _jump_tex: Texture2D
 var _sprite: Sprite2D
+var _hero_shader: ShaderMaterial
 
 const BASE_SCALE := 1.2  # SVG is 120x200 now; 1.2 → ~144x240px
 var _squash_time: float = 0.0
@@ -27,23 +29,38 @@ var _trail_timer: float = 0.0
 # Landing dust particles
 var _dust_particles: GPUParticles2D = null
 
+# Ambient glow behind hero
+var _glow_sprite: Sprite2D = null
+
 
 func _ready() -> void:
 	target_pos = position
 	dress_color = ThemeManager.get_dress_color(GameState.current_day)
 
 	if GameState.gender == "male":
-		_idle_tex = load("res://assets/hero/climb/hero_climb_idle_male.svg")
-		_jump_tex = load("res://assets/hero/climb/hero_climb_jump_male.svg")
+		var suffix := GameState.get_hair_style_suffix()
+		_idle_tex = load("res://assets/hero/climb/hero_climb_idle_male%s.svg" % suffix)
+		_jump_tex = load("res://assets/hero/climb/hero_climb_jump_male%s.svg" % suffix)
 	else:
-		_idle_tex = load("res://assets/hero/climb/hero_climb_idle.svg")
-		_jump_tex = load("res://assets/hero/climb/hero_climb_jump.svg")
+		var suffix := GameState.get_hair_style_suffix()
+		_idle_tex = load("res://assets/hero/climb/hero_climb_idle%s.svg" % suffix)
+		_jump_tex = load("res://assets/hero/climb/hero_climb_jump%s.svg" % suffix)
+
+	# Ambient glow circle behind hero
+	_setup_glow()
 
 	_sprite = Sprite2D.new()
 	_sprite.texture = _idle_tex
 	_sprite.scale = Vector2(BASE_SCALE, BASE_SCALE)
 	_sprite.self_modulate = dress_color
 	_sprite.position = Vector2(0, -50)
+
+	# Apply hero tint shader
+	_hero_shader = ShaderMaterial.new()
+	_hero_shader.shader = load("res://shaders/hero_tint.gdshader")
+	_apply_hero_tints()
+	_sprite.material = _hero_shader
+
 	add_child(_sprite)
 
 	# Pre-create ghost trail sprites (hidden)
@@ -59,6 +76,38 @@ func _ready() -> void:
 
 	# Landing dust
 	_setup_dust_particles()
+
+	# React to appearance changes from settings
+	GameState.hero_appearance_changed.connect(_apply_hero_tints)
+
+
+func _apply_hero_tints() -> void:
+	if _hero_shader:
+		_hero_shader.set_shader_parameter("skin_tint", GameState.get_skin_tint())
+		_hero_shader.set_shader_parameter("hair_tint", GameState.get_hair_tint())
+		_hero_shader.set_shader_parameter("glow_intensity", 0.35)
+		_hero_shader.set_shader_parameter("glow_color", dress_color.lightened(0.4))
+
+
+func _setup_glow() -> void:
+	# Soft radial glow texture behind hero
+	var glow_size := 64
+	var img := Image.create(glow_size, glow_size, false, Image.FORMAT_RGBA8)
+	var center := Vector2(glow_size / 2.0, glow_size / 2.0)
+	for y in range(glow_size):
+		for x in range(glow_size):
+			var dist := Vector2(x, y).distance_to(center) / (glow_size / 2.0)
+			var alpha := clampf(1.0 - dist, 0.0, 1.0)
+			alpha = alpha * alpha * alpha  # cubic falloff
+			img.set_pixel(x, y, Color(1.0, 1.0, 1.0, alpha))
+
+	_glow_sprite = Sprite2D.new()
+	_glow_sprite.texture = ImageTexture.create_from_image(img)
+	_glow_sprite.scale = Vector2(6.0, 5.0)  # large soft glow
+	_glow_sprite.position = Vector2(0, -70)
+	_glow_sprite.modulate = Color(dress_color.r, dress_color.g, dress_color.b, 0.25)
+	_glow_sprite.z_index = -2
+	add_child(_glow_sprite)
 
 
 func _setup_dust_particles() -> void:
@@ -89,11 +138,11 @@ func _setup_dust_particles() -> void:
 	_dust_particles.process_material = mat
 
 	# Soft circle texture for dust
-	var size := 8
-	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var sz := 8
+	var img := Image.create(sz, sz, false, Image.FORMAT_RGBA8)
 	var center := Vector2(4, 4)
-	for y in range(size):
-		for x in range(size):
+	for y in range(sz):
+		for x in range(sz):
 			var dist := Vector2(x, y).distance_to(center)
 			var alpha := clampf(1.0 - dist / 4.0, 0.0, 1.0)
 			alpha *= alpha
@@ -118,6 +167,12 @@ func jump_to(pos: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_anim_time += delta
+
+	# Pulsing glow
+	if _glow_sprite:
+		var pulse := 0.2 + sin(_anim_time * 2.0) * 0.08
+		_glow_sprite.modulate.a = pulse
+
 	if is_jumping:
 		_jump_progress += delta / _jump_duration
 		if _jump_progress >= 1.0:

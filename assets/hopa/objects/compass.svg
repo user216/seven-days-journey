@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="cmCase" cx="50%" cy="48%" r="50%">
+      <stop offset="0%" stop-color="#e8d090"/>
+      <stop offset="60%" stop-color="#c8a860"/>
+      <stop offset="100%" stop-color="#a08040"/>
+    </radialGradient>
+    <radialGradient id="cmFace" cx="48%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#fff8e8"/>
+      <stop offset="70%" stop-color="#f0e8d0"/>
+      <stop offset="100%" stop-color="#e0d4b8"/>
+    </radialGradient>
+    <radialGradient id="cmGlass" cx="45%" cy="42%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#d0e8ff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#a0c0e0" stop-opacity="0.12"/>
+    </radialGradient>
+    <linearGradient id="cmRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4b868"/>
+      <stop offset="50%" stop-color="#b89848"/>
+      <stop offset="100%" stop-color="#987830"/>
+    </linearGradient>
+    <linearGradient id="cmNeedle" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#cc3333"/>
+      <stop offset="50%" stop-color="#aa2222"/>
+      <stop offset="100%" stop-color="#881818"/>
+    </linearGradient>
+    <linearGradient id="cmNeedleS" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#e0e0e0"/>
+      <stop offset="100%" stop-color="#a0a0a0"/>
+    </linearGradient>
+    <radialGradient id="cmGlare" cx="38%" cy="35%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="62" cy="108" rx="36" ry="5" fill="#8a7a60" opacity="0.2"/>
+  <!-- Outer brass case -->
+  <circle cx="60" cy="58" r="50" fill="url(#cmCase)" stroke="#887030" stroke-width="1.5"/>
+  <!-- Case rim highlight -->
+  <circle cx="60" cy="58" r="48" fill="none" stroke="#e8d898" stroke-width="0.8" opacity="0.5"/>
+  <!-- Hinge nub at top -->
+  <rect x="55" y="7" width="10" height="6" rx="2" fill="#b89848" stroke="#987830" stroke-width="0.5"/>
+  <!-- Inner ring -->
+  <circle cx="60" cy="58" r="44" fill="url(#cmRim)" stroke="#907838" stroke-width="0.8"/>
+  <!-- White dial face -->
+  <circle cx="60" cy="58" r="41" fill="url(#cmFace)" stroke="#c8b078" stroke-width="0.5"/>
+  <!-- Degree tick marks -->
+  <g stroke="#a09070" stroke-width="0.6" opacity="0.5">
+    <line x1="60" y1="19" x2="60" y2="23"/>
+    <line x1="60" y1="93" x2="60" y2="97"/>
+    <line x1="19" y1="58" x2="23" y2="58"/>
+    <line x1="97" y1="58" x2="101" y2="58"/>
+    <!-- 45-degree ticks -->
+    <line x1="31" y1="29" x2="34" y2="32"/>
+    <line x1="89" y1="29" x2="86" y2="32"/>
+    <line x1="31" y1="87" x2="34" y2="84"/>
+    <line x1="89" y1="87" x2="86" y2="84"/>
+  </g>
+  <!-- Minor ticks -->
+  <g stroke="#b8a888" stroke-width="0.3" opacity="0.4">
+    <line x1="45" y1="19.5" x2="46" y2="23"/>
+    <line x1="75" y1="19.5" x2="74" y2="23"/>
+    <line x1="45" y1="96.5" x2="46" y2="93"/>
+    <line x1="75" y1="96.5" x2="74" y2="93"/>
+    <line x1="19.5" y1="43" x2="23" y2="44"/>
+    <line x1="19.5" y1="73" x2="23" y2="72"/>
+    <line x1="100.5" y1="43" x2="97" y2="44"/>
+    <line x1="100.5" y1="73" x2="97" y2="72"/>
+  </g>
+  <!-- Cardinal direction letters -->
+  <text x="60" y="33" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-weight="bold" fill="#883322">N</text>
+  <text x="60" y="90" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#706050">S</text>
+  <text x="28" y="62" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#706050">W</text>
+  <text x="92" y="62" text-anchor="middle" font-family="Georgia, serif" font-size="8" fill="#706050">E</text>
+  <!-- Decorative circle pattern -->
+  <circle cx="60" cy="58" r="32" fill="none" stroke="#d0c0a0" stroke-width="0.3" opacity="0.5"/>
+  <!-- Compass needle - north (red) -->
+  <polygon points="60,24 56,58 60,55 64,58" fill="url(#cmNeedle)" stroke="#771515" stroke-width="0.3"/>
+  <!-- Compass needle - south (silver) -->
+  <polygon points="60,92 56,58 60,61 64,58" fill="url(#cmNeedleS)" stroke="#808080" stroke-width="0.3"/>
+  <!-- Center pivot -->
+  <circle cx="60" cy="58" r="3.5" fill="#c8a850" stroke="#a08838" stroke-width="0.5"/>
+  <circle cx="60" cy="58" r="1.5" fill="#e0d090"/>
+  <!-- Glass dome effect -->
+  <circle cx="60" cy="58" r="41" fill="url(#cmGlass)"/>
+  <!-- Glass glare -->
+  <ellipse cx="50" cy="46" rx="18" ry="14" fill="url(#cmGlare)"/>
+  <!-- Small bright spot on glass -->
+  <ellipse cx="44" cy="40" rx="4" ry="2.5" fill="#ffffff" opacity="0.45" transform="rotate(-20 44 40)"/>
+  <!-- Subtle edge reflection -->
+  <path d="M 25 35 A 41 41 0 0 1 80 22" fill="none" stroke="#ffffff" stroke-width="0.6" opacity="0.2"/>
+</svg>

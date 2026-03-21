@@ -11,6 +11,8 @@ signal energy_changed(new_value: float)
 signal day_completed(day: int)
 signal streak_updated(current_streak: int, best_streak: int)
 signal ui_scale_changed(new_scale: float)
+signal hero_appearance_changed
+signal hopa_level_completed(scene_id: String, stats: Dictionary)
 
 # ── State ─────────────────────────────────────────────────────────
 
@@ -19,6 +21,9 @@ var current_mode: String = "vertical"  # vertical (focused mode)
 var gender: String = "female"  # "female" or "male"
 var developer_mode: bool = false  # disables time-blocking
 var ui_scale: float = 1.0  # user-adjustable text/icon scale
+var hero_skin_idx: int = 0  # index into SKIN_PRESETS
+var hero_hair_idx: int = 0  # index into HAIR_PRESETS
+var hero_hair_style_idx: int = 0  # index into HAIR_STYLE_PRESETS_F/M
 var completed_activities: Dictionary = {}  # {day_num: [slot_ids]}
 var streak_current: int = 0
 var streak_best: int = 0
@@ -29,6 +34,12 @@ var breathing_sessions: int = 0
 var breathing_minutes: int = 0
 var game_started: bool = false
 var game_finished: bool = false
+
+# ── HOPA state ───────────────────────────────────────────────────
+
+var hopa_progress: Dictionary = {}       # {scene_id: {completed, time_seconds, objects_found, hints_used}}
+var hopa_inventory: Array[String] = []   # key item IDs collected across levels
+var hopa_current_level: String = ""      # set before transitioning to HOPA scene
 
 # ── Initialization ────────────────────────────────────────────────
 
@@ -44,6 +55,9 @@ func reset() -> void:
 	breathing_minutes = 0
 	game_started = false
 	game_finished = false
+	hopa_progress = {}
+	hopa_inventory = []
+	hopa_current_level = ""
 	# gender, ui_scale preserved across resets, developer_mode reset
 	developer_mode = false
 	for d in range(1, 8):
@@ -219,6 +233,37 @@ func _process(_delta: float) -> void:
 	_prev_level = calculate_xp().level
 
 
+# ── HOPA completion ─────────────────────────────────────────────
+
+func complete_hopa_level(scene_id: String, time_seconds: float, objects_found: int, hints_used: int) -> void:
+	hopa_progress[scene_id] = {
+		"completed": true,
+		"time_seconds": time_seconds,
+		"objects_found": objects_found,
+		"hints_used": hints_used,
+	}
+	# Award XP per object found
+	var xp_amount := objects_found * GameData.XP_PER_REACTION
+	xp_gained.emit(xp_amount, "hopa_level")
+	_check_hopa_achievements(scene_id, time_seconds, hints_used)
+	hopa_level_completed.emit(scene_id, hopa_progress[scene_id])
+
+
+func _check_hopa_achievements(scene_id: String, time_seconds: float, hints_used: int) -> void:
+	# First HOPA level
+	if hopa_progress.size() == 1 and "hopa_first_level" not in achievements_earned:
+		_earn_achievement("hopa_first_level")
+	# No hints
+	if hints_used == 0 and "hopa_no_hints" not in achievements_earned:
+		_earn_achievement("hopa_no_hints")
+	# Speed run (under 60s)
+	if time_seconds < 60.0 and "hopa_speed_run" not in achievements_earned:
+		_earn_achievement("hopa_speed_run")
+	# All 7 levels
+	if hopa_progress.size() >= 7 and "hopa_all_levels" not in achievements_earned:
+		_earn_achievement("hopa_all_levels")
+
+
 # ── Day progression ──────────────────────────────────────────────
 
 func advance_day() -> bool:
@@ -245,3 +290,59 @@ func is_activity_completed(day: int, slot_id: String) -> bool:
 func set_ui_scale(value: float) -> void:
 	ui_scale = clampf(value, 0.5, 2.0)
 	ui_scale_changed.emit(ui_scale)
+
+
+# ── Hero appearance presets ──────────────────────────────────────
+# Skin: modulate tint applied to skin elements (SVG base is peach #fce4cc)
+const SKIN_PRESETS := [
+	{"name": "Светлая", "tint": Color(1.0, 1.0, 1.0)},       # default peach
+	{"name": "Тёплая", "tint": Color(1.0, 0.92, 0.82)},      # warm tan
+	{"name": "Оливковая", "tint": Color(0.90, 0.85, 0.72)},   # olive
+	{"name": "Смуглая", "tint": Color(0.78, 0.65, 0.50)},     # brown
+	{"name": "Тёмная", "tint": Color(0.55, 0.42, 0.32)},      # dark
+]
+
+# Hair: modulate tint applied to hair elements (SVG base is auburn #a0784e)
+const HAIR_PRESETS := [
+	{"name": "Каштан", "tint": Color(1.0, 1.0, 1.0)},         # default auburn
+	{"name": "Блонд", "tint": Color(1.45, 1.35, 0.95)},       # blonde (brighten)
+	{"name": "Чёрный", "tint": Color(0.4, 0.35, 0.3)},        # black
+	{"name": "Рыжий", "tint": Color(1.3, 0.75, 0.45)},        # red/ginger
+	{"name": "Русый", "tint": Color(0.85, 0.75, 0.60)},       # light brown
+]
+
+
+func get_skin_tint() -> Color:
+	return SKIN_PRESETS[clampi(hero_skin_idx, 0, SKIN_PRESETS.size() - 1)].tint
+
+func get_hair_tint() -> Color:
+	return HAIR_PRESETS[clampi(hero_hair_idx, 0, HAIR_PRESETS.size() - 1)].tint
+
+# Hair style/type presets — suffix maps to SVG filename
+const HAIR_STYLE_PRESETS_F := [
+	{"name": "Длинные", "suffix": ""},           # default long
+	{"name": "Короткие", "suffix": "_short"},    # short bob
+	{"name": "Хвост", "suffix": "_ponytail"},    # ponytail
+	{"name": "Косы", "suffix": "_braided"},      # braided
+]
+const HAIR_STYLE_PRESETS_M := [
+	{"name": "Короткие", "suffix": ""},          # default short
+	{"name": "Ёжик", "suffix": "_buzz"},         # buzz
+	{"name": "Торчком", "suffix": "_spiky"},     # spiky
+	{"name": "Набок", "suffix": "_swept"},       # swept side
+]
+
+func get_hair_style_presets() -> Array:
+	if gender == "male":
+		return HAIR_STYLE_PRESETS_M
+	return HAIR_STYLE_PRESETS_F
+
+func get_hair_style_suffix() -> String:
+	var presets := get_hair_style_presets()
+	var idx := clampi(hero_hair_style_idx, 0, presets.size() - 1)
+	return presets[idx].suffix
+
+func get_hair_style_name() -> String:
+	var presets := get_hair_style_presets()
+	var idx := clampi(hero_hair_style_idx, 0, presets.size() - 1)
+	return presets[idx].name

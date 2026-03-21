@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="tlOuter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4a3f6b"/>
+      <stop offset="80%" stop-color="#2d2545"/>
+      <stop offset="100%" stop-color="#1a1530"/>
+    </radialGradient>
+    <radialGradient id="tlGlass" cx="45%" cy="40%" r="48%">
+      <stop offset="0%" stop-color="#a8c8f0" stop-opacity="0.9"/>
+      <stop offset="35%" stop-color="#6b8cc7" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#4a6a9e" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#3a4d78" stop-opacity="0.8"/>
+    </radialGradient>
+    <radialGradient id="tlCenter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7b6baf" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3d2e6b" stop-opacity="0.7"/>
+    </radialGradient>
+    <radialGradient id="tlGlare" cx="35%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#d0e0ff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#d0e0ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tlRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8a7ab0"/>
+      <stop offset="50%" stop-color="#5a4a80"/>
+      <stop offset="100%" stop-color="#3a2a60"/>
+    </linearGradient>
+    <radialGradient id="tlReflect" cx="65%" cy="65%" r="25%">
+      <stop offset="0%" stop-color="#c8a0e8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c8a0e8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer brass ring -->
+  <circle cx="60" cy="60" r="52" fill="url(#tlRim)" stroke="#2a1e48" stroke-width="2"/>
+  <circle cx="60" cy="60" r="49" fill="none" stroke="#a090c0" stroke-width="0.5" opacity="0.5"/>
+  <!-- Main glass surface -->
+  <circle cx="60" cy="60" r="46" fill="url(#tlOuter)"/>
+  <circle cx="60" cy="60" r="44" fill="url(#tlGlass)"/>
+  <!-- Concentric lens rings -->
+  <circle cx="60" cy="60" r="36" fill="none" stroke="#7a9ad0" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="60" cy="60" r="27" fill="none" stroke="#8aaae0" stroke-width="0.6" opacity="0.35"/>
+  <circle cx="60" cy="60" r="18" fill="url(#tlCenter)"/>
+  <circle cx="60" cy="60" r="18" fill="none" stroke="#9ab0e0" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="60" cy="60" r="9" fill="none" stroke="#7a8ac0" stroke-width="0.4" opacity="0.3"/>
+  <!-- Inner dark center -->
+  <circle cx="60" cy="60" r="5" fill="#1a1030" opacity="0.6"/>
+  <!-- Purple reflection bottom-right -->
+  <circle cx="72" cy="72" r="14" fill="url(#tlReflect)"/>
+  <!-- Main light glare top-left -->
+  <ellipse cx="48" cy="44" rx="16" ry="12" fill="url(#tlGlare)"/>
+  <!-- Small secondary glare -->
+  <ellipse cx="40" cy="38" rx="5" ry="3" fill="#ffffff" opacity="0.6" transform="rotate(-25 40 38)"/>
+  <!-- Tiny sparkle points -->
+  <circle cx="44" cy="40" r="1.5" fill="#ffffff" opacity="0.8"/>
+  <circle cx="75" cy="50" r="1" fill="#d0c0f0" opacity="0.5"/>
+  <!-- Subtle edge highlight -->
+  <path d="M 20 45 A 44 44 0 0 1 75 18" fill="none" stroke="#c0d0f0" stroke-width="0.7" opacity="0.3"/>
+</svg>

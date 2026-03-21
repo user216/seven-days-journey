@@ -1,9 +1,12 @@
 extends Node
 ## Activity popup — shows card info and hosts mini-interaction scenes.
+## Slide-in animation on show, fade-out on hide.
 
 signal activity_done(slot_id: String, completed: bool)
 
 @onready var popup_layer: CanvasLayer = $".."
+@onready var dimmer: ColorRect = $"../Dimmer"
+@onready var panel: PanelContainer = $"../Panel"
 @onready var emoji_label: Label = $"../Panel/VBox/Header/EmojiLabel"
 @onready var title_label: Label = $"../Panel/VBox/Header/TitleLabel"
 @onready var close_btn: Button = $"../Panel/VBox/Header/CloseBtn"
@@ -15,6 +18,7 @@ signal activity_done(slot_id: String, completed: bool)
 var _current_slot_id: String = ""
 var _current_interaction: Node = null
 var _interaction_completed: bool = false
+var _hide_tween: Tween = null
 
 
 func _ready() -> void:
@@ -33,17 +37,14 @@ func show_popup(card: Dictionary, day_num: int) -> void:
 	title_label.text = card.title
 	description.text = card.text
 
-	# Reset buttons
 	skip_btn.visible = true
 	done_btn.visible = true
 	done_btn.text = "Готово"
 
-	# Clear old interaction
 	if _current_interaction:
 		_current_interaction.queue_free()
 		_current_interaction = null
 
-	# Load mini-interaction scene
 	var scene_path := GameData.get_interaction_scene(card.slot_id, day_num)
 	if scene_path and ResourceLoader.exists(scene_path):
 		var scene := load(scene_path) as PackedScene
@@ -58,12 +59,37 @@ func show_popup(card: Dictionary, day_num: int) -> void:
 	popup_layer.visible = true
 	TimeSystem.pause()
 
+	# Animate in: dimmer fade + panel slide up with spring
+	dimmer.modulate.a = 0.0
+	panel.modulate.a = 0.0
+	panel.position.y += 80.0
+	var orig_y := panel.position.y - 80.0
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(dimmer, "modulate:a", 1.0, 0.25)
+	tween.tween_property(panel, "modulate:a", 1.0, 0.3).set_delay(0.05)
+	tween.tween_property(panel, "position:y", orig_y, 0.35).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
 
 func hide_popup() -> void:
 	popup_layer.visible = false
 	if _current_interaction:
 		_current_interaction.queue_free()
 		_current_interaction = null
+
+
+func _animate_hide_and(callback: Callable) -> void:
+	if _hide_tween and _hide_tween.is_running():
+		return
+	_hide_tween = create_tween()
+	_hide_tween.set_parallel(true)
+	_hide_tween.tween_property(dimmer, "modulate:a", 0.0, 0.2)
+	_hide_tween.tween_property(panel, "modulate:a", 0.0, 0.15)
+	_hide_tween.tween_property(panel, "position:y", panel.position.y + 60.0, 0.2).set_ease(Tween.EASE_IN)
+	_hide_tween.chain().tween_callback(func():
+		hide_popup()
+		callback.call()
+	)
 
 
 func _on_interaction_completed() -> void:
@@ -73,19 +99,21 @@ func _on_interaction_completed() -> void:
 
 
 func _on_done() -> void:
-	hide_popup()
-	activity_done.emit(_current_slot_id, true)
-	TimeSystem.resume()
+	_animate_hide_and(func():
+		activity_done.emit(_current_slot_id, true)
+		TimeSystem.resume()
+	)
 
 
 func _on_close() -> void:
-	hide_popup()
-	# If mini-game already completed, closing still counts as done
-	activity_done.emit(_current_slot_id, _interaction_completed)
-	TimeSystem.resume()
+	_animate_hide_and(func():
+		activity_done.emit(_current_slot_id, _interaction_completed)
+		TimeSystem.resume()
+	)
 
 
 func _on_skip() -> void:
-	hide_popup()
-	activity_done.emit(_current_slot_id, false)
-	TimeSystem.resume()
+	_animate_hide_and(func():
+		activity_done.emit(_current_slot_id, false)
+		TimeSystem.resume()
+	)

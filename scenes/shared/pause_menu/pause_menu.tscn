@@ -10,36 +10,50 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.78)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 40.0
+offset_right = -40.0
+offset_top = 60.0
+offset_bottom = -60.0
 
-[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBox"]
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer/CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(700, 0)
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="ScrollContainer/CenterContainer/VBox"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 34
 text = "Пауза"
 horizontal_alignment = 1
 
-[node name="ResumeBtn" type="Button" parent="CenterContainer/VBox"]
+[node name="ResumeBtn" type="Button" parent="ScrollContainer/CenterContainer/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+custom_minimum_size = Vector2(0, 80)
+theme_override_font_sizes/font_size = 24
 text = "Продолжить"
 
-[node name="SaveBtn" type="Button" parent="CenterContainer/VBox"]
+[node name="SaveBtn" type="Button" parent="ScrollContainer/CenterContainer/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+custom_minimum_size = Vector2(0, 80)
+theme_override_font_sizes/font_size = 24
 text = "Сохранить"
 
-[node name="MainMenuBtn" type="Button" parent="CenterContainer/VBox"]
+[node name="MainMenuBtn" type="Button" parent="ScrollContainer/CenterContainer/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+custom_minimum_size = Vector2(0, 80)
+theme_override_font_sizes/font_size = 24
 text = "Главное меню"
 
 [node name="PauseScript" type="Node" parent="."]

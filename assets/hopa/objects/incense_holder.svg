@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="holder-body" cx="0.45" cy="0.35" r="0.65">
+      <stop offset="0%" stop-color="#c8a080"/>
+      <stop offset="50%" stop-color="#a87858"/>
+      <stop offset="100%" stop-color="#785038"/>
+    </radialGradient>
+    <linearGradient id="holder-rim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d0b090"/>
+      <stop offset="50%" stop-color="#b89070"/>
+      <stop offset="100%" stop-color="#a07850"/>
+    </linearGradient>
+    <linearGradient id="incense-stick" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8a040"/>
+      <stop offset="30%" stop-color="#c87830"/>
+      <stop offset="100%" stop-color="#684020"/>
+    </linearGradient>
+    <linearGradient id="smoke1" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#c0b8b0" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#e8e4e0" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="smoke2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#b8b0a8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#e0dcd8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ember" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff8840"/>
+      <stop offset="60%" stop-color="#e06020"/>
+      <stop offset="100%" stop-color="#c04010" stop-opacity="0.5"/>
+    </radialGradient>
+  </defs>
+  <!-- Shadow beneath holder -->
+  <ellipse cx="60" cy="102" rx="30" ry="5" fill="#604830" opacity="0.2"/>
+  <!-- Holder base (boat/leaf shape) -->
+  <path d="M20 88 Q22 98 60 100 Q98 98 100 88 Q90 95 60 96 Q30 95 20 88Z" fill="#785038"/>
+  <!-- Holder body - curved tray shape -->
+  <path d="M18 86 Q20 75 38 72 Q58 70 60 70 Q62 70 82 72 Q100 75 102 86 Q90 92 60 94 Q30 92 18 86Z" fill="url(#holder-body)"/>
+  <!-- Holder rim highlight -->
+  <path d="M22 84 Q24 76 40 73 Q58 71 60 71 Q62 71 80 73 Q96 76 98 84" fill="none" stroke="url(#holder-rim)" stroke-width="2"/>
+  <!-- Rim specular -->
+  <path d="M35 75 Q48 72 65 73" fill="none" stroke="white" stroke-width="1" opacity="0.2"/>
+  <!-- Inner bowl depression -->
+  <ellipse cx="60" cy="82" rx="28" ry="8" fill="#684828" opacity="0.4"/>
+  <!-- Decorative carved line on holder -->
+  <ellipse cx="60" cy="86" rx="32" ry="9" fill="none" stroke="#c8a078" stroke-width="0.6" opacity="0.4"/>
+  <!-- Ash in holder -->
+  <ellipse cx="60" cy="83" rx="20" ry="5" fill="#c0b8b0" opacity="0.3"/>
+  <!-- Incense stick -->
+  <rect x="58" y="30" width="3" height="52" rx="1" fill="url(#incense-stick)" transform="rotate(-5, 60, 82)"/>
+  <!-- Ember tip (glowing) -->
+  <circle cx="58" cy="30" r="3" fill="url(#ember)"/>
+  <circle cx="58" cy="30" r="1.5" fill="#ffe080" opacity="0.6"/>
+  <!-- Smoke wisps - main curl -->
+  <path d="M58 27 Q54 18 58 12 Q62 6 56 -2" fill="none" stroke="url(#smoke1)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Smoke wisps - secondary curl -->
+  <path d="M58 25 Q64 16 58 8 Q52 2 58 -5" fill="none" stroke="url(#smoke2)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Smoke wisps - thin wisp -->
+  <path d="M57 22 Q50 14 55 6" fill="none" stroke="#c8c0b8" stroke-width="1.5" stroke-linecap="round" opacity="0.25"/>
+  <!-- Tiny ember particles -->
+  <circle cx="55" cy="24" r="0.8" fill="#ff8840" opacity="0.4"/>
+  <circle cx="61" cy="20" r="0.6" fill="#ffa050" opacity="0.3"/>
+  <!-- Holder feet/base detail -->
+  <ellipse cx="40" cy="100" rx="6" ry="2" fill="#684020" opacity="0.4"/>
+  <ellipse cx="80" cy="100" rx="6" ry="2" fill="#684020" opacity="0.4"/>
+</svg>

@@ -1,0 +1,81 @@
+{
+  "scene_id": "forest_path",
+  "day": 4,
+  "title": "Лесная тропа",
+  "background": "res://assets/hopa/backgrounds/forest_path.svg",
+  "ambient_audio": "res://assets/hopa/audio/forest_path_ambient.ogg",
+  "time_limit_seconds": 180,
+  "hint_cooldown_seconds": 30,
+  "objects": [
+    {
+      "id": "mushroom",
+      "name": "Гриб",
+      "texture": "res://assets/hopa/objects/mushroom.svg",
+      "position": [200, 1200],
+      "scale": 0.7,
+      "rotation_deg": 0,
+      "hint_radius": 60,
+      "is_key_item": false
+    },
+    {
+      "id": "lantern",
+      "name": "Фонарь",
+      "texture": "res://assets/hopa/objects/lantern.svg",
+      "position": [800, 700],
+      "scale": 0.7,
+      "rotation_deg": -10,
+      "hint_radius": 65,
+      "is_key_item": false
+    },
+    {
+      "id": "bird_nest",
+      "name": "Гнездо",
+      "texture": "res://assets/hopa/objects/bird_nest.svg",
+      "position": [450, 350],
+      "scale": 0.65,
+      "rotation_deg": 5,
+      "hint_radius": 60,
+      "is_key_item": false
+    },
+    {
+      "id": "stone_rune",
+      "name": "Камень с руной",
+      "texture": "res://assets/hopa/objects/stone_rune.svg",
+      "position": [650, 1500],
+      "scale": 0.6,
+      "rotation_deg": 25,
+      "hint_radius": 55,
+      "is_key_item": true
+    },
+    {
+      "id": "fox_figurine",
+      "name": "Фигурка лисы",
+      "texture": "res://assets/hopa/objects/fox_figurine.svg",
+      "position": [900, 950],
+      "scale": 0.65,
+      "rotation_deg": -20,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "acorn",
+      "name": "Жёлудь",
+      "texture": "res://assets/hopa/objects/acorn.svg",
+      "position": [120, 600],
+      "scale": 0.55,
+      "rotation_deg": 10,
+      "hint_radius": 50,
+      "is_key_item": false
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "jigsaw",
+      "trigger": "after_all_found",
+      "data": {"pieces": 9}
+    }
+  ],
+  "next_scene": "tea_ceremony",
+  "story_before": "Древние деревья склоняют ветви над тропой. Найди лесные сокровища.",
+  "story_after": "Лес поделился мудростью. Вдалеке виднеется чайная..."
+}

@@ -1,0 +1,584 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <!-- Wall gradient: warm cream plaster -->
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5edd8"/>
+      <stop offset="100%" stop-color="#e8dcc4"/>
+    </linearGradient>
+
+    <!-- Tatami / bamboo mat floor -->
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8b888"/>
+      <stop offset="100%" stop-color="#b8a878"/>
+    </linearGradient>
+
+    <!-- Warm sunlight coming through shoji -->
+    <radialGradient id="sunlight" cx="50%" cy="22%" r="55%">
+      <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#fff8e0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#fff8e0" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Paper lantern glow -->
+    <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe8a0" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#ffe080" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffe080" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Sky gradient for garden view -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8c8d8"/>
+      <stop offset="50%" stop-color="#c8dce0"/>
+      <stop offset="100%" stop-color="#d8e8d0"/>
+    </linearGradient>
+
+    <!-- Table top wood -->
+    <linearGradient id="tableWood" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a6840"/>
+      <stop offset="30%" stop-color="#9a7850"/>
+      <stop offset="70%" stop-color="#8a6840"/>
+      <stop offset="100%" stop-color="#7a5830"/>
+    </linearGradient>
+
+    <!-- Tokonoma alcove depth -->
+    <linearGradient id="alcove" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8ccb0"/>
+      <stop offset="100%" stop-color="#c8bca0"/>
+    </linearGradient>
+
+    <!-- Cushion fabric gradient -->
+    <radialGradient id="cushion1" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#b85050"/>
+      <stop offset="100%" stop-color="#983838"/>
+    </radialGradient>
+    <radialGradient id="cushion2" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#5878a0"/>
+      <stop offset="100%" stop-color="#486888"/>
+    </radialGradient>
+
+    <!-- Teapot ceramic -->
+    <radialGradient id="teapotBody" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#a0b8a0"/>
+      <stop offset="100%" stop-color="#708870"/>
+    </radialGradient>
+
+    <!-- Stone garden stones -->
+    <radialGradient id="stone" cx="40%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#b0b0a8"/>
+      <stop offset="100%" stop-color="#888880"/>
+    </radialGradient>
+
+    <!-- Side opening sky -->
+    <linearGradient id="sideSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8d0d8"/>
+      <stop offset="100%" stop-color="#c8d8c8"/>
+    </linearGradient>
+
+    <!-- Wood beam -->
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a5830"/>
+      <stop offset="100%" stop-color="#6a4820"/>
+    </linearGradient>
+
+    <!-- Bamboo stalk gradient -->
+    <linearGradient id="bambooStalk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a8848"/>
+      <stop offset="30%" stop-color="#8aaa60"/>
+      <stop offset="70%" stop-color="#7a9a50"/>
+      <stop offset="100%" stop-color="#5a7838"/>
+    </linearGradient>
+
+    <!-- Scroll paper -->
+    <linearGradient id="scrollPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0e8d0"/>
+      <stop offset="100%" stop-color="#e8dcc0"/>
+    </linearGradient>
+
+    <!-- Sand garden -->
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8d0b8"/>
+      <stop offset="100%" stop-color="#c8c0a8"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="softShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="2" dy="3" stdDeviation="5" flood-color="#5a4830" flood-opacity="0.25"/>
+    </filter>
+    <filter id="lightShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#5a4830" flood-opacity="0.2"/>
+    </filter>
+    <filter id="deepShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="4" stdDeviation="6" flood-color="#3a2818" flood-opacity="0.3"/>
+    </filter>
+    <filter id="lanternBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <!-- ==================== BACK LAYER: Walls & Windows ==================== -->
+
+  <!-- Main wall background -->
+  <rect width="1080" height="1920" fill="url(#wall)"/>
+
+  <!-- === Central shoji window (sliding paper screen) === -->
+  <!-- Window opening with garden view -->
+  <rect x="180" y="80" width="720" height="560" rx="4" fill="url(#sky)"/>
+
+  <!-- Distant mountains in garden view -->
+  <path d="M180,450 Q300,320 420,400 Q480,360 540,380 Q620,300 720,370 Q800,340 900,440 L900,560 L180,560Z" fill="#8aaa80" opacity="0.4"/>
+  <path d="M180,480 Q280,400 380,450 Q450,410 540,430 Q640,380 740,420 Q820,400 900,470 L900,560 L180,560Z" fill="#90b488" opacity="0.5"/>
+
+  <!-- Bamboo grove outside (behind shoji grid) -->
+  <!-- Left bamboo stalks -->
+  <rect x="230" y="80" width="12" height="480" rx="6" fill="url(#bambooStalk)" opacity="0.7"/>
+  <rect x="260" y="80" width="10" height="500" rx="5" fill="#7a9a50" opacity="0.6"/>
+  <rect x="290" y="80" width="14" height="460" rx="7" fill="url(#bambooStalk)" opacity="0.65"/>
+  <!-- Bamboo nodes -->
+  <rect x="228" y="200" width="16" height="5" rx="2" fill="#5a7838" opacity="0.7"/>
+  <rect x="228" y="340" width="16" height="5" rx="2" fill="#5a7838" opacity="0.7"/>
+  <rect x="258" y="250" width="14" height="4" rx="2" fill="#5a7838" opacity="0.6"/>
+  <rect x="258" y="400" width="14" height="4" rx="2" fill="#5a7838" opacity="0.6"/>
+  <rect x="288" y="180" width="18" height="5" rx="2" fill="#5a7838" opacity="0.65"/>
+  <rect x="288" y="320" width="18" height="5" rx="2" fill="#5a7838" opacity="0.65"/>
+
+  <!-- Right bamboo stalks -->
+  <rect x="770" y="80" width="11" height="500" rx="5" fill="url(#bambooStalk)" opacity="0.6"/>
+  <rect x="800" y="80" width="13" height="470" rx="6" fill="#7a9a50" opacity="0.65"/>
+  <rect x="835" y="80" width="10" height="510" rx="5" fill="url(#bambooStalk)" opacity="0.55"/>
+  <!-- Nodes -->
+  <rect x="768" y="230" width="15" height="4" rx="2" fill="#5a7838" opacity="0.6"/>
+  <rect x="798" y="190" width="17" height="5" rx="2" fill="#5a7838" opacity="0.65"/>
+  <rect x="833" y="280" width="14" height="4" rx="2" fill="#5a7838" opacity="0.55"/>
+
+  <!-- Center bamboo -->
+  <rect x="510" y="80" width="15" height="440" rx="7" fill="url(#bambooStalk)" opacity="0.45"/>
+  <rect x="550" y="80" width="10" height="480" rx="5" fill="#7a9a50" opacity="0.4"/>
+  <rect x="508" y="260" width="19" height="5" rx="2" fill="#5a7838" opacity="0.45"/>
+
+  <!-- Bamboo leaves -->
+  <g opacity="0.6">
+    <path d="M242,130 Q260,120 270,130 Q260,140 242,130Z" fill="#6a9040"/>
+    <path d="M236,160 Q220,148 210,155 Q220,168 236,160Z" fill="#7aa050"/>
+    <path d="M296,140 Q315,128 325,138 Q315,150 296,140Z" fill="#6a9040"/>
+    <path d="M775,150 Q790,138 802,148 Q790,160 775,150Z" fill="#7aa050"/>
+    <path d="M808,130 Q825,118 835,128 Q825,142 808,130Z" fill="#6a9040"/>
+    <path d="M520,120 Q540,108 550,118 Q540,132 520,120Z" fill="#7aa050" opacity="0.5"/>
+    <path d="M555,150 Q570,138 580,148 Q570,162 555,150Z" fill="#6a9040" opacity="0.5"/>
+    <!-- More scattered leaves -->
+    <path d="M250,250 Q268,238 278,248 Q268,262 250,250Z" fill="#7aa050"/>
+    <path d="M780,280 Q798,268 808,278 Q798,292 780,280Z" fill="#6a9040"/>
+    <path d="M300,300 Q318,290 326,300 Q318,312 300,300Z" fill="#7aa050"/>
+  </g>
+
+  <!-- Garden ground (grass) -->
+  <rect x="180" y="500" width="720" height="140" fill="#90b480" opacity="0.5"/>
+  <rect x="180" y="540" width="720" height="100" fill="#80a470" opacity="0.4"/>
+
+  <!-- Small garden path stones visible outside -->
+  <ellipse cx="420" cy="540" rx="20" ry="8" fill="#a8a898" opacity="0.4"/>
+  <ellipse cx="480" cy="555" rx="15" ry="6" fill="#b0b0a0" opacity="0.35"/>
+  <ellipse cx="560" cy="545" rx="18" ry="7" fill="#a8a898" opacity="0.4"/>
+
+  <!-- Shoji grid (wooden frame + paper panels) -->
+  <!-- Outer frame -->
+  <rect x="180" y="80" width="720" height="560" rx="4" fill="none" stroke="#8a7050" stroke-width="12"/>
+  <!-- Horizontal bars -->
+  <rect x="180" y="240" width="720" height="8" fill="#8a7050"/>
+  <rect x="180" y="420" width="720" height="8" fill="#8a7050"/>
+  <!-- Vertical bars (4 panels) -->
+  <rect x="360" y="80" width="8" height="560" fill="#8a7050"/>
+  <rect x="540" y="80" width="8" height="560" fill="#8a7050"/>
+  <rect x="720" y="80" width="8" height="560" fill="#8a7050"/>
+  <!-- Panel crossbars (subtle) -->
+  <rect x="180" y="160" width="720" height="4" fill="#8a7050" opacity="0.5"/>
+  <rect x="180" y="330" width="720" height="4" fill="#8a7050" opacity="0.5"/>
+  <rect x="180" y="500" width="720" height="4" fill="#8a7050" opacity="0.5"/>
+  <!-- Paper translucency overlay -->
+  <rect x="186" y="86" width="168" height="148" rx="1" fill="#f5edd8" opacity="0.15"/>
+  <rect x="374" y="86" width="160" height="148" rx="1" fill="#f5edd8" opacity="0.12"/>
+  <rect x="554" y="86" width="160" height="148" rx="1" fill="#f5edd8" opacity="0.15"/>
+  <rect x="734" y="86" width="160" height="148" rx="1" fill="#f5edd8" opacity="0.12"/>
+
+  <!-- === Side opening (right) with stone garden view === -->
+  <rect x="920" y="200" width="160" height="700" rx="3" fill="url(#sideSky)"/>
+
+  <!-- Stone garden (karesansui) visible through side opening -->
+  <!-- Raked sand -->
+  <rect x="920" y="600" width="160" height="300" fill="url(#sand)" opacity="0.8"/>
+  <!-- Raked lines in sand -->
+  <g stroke="#c0b898" stroke-width="1.5" opacity="0.4">
+    <path d="M920,640 Q980,630 1000,640 Q1040,650 1080,640" fill="none"/>
+    <path d="M920,660 Q980,650 1000,660 Q1040,670 1080,660" fill="none"/>
+    <path d="M920,680 Q980,670 1000,680 Q1040,690 1080,680" fill="none"/>
+    <path d="M920,710 Q960,700 990,710 Q1040,720 1080,710" fill="none"/>
+    <path d="M920,740 Q960,730 990,740 Q1040,750 1080,740" fill="none"/>
+    <path d="M920,770 Q960,760 990,770 Q1040,780 1080,770" fill="none"/>
+    <path d="M920,800 Q960,790 990,800 Q1040,810 1080,800" fill="none"/>
+    <!-- Circular raked pattern around a stone -->
+    <circle cx="990" cy="700" r="22" fill="none"/>
+    <circle cx="990" cy="700" r="30" fill="none"/>
+  </g>
+  <!-- Garden stones -->
+  <ellipse cx="990" cy="700" rx="16" ry="10" fill="url(#stone)"/>
+  <ellipse cx="960" cy="760" rx="10" ry="7" fill="#a0a098"/>
+  <ellipse cx="1020" cy="780" rx="12" ry="8" fill="#98988e"/>
+
+  <!-- Moss patches -->
+  <ellipse cx="940" cy="650" rx="15" ry="8" fill="#7a9868" opacity="0.5"/>
+  <ellipse cx="1050" cy="730" rx="12" ry="6" fill="#7a9868" opacity="0.4"/>
+
+  <!-- Side opening frame -->
+  <rect x="920" y="200" width="160" height="700" rx="3" fill="none" stroke="#8a7050" stroke-width="10"/>
+  <rect x="920" y="500" width="160" height="6" fill="#8a7050"/>
+
+  <!-- === Top beam (lintel) === -->
+  <rect x="0" y="640" width="1080" height="20" fill="url(#beam)" filter="url(#lightShadow)"/>
+
+  <!-- Sunlight wash -->
+  <rect width="1080" height="1920" fill="url(#sunlight)"/>
+
+
+  <!-- ==================== LEFT WALL: Tokonoma alcove ==================== -->
+
+  <!-- Alcove recess -->
+  <rect x="0" y="200" width="160" height="700" rx="2" fill="url(#alcove)"/>
+  <rect x="0" y="200" width="160" height="700" rx="2" fill="none" stroke="#8a7050" stroke-width="8"/>
+  <!-- Alcove back wall (slightly darker) -->
+  <rect x="8" y="208" width="144" height="684" fill="#d0c4a8" opacity="0.5"/>
+
+  <!-- Hanging scroll (kakejiku) -->
+  <rect x="40" y="240" width="80" height="280" rx="2" fill="url(#scrollPaper)" filter="url(#lightShadow)"/>
+  <!-- Scroll top rod -->
+  <rect x="32" y="232" width="96" height="12" rx="3" fill="#6a4820"/>
+  <!-- Scroll bottom rod -->
+  <rect x="38" y="520" width="84" height="10" rx="3" fill="#6a4820"/>
+  <!-- Calligraphy strokes on scroll (abstract zen brushwork) -->
+  <g opacity="0.6">
+    <path d="M65,290 Q70,310 80,340 Q85,360 78,380" fill="none" stroke="#3a3028" stroke-width="4" stroke-linecap="round"/>
+    <path d="M90,280 L95,320 Q92,350 88,370" fill="none" stroke="#3a3028" stroke-width="3" stroke-linecap="round"/>
+    <path d="M60,400 Q75,395 95,400 Q105,405 100,415" fill="none" stroke="#3a3028" stroke-width="3" stroke-linecap="round"/>
+    <path d="M72,430 Q80,435 85,450 L82,470" fill="none" stroke="#3a3028" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Small red seal stamp -->
+    <rect x="88" y="480" width="16" height="16" rx="1" fill="#c05040" opacity="0.7"/>
+  </g>
+
+  <!-- Flower arrangement (ikebana) in alcove -->
+  <!-- Ceramic vase -->
+  <path d="M55,620 Q50,600 55,570 Q65,555 85,555 Q105,555 110,570 Q115,600 110,620Z" fill="#708870" opacity="0.8"/>
+  <ellipse cx="82" cy="555" rx="28" ry="8" fill="#608060" opacity="0.7"/>
+  <!-- Highlight on vase -->
+  <path d="M65,580 Q68,570 72,565" fill="none" stroke="#90a890" stroke-width="2" opacity="0.5"/>
+  <!-- Branches -->
+  <path d="M82,555 Q90,480 110,430 Q120,410 130,400" fill="none" stroke="#6a5030" stroke-width="3" stroke-linecap="round"/>
+  <path d="M82,555 Q70,500 55,460 Q50,440 40,430" fill="none" stroke="#6a5030" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M82,555 Q85,510 95,480" fill="none" stroke="#6a5030" stroke-width="2" stroke-linecap="round"/>
+  <!-- Blossoms -->
+  <circle cx="130" cy="400" r="10" fill="#e8a0a0" opacity="0.8"/>
+  <circle cx="130" cy="400" r="5" fill="#f0c0b8" opacity="0.7"/>
+  <circle cx="40" cy="430" r="8" fill="#e8a0a0" opacity="0.7"/>
+  <circle cx="40" cy="430" r="4" fill="#f0c0b8" opacity="0.6"/>
+  <circle cx="95" cy="478" r="7" fill="#e8a0a0" opacity="0.7"/>
+  <circle cx="95" cy="478" r="3.5" fill="#f0c0b8" opacity="0.6"/>
+  <!-- Small leaves -->
+  <path d="M110,420 Q118,415 122,420 Q118,425 110,420Z" fill="#6a9040" opacity="0.6"/>
+  <path d="M50,445 Q44,440 42,445 Q44,452 50,445Z" fill="#6a9040" opacity="0.6"/>
+  <path d="M88,485 Q95,490 92,495 Q85,492 88,485Z" fill="#6a9040" opacity="0.5"/>
+
+  <!-- Alcove raised platform edge -->
+  <rect x="0" y="895" width="160" height="12" rx="2" fill="#7a5830"/>
+
+
+  <!-- ==================== FLOOR: Tatami / Bamboo Mat ==================== -->
+
+  <!-- Main floor -->
+  <rect x="0" y="1100" width="1080" height="820" fill="url(#floor)"/>
+
+  <!-- Tatami mat borders (subtle grid pattern) -->
+  <g stroke="#a89868" stroke-width="2" opacity="0.3">
+    <!-- Horizontal mat lines -->
+    <line x1="0" y1="1100" x2="1080" y2="1100"/>
+    <line x1="0" y1="1300" x2="1080" y2="1300"/>
+    <line x1="0" y1="1500" x2="1080" y2="1500"/>
+    <line x1="0" y1="1700" x2="1080" y2="1700"/>
+    <!-- Vertical mat lines -->
+    <line x1="360" y1="1100" x2="360" y2="1920"/>
+    <line x1="720" y1="1100" x2="720" y2="1920"/>
+  </g>
+
+  <!-- Tatami texture lines (fine weave) -->
+  <g stroke="#b8a878" stroke-width="0.5" opacity="0.15">
+    <line x1="0" y1="1130" x2="1080" y2="1130"/>
+    <line x1="0" y1="1160" x2="1080" y2="1160"/>
+    <line x1="0" y1="1190" x2="1080" y2="1190"/>
+    <line x1="0" y1="1220" x2="1080" y2="1220"/>
+    <line x1="0" y1="1250" x2="1080" y2="1250"/>
+    <line x1="0" y1="1280" x2="1080" y2="1280"/>
+    <line x1="0" y1="1330" x2="1080" y2="1330"/>
+    <line x1="0" y1="1360" x2="1080" y2="1360"/>
+    <line x1="0" y1="1390" x2="1080" y2="1390"/>
+    <line x1="0" y1="1420" x2="1080" y2="1420"/>
+    <line x1="0" y1="1450" x2="1080" y2="1450"/>
+    <line x1="0" y1="1480" x2="1080" y2="1480"/>
+    <line x1="0" y1="1530" x2="1080" y2="1530"/>
+    <line x1="0" y1="1560" x2="1080" y2="1560"/>
+    <line x1="0" y1="1590" x2="1080" y2="1590"/>
+    <line x1="0" y1="1620" x2="1080" y2="1620"/>
+    <line x1="0" y1="1650" x2="1080" y2="1650"/>
+    <line x1="0" y1="1680" x2="1080" y2="1680"/>
+    <line x1="0" y1="1730" x2="1080" y2="1730"/>
+    <line x1="0" y1="1760" x2="1080" y2="1760"/>
+    <line x1="0" y1="1790" x2="1080" y2="1790"/>
+    <line x1="0" y1="1820" x2="1080" y2="1820"/>
+    <line x1="0" y1="1850" x2="1080" y2="1850"/>
+    <line x1="0" y1="1880" x2="1080" y2="1880"/>
+  </g>
+
+  <!-- Floor-wall transition (wooden strip) -->
+  <rect x="0" y="1094" width="1080" height="12" fill="url(#beam)"/>
+
+
+  <!-- ==================== MID LAYER: Walls between floor and windows ==================== -->
+
+  <!-- Wall section below windows, above floor -->
+  <rect x="0" y="660" width="1080" height="440" fill="url(#wall)"/>
+
+  <!-- Wainscoting / lower wall wood panels -->
+  <rect x="0" y="900" width="1080" height="200" fill="#d8c8a8" opacity="0.3"/>
+  <rect x="0" y="900" width="1080" height="6" fill="#8a7050" opacity="0.4"/>
+
+  <!-- === Bamboo decoration on right wall === -->
+  <!-- Decorative bamboo pieces mounted on wall -->
+  <rect x="950" y="930" width="10" height="160" rx="5" fill="url(#bambooStalk)" opacity="0.7"/>
+  <rect x="975" y="940" width="8" height="150" rx="4" fill="#7a9a50" opacity="0.6"/>
+  <rect x="1000" y="925" width="11" height="165" rx="5" fill="url(#bambooStalk)" opacity="0.65"/>
+  <!-- Nodes -->
+  <rect x="948" y="990" width="14" height="4" rx="2" fill="#5a7838" opacity="0.7"/>
+  <rect x="973" y="1010" width="12" height="3" rx="1" fill="#5a7838" opacity="0.6"/>
+  <rect x="998" y="975" width="15" height="4" rx="2" fill="#5a7838" opacity="0.65"/>
+
+
+  <!-- ==================== MID LAYER: Furniture ==================== -->
+
+  <!-- === Low wooden table (center) === -->
+  <g filter="url(#deepShadow)">
+    <!-- Table shadow on floor -->
+    <ellipse cx="540" cy="1380" rx="240" ry="30" fill="#8a7858" opacity="0.2"/>
+    <!-- Table legs -->
+    <rect x="340" y="1260" width="14" height="100" rx="3" fill="#6a4820"/>
+    <rect x="726" y="1260" width="14" height="100" rx="3" fill="#6a4820"/>
+    <rect x="340" y="1330" width="14" height="35" rx="3" fill="#5a3818" opacity="0.6"/>
+    <rect x="726" y="1330" width="14" height="35" rx="3" fill="#5a3818" opacity="0.6"/>
+    <!-- Table top -->
+    <rect x="310" y="1240" width="460" height="28" rx="5" fill="url(#tableWood)"/>
+    <!-- Table top edge highlight -->
+    <rect x="310" y="1240" width="460" height="6" rx="3" fill="#a88860" opacity="0.4"/>
+    <!-- Wood grain lines -->
+    <line x1="350" y1="1250" x2="700" y2="1250" stroke="#7a5830" stroke-width="0.8" opacity="0.3"/>
+    <line x1="340" y1="1255" x2="720" y2="1255" stroke="#7a5830" stroke-width="0.6" opacity="0.2"/>
+    <line x1="360" y1="1260" x2="710" y2="1260" stroke="#7a5830" stroke-width="0.7" opacity="0.25"/>
+  </g>
+
+  <!-- === Teapot on table === -->
+  <g filter="url(#lightShadow)">
+    <!-- Teapot body -->
+    <ellipse cx="540" cy="1228" rx="45" ry="30" fill="url(#teapotBody)"/>
+    <!-- Teapot top curve -->
+    <ellipse cx="540" cy="1210" rx="30" ry="10" fill="#90a890"/>
+    <!-- Lid -->
+    <ellipse cx="540" cy="1200" rx="22" ry="8" fill="#80a080"/>
+    <!-- Lid knob -->
+    <circle cx="540" cy="1195" r="5" fill="#708870"/>
+    <!-- Spout -->
+    <path d="M585,1220 Q600,1210 608,1200 Q612,1195 610,1192" fill="none" stroke="#708870" stroke-width="5" stroke-linecap="round"/>
+    <!-- Handle -->
+    <path d="M495,1215 Q475,1200 478,1225 Q480,1240 495,1235" fill="none" stroke="#708870" stroke-width="5" stroke-linecap="round"/>
+    <!-- Highlight -->
+    <ellipse cx="530" cy="1215" rx="10" ry="6" fill="#a0c0a0" opacity="0.4"/>
+  </g>
+
+  <!-- === Tea cups on table === -->
+  <!-- Cup 1 (left) -->
+  <ellipse cx="430" cy="1235" rx="18" ry="8" fill="#b8a888"/>
+  <path d="M412,1235 Q410,1225 415,1218 Q425,1210 435,1210 Q445,1210 448,1218 Q450,1225 448,1235" fill="#c8b898"/>
+  <ellipse cx="430" cy="1235" rx="15" ry="6" fill="#d0c8a8"/>
+  <!-- Tea inside cup -->
+  <ellipse cx="430" cy="1234" rx="12" ry="4" fill="#8a7040" opacity="0.6"/>
+  <!-- Steam wisps -->
+  <path d="M428,1210 Q425,1198 428,1188" fill="none" stroke="#d8d0c0" stroke-width="1.5" opacity="0.3"/>
+  <path d="M433,1212 Q436,1196 433,1185" fill="none" stroke="#d8d0c0" stroke-width="1" opacity="0.25"/>
+
+  <!-- Cup 2 (right) -->
+  <ellipse cx="650" cy="1235" rx="18" ry="8" fill="#b8a888"/>
+  <path d="M632,1235 Q630,1225 635,1218 Q645,1210 655,1210 Q665,1210 668,1218 Q670,1225 668,1235" fill="#c8b898"/>
+  <ellipse cx="650" cy="1235" rx="15" ry="6" fill="#d0c8a8"/>
+  <ellipse cx="650" cy="1234" rx="12" ry="4" fill="#8a7040" opacity="0.6"/>
+
+  <!-- Small tea whisk (chasen) next to teapot -->
+  <rect x="570" y="1218" width="6" height="22" rx="2" fill="#c8b088"/>
+  <g stroke="#c8b088" stroke-width="1" opacity="0.7">
+    <line x1="571" y1="1218" x2="568" y2="1208"/>
+    <line x1="573" y1="1218" x2="572" y2="1207"/>
+    <line x1="575" y1="1218" x2="576" y2="1207"/>
+    <line x1="576" y1="1218" x2="580" y2="1208"/>
+  </g>
+
+  <!-- Small plate with wagashi (sweets) -->
+  <ellipse cx="470" cy="1237" rx="22" ry="8" fill="#d8d0c0" filter="url(#lightShadow)"/>
+  <!-- Wagashi -->
+  <circle cx="465" cy="1232" r="6" fill="#d8a0b0"/>
+  <circle cx="478" cy="1233" r="5" fill="#a0c8a0"/>
+
+  <!-- === Cushions (zabuton) === -->
+  <!-- Left cushion -->
+  <g filter="url(#softShadow)">
+    <ellipse cx="380" cy="1450" rx="85" ry="35" fill="url(#cushion1)"/>
+    <ellipse cx="380" cy="1440" rx="78" ry="28" fill="#c06060" opacity="0.6"/>
+    <!-- Tasseled edges suggestion -->
+    <ellipse cx="380" cy="1445" rx="65" ry="18" fill="none" stroke="#d08080" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <!-- Right cushion -->
+  <g filter="url(#softShadow)">
+    <ellipse cx="700" cy="1440" rx="80" ry="32" fill="url(#cushion2)"/>
+    <ellipse cx="700" cy="1430" rx="73" ry="25" fill="#6888b0" opacity="0.6"/>
+    <ellipse cx="700" cy="1435" rx="60" ry="16" fill="none" stroke="#78a0c0" stroke-width="1" opacity="0.4"/>
+  </g>
+
+
+  <!-- ==================== PAPER LANTERN ==================== -->
+
+  <!-- Lantern hanging from ceiling (upper right area) -->
+  <!-- Cord -->
+  <line x1="820" y1="660" x2="820" y2="740" stroke="#5a4830" stroke-width="2"/>
+
+  <!-- Lantern glow halo -->
+  <ellipse cx="820" cy="820" rx="100" ry="110" fill="url(#lanternGlow)" filter="url(#lanternBlur)"/>
+
+  <!-- Lantern body -->
+  <path d="M795,760 Q790,800 795,840 Q805,870 820,875 Q835,870 845,840 Q850,800 845,760Z" fill="#f0e0c0" opacity="0.9"/>
+  <!-- Lantern ribs -->
+  <path d="M795,760 Q790,800 795,840 Q805,870 820,875" fill="none" stroke="#d8c8a0" stroke-width="1" opacity="0.5"/>
+  <path d="M845,760 Q850,800 845,840 Q835,870 820,875" fill="none" stroke="#d8c8a0" stroke-width="1" opacity="0.5"/>
+  <line x1="820" y1="755" x2="820" y2="875" stroke="#d8c8a0" stroke-width="1" opacity="0.4"/>
+  <!-- Horizontal rib -->
+  <path d="M793,810 Q820,820 847,810" fill="none" stroke="#d8c8a0" stroke-width="1" opacity="0.4"/>
+
+  <!-- Lantern top ring -->
+  <ellipse cx="820" cy="758" rx="26" ry="6" fill="#8a6840"/>
+  <!-- Lantern bottom -->
+  <ellipse cx="820" cy="876" rx="12" ry="4" fill="#8a6840"/>
+  <!-- Tassel -->
+  <line x1="820" y1="880" x2="820" y2="910" stroke="#c8a060" stroke-width="2"/>
+  <path d="M815,910 Q820,920 825,910" fill="none" stroke="#c8a060" stroke-width="1.5"/>
+
+  <!-- Warm glow on nearby wall -->
+  <ellipse cx="820" cy="820" rx="150" ry="180" fill="#ffe8a0" opacity="0.06"/>
+
+
+  <!-- ==================== SHELVES (right wall, below side opening) ==================== -->
+
+  <!-- Shelf bracket + shelf -->
+  <rect x="920" y="1000" width="140" height="8" rx="2" fill="#7a5830" filter="url(#lightShadow)"/>
+  <rect x="920" y="1120" width="140" height="8" rx="2" fill="#7a5830" filter="url(#lightShadow)"/>
+
+  <!-- Items on upper shelf -->
+  <!-- Small ceramic bowl -->
+  <ellipse cx="960" cy="998" rx="18" ry="6" fill="#a08870"/>
+  <path d="M942,998 Q940,988 948,980 Q960,974 972,980 Q978,988 976,998" fill="#b09880"/>
+  <ellipse cx="960" cy="998" rx="15" ry="4" fill="#c0a890"/>
+
+  <!-- Incense holder -->
+  <rect x="1010" y="985" width="20" height="15" rx="3" fill="#6a5a48"/>
+  <ellipse cx="1020" cy="985" rx="10" ry="4" fill="#7a6a58"/>
+  <!-- Incense stick -->
+  <line x1="1020" y1="985" x2="1018" y2="955" stroke="#a08060" stroke-width="1.5"/>
+  <!-- Smoke -->
+  <path d="M1018,955 Q1015,940 1020,925 Q1016,910 1022,895" fill="none" stroke="#c8c0b0" stroke-width="1.5" opacity="0.25"/>
+  <path d="M1019,955 Q1023,938 1018,920 Q1022,905 1018,888" fill="none" stroke="#c8c0b0" stroke-width="1" opacity="0.2"/>
+
+  <!-- Items on lower shelf -->
+  <!-- Tea caddy (natsume) -->
+  <rect x="940" y="1098" width="28" height="22" rx="8" fill="#3a3030"/>
+  <ellipse cx="954" cy="1098" rx="14" ry="5" fill="#4a4040"/>
+  <ellipse cx="954" cy="1100" rx="10" ry="2" fill="#5a5050" opacity="0.5"/>
+
+  <!-- Small vase -->
+  <path d="M1010,1118 Q1008,1108 1012,1095 Q1018,1088 1028,1088 Q1035,1088 1038,1095 Q1042,1108 1040,1118" fill="#888080"/>
+  <ellipse cx="1025" cy="1088" rx="12" ry="4" fill="#787070"/>
+  <!-- Tiny flower -->
+  <line x1="1025" y1="1088" x2="1023" y2="1070" stroke="#5a7838" stroke-width="1.5"/>
+  <circle cx="1023" cy="1068" r="4" fill="#e8b0b8" opacity="0.7"/>
+
+
+  <!-- ==================== ADDITIONAL DETAILS: Wall decorations ==================== -->
+
+  <!-- Small bamboo frame / window (ranma) above main shoji -->
+  <rect x="280" y="30" width="520" height="45" rx="2" fill="none" stroke="#8a7050" stroke-width="6"/>
+  <!-- Decorative lattice inside -->
+  <g stroke="#8a7050" stroke-width="3" opacity="0.5">
+    <line x1="370" y1="36" x2="370" y2="69"/>
+    <line x1="460" y1="36" x2="460" y2="69"/>
+    <line x1="540" y1="36" x2="540" y2="69"/>
+    <line x1="620" y1="36" x2="620" y2="69"/>
+    <line x1="710" y1="36" x2="710" y2="69"/>
+  </g>
+
+  <!-- Fan decoration on wall (left of lantern) -->
+  <path d="M680,720 Q720,680 760,720" fill="#e8d8c0" opacity="0.5" filter="url(#lightShadow)"/>
+  <path d="M680,720 L720,690 L760,720" fill="none" stroke="#a89070" stroke-width="1" opacity="0.4"/>
+  <line x1="720" y1="690" x2="720" y2="720" stroke="#a89070" stroke-width="0.8" opacity="0.3"/>
+  <line x1="695" y1="710" x2="700" y2="698" stroke="#a89070" stroke-width="0.8" opacity="0.3"/>
+  <line x1="745" y1="710" x2="740" y2="698" stroke="#a89070" stroke-width="0.8" opacity="0.3"/>
+
+
+  <!-- ==================== FRONT LAYER: Floor details ==================== -->
+
+  <!-- Bamboo place mat under teapot area (on table) -->
+  <!-- (already integrated with table) -->
+
+  <!-- Small bamboo tray on floor (near left cushion) -->
+  <rect x="200" y="1480" width="100" height="60" rx="4" fill="#a89060" opacity="0.5" filter="url(#lightShadow)"/>
+  <rect x="205" y="1485" width="90" height="50" rx="3" fill="#b8a070" opacity="0.4"/>
+  <!-- Items on tray -->
+  <!-- Folded cloth (chakin) -->
+  <rect x="215" y="1495" width="30" height="18" rx="2" fill="#e8e0d0" opacity="0.7"/>
+  <!-- Small container -->
+  <rect x="255" y="1498" width="20" height="16" rx="4" fill="#5a5048"/>
+
+  <!-- Wooden sandals (geta) near edge -->
+  <g opacity="0.5">
+    <rect x="80" y="1780" width="50" height="25" rx="6" fill="#8a6840" transform="rotate(-15, 105, 1792)"/>
+    <rect x="140" y="1790" width="50" height="25" rx="6" fill="#8a6840" transform="rotate(-8, 165, 1802)"/>
+  </g>
+
+  <!-- Scattered petals on floor (from ikebana) -->
+  <ellipse cx="200" cy="1200" rx="4" ry="2.5" fill="#e8a0a0" opacity="0.3" transform="rotate(30,200,1200)"/>
+  <ellipse cx="280" cy="1350" rx="3.5" ry="2" fill="#e8a0a0" opacity="0.25" transform="rotate(-20,280,1350)"/>
+  <ellipse cx="150" cy="1300" rx="3" ry="2" fill="#e8a0a0" opacity="0.2" transform="rotate(45,150,1300)"/>
+
+  <!-- Bamboo water scoop (hishaku) leaning on wall near tokonoma -->
+  <line x1="170" y1="1080" x2="170" y2="920" stroke="#a89060" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="170" cy="920" rx="14" ry="10" fill="none" stroke="#a89060" stroke-width="3"/>
+
+  <!-- Floor-level bamboo fence suggestion (engawa edge, bottom) -->
+  <rect x="0" y="1860" width="1080" height="8" fill="#8a7050" opacity="0.3"/>
+  <rect x="0" y="1890" width="1080" height="8" fill="#8a7050" opacity="0.25"/>
+  <!-- Vertical supports -->
+  <rect x="180" y="1860" width="6" height="60" fill="#8a7050" opacity="0.3"/>
+  <rect x="540" y="1860" width="6" height="60" fill="#8a7050" opacity="0.3"/>
+  <rect x="900" y="1860" width="6" height="60" fill="#8a7050" opacity="0.3"/>
+
+
+  <!-- ==================== AMBIENT OVERLAYS ==================== -->
+
+  <!-- Warm ambient tint -->
+  <rect width="1080" height="1920" fill="#f0e8d0" opacity="0.04"/>
+
+  <!-- Subtle vignette effect -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+    <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#3a2818" stop-opacity="0.15"/>
+  </radialGradient>
+  <rect width="1080" height="1920" fill="url(#vignette)"/>
+</svg>

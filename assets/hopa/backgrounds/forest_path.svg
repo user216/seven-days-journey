@@ -1,0 +1,413 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920">
+  <defs>
+    <!-- Sky glimpsed through canopy -->
+    <linearGradient id="sky_peek" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6a3a"/>
+      <stop offset="30%" stop-color="#2a4a28"/>
+      <stop offset="100%" stop-color="#1e3a1e"/>
+    </linearGradient>
+    <!-- Ground/soil gradient -->
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6a38"/>
+      <stop offset="60%" stop-color="#3a5a2e"/>
+      <stop offset="100%" stop-color="#2e4a24"/>
+    </linearGradient>
+    <!-- Moss-covered path -->
+    <linearGradient id="path_moss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8a7a5a"/>
+      <stop offset="40%" stop-color="#7a6e50"/>
+      <stop offset="100%" stop-color="#6a5e44"/>
+    </linearGradient>
+    <!-- Moss green tint on path -->
+    <linearGradient id="moss_tint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a7a48" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#5a7a48" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#5a7a48" stop-opacity="0.35"/>
+    </linearGradient>
+    <!-- Tree trunk bark -->
+    <linearGradient id="bark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a4030"/>
+      <stop offset="50%" stop-color="#6a5040"/>
+      <stop offset="100%" stop-color="#4a3525"/>
+    </linearGradient>
+    <!-- Dark bark for background trees -->
+    <linearGradient id="bark_dark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3a2a20"/>
+      <stop offset="100%" stop-color="#2e2018"/>
+    </linearGradient>
+    <!-- Stream water -->
+    <linearGradient id="stream" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0%" stop-color="#5a8a7a"/>
+      <stop offset="50%" stop-color="#6a9a8a"/>
+      <stop offset="100%" stop-color="#4a7a6a"/>
+    </linearGradient>
+    <!-- Sunlight beam -->
+    <radialGradient id="sunbeam_glow" cx="30%" cy="8%" r="45%">
+      <stop offset="0%" stop-color="#fce8a0" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#e8d888" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#e8d888" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Secondary sunlight patch -->
+    <radialGradient id="sun_patch" cx="65%" cy="35%" r="25%">
+      <stop offset="0%" stop-color="#fce8a0" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#fce8a0" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Canopy top gradient -->
+    <linearGradient id="canopy_top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a4a22"/>
+      <stop offset="100%" stop-color="#2a4a22" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Fox den shadow -->
+    <radialGradient id="den_shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1008"/>
+      <stop offset="70%" stop-color="#2a1a10"/>
+      <stop offset="100%" stop-color="#3a2a18"/>
+    </radialGradient>
+    <!-- Fallen log gradient -->
+    <linearGradient id="log_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a5038"/>
+      <stop offset="100%" stop-color="#4a3828"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="6" flood-color="#1a2a12" flood-opacity="0.3"/>
+    </filter>
+    <filter id="soft" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="shadow_sm" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#1a2a12" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- === LAYER 1: Deep forest background === -->
+  <rect width="1080" height="1920" fill="url(#sky_peek)"/>
+
+  <!-- Sky glimpses through canopy gaps -->
+  <ellipse cx="280" cy="80" rx="120" ry="60" fill="#5a8a5a" opacity="0.3"/>
+  <ellipse cx="700" cy="50" rx="100" ry="45" fill="#6a9a6a" opacity="0.25"/>
+  <ellipse cx="500" cy="120" rx="80" ry="40" fill="#5a8a5a" opacity="0.2"/>
+
+  <!-- === LAYER 2: Distant tree trunks (background) === -->
+  <rect x="60" y="0" width="28" height="900" fill="url(#bark_dark)" opacity="0.5"/>
+  <rect x="200" y="0" width="22" height="850" fill="url(#bark_dark)" opacity="0.4"/>
+  <rect x="350" y="0" width="18" height="700" fill="url(#bark_dark)" opacity="0.3"/>
+  <rect x="680" y="0" width="20" height="750" fill="url(#bark_dark)" opacity="0.35"/>
+  <rect x="850" y="0" width="25" height="880" fill="url(#bark_dark)" opacity="0.45"/>
+  <rect x="1000" y="0" width="20" height="800" fill="url(#bark_dark)" opacity="0.4"/>
+
+  <!-- Distant canopy layers -->
+  <ellipse cx="75" cy="200" rx="140" ry="200" fill="#2a4a22" opacity="0.5"/>
+  <ellipse cx="210" cy="180" rx="120" ry="180" fill="#2e4e26" opacity="0.4"/>
+  <ellipse cx="860" cy="190" rx="150" ry="210" fill="#2a4a22" opacity="0.5"/>
+  <ellipse cx="1010" cy="220" rx="130" ry="190" fill="#2e4e26" opacity="0.4"/>
+
+  <!-- === LAYER 3: Ground plane === -->
+  <rect x="0" y="500" width="1080" height="1420" fill="url(#ground)"/>
+
+  <!-- Ground texture with subtle contours -->
+  <path d="M0,520 Q200,510 400,530 Q600,515 800,535 Q950,520 1080,525" fill="none" stroke="#3a5830" stroke-width="3" opacity="0.4"/>
+  <path d="M0,560 Q150,550 350,570 Q550,555 750,575 Q900,560 1080,565" fill="none" stroke="#335228" stroke-width="2" opacity="0.3"/>
+
+  <!-- === LAYER 4: Winding path (middle of scene) === -->
+  <!-- Path winds from top-center down to bottom, curving left and right -->
+  <path d="M420,500 Q380,600 430,720 Q500,850 460,1000 Q400,1150 450,1300 Q520,1450 480,1600 Q430,1750 470,1920"
+        fill="none" stroke="url(#path_moss)" stroke-width="180" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <!-- Path edge highlight (left) -->
+  <path d="M345,500 Q300,600 350,720 Q420,850 380,1000 Q315,1150 370,1300 Q440,1450 395,1600 Q345,1750 385,1920"
+        fill="none" stroke="#5a7a48" stroke-width="8" opacity="0.35"/>
+  <!-- Path edge highlight (right) -->
+  <path d="M500,500 Q460,600 510,720 Q580,850 540,1000 Q480,1150 530,1300 Q600,1450 565,1600 Q515,1750 555,1920"
+        fill="none" stroke="#5a7a48" stroke-width="8" opacity="0.35"/>
+  <!-- Moss patches on path -->
+  <ellipse cx="420" cy="650" rx="50" ry="20" fill="#5a7a48" opacity="0.3"/>
+  <ellipse cx="450" cy="850" rx="40" ry="15" fill="#4a6a3a" opacity="0.25"/>
+  <ellipse cx="430" cy="1100" rx="55" ry="18" fill="#5a7a48" opacity="0.3"/>
+  <ellipse cx="470" cy="1400" rx="45" ry="16" fill="#4a6a3a" opacity="0.25"/>
+
+  <!-- Stepping stones on path -->
+  <ellipse cx="410" cy="580" rx="35" ry="12" fill="#8a8070" opacity="0.5"/>
+  <ellipse cx="440" cy="760" rx="30" ry="10" fill="#7a7060" opacity="0.45"/>
+  <ellipse cx="460" cy="960" rx="32" ry="11" fill="#8a8070" opacity="0.5"/>
+  <ellipse cx="430" cy="1200" rx="28" ry="10" fill="#7a7060" opacity="0.4"/>
+  <ellipse cx="470" cy="1500" rx="34" ry="12" fill="#8a8070" opacity="0.45"/>
+
+  <!-- === LAYER 5: Stream/brook crossing the path === -->
+  <path d="M0,1050 Q120,1030 250,1060 Q380,1080 460,1050 Q540,1020 650,1060 Q780,1090 900,1050 Q1000,1030 1080,1055"
+        fill="none" stroke="url(#stream)" stroke-width="40" stroke-linecap="round" opacity="0.7"/>
+  <!-- Stream highlights -->
+  <path d="M0,1048 Q120,1028 250,1058 Q380,1078 460,1048 Q540,1018 650,1058 Q780,1088 900,1048 Q1000,1028 1080,1053"
+        fill="none" stroke="#7aaaa0" stroke-width="8" opacity="0.3"/>
+  <!-- Water sparkles -->
+  <circle cx="180" cy="1050" r="3" fill="#b0d8d0" opacity="0.6"/>
+  <circle cx="350" cy="1065" r="2.5" fill="#b0d8d0" opacity="0.5"/>
+  <circle cx="560" cy="1035" r="3" fill="#b0d8d0" opacity="0.55"/>
+  <circle cx="750" cy="1070" r="2" fill="#b0d8d0" opacity="0.5"/>
+  <circle cx="920" cy="1045" r="2.5" fill="#b0d8d0" opacity="0.45"/>
+  <!-- Small rocks in stream -->
+  <ellipse cx="300" cy="1060" rx="12" ry="6" fill="#6a7a68" opacity="0.6"/>
+  <ellipse cx="620" cy="1045" rx="10" ry="5" fill="#5a6a58" opacity="0.55"/>
+  <ellipse cx="840" cy="1060" rx="8" ry="4" fill="#6a7a68" opacity="0.5"/>
+
+  <!-- === LAYER 6: Main tree trunks (foreground) === -->
+  <!-- Left large tree -->
+  <rect x="-20" y="100" width="90" height="1200" rx="12" fill="url(#bark)" filter="url(#shadow)"/>
+  <!-- Bark texture lines -->
+  <path d="M5,200 Q20,250 10,300 Q25,350 15,400" fill="none" stroke="#4a3525" stroke-width="2" opacity="0.4"/>
+  <path d="M30,180 Q40,240 35,310 Q45,380 38,450" fill="none" stroke="#4a3525" stroke-width="1.5" opacity="0.35"/>
+  <!-- Tree roots (left) -->
+  <path d="M-20,1280 Q30,1300 80,1320 Q120,1340 140,1380" fill="none" stroke="#5a4030" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  <path d="M50,1290 Q90,1310 130,1350 Q150,1380 160,1420" fill="none" stroke="#5a4030" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+  <path d="M-10,1300 Q-30,1350 -20,1400" fill="none" stroke="#5a4030" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Right large tree -->
+  <rect x="1000" y="80" width="100" height="1300" rx="14" fill="url(#bark)" filter="url(#shadow)"/>
+  <path d="M1015,190 Q1030,250 1020,320 Q1035,390 1025,460" fill="none" stroke="#4a3525" stroke-width="2" opacity="0.4"/>
+  <path d="M1050,170 Q1060,240 1055,310 Q1065,380 1058,450" fill="none" stroke="#4a3525" stroke-width="1.5" opacity="0.35"/>
+  <!-- Tree roots (right) -->
+  <path d="M1100,1360 Q1050,1380 1000,1400 Q960,1420 940,1460" fill="none" stroke="#5a4030" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+  <path d="M1030,1370 Q990,1390 950,1430 Q930,1460 920,1500" fill="none" stroke="#5a4030" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Mid-left tree -->
+  <rect x="170" y="200" width="55" height="800" rx="8" fill="url(#bark)" filter="url(#shadow)" opacity="0.85"/>
+  <path d="M170,980 Q200,1010 240,1050" fill="none" stroke="#5a4030" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Mid-right tree -->
+  <rect x="830" y="150" width="60" height="850" rx="8" fill="url(#bark)" filter="url(#shadow)" opacity="0.85"/>
+  <path d="M890,980 Q870,1010 840,1050" fill="none" stroke="#5a4030" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- === LAYER 7: Fallen log with mushrooms === -->
+  <!-- Fallen log on left side -->
+  <path d="M80,1480 Q200,1460 320,1500" fill="none" stroke="url(#log_grad)" stroke-width="35" stroke-linecap="round" filter="url(#shadow_sm)"/>
+  <!-- Log bark texture -->
+  <path d="M100,1475 Q160,1465 220,1478" fill="none" stroke="#5a4230" stroke-width="2" opacity="0.4"/>
+  <path d="M130,1490 Q190,1478 260,1492" fill="none" stroke="#5a4230" stroke-width="1.5" opacity="0.35"/>
+  <!-- Log moss -->
+  <ellipse cx="180" cy="1465" rx="60" ry="8" fill="#5a7a48" opacity="0.4"/>
+  <!-- Mushrooms on log -->
+  <ellipse cx="140" cy="1460" rx="12" ry="5" fill="#d8a870" opacity="0.8"/>
+  <rect x="137" y="1460" width="6" height="12" rx="2" fill="#c89860"/>
+  <ellipse cx="140" cy="1458" rx="14" ry="7" fill="#e8b880"/>
+  <ellipse cx="170" cy="1455" rx="8" ry="4" fill="#c89860" opacity="0.75"/>
+  <rect x="168" y="1455" width="4" height="9" rx="1.5" fill="#b88850"/>
+  <ellipse cx="170" cy="1453" rx="10" ry="5" fill="#d8a870"/>
+  <ellipse cx="220" cy="1462" rx="10" ry="4" fill="#d8a870" opacity="0.8"/>
+  <rect x="218" y="1462" width="5" height="10" rx="2" fill="#c89860"/>
+  <ellipse cx="220" cy="1460" rx="12" ry="6" fill="#e8b880"/>
+  <!-- Small red-capped mushrooms near log -->
+  <rect x="280" y="1490" width="4" height="14" rx="1.5" fill="#e8d8c0"/>
+  <ellipse cx="282" cy="1488" rx="8" ry="5" fill="#c85848"/>
+  <circle cx="278" cy="1486" r="1.5" fill="#e8e0d0" opacity="0.7"/>
+  <circle cx="285" cy="1485" r="1" fill="#e8e0d0" opacity="0.6"/>
+
+  <!-- === LAYER 8: Fox den entrance (right side, under roots) === -->
+  <ellipse cx="940" cy="1520" rx="65" ry="40" fill="url(#den_shadow)" opacity="0.9"/>
+  <ellipse cx="940" cy="1518" rx="55" ry="32" fill="#1a1008" opacity="0.7"/>
+  <!-- Den frame (roots arching over) -->
+  <path d="M880,1490 Q920,1470 960,1490" fill="none" stroke="#5a4030" stroke-width="14" stroke-linecap="round" opacity="0.8"/>
+  <path d="M870,1500 Q910,1475 970,1500" fill="none" stroke="#4a3525" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+  <!-- Tiny fox eyes glowing inside den -->
+  <circle cx="925" cy="1518" r="3" fill="#e8a840" opacity="0.6"/>
+  <circle cx="940" cy="1520" r="3" fill="#e8a840" opacity="0.6"/>
+
+  <!-- === LAYER 9: Stones and roots scattered === -->
+  <!-- Stones along path edges -->
+  <ellipse cx="340" cy="700" rx="22" ry="14" fill="#7a8070" opacity="0.6" filter="url(#shadow_sm)"/>
+  <ellipse cx="520" cy="880" rx="18" ry="10" fill="#6a7060" opacity="0.55"/>
+  <ellipse cx="360" cy="1150" rx="25" ry="12" fill="#7a8070" opacity="0.6"/>
+  <ellipse cx="530" cy="1350" rx="16" ry="9" fill="#6a7060" opacity="0.5"/>
+  <!-- Boulder cluster (right of path) -->
+  <ellipse cx="620" cy="750" rx="35" ry="22" fill="#6a7568" opacity="0.7" filter="url(#shadow_sm)"/>
+  <ellipse cx="650" cy="740" rx="25" ry="16" fill="#788a70" opacity="0.6"/>
+  <ellipse cx="600" cy="760" rx="20" ry="12" fill="#5a6a58" opacity="0.5"/>
+
+  <!-- Exposed roots crossing path -->
+  <path d="M70,800 Q200,780 320,810" fill="none" stroke="#5a4530" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
+  <path d="M900,900 Q800,880 700,920" fill="none" stroke="#5a4530" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- === LAYER 10: Ferns === -->
+  <!-- Left side ferns -->
+  <g transform="translate(100,650)" opacity="0.8">
+    <path d="M0,60 Q10,30 5,0" fill="none" stroke="#4a8a3a" stroke-width="2.5"/>
+    <ellipse cx="-10" cy="15" rx="14" ry="6" fill="#4a8a3a" transform="rotate(-30,-10,15)" opacity="0.7"/>
+    <ellipse cx="15" cy="20" rx="12" ry="5" fill="#5a9a4a" transform="rotate(25,15,20)" opacity="0.7"/>
+    <ellipse cx="-8" cy="35" rx="16" ry="7" fill="#4a8a3a" transform="rotate(-25,-8,35)" opacity="0.65"/>
+    <ellipse cx="12" cy="40" rx="14" ry="6" fill="#5a9a4a" transform="rotate(20,12,40)" opacity="0.65"/>
+  </g>
+  <g transform="translate(60,900)" opacity="0.75">
+    <path d="M0,50 Q8,25 3,0" fill="none" stroke="#3a7a2a" stroke-width="2"/>
+    <ellipse cx="-8" cy="12" rx="12" ry="5" fill="#3a7a2a" transform="rotate(-35,-8,12)" opacity="0.7"/>
+    <ellipse cx="10" cy="18" rx="10" ry="4" fill="#4a8a3a" transform="rotate(30,10,18)" opacity="0.7"/>
+    <ellipse cx="-6" cy="32" rx="14" ry="6" fill="#3a7a2a" transform="rotate(-20,-6,32)" opacity="0.6"/>
+    <ellipse cx="8" cy="36" rx="12" ry="5" fill="#4a8a3a" transform="rotate(25,8,36)" opacity="0.6"/>
+  </g>
+  <!-- Right side ferns -->
+  <g transform="translate(750,680)" opacity="0.8">
+    <path d="M0,55 Q-5,28 2,0" fill="none" stroke="#4a8a3a" stroke-width="2.5"/>
+    <ellipse cx="12" cy="14" rx="14" ry="6" fill="#4a8a3a" transform="rotate(30,12,14)" opacity="0.7"/>
+    <ellipse cx="-10" cy="20" rx="12" ry="5" fill="#5a9a4a" transform="rotate(-25,-10,20)" opacity="0.7"/>
+    <ellipse cx="10" cy="34" rx="15" ry="6" fill="#4a8a3a" transform="rotate(22,10,34)" opacity="0.65"/>
+    <ellipse cx="-8" cy="40" rx="13" ry="5" fill="#5a9a4a" transform="rotate(-28,-8,40)" opacity="0.65"/>
+  </g>
+  <g transform="translate(800,1200)" opacity="0.75">
+    <path d="M0,48 Q-6,24 2,0" fill="none" stroke="#3a7a2a" stroke-width="2"/>
+    <ellipse cx="10" cy="12" rx="12" ry="5" fill="#3a7a2a" transform="rotate(32,10,12)" opacity="0.7"/>
+    <ellipse cx="-8" cy="16" rx="10" ry="4" fill="#4a8a3a" transform="rotate(-28,-8,16)" opacity="0.7"/>
+    <ellipse cx="8" cy="30" rx="14" ry="6" fill="#3a7a2a" transform="rotate(20,8,30)" opacity="0.6"/>
+    <ellipse cx="-6" cy="36" rx="12" ry="5" fill="#4a8a3a" transform="rotate(-24,-6,36)" opacity="0.6"/>
+  </g>
+  <!-- Ferns along bottom -->
+  <g transform="translate(200,1700)" opacity="0.7">
+    <path d="M0,50 Q8,25 4,0" fill="none" stroke="#4a8a3a" stroke-width="2.5"/>
+    <ellipse cx="-10" cy="12" rx="15" ry="6" fill="#4a8a3a" transform="rotate(-30,-10,12)" opacity="0.7"/>
+    <ellipse cx="12" cy="18" rx="13" ry="5" fill="#5a9a4a" transform="rotate(28,12,18)" opacity="0.7"/>
+    <ellipse cx="-8" cy="32" rx="16" ry="7" fill="#4a8a3a" transform="rotate(-22,-8,32)" opacity="0.65"/>
+    <ellipse cx="10" cy="38" rx="14" ry="6" fill="#5a9a4a" transform="rotate(25,10,38)" opacity="0.65"/>
+  </g>
+  <g transform="translate(700,1750)" opacity="0.7">
+    <path d="M0,45 Q-5,22 2,0" fill="none" stroke="#3a7a2a" stroke-width="2.5"/>
+    <ellipse cx="10" cy="10" rx="14" ry="5" fill="#3a7a2a" transform="rotate(30,10,10)" opacity="0.7"/>
+    <ellipse cx="-10" cy="18" rx="12" ry="5" fill="#4a8a3a" transform="rotate(-28,-10,18)" opacity="0.7"/>
+    <ellipse cx="8" cy="30" rx="15" ry="6" fill="#3a7a2a" transform="rotate(22,8,30)" opacity="0.65"/>
+    <ellipse cx="-8" cy="35" rx="13" ry="5" fill="#4a8a3a" transform="rotate(-25,-8,35)" opacity="0.65"/>
+  </g>
+
+  <!-- === LAYER 11: Wildflowers === -->
+  <!-- Purple wildflowers (left of path) -->
+  <circle cx="120" cy="1100" r="6" fill="#b888c8" opacity="0.7"/>
+  <circle cx="120" cy="1100" r="3" fill="#d0a8e0" opacity="0.8"/>
+  <circle cx="145" cy="1110" r="5" fill="#a878b8" opacity="0.65"/>
+  <circle cx="145" cy="1110" r="2.5" fill="#c898d8" opacity="0.75"/>
+  <circle cx="100" cy="1115" r="4" fill="#b888c8" opacity="0.6"/>
+  <!-- Yellow wildflowers (right of path) -->
+  <circle cx="700" cy="1300" r="7" fill="#e8c858" opacity="0.7"/>
+  <circle cx="700" cy="1300" r="3.5" fill="#d4a830" opacity="0.8"/>
+  <circle cx="730" cy="1310" r="5" fill="#e8c858" opacity="0.65"/>
+  <circle cx="730" cy="1310" r="2.5" fill="#d4a830" opacity="0.75"/>
+  <circle cx="680" cy="1320" r="6" fill="#e8c858" opacity="0.6"/>
+  <circle cx="680" cy="1320" r="3" fill="#d4a830" opacity="0.7"/>
+  <!-- White wildflowers scattered -->
+  <circle cx="260" cy="1350" r="4" fill="#e8e8e0" opacity="0.6"/>
+  <circle cx="275" cy="1360" r="3.5" fill="#e0e0d8" opacity="0.55"/>
+  <circle cx="250" cy="1365" r="3" fill="#e8e8e0" opacity="0.5"/>
+  <!-- Blue forget-me-nots near stream -->
+  <circle cx="650" cy="1080" r="4" fill="#88a8d8" opacity="0.6"/>
+  <circle cx="640" cy="1090" r="3.5" fill="#7898c8" opacity="0.55"/>
+  <circle cx="665" cy="1085" r="3" fill="#88a8d8" opacity="0.5"/>
+  <circle cx="160" cy="1070" r="4" fill="#88a8d8" opacity="0.55"/>
+  <circle cx="175" cy="1075" r="3" fill="#7898c8" opacity="0.5"/>
+  <!-- Flower stems -->
+  <line x1="120" y1="1100" x2="120" y2="1130" stroke="#4a7a3a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="145" y1="1110" x2="145" y2="1138" stroke="#4a7a3a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="700" y1="1300" x2="700" y2="1330" stroke="#4a7a3a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="730" y1="1310" x2="730" y2="1338" stroke="#4a7a3a" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- === LAYER 12: Hanging moss from canopy/branches === -->
+  <!-- Moss strands from left tree -->
+  <path d="M60,350 Q55,400 65,460 Q58,500 62,540" fill="none" stroke="#6a8a58" stroke-width="4" opacity="0.45"/>
+  <path d="M40,300 Q35,360 45,420 Q38,470 42,520" fill="none" stroke="#5a7a48" stroke-width="3" opacity="0.4"/>
+  <path d="M80,380 Q78,430 85,480" fill="none" stroke="#6a8a58" stroke-width="3.5" opacity="0.4"/>
+  <!-- Moss strands from right tree -->
+  <path d="M1020,320 Q1025,380 1018,440 Q1022,490 1015,530" fill="none" stroke="#6a8a58" stroke-width="4" opacity="0.45"/>
+  <path d="M1050,360 Q1045,420 1052,470 Q1048,510 1050,550" fill="none" stroke="#5a7a48" stroke-width="3" opacity="0.4"/>
+  <!-- Moss from mid trees -->
+  <path d="M190,400 Q185,450 195,500 Q188,540 192,570" fill="none" stroke="#6a8a58" stroke-width="3" opacity="0.35"/>
+  <path d="M850,380 Q855,430 848,480 Q852,520 845,560" fill="none" stroke="#6a8a58" stroke-width="3" opacity="0.35"/>
+
+  <!-- === LAYER 13: Canopy and overhead foliage === -->
+  <!-- Dense canopy top -->
+  <rect x="0" y="0" width="1080" height="200" fill="url(#canopy_top)"/>
+  <!-- Canopy leaf clusters -->
+  <ellipse cx="100" cy="100" rx="180" ry="120" fill="#2a4a22" opacity="0.8"/>
+  <ellipse cx="350" cy="80" rx="150" ry="100" fill="#325830" opacity="0.7"/>
+  <ellipse cx="540" cy="130" rx="120" ry="90" fill="#2a4a22" opacity="0.6"/>
+  <ellipse cx="750" cy="70" rx="160" ry="110" fill="#325830" opacity="0.75"/>
+  <ellipse cx="980" cy="90" rx="170" ry="120" fill="#2a4a22" opacity="0.8"/>
+  <!-- Secondary canopy layer slightly lower -->
+  <ellipse cx="200" cy="250" rx="120" ry="80" fill="#2e4e28" opacity="0.5"/>
+  <ellipse cx="500" cy="280" rx="100" ry="70" fill="#2a4a22" opacity="0.4"/>
+  <ellipse cx="880" cy="240" rx="130" ry="85" fill="#2e4e28" opacity="0.5"/>
+  <!-- Overhanging branch (left) -->
+  <path d="M-10,350 Q100,330 220,380 Q300,400 350,370" fill="none" stroke="#5a4530" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+  <ellipse cx="250" cy="360" rx="80" ry="50" fill="#3a5a30" opacity="0.5"/>
+  <ellipse cx="330" cy="350" rx="60" ry="40" fill="#3a5a30" opacity="0.45"/>
+  <!-- Overhanging branch (right) -->
+  <path d="M1090,400 Q980,380 880,420 Q800,440 750,410" fill="none" stroke="#5a4530" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+  <ellipse cx="830" cy="400" rx="70" ry="45" fill="#3a5a30" opacity="0.5"/>
+  <ellipse cx="770" cy="395" rx="55" ry="35" fill="#3a5a30" opacity="0.45"/>
+
+  <!-- === LAYER 14: Sunlight rays filtering through === -->
+  <!-- Main sun beam (left gap) -->
+  <polygon points="260,0 180,600 380,700" fill="#fce8a0" opacity="0.08"/>
+  <polygon points="270,0 200,550 360,650" fill="#fce8a0" opacity="0.06"/>
+  <!-- Secondary sun beam (right gap) -->
+  <polygon points="700,0 620,500 750,580" fill="#fce8a0" opacity="0.06"/>
+  <polygon points="690,0 640,450 730,530" fill="#fce8a0" opacity="0.05"/>
+  <!-- Radial glow overlays -->
+  <rect width="1080" height="1920" fill="url(#sunbeam_glow)"/>
+  <rect width="1080" height="1920" fill="url(#sun_patch)"/>
+
+  <!-- Dappled light spots on ground -->
+  <ellipse cx="300" cy="620" rx="30" ry="15" fill="#e8d888" opacity="0.12" filter="url(#soft)"/>
+  <ellipse cx="450" cy="750" rx="25" ry="12" fill="#e8d888" opacity="0.1" filter="url(#soft)"/>
+  <ellipse cx="200" cy="880" rx="35" ry="18" fill="#e8d888" opacity="0.1" filter="url(#soft)"/>
+  <ellipse cx="650" cy="580" rx="28" ry="14" fill="#e8d888" opacity="0.12" filter="url(#soft)"/>
+  <ellipse cx="700" cy="850" rx="22" ry="11" fill="#e8d888" opacity="0.08" filter="url(#soft)"/>
+  <ellipse cx="500" cy="1150" rx="30" ry="16" fill="#e8d888" opacity="0.1" filter="url(#soft)"/>
+  <ellipse cx="350" cy="1400" rx="25" ry="12" fill="#e8d888" opacity="0.08" filter="url(#soft)"/>
+
+  <!-- === LAYER 15: Foreground plants (bottom edges) === -->
+  <!-- Large foreground fern (bottom-left) -->
+  <g transform="translate(30,1800)" opacity="0.85">
+    <path d="M20,120 Q30,60 25,0" fill="none" stroke="#3a6a2a" stroke-width="4"/>
+    <ellipse cx="-5" cy="20" rx="22" ry="8" fill="#3a6a2a" transform="rotate(-35,-5,20)"/>
+    <ellipse cx="45" cy="30" rx="20" ry="7" fill="#4a7a3a" transform="rotate(30,45,30)"/>
+    <ellipse cx="-10" cy="50" rx="25" ry="9" fill="#3a6a2a" transform="rotate(-28,-10,50)"/>
+    <ellipse cx="50" cy="60" rx="22" ry="8" fill="#4a7a3a" transform="rotate(25,50,60)"/>
+    <ellipse cx="-8" cy="80" rx="28" ry="10" fill="#3a6a2a" transform="rotate(-22,-8,80)"/>
+    <ellipse cx="48" cy="90" rx="25" ry="9" fill="#4a7a3a" transform="rotate(20,48,90)"/>
+  </g>
+  <!-- Large foreground fern (bottom-right) -->
+  <g transform="translate(900,1820)" opacity="0.85">
+    <path d="M20,100 Q15,50 22,0" fill="none" stroke="#3a6a2a" stroke-width="4"/>
+    <ellipse cx="45" cy="15" rx="22" ry="8" fill="#3a6a2a" transform="rotate(35,45,15)"/>
+    <ellipse cx="-5" cy="25" rx="20" ry="7" fill="#4a7a3a" transform="rotate(-30,-5,25)"/>
+    <ellipse cx="48" cy="45" rx="25" ry="9" fill="#3a6a2a" transform="rotate(28,48,45)"/>
+    <ellipse cx="-8" cy="55" rx="22" ry="8" fill="#4a7a3a" transform="rotate(-25,-8,55)"/>
+    <ellipse cx="45" cy="75" rx="28" ry="10" fill="#3a6a2a" transform="rotate(22,45,75)"/>
+    <ellipse cx="-5" cy="85" rx="25" ry="9" fill="#4a7a3a" transform="rotate(-20,-5,85)"/>
+  </g>
+
+  <!-- Bushes at bottom corners -->
+  <ellipse cx="80" cy="1880" rx="120" ry="60" fill="#3a5a2a" opacity="0.7"/>
+  <ellipse cx="60" cy="1860" rx="90" ry="45" fill="#4a6a3a" opacity="0.6"/>
+  <ellipse cx="1000" cy="1870" rx="110" ry="55" fill="#3a5a2a" opacity="0.7"/>
+  <ellipse cx="1020" cy="1850" rx="85" ry="42" fill="#4a6a3a" opacity="0.6"/>
+
+  <!-- === LAYER 16: Mushroom cluster on right (ground level) === -->
+  <rect x="758" cy="1600" y="1588" width="5" height="16" rx="2" fill="#e8d8c0"/>
+  <ellipse cx="760" cy="1586" rx="11" ry="6" fill="#e8b880"/>
+  <rect x="778" y="1592" width="4" height="12" rx="1.5" fill="#e8d8c0"/>
+  <ellipse cx="780" cy="1590" rx="8" ry="5" fill="#d8a870"/>
+  <rect x="770" y="1596" width="3" height="10" rx="1" fill="#e8d8c0"/>
+  <ellipse cx="771" cy="1594" rx="6" ry="4" fill="#c89860"/>
+
+  <!-- === LAYER 17: Atmosphere overlay === -->
+  <!-- Warm green forest atmosphere -->
+  <rect width="1080" height="1920" fill="#3a5a2a" opacity="0.04"/>
+  <!-- Subtle golden warmth from sunlight -->
+  <rect width="1080" height="1920" fill="#e8d080" opacity="0.03"/>
+
+  <!-- Floating dust/pollen particles in light beams -->
+  <circle cx="280" cy="350" r="2" fill="#e8d888" opacity="0.4"/>
+  <circle cx="310" cy="420" r="1.5" fill="#e8d888" opacity="0.35"/>
+  <circle cx="250" cy="480" r="2" fill="#e8d888" opacity="0.3"/>
+  <circle cx="330" cy="300" r="1" fill="#e8d888" opacity="0.4"/>
+  <circle cx="680" cy="380" r="1.5" fill="#e8d888" opacity="0.3"/>
+  <circle cx="700" cy="320" r="2" fill="#e8d888" opacity="0.35"/>
+  <circle cx="660" cy="440" r="1" fill="#e8d888" opacity="0.3"/>
+  <circle cx="500" cy="500" r="1.5" fill="#e8d888" opacity="0.25"/>
+  <circle cx="420" cy="360" r="1" fill="#e8d888" opacity="0.3"/>
+</svg>

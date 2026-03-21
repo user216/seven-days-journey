@@ -1,6 +1,35 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/main_menu/main_menu_draw.gd" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="continue_btn_style"]
+bg_color = Color(0.49, 0.64, 0.27, 0.9)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+content_margin_left = 20.0
+content_margin_top = 14.0
+content_margin_right = 20.0
+content_margin_bottom = 14.0
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="new_game_btn_style"]
+bg_color = Color(0.83, 0.66, 0.26, 0.9)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_left = 20
+corner_radius_bottom_right = 20
+content_margin_left = 20.0
+content_margin_top = 14.0
+content_margin_right = 20.0
+content_margin_bottom = 14.0
+shadow_color = Color(0, 0, 0, 0.15)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -18,6 +47,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.996, 0.988, 0.953, 1)
 
+[node name="DrawLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("2")
+
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -26,44 +63,47 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -400.0
-offset_top = -400.0
+offset_top = -200.0
 offset_right = 400.0
 offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="EmojiLabel" type="Label" parent="VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "🌿"
-horizontal_alignment = 1
-
 [node name="TitleLabel" type="Label" parent="VBox"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 42
+theme_override_colors/font_color = Color(0.24, 0.22, 0.16, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.4)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
 text = "7 Days Journey"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.49, 0.45, 0.34, 0.85)
 text = "Путь гармонии и осознанности"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="VBox"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="ContinueBtn" type="Button" parent="VBox"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "▶ Продолжить"
+theme_override_styles/normal = SubResource("continue_btn_style")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "Продолжить"
 
 [node name="NewGameBtn" type="Button" parent="VBox"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "✨ Новая игра"
+theme_override_styles/normal = SubResource("new_game_btn_style")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "Новая игра"

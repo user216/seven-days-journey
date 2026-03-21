@@ -4,25 +4,36 @@
 
 [sub_resource type="StyleBoxFlat" id="done_btn_style"]
 bg_color = Color(0.49, 0.71, 0.27, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxFlat" id="skip_btn_style"]
 bg_color = Color(0.62, 0.58, 0.47, 0.5)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="panel_bg"]
+bg_color = Color(0.08, 0.08, 0.06, 0.9)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_left = 24
+corner_radius_bottom_right = 24
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
 
 [node name="ActivityPopup" type="CanvasLayer"]
 layer = 20
@@ -32,7 +43,7 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.6)
 
 [node name="Panel" type="PanelContainer" parent="."]
 anchors_preset = 8
@@ -40,63 +51,67 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -550.0
-offset_right = 450.0
-offset_bottom = 550.0
+offset_left = -480.0
+offset_top = -700.0
+offset_right = 480.0
+offset_bottom = 700.0
+theme_override_styles/panel = SubResource("panel_bg")
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="Header" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 
 [node name="EmojiLabel" type="Label" parent="Panel/VBox/Header"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 44
 text = "🌅"
 
 [node name="TitleLabel" type="Label" parent="Panel/VBox/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 30
 text = "Подъём"
 
 [node name="CloseBtn" type="Button" parent="Panel/VBox/Header"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+custom_minimum_size = Vector2(80, 80)
+theme_override_font_sizes/font_size = 28
 text = "✕"
 
 [node name="Description" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 22
 autowrap_mode = 2
 text = "..."
 
 [node name="InteractionContainer" type="Control" parent="Panel/VBox"]
-custom_minimum_size = Vector2(0, 600)
+custom_minimum_size = Vector2(0, 700)
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ButtonRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="SkipBtn" type="Button" parent="Panel/VBox/ButtonRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 70)
+custom_minimum_size = Vector2(0, 90)
 theme_override_styles/normal = SubResource("skip_btn_style")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Пропустить"
 
 [node name="DoneBtn" type="Button" parent="Panel/VBox/ButtonRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 70)
+custom_minimum_size = Vector2(0, 90)
 theme_override_styles/normal = SubResource("done_btn_style")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
-text = "✅ Готово"
+theme_override_font_sizes/font_size = 24
+text = "Готово"
 
 [node name="PopupScript" type="Node" parent="."]
 script = ExtResource("1")

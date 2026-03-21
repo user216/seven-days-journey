@@ -1,5 +1,5 @@
 extends Node
-## HUD controller — displays time, XP, level, energy, day counter.
+## HUD controller — displays time, XP, level, energy, day counter, settings + stats buttons.
 
 @onready var clock_label: Label = %"ClockLabel" if has_node("%ClockLabel") else $"../TopBar/Panel/HBoxContainer/ClockLabel"
 @onready var day_label: Label = $"../TopBar/Panel/HBoxContainer/DayLabel"
@@ -7,8 +7,10 @@ extends Node
 @onready var level_label: Label = $"../TopBar/Panel/HBoxContainer/LevelLabel"
 @onready var energy_bar: ProgressBar = $"../TopBar/Panel/HBoxContainer/EnergyBar"
 @onready var pause_btn: Button = $"../TopBar/Panel/HBoxContainer/PauseBtn"
+@onready var stats_btn: Button = $"../TopBar/Panel/HBoxContainer/StatsBtn"
 
 signal pause_pressed
+signal stats_pressed
 
 
 func _ready() -> void:
@@ -16,6 +18,7 @@ func _ready() -> void:
 	GameState.energy_changed.connect(_on_energy_changed)
 	GameState.xp_gained.connect(_on_xp_gained)
 	pause_btn.pressed.connect(func(): pause_pressed.emit())
+	stats_btn.pressed.connect(func(): stats_pressed.emit())
 	_refresh()
 	ThemeManager.apply_ui_scale_to_tree($"..")
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree($".."))

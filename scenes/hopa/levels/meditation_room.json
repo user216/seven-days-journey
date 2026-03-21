@@ -1,0 +1,71 @@
+{
+  "scene_id": "meditation_room",
+  "day": 3,
+  "title": "Комната медитации",
+  "background": "res://assets/hopa/backgrounds/meditation_room.svg",
+  "ambient_audio": "res://assets/hopa/audio/meditation_room_ambient.ogg",
+  "time_limit_seconds": 180,
+  "hint_cooldown_seconds": 30,
+  "objects": [
+    {
+      "id": "singing_bowl",
+      "name": "Поющая чаша",
+      "texture": "res://assets/hopa/objects/singing_bowl.svg",
+      "position": [300, 800],
+      "scale": 0.75,
+      "rotation_deg": 0,
+      "hint_radius": 70,
+      "is_key_item": false
+    },
+    {
+      "id": "mala_beads",
+      "name": "Чётки",
+      "texture": "res://assets/hopa/objects/mala_beads.svg",
+      "position": [750, 600],
+      "scale": 0.65,
+      "rotation_deg": 20,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "lotus_flower",
+      "name": "Лотос",
+      "texture": "res://assets/hopa/objects/lotus_flower.svg",
+      "position": [500, 1300],
+      "scale": 0.7,
+      "rotation_deg": 0,
+      "hint_radius": 65,
+      "is_key_item": true
+    },
+    {
+      "id": "incense_holder",
+      "name": "Курильница",
+      "texture": "res://assets/hopa/objects/incense_holder.svg",
+      "position": [180, 1100],
+      "scale": 0.7,
+      "rotation_deg": -5,
+      "hint_radius": 60,
+      "is_key_item": false
+    },
+    {
+      "id": "moon_pendant",
+      "name": "Лунный кулон",
+      "texture": "res://assets/hopa/objects/moon_pendant.svg",
+      "position": [880, 400],
+      "scale": 0.55,
+      "rotation_deg": 15,
+      "hint_radius": 50,
+      "is_key_item": true
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "connect_runes",
+      "trigger": "after_all_found",
+      "data": {"pairs": 4}
+    }
+  ],
+  "next_scene": "forest_path",
+  "story_before": "Мягкий свет луны проникает через окно. Найди предметы для медитации.",
+  "story_after": "Ум стал ясным, как горное озеро. Природа зовёт — пора в лес..."
+}

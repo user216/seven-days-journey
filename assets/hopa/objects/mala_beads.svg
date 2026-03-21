@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="bead" cx="0.35" cy="0.35" r="0.65">
+      <stop offset="0%" stop-color="#d4a574"/>
+      <stop offset="60%" stop-color="#b07840"/>
+      <stop offset="100%" stop-color="#7a5228"/>
+    </radialGradient>
+    <radialGradient id="guru-bead" cx="0.35" cy="0.35" r="0.65">
+      <stop offset="0%" stop-color="#c86040"/>
+      <stop offset="60%" stop-color="#a04020"/>
+      <stop offset="100%" stop-color="#702818"/>
+    </radialGradient>
+    <linearGradient id="tassel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c04030"/>
+      <stop offset="100%" stop-color="#802018"/>
+    </linearGradient>
+    <linearGradient id="string" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c8a070"/>
+      <stop offset="100%" stop-color="#a88050"/>
+    </linearGradient>
+  </defs>
+  <!-- String loop (oval path) -->
+  <ellipse cx="58" cy="50" rx="34" ry="30" fill="none" stroke="#a88050" stroke-width="1.5" opacity="0.6"/>
+  <!-- Outer beads along oval - top arc -->
+  <circle cx="58" cy="20" r="4" fill="url(#bead)"/>
+  <circle cx="68" cy="21" r="4" fill="url(#bead)"/>
+  <circle cx="77" cy="24" r="4" fill="url(#bead)"/>
+  <circle cx="84" cy="30" r="4" fill="url(#bead)"/>
+  <circle cx="89" cy="37" r="4" fill="url(#bead)"/>
+  <circle cx="92" cy="45" r="4" fill="url(#bead)"/>
+  <circle cx="92" cy="54" r="4" fill="url(#bead)"/>
+  <circle cx="89" cy="62" r="4" fill="url(#bead)"/>
+  <circle cx="84" cy="69" r="4" fill="url(#bead)"/>
+  <circle cx="77" cy="74" r="4" fill="url(#bead)"/>
+  <circle cx="68" cy="78" r="4" fill="url(#bead)"/>
+  <circle cx="58" cy="80" r="4" fill="url(#bead)"/>
+  <circle cx="48" cy="78" r="4" fill="url(#bead)"/>
+  <circle cx="39" cy="74" r="4" fill="url(#bead)"/>
+  <circle cx="32" cy="69" r="4" fill="url(#bead)"/>
+  <circle cx="27" cy="62" r="4" fill="url(#bead)"/>
+  <circle cx="24" cy="54" r="4" fill="url(#bead)"/>
+  <circle cx="24" cy="45" r="4" fill="url(#bead)"/>
+  <circle cx="27" cy="37" r="4" fill="url(#bead)"/>
+  <circle cx="32" cy="30" r="4" fill="url(#bead)"/>
+  <circle cx="39" cy="24" r="4" fill="url(#bead)"/>
+  <circle cx="48" cy="21" r="4" fill="url(#bead)"/>
+  <!-- Bead highlights -->
+  <circle cx="57" cy="18" r="1.2" fill="white" opacity="0.35"/>
+  <circle cx="91" cy="43" r="1.2" fill="white" opacity="0.35"/>
+  <circle cx="67" cy="76" r="1.2" fill="white" opacity="0.35"/>
+  <circle cx="25" cy="52" r="1.2" fill="white" opacity="0.35"/>
+  <!-- Guru bead at bottom -->
+  <circle cx="58" cy="84" r="5" fill="url(#guru-bead)"/>
+  <circle cx="56" cy="82" r="1.5" fill="white" opacity="0.25"/>
+  <!-- Tassel strings -->
+  <line x1="58" y1="89" x2="55" y2="105" stroke="url(#tassel)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="58" y1="89" x2="58" y2="107" stroke="url(#tassel)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="58" y1="89" x2="61" y2="105" stroke="url(#tassel)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="58" y1="89" x2="53" y2="103" stroke="#a03020" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="58" y1="89" x2="63" y2="103" stroke="#a03020" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <!-- Tassel knot -->
+  <circle cx="58" cy="90" r="3" fill="#b03828"/>
+  <circle cx="57" cy="89" r="1" fill="white" opacity="0.2"/>
+  <!-- Tassel fringe ends -->
+  <circle cx="55" cy="106" r="1" fill="#802018" opacity="0.6"/>
+  <circle cx="58" cy="108" r="1" fill="#802018" opacity="0.6"/>
+  <circle cx="61" cy="106" r="1" fill="#802018" opacity="0.6"/>
+</svg>

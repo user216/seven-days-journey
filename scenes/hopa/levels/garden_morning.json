@@ -1,0 +1,94 @@
+{
+  "scene_id": "garden_morning",
+  "day": 1,
+  "title": "Утренний Сад",
+  "background": "res://assets/hopa/backgrounds/garden_morning.svg",
+  "ambient_audio": "res://assets/hopa/audio/garden_morning_ambient.ogg",
+  "time_limit_seconds": 180,
+  "hint_cooldown_seconds": 30,
+  "objects": [
+    {
+      "id": "watering_can",
+      "name": "Лейка",
+      "texture": "res://assets/hopa/objects/watering_can.svg",
+      "position": [320, 1100],
+      "scale": 0.8,
+      "rotation_deg": 15,
+      "hint_radius": 80,
+      "is_key_item": false
+    },
+    {
+      "id": "golden_key",
+      "name": "Золотой ключ",
+      "texture": "res://assets/hopa/objects/golden_key.svg",
+      "position": [780, 450],
+      "scale": 0.6,
+      "rotation_deg": -20,
+      "hint_radius": 60,
+      "is_key_item": true
+    },
+    {
+      "id": "butterfly",
+      "name": "Бабочка",
+      "texture": "res://assets/hopa/objects/butterfly.svg",
+      "position": [150, 680],
+      "scale": 0.7,
+      "rotation_deg": 10,
+      "hint_radius": 70,
+      "is_key_item": false
+    },
+    {
+      "id": "teacup",
+      "name": "Чашка",
+      "texture": "res://assets/hopa/objects/teacup.svg",
+      "position": [620, 1350],
+      "scale": 0.75,
+      "rotation_deg": 0,
+      "hint_radius": 65,
+      "is_key_item": false
+    },
+    {
+      "id": "crystal",
+      "name": "Кристалл",
+      "texture": "res://assets/hopa/objects/crystal.svg",
+      "position": [900, 820],
+      "scale": 0.65,
+      "rotation_deg": 25,
+      "hint_radius": 55,
+      "is_key_item": false
+    },
+    {
+      "id": "feather",
+      "name": "Перо",
+      "texture": "res://assets/hopa/objects/feather.svg",
+      "position": [450, 350],
+      "scale": 0.7,
+      "rotation_deg": -35,
+      "hint_radius": 60,
+      "is_key_item": false
+    },
+    {
+      "id": "scroll",
+      "name": "Свиток",
+      "texture": "res://assets/hopa/objects/scroll.svg",
+      "position": [200, 1500],
+      "scale": 0.7,
+      "rotation_deg": 5,
+      "hint_radius": 70,
+      "is_key_item": true
+    }
+  ],
+  "puzzles": [
+    {
+      "type": "jigsaw",
+      "trigger": "after_all_found",
+      "data": {
+        "pieces": 9,
+        "image": "res://assets/hopa/puzzles/garden_arch_puzzle.svg"
+      }
+    }
+  ],
+  "next_scene": "kitchen_pantry",
+  "story_before": "Доброе утро! Солнце только взошло над садом. Найди все предметы, чтобы приготовить утренний ритуал.",
+  "story_after": "Прекрасно! Сад раскрыл свои тайны. Пора идти на кухню..."
+}

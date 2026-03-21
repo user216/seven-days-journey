@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="cover_front" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8a5a30"/>
+      <stop offset="30%" stop-color="#7a4a28"/>
+      <stop offset="70%" stop-color="#6a4020"/>
+      <stop offset="100%" stop-color="#5a3518"/>
+    </linearGradient>
+    <linearGradient id="cover_back" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a4020"/>
+      <stop offset="100%" stop-color="#5a3518"/>
+    </linearGradient>
+    <linearGradient id="pages_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f0e0"/>
+      <stop offset="50%" stop-color="#f0e8d0"/>
+      <stop offset="100%" stop-color="#e8dcc0"/>
+    </linearGradient>
+    <linearGradient id="spine_grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a3518"/>
+      <stop offset="50%" stop-color="#7a4a28"/>
+      <stop offset="100%" stop-color="#5a3518"/>
+    </linearGradient>
+    <linearGradient id="gold_decor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0d878"/>
+      <stop offset="50%" stop-color="#e8c848"/>
+      <stop offset="100%" stop-color="#c8a028"/>
+    </linearGradient>
+    <linearGradient id="ribbon_grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c04040"/>
+      <stop offset="50%" stop-color="#d05050"/>
+      <stop offset="100%" stop-color="#b03838"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="110" rx="38" ry="5" fill="#3a3228" opacity="0.18"/>
+  <!-- Back cover (slightly visible) -->
+  <path d="M22,18 L22,100 Q22,104 26,104 L88,104 Q92,104 92,100 L92,22 Q92,18 88,18 Z" fill="url(#cover_back)"/>
+  <!-- Pages (fanned slightly open) -->
+  <path d="M26,20 L26,100 Q42,102 70,100 Q80,98 86,96 L86,24 Q80,22 70,20 Z" fill="url(#pages_grad)"/>
+  <!-- Page lines (text hints) -->
+  <line x1="32" y1="35" x2="68" y2="33" stroke="#c8b898" stroke-width="0.8" opacity="0.4"/>
+  <line x1="32" y1="42" x2="70" y2="40" stroke="#c8b898" stroke-width="0.8" opacity="0.4"/>
+  <line x1="32" y1="49" x2="72" y2="47" stroke="#c8b898" stroke-width="0.8" opacity="0.3"/>
+  <line x1="32" y1="56" x2="68" y2="54" stroke="#c8b898" stroke-width="0.8" opacity="0.3"/>
+  <line x1="32" y1="63" x2="74" y2="61" stroke="#c8b898" stroke-width="0.8" opacity="0.3"/>
+  <line x1="32" y1="70" x2="70" y2="68" stroke="#c8b898" stroke-width="0.8" opacity="0.3"/>
+  <line x1="32" y1="77" x2="66" y2="75" stroke="#c8b898" stroke-width="0.8" opacity="0.3"/>
+  <line x1="32" y1="84" x2="72" y2="82" stroke="#c8b898" stroke-width="0.8" opacity="0.25"/>
+  <!-- Page edge shadows -->
+  <line x1="86" y1="26" x2="86" y2="96" stroke="#d8c8a8" stroke-width="1.5"/>
+  <line x1="84" y1="27" x2="84" y2="95" stroke="#e0d0b0" stroke-width="0.5"/>
+  <!-- Front cover (angled open) -->
+  <path d="M16,16 L16,98 Q16,102 20,102 L76,98 Q80,97 82,94 L82,18 Q80,16 76,16 Z" fill="url(#cover_front)" stroke="#5a3518" stroke-width="0.5"/>
+  <!-- Spine -->
+  <rect x="14" y="16" width="8" height="86" rx="1" fill="url(#spine_grad)"/>
+  <!-- Spine ridges -->
+  <line x1="15" y1="24" x2="21" y2="24" stroke="#8a5a30" stroke-width="1.5"/>
+  <line x1="15" y1="30" x2="21" y2="30" stroke="#8a5a30" stroke-width="1"/>
+  <line x1="15" y1="84" x2="21" y2="84" stroke="#8a5a30" stroke-width="1"/>
+  <line x1="15" y1="90" x2="21" y2="90" stroke="#8a5a30" stroke-width="1.5"/>
+  <!-- Golden corner ornaments -->
+  <!-- Top-left -->
+  <path d="M22,20 L32,20 Q28,20 26,22 L26,30 Q26,26 22,24 Z" fill="url(#gold_decor)" opacity="0.8"/>
+  <!-- Top-right -->
+  <path d="M72,18 L78,18 Q76,18 76,20 L76,26 Q76,22 72,20 Z" fill="url(#gold_decor)" opacity="0.7"/>
+  <!-- Bottom-left -->
+  <path d="M22,94 L22,88 Q22,92 26,94 L32,96 Q28,96 22,94 Z" fill="url(#gold_decor)" opacity="0.7"/>
+  <!-- Bottom-right -->
+  <path d="M72,94 L78,94 Q76,94 76,92 L76,88 Q76,92 72,94 Z" fill="url(#gold_decor)" opacity="0.6"/>
+  <!-- Central golden ornament diamond -->
+  <g transform="translate(48,56) rotate(0)">
+    <path d="M0,-16 L12,0 L0,16 L-12,0 Z" fill="none" stroke="url(#gold_decor)" stroke-width="1.5"/>
+    <path d="M0,-10 L8,0 L0,10 L-8,0 Z" fill="none" stroke="#e8c848" stroke-width="1" opacity="0.7"/>
+    <circle cx="0" cy="0" r="3" fill="url(#gold_decor)"/>
+    <circle cx="0" cy="0" r="1.5" fill="#f0d878"/>
+    <!-- Ornament flourishes -->
+    <path d="M-12,0 Q-18,-4 -16,-10" fill="none" stroke="#e8c848" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+    <path d="M12,0 Q18,-4 16,-10" fill="none" stroke="#e8c848" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+    <path d="M-12,0 Q-18,4 -16,10" fill="none" stroke="#e8c848" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+    <path d="M12,0 Q18,4 16,10" fill="none" stroke="#e8c848" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+  </g>
+  <!-- Golden title lines on cover -->
+  <line x1="32" y1="28" x2="68" y2="27" stroke="#e8c848" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="36" y1="34" x2="64" y2="33" stroke="#d8b838" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <!-- Leather texture (subtle grain) -->
+  <circle cx="30" cy="50" r="0.8" fill="#9a6a38" opacity="0.2"/>
+  <circle cx="55" cy="45" r="0.6" fill="#6a4020" opacity="0.2"/>
+  <circle cx="40" cy="80" r="0.7" fill="#9a6a38" opacity="0.2"/>
+  <circle cx="68" cy="70" r="0.8" fill="#6a4020" opacity="0.2"/>
+  <circle cx="35" cy="65" r="0.6" fill="#9a6a38" opacity="0.2"/>
+  <!-- Cover highlight -->
+  <path d="M22,20 L22,40 Q30,30 40,22 L30,20 Z" fill="white" opacity="0.06"/>
+  <!-- Bookmark ribbon -->
+  <path d="M62,16 L62,108 L66,102 L70,108 L70,16" fill="url(#ribbon_grad)" opacity="0.85"/>
+  <!-- Ribbon highlight -->
+  <line x1="64" y1="20" x2="64" y2="105" stroke="white" stroke-width="1" opacity="0.15"/>
+</svg>

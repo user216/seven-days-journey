@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="mortar_body" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0%" stop-color="#b0a89a"/>
+      <stop offset="60%" stop-color="#8a8278"/>
+      <stop offset="100%" stop-color="#6b6358"/>
+    </radialGradient>
+    <linearGradient id="mortar_inner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a7268"/>
+      <stop offset="100%" stop-color="#5a5248"/>
+    </linearGradient>
+    <linearGradient id="pestle_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c0b8aa"/>
+      <stop offset="50%" stop-color="#9a9288"/>
+      <stop offset="100%" stop-color="#7a7268"/>
+    </linearGradient>
+    <radialGradient id="herb_traces" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#6a9a5a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#4a7a3a" stop-opacity="0.2"/>
+    </radialGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="60" cy="105" rx="32" ry="6" fill="#3a3228" opacity="0.2"/>
+  <!-- Mortar bowl -->
+  <path d="M25,55 Q22,55 24,90 Q28,105 60,105 Q92,105 96,90 Q98,55 95,55 Z" fill="url(#mortar_body)"/>
+  <!-- Mortar rim -->
+  <ellipse cx="60" cy="55" rx="36" ry="12" fill="#b0a89a"/>
+  <ellipse cx="60" cy="55" rx="36" ry="12" fill="none" stroke="#9a9288" stroke-width="1"/>
+  <!-- Inner bowl -->
+  <ellipse cx="60" cy="57" rx="28" ry="8" fill="url(#mortar_inner)"/>
+  <!-- Herb traces inside -->
+  <ellipse cx="55" cy="58" rx="10" ry="4" fill="url(#herb_traces)"/>
+  <ellipse cx="65" cy="56" rx="6" ry="3" fill="#5a8a4a" opacity="0.3"/>
+  <!-- Small herb flecks -->
+  <circle cx="52" cy="57" r="1.5" fill="#6a9a5a" opacity="0.6"/>
+  <circle cx="62" cy="59" r="1" fill="#5a8a4a" opacity="0.5"/>
+  <circle cx="68" cy="56" r="1.2" fill="#6a9a5a" opacity="0.4"/>
+  <!-- Pestle (diagonal, resting in mortar) -->
+  <line x1="50" y1="52" x2="88" y2="18" stroke="url(#pestle_grad)" stroke-width="10" stroke-linecap="round"/>
+  <!-- Pestle tip (rounded grinding end) -->
+  <ellipse cx="48" cy="54" rx="7" ry="5" fill="#9a9288" transform="rotate(-10,48,54)"/>
+  <!-- Pestle highlight -->
+  <line x1="55" y1="48" x2="82" y2="22" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.2"/>
+  <!-- Pestle knob -->
+  <circle cx="89" cy="17" r="6" fill="#b0a89a"/>
+  <circle cx="87" cy="15" r="2" fill="white" opacity="0.3"/>
+  <!-- Stone texture speckles on mortar -->
+  <circle cx="40" cy="75" r="1" fill="#9a9288" opacity="0.4"/>
+  <circle cx="75" cy="80" r="1.2" fill="#6b6358" opacity="0.3"/>
+  <circle cx="55" cy="90" r="0.8" fill="#9a9288" opacity="0.3"/>
+  <circle cx="80" cy="70" r="1" fill="#b0a89a" opacity="0.3"/>
+  <!-- Highlight on rim -->
+  <ellipse cx="45" cy="50" rx="12" ry="3" fill="white" opacity="0.15" transform="rotate(-5,45,50)"/>
+</svg>

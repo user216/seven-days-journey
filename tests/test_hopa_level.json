@@ -1,0 +1,35 @@
+{
+  "scene_id": "test_level",
+  "day": 1,
+  "title": "Тест",
+  "background": "",
+  "ambient_audio": "",
+  "time_limit_seconds": 60,
+  "hint_cooldown_seconds": 10,
+  "objects": [
+    {
+      "id": "test_obj_1",
+      "name": "Тестовый объект",
+      "texture": "",
+      "position": [540, 960],
+      "scale": 1.0,
+      "rotation_deg": 0,
+      "hint_radius": 60,
+      "is_key_item": false
+    },
+    {
+      "id": "test_key",
+      "name": "Ключевой предмет",
+      "texture": "",
+      "position": [270, 480],
+      "scale": 0.8,
+      "rotation_deg": 45,
+      "hint_radius": 50,
+      "is_key_item": true
+    }
+  ],
+  "puzzles": [],
+  "next_scene": "",
+  "story_before": "Тестовая история.",
+  "story_after": "Тест завершён."
+}

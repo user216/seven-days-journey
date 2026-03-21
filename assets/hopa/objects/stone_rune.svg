@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Stone body gradient -->
+    <radialGradient id="stoneGrad" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#A8A098"/>
+      <stop offset="40%" stop-color="#8A8278"/>
+      <stop offset="80%" stop-color="#6B6358"/>
+      <stop offset="100%" stop-color="#4A4440"/>
+    </radialGradient>
+    <!-- Stone surface texture highlight -->
+    <radialGradient id="stoneHighlight" cx="40%" cy="35%" r="35%">
+      <stop offset="0%" stop-color="#C8C0B8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#C8C0B8" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Rune glow: golden/amber -->
+    <radialGradient id="runeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE88A" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#FFCC44" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#E8A020" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#E8A020" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Rune line glow -->
+    <linearGradient id="runeLineGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE88A"/>
+      <stop offset="50%" stop-color="#FFD044"/>
+      <stop offset="100%" stop-color="#E8A020"/>
+    </linearGradient>
+    <!-- Outer ambient glow -->
+    <radialGradient id="ambientGlow" cx="50%" cy="48%" r="50%">
+      <stop offset="0%" stop-color="#FFD466" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#FFB833" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFB833" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="runeBlur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient glow behind stone -->
+  <ellipse cx="60" cy="60" rx="52" ry="46" fill="url(#ambientGlow)"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="60" cy="106" rx="36" ry="6" fill="#3D3528" opacity="0.25"/>
+
+  <!-- Stone body — flat oval -->
+  <ellipse cx="60" cy="60" rx="42" ry="36" fill="url(#stoneGrad)" stroke="#4A4440" stroke-width="0.8"/>
+
+  <!-- Stone surface cracks/texture -->
+  <path d="M30,50 Q35,48 40,52" fill="none" stroke="#5A5248" stroke-width="0.8" opacity="0.5"/>
+  <path d="M78,44 Q84,46 88,50" fill="none" stroke="#5A5248" stroke-width="0.6" opacity="0.4"/>
+  <path d="M36,76 Q42,78 48,74" fill="none" stroke="#5A5248" stroke-width="0.7" opacity="0.4"/>
+  <path d="M72,78 Q78,80 84,76" fill="none" stroke="#5A5248" stroke-width="0.6" opacity="0.35"/>
+
+  <!-- Surface highlight -->
+  <ellipse cx="52" cy="48" rx="20" ry="14" fill="url(#stoneHighlight)"/>
+
+  <!-- Rune glow (blurred behind) -->
+  <ellipse cx="60" cy="58" rx="22" ry="20" fill="url(#runeGlow)" filter="url(#runeBlur)"/>
+
+  <!-- Carved rune symbol — stylized "algiz" / life rune -->
+  <g stroke="url(#runeLineGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Central vertical line -->
+    <line x1="60" y1="40" x2="60" y2="80"/>
+    <!-- Upper-left branch -->
+    <line x1="60" y1="48" x2="44" y2="36"/>
+    <!-- Upper-right branch -->
+    <line x1="60" y1="48" x2="76" y2="36"/>
+    <!-- Mid-left branch -->
+    <line x1="60" y1="60" x2="46" y2="52"/>
+    <!-- Mid-right branch -->
+    <line x1="60" y1="60" x2="74" y2="52"/>
+    <!-- Small base marks -->
+    <line x1="52" y1="80" x2="68" y2="80"/>
+  </g>
+
+  <!-- Rune bright center glow overlay -->
+  <g stroke="#FFF8E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6">
+    <line x1="60" y1="42" x2="60" y2="78"/>
+    <line x1="60" y1="48" x2="46" y2="37"/>
+    <line x1="60" y1="48" x2="74" y2="37"/>
+    <line x1="60" y1="60" x2="48" y2="53"/>
+    <line x1="60" y1="60" x2="72" y2="53"/>
+    <line x1="53" y1="80" x2="67" y2="80"/>
+  </g>
+
+  <!-- Tiny glowing particles near rune -->
+  <circle cx="42" cy="40" r="1.2" fill="#FFE88A" opacity="0.6"/>
+  <circle cx="80" cy="44" r="1" fill="#FFD044" opacity="0.5"/>
+  <circle cx="50" cy="76" r="0.8" fill="#FFE88A" opacity="0.4"/>
+  <circle cx="72" cy="72" r="1" fill="#FFD044" opacity="0.45"/>
+</svg>

@@ -3,44 +3,98 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
-## [0.5.0] — 2026-03-20
+## [0.5.9] — 2026-03-21
 
 ### Added
-- Vignette shader overlay — darkened screen edges for cinematic depth
-- Platform glow shader — soft radial emission on active platforms
-- Ambient glow shader — reusable soft radial light effect
-- Completion sparkle burst — gold particle explosion when finishing activity
-- Screen shake on activity completion (decaying camera offset)
-- Hero squash & stretch — landing bounce, jump stretch, idle bob
-- Pause menu accessible from HUD pause button (was missing in vertical mode)
-- Wavy vine bridges with alternating leaf pairs
-- Wider platforms (280px), taller platform texture (40px)
-- More parallax nature: 18 trees, 22 bushes, 14 flowers, 10 clouds
+- **HOPA framework** — scene scaffolding, `hopa_data.gd` with level format, 4 discovery shaders (`hopa_object_highlight`, `hopa_discovery_burst`, `hopa_scene_depth`), `placeholder_factory.gd` for procedural test art
+- **HOPA state** in `GameState` — `hopa_progress`, `hopa_inventory`, `hopa_current_level` with save/load
+- Test data: `test_hopa_level.json` for level format validation
+
+## [0.5.8] — 2026-03-21
+
+### Added
+- **Stats page** — layer 38 CanvasLayer with XP breakdown + achievements grid, accessed via "..." button in HUD
+- **Character customization** — 6 female hairstyles (braided, ponytail, short) + 3 male (buzz, spiky, swept), skin/hair color presets
+- **Hero tint shader** (`hero_tint.gdshader`) — GPU-based recoloring for skin/hair/clothes
+- **Hairstyle hero SVGs** — 12 new climb sprites (6 styles × idle/jump variants)
 
 ### Changed
-- Climb hero SVGs completely redrawn — 4x more detail (face, clothing, accessories match side hero quality)
-- Platform SVG upgraded — stone cracks, moss highlights, embedded pebbles, tiny flowers, rounded edges, drop shadow
-- Hero 50% larger (scale 1.8 vs 1.2) with higher-res viewBox (80×150 vs 64×120)
-- More/denser particles: 30 leaves, 25 fireflies (was 20/15)
-- Move speed increased (600 vs 500)
+- `GameState` tracks `hero_skin_idx`, `hero_hair_idx`, `hero_hair_style_idx`
+- `SaveManager` persists customization choices
 
-### Fixed
-- Movement blocked by sky ColorRect absorbing touch events (added mouse_filter=IGNORE)
-- Settings menu inaccessible — pause menu now added to vertical level with HUD button connection
-
-## [0.4.0] — 2026-03-20
+## [0.5.7] — 2026-03-21
 
 ### Added
-- Smooth sky gradient shader — replaces 20 flat color bands with GPU-rendered gradient + twinkling stars at night
-- Falling leaf particles — gentle ambient drift with fade-in/out and color aging (green to brown)
-- Night fireflies — warm yellow-green glowing particles, visible only after dark
-- Parallax background — 3 depth layers (far: clouds, mid: trees, near: bushes/flowers) with independent scroll rates
-- Textured platforms — SVG sprite with moss patches, highlights, and shadows replaces flat rectangles
-- Wavy vine bridges with leaf dots between completed platforms
-- Fade-to-black scene transitions on all screen changes
-- `SceneTransition` autoload — `change_scene()` and `reload_scene()` with configurable duration
-- Separate `build.sh` and `install.sh` scripts
-- Game moved to standalone git repo (submodule `seven_days_game/`)
+- **Animated main menu** — procedural sky gradient, drifting clouds, parallax mountains/trees, sun with glow, leaf + golden sparkle GPUParticles2D, entrance slide+spring animations
+- `main_menu_draw.gd` — extracted `_draw()` rendering (mountains, trees, clouds, sun) from main menu script
+
+### Changed
+- Main menu scene rebuilt: added ParallaxBackground, particle nodes, animated layout
+- Menu buttons use spring entrance animation on ready
+
+## [0.5.6] — 2026-03-21
+
+### Added
+- **Circle iris wipe** scene transition (`iris_wipe.gdshader`) — `change_scene_iris()` in SceneTransition autoload
+- **App icon upgrade** — hero character on mountain peak with golden glow aura (replaced stick figure)
+- `icon_foreground.svg` redrawn with full character detail
+
+### Changed
+- Scene transitions default to fade-to-black; iris wipe available as opt-in alternative
+- `icon_192.png`, `icon_background_432.png`, `icon_foreground_432.png` regenerated
+
+## [0.5.5] — 2026-03-21
+
+### Added
+- **Spring animations** on UI popups:
+  - Activity popup: slide-up from bottom with spring overshoot on show, fade-out on close
+  - Day summary: scale-in from center with spring + confetti particle burst
+  - Achievement toast: slide-in from right with spring
+  - Level up: scale-in with spring + glow pulse
+
+### Changed
+- All shared UI scenes updated with AnimationPlayer or tween-based spring animations
+- Day summary confetti: GPUParticles2D burst (30 gold/green particles) on completion
+
+## [0.5.4] — 2026-03-20
+
+### Added
+- **Improved mini-interactions** — drag_food (plate targets, success feedback), drink_water (glass fill animation, splash), flip_cards (card flip with reveal), hold_candle (flame flicker, glow radius)
+- Gender select transition uses iris wipe
+
+### Changed
+- Mini-interaction scenes enlarged and polished for mobile readability
+- E2E test suite expanded (288+ lines)
+
+## [0.5.3] — 2026-03-20
+
+### Added
+- **Hero SVG rewrite** — all 4 climb sprites (idle/jump × female/male) completely redrawn:
+  - ViewBox 80×150 → 120×200, SVG gradients, feDropShadow, 5-layer eyes, rim light
+- **Ghost trail** — 3 semi-transparent sprite copies trail behind hero during jump
+- **Landing dust** — GPUParticles2D burst (12 earthy-tone particles) on hero landing
+- **Rotation tilt** — hero leans ±11° toward movement direction during arc jump
+- **Sun/moon** — celestial bodies drawn via ProceduralDrawing methods
+- **Cloud drift** — parallax clouds drift rightward at 8px/s
+
+### Changed
+- Hero `BASE_SCALE` 1.8 → 1.2 (new larger SVG viewBox)
+- Particle textures: `PlaceholderTexture2D` → procedural `ImageTexture` with soft alpha falloff
+- Hero jump: straight-line → quadratic bezier arc (120px elevation)
+- HUD PauseBtn: `⏸` (24px) → `⚙` (32px, 80px min width); `"⚙ Настройки"` heading in pause menu
+- Build script: APK filename includes version + unix timestamp
+
+## [0.5.1] — 2026-03-20
+
+### Added
+- **E2E test suite** — 164 tests across 10 suites in `tests/test_e2e.gd`
+- **Unified test runner** — `test.sh` runs unit + E2E, reports pass/fail per suite
+- **397 total tests** (233 unit + 164 E2E)
+
+### Fixed
+- Broken mountain code in `vertical_level.gd` (non-static `get_class()` call)
+- `ParallaxBackground.z_index` → `.layer` (extends CanvasLayer, not Node2D)
+- XP test assertion (completing 'wk' at 04:30 earns both achievements)
 
 ## [0.3.0] — 2026-03-20
 

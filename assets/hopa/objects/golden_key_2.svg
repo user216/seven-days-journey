@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="key2-shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f0d060"/>
+      <stop offset="50%" stop-color="#e8c040"/>
+      <stop offset="100%" stop-color="#c89828"/>
+    </linearGradient>
+    <radialGradient id="key2-handle" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#fae080"/>
+      <stop offset="40%" stop-color="#e8c848"/>
+      <stop offset="100%" stop-color="#b08020"/>
+    </radialGradient>
+    <radialGradient id="key2-gem" cx="0.35" cy="0.3" r="0.5">
+      <stop offset="0%" stop-color="#fff8e0"/>
+      <stop offset="40%" stop-color="#f8d848"/>
+      <stop offset="100%" stop-color="#c89020"/>
+    </radialGradient>
+  </defs>
+  <!-- Ornate handle - trefoil design -->
+  <ellipse cx="35" cy="48" rx="24" ry="26" fill="url(#key2-handle)" stroke="#c89828" stroke-width="1.5"/>
+  <!-- Inner cutouts for ornate look -->
+  <circle cx="28" cy="40" r="7" fill="#705818" opacity="0.35"/>
+  <circle cx="42" cy="40" r="7" fill="#705818" opacity="0.35"/>
+  <circle cx="35" cy="54" r="7" fill="#705818" opacity="0.35"/>
+  <!-- Handle decorative scrollwork -->
+  <path d="M20 36 Q24 30 35 28 Q46 30 50 36" fill="none" stroke="#fae080" stroke-width="1.2" opacity="0.6"/>
+  <path d="M22 58 Q28 64 35 66 Q42 64 48 58" fill="none" stroke="#fae080" stroke-width="1.2" opacity="0.6"/>
+  <!-- Central gem in handle -->
+  <circle cx="35" cy="46" r="5" fill="url(#key2-gem)"/>
+  <circle cx="33" cy="44" r="1.5" fill="white" opacity="0.7"/>
+  <!-- Shaft - thicker, more ornate -->
+  <rect x="57" y="44" width="42" height="9" rx="2" fill="url(#key2-shaft)"/>
+  <!-- Shaft decorative notches -->
+  <rect x="64" y="42" width="3" height="3" rx="0.5" fill="#c89828"/>
+  <rect x="74" y="42" width="3" height="3" rx="0.5" fill="#c89828"/>
+  <!-- Elaborate teeth - three prongs -->
+  <rect x="92" y="53" width="9" height="14" rx="1.5" fill="#d0a830"/>
+  <rect x="84" y="53" width="6" height="10" rx="1" fill="#d0a830"/>
+  <rect x="96" y="53" width="4" height="8" rx="1" fill="#c89828"/>
+  <!-- Teeth detail grooves -->
+  <rect x="93" y="56" width="7" height="1.5" rx="0.5" fill="#a07818" opacity="0.4"/>
+  <!-- Sparkle highlights -->
+  <circle cx="30" cy="34" r="3" fill="white" opacity="0.5"/>
+  <circle cx="70" cy="43" r="2" fill="white" opacity="0.4"/>
+  <circle cx="95" cy="50" r="1.5" fill="white" opacity="0.35"/>
+  <!-- Warm glow around handle -->
+  <ellipse cx="35" cy="48" rx="28" ry="30" fill="#f8d848" opacity="0.08"/>
+</svg>

@@ -14,6 +14,5 @@ func _ready() -> void:
 
 func _select(chosen_gender: String) -> void:
 	GameState.gender = chosen_gender
-	GameState.start_game()
-	SaveManager.save_game()
-	SceneTransition.change_scene("res://scenes/vertical_climb/vertical_level.tscn")
+	GameState.hero_hair_style_idx = 0
+	SceneTransition.change_scene("res://scenes/character_customize/character_customize.tscn")

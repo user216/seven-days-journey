@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- Parchment body gradient -->
+    <linearGradient id="parchmentBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF8EC"/>
+      <stop offset="20%" stop-color="#F5ECD7"/>
+      <stop offset="50%" stop-color="#EDE0C8"/>
+      <stop offset="80%" stop-color="#E8D9BF"/>
+      <stop offset="100%" stop-color="#DDD0B0"/>
+    </linearGradient>
+    <!-- Parchment face (unrolled part) -->
+    <linearGradient id="parchmentFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5ECD7"/>
+      <stop offset="30%" stop-color="#FFF5E0"/>
+      <stop offset="70%" stop-color="#F5ECD7"/>
+      <stop offset="100%" stop-color="#E8D9BF"/>
+    </linearGradient>
+    <!-- Roll shadow gradient (top roll) -->
+    <linearGradient id="rollTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8D9BF"/>
+      <stop offset="20%" stop-color="#FFF5E0"/>
+      <stop offset="50%" stop-color="#F5ECD7"/>
+      <stop offset="80%" stop-color="#D4C4A8"/>
+      <stop offset="100%" stop-color="#C0B090"/>
+    </linearGradient>
+    <!-- Roll shadow gradient (bottom roll) -->
+    <linearGradient id="rollBottom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C0B090"/>
+      <stop offset="20%" stop-color="#D4C4A8"/>
+      <stop offset="50%" stop-color="#FFF5E0"/>
+      <stop offset="80%" stop-color="#F5ECD7"/>
+      <stop offset="100%" stop-color="#E8D9BF"/>
+    </linearGradient>
+    <!-- Rod gradient (wooden dowels) -->
+    <linearGradient id="rodGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A08060"/>
+      <stop offset="30%" stop-color="#C0A078"/>
+      <stop offset="50%" stop-color="#D4B48C"/>
+      <stop offset="70%" stop-color="#C0A078"/>
+      <stop offset="100%" stop-color="#8B6B48"/>
+    </linearGradient>
+    <!-- Wax seal gradient -->
+    <radialGradient id="waxSeal" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#D44030"/>
+      <stop offset="30%" stop-color="#C03028"/>
+      <stop offset="70%" stop-color="#A02020"/>
+      <stop offset="100%" stop-color="#801818"/>
+    </radialGradient>
+    <!-- Seal stamp impression -->
+    <radialGradient id="sealStamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E85040" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#A02020" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ribbon gradient -->
+    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C03028"/>
+      <stop offset="50%" stop-color="#D44030"/>
+      <stop offset="100%" stop-color="#A02020"/>
+    </linearGradient>
+    <!-- Aged paper texture overlay -->
+    <radialGradient id="ageSpot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C0A070" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C0A070" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="scrollShadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2.5" flood-color="#6B5B40" flood-opacity="0.25"/>
+    </filter>
+    <filter id="sealShadow">
+      <feDropShadow dx="0.5" dy="1" stdDeviation="1" flood-color="#601010" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Main scroll body (unrolled parchment face) -->
+  <g filter="url(#scrollShadow)">
+    <rect x="18" y="28" width="84" height="64" rx="1" fill="url(#parchmentFace)" stroke="#C0B090" stroke-width="0.5"/>
+
+    <!-- Aged spots on parchment -->
+    <circle cx="40" cy="50" r="12" fill="url(#ageSpot)"/>
+    <circle cx="75" cy="65" r="10" fill="url(#ageSpot)"/>
+    <circle cx="55" cy="80" r="8" fill="url(#ageSpot)"/>
+
+    <!-- Faint text lines -->
+    <g stroke="#C0A880" stroke-width="0.8" opacity="0.4" stroke-linecap="round">
+      <line x1="30" y1="40" x2="72" y2="40"/>
+      <line x1="30" y1="47" x2="80" y2="47"/>
+      <line x1="30" y1="54" x2="76" y2="54"/>
+      <line x1="30" y1="61" x2="82" y2="61"/>
+      <line x1="30" y1="68" x2="68" y2="68"/>
+      <line x1="30" y1="75" x2="78" y2="75"/>
+      <line x1="30" y1="82" x2="58" y2="82"/>
+    </g>
+
+    <!-- Decorative initial letter suggestion (top-left) -->
+    <rect x="28" y="36" width="10" height="12" rx="1" fill="#C0A880" opacity="0.15"/>
+
+    <!-- Paper edge shadow (left) -->
+    <line x1="18" y1="28" x2="18" y2="92" stroke="#B0A080" stroke-width="1" opacity="0.3"/>
+  </g>
+
+  <!-- Top roll -->
+  <g filter="url(#scrollShadow)">
+    <!-- Roll cylinder -->
+    <rect x="14" y="22" width="92" height="12" rx="6" fill="url(#rollTop)" stroke="#B0A080" stroke-width="0.5"/>
+    <!-- Roll highlight -->
+    <rect x="14" y="23" width="92" height="4" rx="2" fill="#FFF8EC" opacity="0.4"/>
+    <!-- Roll bottom shadow -->
+    <line x1="16" y1="33" x2="104" y2="33" stroke="#B0A080" stroke-width="0.5" opacity="0.4"/>
+
+    <!-- Left rod knob -->
+    <circle cx="14" cy="28" r="5" fill="url(#rodGrad)" stroke="#6B5B40" stroke-width="0.5"/>
+    <circle cx="14" cy="28" r="2.5" fill="#D4B48C" opacity="0.5"/>
+    <!-- Right rod knob -->
+    <circle cx="106" cy="28" r="5" fill="url(#rodGrad)" stroke="#6B5B40" stroke-width="0.5"/>
+    <circle cx="106" cy="28" r="2.5" fill="#D4B48C" opacity="0.5"/>
+  </g>
+
+  <!-- Bottom roll -->
+  <g filter="url(#scrollShadow)">
+    <!-- Roll cylinder -->
+    <rect x="14" y="86" width="92" height="12" rx="6" fill="url(#rollBottom)" stroke="#B0A080" stroke-width="0.5"/>
+    <!-- Roll highlight -->
+    <rect x="14" y="92" width="92" height="3" rx="1.5" fill="#FFF8EC" opacity="0.3"/>
+    <!-- Roll top shadow -->
+    <line x1="16" y1="87" x2="104" y2="87" stroke="#C0B090" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Left rod knob -->
+    <circle cx="14" cy="92" r="5" fill="url(#rodGrad)" stroke="#6B5B40" stroke-width="0.5"/>
+    <circle cx="14" cy="92" r="2.5" fill="#D4B48C" opacity="0.5"/>
+    <!-- Right rod knob -->
+    <circle cx="106" cy="92" r="5" fill="url(#rodGrad)" stroke="#6B5B40" stroke-width="0.5"/>
+    <circle cx="106" cy="92" r="2.5" fill="#D4B48C" opacity="0.5"/>
+  </g>
+
+  <!-- Ribbon coming from behind the seal -->
+  <path d="M86,58 C92,62 96,68 92,72 C88,76 82,74 80,70"
+        fill="none" stroke="url(#ribbonGrad)" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <!-- Ribbon tail -->
+  <path d="M92,72 C96,78 94,84 90,88" fill="none" stroke="#C03028" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M92,72 C98,76 100,82 98,86" fill="none" stroke="#A02020" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Wax seal -->
+  <g filter="url(#sealShadow)">
+    <circle cx="88" cy="68" r="10" fill="url(#waxSeal)"/>
+    <!-- Seal edge irregularity (wax drip look) -->
+    <circle cx="82" cy="72" r="3" fill="#A02020" opacity="0.6"/>
+    <circle cx="94" cy="64" r="2.5" fill="#B82828" opacity="0.5"/>
+    <circle cx="86" cy="60" r="2" fill="#B82828" opacity="0.4"/>
+    <!-- Seal stamp design - simple star/flower -->
+    <circle cx="88" cy="68" r="7" fill="none" stroke="#D44030" stroke-width="0.8" opacity="0.5"/>
+    <g transform="translate(88, 68)" fill="#E85040" opacity="0.6">
+      <ellipse cx="0" cy="-3.5" rx="1.5" ry="3" />
+      <ellipse cx="0" cy="3.5" rx="1.5" ry="3" />
+      <ellipse cx="-3.5" cy="0" rx="3" ry="1.5" />
+      <ellipse cx="3.5" cy="0" rx="3" ry="1.5" />
+      <ellipse cx="-2.5" cy="-2.5" rx="1.3" ry="2.5" transform="rotate(45)"/>
+      <ellipse cx="2.5" cy="-2.5" rx="1.3" ry="2.5" transform="rotate(-45)"/>
+    </g>
+    <circle cx="88" cy="68" r="2" fill="#D44030"/>
+    <!-- Seal highlight -->
+    <ellipse cx="85" cy="65" rx="4" ry="3" fill="#E85040" opacity="0.3"/>
+  </g>
+
+  <!-- Subtle parchment crease lines -->
+  <line x1="50" y1="29" x2="48" y2="91" stroke="#C0A880" stroke-width="0.3" opacity="0.2"/>
+  <line x1="70" y1="29" x2="72" y2="91" stroke="#C0A880" stroke-width="0.3" opacity="0.15"/>
+</svg>

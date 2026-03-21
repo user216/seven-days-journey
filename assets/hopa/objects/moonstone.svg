@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="msBody" cx="45%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e8eef8"/>
+      <stop offset="25%" stop-color="#d8e4f4"/>
+      <stop offset="55%" stop-color="#c0d4ee"/>
+      <stop offset="80%" stop-color="#a8c0e0"/>
+      <stop offset="100%" stop-color="#90aad0"/>
+    </radialGradient>
+    <radialGradient id="msGlow" cx="40%" cy="35%" r="45%">
+      <stop offset="0%" stop-color="#f0f4ff" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#d8e8ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#b0c8e8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="msAdular1" cx="35%" cy="30%" r="30%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#e0ecff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#c0d8f0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="msAdular2" cx="60%" cy="55%" r="25%">
+      <stop offset="0%" stop-color="#e8f0ff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c8d8f0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="msAdular3" cx="55%" cy="40%" r="40%">
+      <stop offset="0%" stop-color="#d0e0f8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#a0b8d8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="msOuterGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#c8d8f0" stop-opacity="0"/>
+      <stop offset="80%" stop-color="#d0e0ff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e0ecff" stop-opacity="0.08"/>
+    </radialGradient>
+    <linearGradient id="msSetting" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c8b880"/>
+      <stop offset="50%" stop-color="#a89860"/>
+      <stop offset="100%" stop-color="#908050"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer ambient glow -->
+  <ellipse cx="60" cy="58" rx="52" ry="48" fill="url(#msOuterGlow)"/>
+  <!-- Shadow -->
+  <ellipse cx="62" cy="106" rx="28" ry="5" fill="#8890a0" opacity="0.2"/>
+  <!-- Optional setting/base cradle -->
+  <path d="M 35 90 Q 38 95 60 97 Q 82 95 85 90 Q 82 92 60 93 Q 38 92 35 90 Z" fill="url(#msSetting)" opacity="0.4"/>
+  <!-- Main moonstone body - oval cabochon -->
+  <ellipse cx="60" cy="58" rx="38" ry="44" fill="url(#msBody)" stroke="#98aac0" stroke-width="1"/>
+  <!-- Cabochon dome shading (edge darkening) -->
+  <ellipse cx="60" cy="58" rx="36" ry="42" fill="none" stroke="#88a0c0" stroke-width="2" opacity="0.15"/>
+  <!-- Adularescence - the floating blue-white light effect -->
+  <!-- Main adularescent band -->
+  <ellipse cx="50" cy="46" rx="22" ry="18" fill="url(#msAdular1)" transform="rotate(-15 50 46)"/>
+  <!-- Secondary glow -->
+  <ellipse cx="65" cy="62" rx="16" ry="12" fill="url(#msAdular2)" transform="rotate(10 65 62)"/>
+  <!-- Broad inner light -->
+  <ellipse cx="56" cy="52" rx="28" ry="24" fill="url(#msAdular3)" transform="rotate(-5 56 52)"/>
+  <!-- Central bright glow -->
+  <ellipse cx="54" cy="48" rx="14" ry="10" fill="url(#msGlow)" transform="rotate(-10 54 48)"/>
+  <!-- Bright highlight spot -->
+  <ellipse cx="48" cy="40" rx="8" ry="5" fill="#ffffff" opacity="0.55" transform="rotate(-20 48 40)"/>
+  <!-- Tiny bright point -->
+  <ellipse cx="44" cy="36" rx="3" ry="1.8" fill="#ffffff" opacity="0.7" transform="rotate(-20 44 36)"/>
+  <!-- Subtle color play streaks -->
+  <path d="M 35 50 Q 50 42 70 48 Q 80 52 75 60" fill="none" stroke="#d0e0ff" stroke-width="1.5" opacity="0.2"/>
+  <path d="M 40 60 Q 55 54 72 58" fill="none" stroke="#c8d8f8" stroke-width="1" opacity="0.15"/>
+  <!-- Very subtle blue tint band -->
+  <ellipse cx="58" cy="55" rx="25" ry="8" fill="#c0d8ff" opacity="0.08" transform="rotate(-8 58 55)"/>
+  <!-- Edge rim light -->
+  <path d="M 28 40 A 38 44 0 0 1 75 18" fill="none" stroke="#e0eaff" stroke-width="0.8" opacity="0.35"/>
+  <!-- Bottom reflection hint -->
+  <path d="M 40 92 A 38 44 0 0 0 80 88" fill="none" stroke="#b0c0d8" stroke-width="0.5" opacity="0.25"/>
+</svg>

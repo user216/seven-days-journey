@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="key" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e8c848"/>
+      <stop offset="100%" stop-color="#c8a028"/>
+    </linearGradient>
+  </defs>
+  <!-- Handle (ring) -->
+  <circle cx="35" cy="50" r="22" fill="none" stroke="url(#key)" stroke-width="8"/>
+  <circle cx="35" cy="50" r="14" fill="none" stroke="#d8b838" stroke-width="2" opacity="0.3"/>
+  <!-- Shaft -->
+  <rect x="57" y="46" width="45" height="8" rx="2" fill="url(#key)"/>
+  <!-- Teeth -->
+  <rect x="90" y="54" width="8" height="12" rx="1" fill="#c8a028"/>
+  <rect x="80" y="54" width="6" height="8" rx="1" fill="#c8a028"/>
+  <!-- Sparkle -->
+  <circle cx="35" cy="35" r="3" fill="white" opacity="0.6"/>
+</svg>

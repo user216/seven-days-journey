@@ -242,6 +242,10 @@ const ACHIEVEMENTS: Array[Dictionary] = [
 	{"key": "early_bird", "emoji": "🐦", "title": "Ранняя пташка", "description": "Реакция до 06:00"},
 	{"key": "night_owl", "emoji": "🦉", "title": "Ночная сова", "description": "Реакция на вечернюю практику"},
 	{"key": "speed_demon", "emoji": "⚡", "title": "Молниеносный", "description": "Реакция в течение 5 минут после доставки"},
+	{"key": "hopa_first_level", "emoji": "🔍", "title": "Первая находка", "description": "Завершён первый уровень Сада Тайн"},
+	{"key": "hopa_no_hints", "emoji": "🧠", "title": "Острый глаз", "description": "Уровень без подсказок"},
+	{"key": "hopa_speed_run", "emoji": "⏱", "title": "Быстрый поиск", "description": "Уровень менее чем за 60 секунд"},
+	{"key": "hopa_all_levels", "emoji": "🏛", "title": "Хранитель Сада", "description": "Все 7 уровней Сада Тайн"},
 ]
 
 # ── XP rates ──────────────────────────────────────────────────────

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <radialGradient id="moon-body" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#e0e8f8"/>
+      <stop offset="40%" stop-color="#b8c8e8"/>
+      <stop offset="100%" stop-color="#8098c0"/>
+    </radialGradient>
+    <radialGradient id="moon-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#c8d8f0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8098c0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="moonstone" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#e8f0ff"/>
+      <stop offset="30%" stop-color="#c0d0f0"/>
+      <stop offset="70%" stop-color="#98b0d8"/>
+      <stop offset="100%" stop-color="#7090c0"/>
+    </radialGradient>
+    <linearGradient id="chain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c0c8d0"/>
+      <stop offset="50%" stop-color="#e0e4e8"/>
+      <stop offset="100%" stop-color="#a0a8b8"/>
+    </linearGradient>
+    <radialGradient id="star-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="white" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#c8d8f0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer mystical glow -->
+  <circle cx="58" cy="62" r="35" fill="url(#moon-glow)"/>
+  <!-- Chain - left side draping up -->
+  <path d="M20 8 Q15 12 18 20 Q22 30 30 38 Q38 45 44 50" fill="none" stroke="url(#chain)" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Chain - right side draping up -->
+  <path d="M100 8 Q105 12 102 20 Q98 30 90 38 Q82 45 72 50" fill="none" stroke="url(#chain)" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Chain link details - left -->
+  <circle cx="22" cy="22" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="30" cy="32" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="38" cy="40" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <!-- Chain link details - right -->
+  <circle cx="98" cy="22" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="90" cy="32" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="82" cy="40" r="1.5" fill="none" stroke="#d0d4d8" stroke-width="0.8" opacity="0.5"/>
+  <!-- Bail / connector loop -->
+  <ellipse cx="58" cy="48" rx="5" ry="4" fill="none" stroke="#c0c8d8" stroke-width="2"/>
+  <ellipse cx="56" cy="47" rx="2" ry="1.5" fill="white" opacity="0.2"/>
+  <!-- Crescent moon shape -->
+  <circle cx="58" cy="70" r="22" fill="url(#moon-body)"/>
+  <circle cx="68" cy="62" r="18" fill="#1a1a3a"/>
+  <!-- This creates the crescent by subtracting a dark circle -->
+  <!-- Re-layer: crescent with proper clip approach using overlay -->
+  <!-- Moonstone surface details -->
+  <circle cx="48" cy="72" r="3" fill="white" opacity="0.08"/>
+  <circle cx="52" cy="80" r="2" fill="white" opacity="0.06"/>
+  <!-- Surface shimmer / adularescence -->
+  <ellipse cx="50" cy="68" rx="8" ry="4" fill="url(#moonstone)" opacity="0.3" transform="rotate(-20, 50, 68)"/>
+  <!-- Moon edge highlight (left rim) -->
+  <path d="M40 56 Q36 62 36 70 Q36 78 40 84" fill="none" stroke="#e8f0ff" stroke-width="1.5" opacity="0.5"/>
+  <!-- Moon specular -->
+  <circle cx="45" cy="64" r="3" fill="white" opacity="0.25"/>
+  <circle cx="44" cy="63" r="1.5" fill="white" opacity="0.15"/>
+  <!-- Tiny sparkle stars around -->
+  <circle cx="28" cy="55" r="2" fill="url(#star-glow)"/>
+  <circle cx="85" cy="70" r="1.5" fill="url(#star-glow)"/>
+  <circle cx="40" cy="95" r="1.5" fill="url(#star-glow)"/>
+  <circle cx="75" cy="50" r="1" fill="white" opacity="0.5"/>
+  <!-- Star cross sparkles -->
+  <line x1="28" y1="53" x2="28" y2="57" stroke="white" stroke-width="0.5" opacity="0.5"/>
+  <line x1="26" y1="55" x2="30" y2="55" stroke="white" stroke-width="0.5" opacity="0.5"/>
+</svg>
