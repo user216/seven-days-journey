@@ -3,6 +3,30 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.1] — 2026-03-22
+
+### Fixed
+- **Hair overlapping faces** — restructured SVG layer order in all 16 climb sprites: hair back volume now renders before head skin, hair crown/sides render after head but before face features; side volumes clipped above eye line
+- **Male hero dress appearance** — replaced single wide trapezoid (read as skirt) with two distinct pant leg polygons with visible gap, inseam lines, and per-leg hems in all 8 male SVGs
+
+## [0.7.0] — 2026-03-22
+
+### Added
+- **Dead-zone camera** — camera stays still while hero is within center 30% of viewport, smoothly lerps to follow when hero exits the dead zone; camera is standalone node (not child of hero)
+- **AudioManager autoload** — music crossfade (two AudioStreamPlayer nodes), hierarchical SFX key resolution (`"complete+day"` falls back to `"complete"`), pitch jitter (0.93–1.07), volume control (±10% steps)
+- **SceneTransition upgrade** — lifecycle signals (`transition_started`, `scene_swapped`, `transition_finished`), scene history stack with `go_back()`, pattern dissolve transition, shockwave effect
+- **6 new shaders**: `screen_flash`, `dissolve`, `diamond_wipe`, `pattern_dissolve`, `shockwave`, `background_blur`, `sprite_outline`
+- **Haptic gating** — `GameState.vibrate(ms)` method checks `haptic_enabled` flag; all 9 `Input.vibrate_handheld()` calls across 6 files replaced
+- **Pause menu settings** — volume ±10% buttons, SFX toggle, haptic toggle with save/load
+- **Hero dialogue system** — mode select, visual novel scene, RPG companion garden walk, branching dialogue, API sync (scaffolding)
+
+### Changed
+- `SaveManager` bumped to v5 — persists `sfx_enabled` and `haptic_enabled`
+- `ThemeManager` expanded with day-specific dress color palette
+- `hero_tint.gdshader` rewritten with cleaner HSL-based skin/hair/clothing detection
+- Camera changed from hero-child to standalone with manual dead-zone smoothing
+- 354 E2E tests (was 288)
+
 ## [0.5.9] — 2026-03-21
 
 ### Added
