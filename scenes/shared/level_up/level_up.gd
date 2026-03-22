@@ -29,6 +29,9 @@ func _on_level_up(new_level: int, level_name: String) -> void:
 func _show_animated() -> void:
 	level_label.text = "Уровень %d — %s" % [_pending_level, _pending_name]
 	level_layer.visible = true
+	AudioManager.play("level_up")
+	SceneTransition.flash_screen(Color(1.0, 0.85, 0.3))
+	GameState.vibrate(100)
 	# Slide in from above: start offset, tween to center
 	center.modulate.a = 0.0
 	center.position.y = -120.0

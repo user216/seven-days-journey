@@ -43,6 +43,8 @@ func _run_tests() -> void:
 	_suite_activity_states(GS, TS, GD)
 	_suite_hopa_data()
 	_suite_hopa_save(GS, SM)
+	_suite_dialogue_data(GD)
+	_suite_dialogue_save(GS, SM)
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -301,7 +303,7 @@ func _suite_save_manager(GS: Node, SM: Node, GD: Node) -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(SM.SAVE_PATH)
 	var version: int = cfg.get_value("meta", "version", 0)
-	_assert_eq(version, 3, "Save version is 3")
+	_assert_eq(version, 4, "Save version is 4")
 
 	cfg.set_value("meta", "version", 1)
 	cfg.save(SM.SAVE_PATH)
@@ -586,6 +588,73 @@ func _suite_hopa_save(GS: Node, SM: Node) -> void:
 	_assert_eq(GS.hopa_current_level, "kitchen_pantry", "Current level loaded")
 	_assert_eq(GS.hopa_inventory.size(), 2, "Inventory loaded with 2 items")
 	_assert("golden_key" in GS.hopa_inventory, "Inventory contains golden_key")
+
+	SM.delete_save()
+	GS.reset()
+
+
+# ── Dialogue Data Tests ─────────────────────────────────────────
+
+func _suite_dialogue_data(GD: Node) -> void:
+	_suite("DialogueData")
+
+	# Day 1 has full dialogues for all 16 cards
+	var day1_cards: Array = GD.get_all_cards_for_day(1)
+	for card in day1_cards:
+		var key := "day1_%s" % card.slot_id
+		var nodes: Array = DialogueData.get_dialogue(1, card.slot_id)
+		_assert(nodes.size() > 0, "Dialogue exists for %s" % key)
+		# First node should be a "say" type
+		_assert_eq(nodes[0].get("type", ""), "say", "%s starts with say node" % key)
+
+	# Days 2-7 have at least day-specific dialogues
+	for day in range(2, 8):
+		for slot_id in GD.DAY_SLOT_IDS:
+			var nodes: Array = DialogueData.get_dialogue(day, slot_id)
+			_assert(nodes.size() > 0, "Dialogue exists for day%d_%s" % [day, slot_id])
+
+	# Fallback works for unknown slots
+	var fallback: Array = DialogueData.get_dialogue(1, "nonexistent")
+	_assert(fallback.size() > 0, "Fallback dialogue returned for unknown slot")
+
+	# Branching dialogues exist
+	var branching_keys := ["day1_wk_detail", "day1_mp_why", "day1_nc_why", "day1_ep_why",
+		"day1_lc_energy", "day1_lc_water"]
+	for bk in branching_keys:
+		_assert(bk in DialogueData.DIALOGUES, "Branch key %s exists" % bk)
+
+	# Choice nodes have valid structure
+	for key in DialogueData.DIALOGUES:
+		var nodes: Array = DialogueData.DIALOGUES[key]
+		for node in nodes:
+			if node.get("type", "") == "choice":
+				var options: Array = node.get("options", [])
+				_assert(options.size() >= 2, "Choice in %s has >= 2 options" % key)
+				for opt in options:
+					_assert(opt.has("text"), "Option in %s has text" % key)
+
+
+# ── Dialogue Save/Load Tests ────────────────────────────────────
+
+func _suite_dialogue_save(GS: Node, SM: Node) -> void:
+	_suite("Dialogue Save/Load")
+
+	GS.reset()
+	GS.dialogue_mode = "visual_novel"
+	GS.dialogue_progress = {1: ["wk", "wp", "mp"]}
+	GS.dialogue_choices = {"day1_wk": "day1_wk_detail"}
+	SM.save_game()
+
+	GS.reset()
+	_assert_eq(GS.dialogue_mode, "", "Reset clears dialogue_mode")
+	_assert_eq(GS.dialogue_progress.size(), 0, "Reset clears dialogue_progress")
+
+	SM.load_game()
+	_assert_eq(GS.dialogue_mode, "visual_novel", "dialogue_mode loaded")
+	_assert(1 in GS.dialogue_progress, "dialogue_progress day 1 loaded")
+	_assert_eq(GS.dialogue_progress[1].size(), 3, "3 slots in dialogue_progress day 1")
+	_assert("day1_wk" in GS.dialogue_choices, "dialogue_choices loaded")
+	_assert_eq(GS.dialogue_choices["day1_wk"], "day1_wk_detail", "Choice value correct")
 
 	SM.delete_save()
 	GS.reset()

@@ -1,0 +1,3 @@
+[submodule "lib/awesome-godot"]
+	path = lib/awesome-godot
+	url = https://github.com/godotengine/awesome-godot.git

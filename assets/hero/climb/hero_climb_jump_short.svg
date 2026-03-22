@@ -78,27 +78,52 @@
   <!-- === NECK === -->
   <rect x="53" y="52" width="14" height="20" fill="url(#skin)" rx="4"/>
 
+  <!-- === HAIR BACK (behind head) === -->
+  <!-- Dark base shadow behind bob -->
+  <path d="M28,34 L32,12 L60,3 L88,12 L92,34 L90,54 L80,60 L40,60 L30,54 Z" fill="#4a2a14" opacity="0.3"/>
+  <!-- Back volume (wider from wind) -->
+  <path d="M30,32 L34,14 L60,6 L86,14 L90,32 L88,52 L78,56 L42,56 L32,52 Z" fill="url(#hair)"/>
+
   <!-- === HEAD === -->
   <ellipse cx="60" cy="36" rx="28" ry="30" fill="url(#skin)" filter="url(#shadow)"/>
   <ellipse cx="38" cy="44" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
   <ellipse cx="82" cy="44" rx="8" ry="5" fill="#ffb0a0" opacity="0.18"/>
   <ellipse cx="58" cy="20" rx="14" ry="8" fill="white" opacity="0.08"/>
 
-  <!-- === HAIR — short bob, wind-fluttered in jump === -->
-  <!-- Back volume (wider from wind) -->
-  <path d="M30,32 L34,14 L60,6 L86,14 L90,32 L88,52 L78,56 L42,56 L32,52 Z" fill="url(#hair)"/>
+  <!-- === HAIR TOP (crown, sides clipped, strands, wind — over head, before face) === -->
+  <!-- Crown puffiness volume -->
+  <path d="M38,10 Q48,2 60,4 Q72,2 82,10" fill="url(#hair)" opacity="0.4"/>
   <!-- Crown shape -->
   <path d="M31,36 L35,14 L60,7 L85,14 L89,36" fill="url(#hair)"/>
-  <!-- Side strands — fluttering wider from wind -->
-  <path d="M30,32 Q24,44 28,54" stroke="url(#hair)" stroke-width="9" fill="none" stroke-linecap="round"/>
-  <path d="M90,32 Q96,44 92,54" stroke="url(#hair)" stroke-width="9" fill="none" stroke-linecap="round"/>
-  <!-- Wind-blown wispy tips -->
+  <!-- Side strands (clipped to y<=42) -->
+  <path d="M30,32 Q26,38 28,42" stroke="url(#hair)" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M90,32 Q94,38 92,42" stroke="url(#hair)" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- Depth layers where hair meets head (clipped to y<=42) -->
+  <path d="M30,34 Q28,38 29,42" stroke="#5a3820" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M90,34 Q92,38 91,42" stroke="#5a3820" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <!-- Layered bob bottom volume — wind flutter -->
+  <path d="M30,52 Q40,58 50,56 Q60,54 70,56 Q80,58 90,52" stroke="#7a5230" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <!-- Wind-blown wispy tips — more dramatic for jump -->
   <path d="M28,54 Q22,58 24,62" stroke="url(#hair)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
   <path d="M92,54 Q98,58 96,62" stroke="url(#hair)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Extra wind-blown wisps flying upward -->
+  <path d="M26,56 Q20,60 18,58" stroke="#8a6438" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <path d="M94,56 Q100,60 102,58" stroke="#8a6438" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <path d="M24,60 Q18,64 16,62" stroke="#7a5230" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M96,60 Q102,64 104,62" stroke="#7a5230" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/>
   <!-- Volume highlight -->
   <path d="M44,10 Q52,6 60,8" stroke="#c4985e" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
-  <!-- Hair shine -->
+  <path d="M62,8 Q70,6 76,10" stroke="#c4985e" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <!-- Hair texture strands -->
+  <path d="M46,18 Q44,28 44,38" stroke="#b88a50" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M74,18 Q76,28 76,38" stroke="#b88a50" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M56,12 Q55,24 54,36 Q53,44 54,52" stroke="#9a7040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.18"/>
+  <path d="M64,12 Q65,24 66,36 Q67,44 66,52" stroke="#9a7040" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.15"/>
+  <!-- Hair shine — crown and sides -->
   <path d="M52,10 Q56,14 54,30" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.12"/>
+  <path d="M68,12 Q70,18 68,28" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.08"/>
+  <path d="M42,28 Q44,38 42,48" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.07"/>
+  <path d="M76,28 Q78,38 76,48" stroke="white" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.06"/>
 
   <!-- === EYES — excited/wide === -->
   <ellipse cx="48" cy="38" rx="9" ry="8.5" fill="white" stroke="#e8d8c8" stroke-width="0.5"/>

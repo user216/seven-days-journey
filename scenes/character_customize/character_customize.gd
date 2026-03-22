@@ -7,6 +7,8 @@ extends Control
 @onready var style_label: Label = $VBox/StyleRow/StyleLabel
 @onready var start_btn: Button = $VBox/StartBtn
 
+var _preview_shader: ShaderMaterial = null
+
 
 func _ready() -> void:
 	$VBox/SkinRow/SkinPrev.pressed.connect(_on_skin_prev)
@@ -16,6 +18,10 @@ func _ready() -> void:
 	$VBox/StyleRow/StylePrev.pressed.connect(_on_style_prev)
 	$VBox/StyleRow/StyleNext.pressed.connect(_on_style_next)
 	start_btn.pressed.connect(_on_start)
+	# Setup tint shader for preview
+	_preview_shader = ShaderMaterial.new()
+	_preview_shader.shader = load("res://shaders/hero_tint.gdshader")
+	preview.material = _preview_shader
 	_update_all()
 	ThemeManager.apply_ui_scale_to_tree(self)
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree(self))
@@ -37,9 +43,12 @@ func _update_preview() -> void:
 	var tex := load(path) as Texture2D
 	if tex:
 		preview.texture = tex
-		# Apply tints via modulate on a sub-material or just show the base
-		# Since SVGs are loaded as flat textures, modulate the whole preview
 		preview.modulate = Color.WHITE
+	if _preview_shader:
+		_preview_shader.set_shader_parameter("skin_tint", GameState.get_skin_tint())
+		_preview_shader.set_shader_parameter("hair_tint", GameState.get_hair_tint())
+		_preview_shader.set_shader_parameter("dress_tint", Color.WHITE)
+		_preview_shader.set_shader_parameter("glow_intensity", 0.0)
 
 
 func _update_skin_label() -> void:

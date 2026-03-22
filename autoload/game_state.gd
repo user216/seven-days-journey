@@ -34,12 +34,21 @@ var breathing_sessions: int = 0
 var breathing_minutes: int = 0
 var game_started: bool = false
 var game_finished: bool = false
+var haptic_enabled: bool = true
 
 # ── HOPA state ───────────────────────────────────────────────────
 
 var hopa_progress: Dictionary = {}       # {scene_id: {completed, time_seconds, objects_found, hints_used}}
 var hopa_inventory: Array[String] = []   # key item IDs collected across levels
 var hopa_current_level: String = ""      # set before transitioning to HOPA scene
+
+# ── Dialogue state ───────────────────────────────────────────────
+
+signal dialogue_node_completed(day: int, slot_id: String)
+
+var dialogue_mode: String = ""           # "visual_novel", "rpg_companion", "godogen"
+var dialogue_progress: Dictionary = {}   # {day_num: [completed_slot_ids]}
+var dialogue_choices: Dictionary = {}    # {dialogue_key: chosen_option_key}
 
 # ── Initialization ────────────────────────────────────────────────
 
@@ -58,6 +67,9 @@ func reset() -> void:
 	hopa_progress = {}
 	hopa_inventory = []
 	hopa_current_level = ""
+	dialogue_mode = ""
+	dialogue_progress = {}
+	dialogue_choices = {}
 	# gender, ui_scale preserved across resets, developer_mode reset
 	developer_mode = false
 	for d in range(1, 8):
@@ -290,6 +302,11 @@ func is_activity_completed(day: int, slot_id: String) -> bool:
 func set_ui_scale(value: float) -> void:
 	ui_scale = clampf(value, 0.5, 2.0)
 	ui_scale_changed.emit(ui_scale)
+
+
+func vibrate(duration_ms: int = 50) -> void:
+	if haptic_enabled:
+		Input.vibrate_handheld(duration_ms)
 
 
 # ── Hero appearance presets ──────────────────────────────────────

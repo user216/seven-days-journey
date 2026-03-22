@@ -63,7 +63,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -400.0
-offset_top = -200.0
+offset_top = -400.0
 offset_right = 400.0
 offset_bottom = 400.0
 grow_horizontal = 2
@@ -89,7 +89,7 @@ text = "Путь гармонии и осознанности"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="VBox"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="ContinueBtn" type="Button" parent="VBox"]

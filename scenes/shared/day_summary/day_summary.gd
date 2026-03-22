@@ -71,7 +71,7 @@ func _setup_confetti() -> void:
 			alpha *= alpha
 			img.set_pixel(x, y, Color(1.0, 1.0, 1.0, alpha))
 	_confetti.texture = ImageTexture.create_from_image(img)
-	$"..".add_child(_confetti)
+	$"..".add_child.call_deferred(_confetti)
 
 
 func show_summary(day: int) -> void:
@@ -89,6 +89,8 @@ func show_summary(day: int) -> void:
 		next_btn.text = "День %d →" % (day + 1)
 
 	summary_layer.visible = true
+	AudioManager.play("complete")
+	GameState.vibrate(50)
 
 	# Entrance animation
 	dimmer.modulate.a = 0.0

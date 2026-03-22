@@ -20,6 +20,9 @@ var _about_btn: Button = null
 var _skin_label: Label = null
 var _hair_label: Label = null
 var _style_label: Label = null
+var _sfx_btn: Button = null
+var _haptic_btn: Button = null
+var _volume_label: Label = null
 
 const SCALE_STEPS: Array[float] = [0.8, 1.0, 1.2, 1.5]
 
@@ -69,6 +72,44 @@ func _ready() -> void:
 	scale_row.add_child(plus_btn)
 
 	$"../ScrollContainer/CenterContainer/VBox".add_child(scale_row)
+
+	# Volume slider row
+	var vol_row := HBoxContainer.new()
+	vol_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	vol_row.custom_minimum_size = Vector2(0, 60)
+	var vol_lbl := Label.new()
+	vol_lbl.text = "Громкость: "
+	vol_row.add_child(vol_lbl)
+	var vol_minus := Button.new()
+	vol_minus.text = " − "
+	vol_minus.custom_minimum_size = Vector2(80, 80)
+	vol_minus.pressed.connect(_on_vol_minus)
+	vol_row.add_child(vol_minus)
+	_volume_label = Label.new()
+	_volume_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_volume_label.custom_minimum_size = Vector2(100, 0)
+	_update_volume_label()
+	vol_row.add_child(_volume_label)
+	var vol_plus := Button.new()
+	vol_plus.text = " + "
+	vol_plus.custom_minimum_size = Vector2(80, 80)
+	vol_plus.pressed.connect(_on_vol_plus)
+	vol_row.add_child(vol_plus)
+	$"../ScrollContainer/CenterContainer/VBox".add_child(vol_row)
+
+	# SFX toggle
+	_sfx_btn = Button.new()
+	_sfx_btn.custom_minimum_size = Vector2(0, 60)
+	_sfx_btn.pressed.connect(_on_sfx_toggle)
+	_update_sfx_btn()
+	$"../ScrollContainer/CenterContainer/VBox".add_child(_sfx_btn)
+
+	# Haptic toggle
+	_haptic_btn = Button.new()
+	_haptic_btn.custom_minimum_size = Vector2(0, 60)
+	_haptic_btn.pressed.connect(_on_haptic_toggle)
+	_update_haptic_btn()
+	$"../ScrollContainer/CenterContainer/VBox".add_child(_haptic_btn)
 
 	# Skin color row
 	var skin_row := HBoxContainer.new()
@@ -205,11 +246,11 @@ func _ready() -> void:
 	var changes_label := Label.new()
 	changes_label.text = (
 		"Последние изменения:\n"
+		+ "v0.7.0 — Музыка, шейдеры, настройки\n"
+		+ "v0.6.6 — Кастомизация, попап, кнопки\n"
+		+ "v0.6.0 — Аудио, переходы, эффекты\n"
 		+ "v0.5.5 — Визуальное обновление мини-игр\n"
-		+ "v0.5.4 — Уведомления, тосты, звёзды\n"
-		+ "v0.5.3 — Новая графика героя\n"
-		+ "v0.5.2 — Частицы, небо, настройки\n"
-		+ "v0.5.1 — E2E тесты, режим разработчика"
+		+ "v0.5.4 — Уведомления, тосты, звёзды"
 	)
 	changes_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	changes_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -239,15 +280,18 @@ func _on_about_toggle() -> void:
 func show_menu() -> void:
 	_update_dev_btn_text()
 	_dev_btn.visible = GameState.developer_mode
+	_update_sfx_btn()
+	_update_haptic_btn()
+	_update_volume_label()
 	# Collapse about panel on re-open
 	if _about_panel:
 		_about_panel.visible = false
 		_update_about_btn_text(false)
 	pause_layer.visible = true
-
-
+	AudioManager.play("popup_open")
 func hide_menu() -> void:
 	pause_layer.visible = false
+	AudioManager.play("popup_close")
 
 
 func _process(delta: float) -> void:
@@ -393,3 +437,44 @@ func _find_closest_scale_idx(value: float) -> int:
 			best_diff = diff
 			best_idx = i
 	return best_idx
+
+
+# ── Volume ───────────────────────────────────────────────────────
+
+func _on_vol_minus() -> void:
+	AudioManager.set_master_volume(AudioManager.get_master_volume() - 0.1)
+	_update_volume_label()
+	SaveManager.save_game()
+
+func _on_vol_plus() -> void:
+	AudioManager.set_master_volume(AudioManager.get_master_volume() + 0.1)
+	_update_volume_label()
+	SaveManager.save_game()
+
+func _update_volume_label() -> void:
+	if _volume_label:
+		_volume_label.text = "%d%%" % int(AudioManager.get_master_volume() * 100)
+
+
+# ── SFX toggle ──────────────────────────────────────────────────
+
+func _on_sfx_toggle() -> void:
+	AudioManager.set_sfx_enabled(not AudioManager.get_sfx_enabled())
+	_update_sfx_btn()
+	SaveManager.save_game()
+
+func _update_sfx_btn() -> void:
+	if _sfx_btn:
+		_sfx_btn.text = "Звуки: ВКЛ ✓" if AudioManager.get_sfx_enabled() else "Звуки: ВЫКЛ"
+
+
+# ── Haptic toggle ───────────────────────────────────────────────
+
+func _on_haptic_toggle() -> void:
+	GameState.haptic_enabled = not GameState.haptic_enabled
+	_update_haptic_btn()
+	SaveManager.save_game()
+
+func _update_haptic_btn() -> void:
+	if _haptic_btn:
+		_haptic_btn.text = "Вибрация: ВКЛ ✓" if GameState.haptic_enabled else "Вибрация: ВЫКЛ"

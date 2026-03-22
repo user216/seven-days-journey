@@ -20,11 +20,13 @@ func _ready() -> void:
 	new_game_btn.pressed.connect(_on_new_game)
 	title_label.gui_input.connect(_on_title_input)
 	_create_hopa_button()
+	_create_dialogue_button()
 	_update_dev_indicator()
 	_setup_background()
 	ThemeManager.apply_ui_scale_to_tree(self)
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree(self))
 	_animate_entrance()
+	AudioManager.play_music("menu_theme")
 
 
 func _setup_background() -> void:
@@ -39,12 +41,12 @@ func _setup_background() -> void:
 		bg.material = _sky_material
 
 	# Populate draw layer data
-	draw_layer.mountains = [
-		{"points": PackedVector2Array([Vector2(0, 1600), Vector2(200, 1100), Vector2(450, 1050), Vector2(700, 1200), Vector2(1080, 1600)]),
-		 "color": Color("#a8c97a"), "alpha": 0.4},
-		{"points": PackedVector2Array([Vector2(0, 1600), Vector2(250, 1000), Vector2(540, 850), Vector2(750, 1050), Vector2(1080, 1600)]),
-		 "color": Color("#5e8a3c"), "alpha": 0.7},
-	]
+	var mtns: Array[Dictionary] = []
+	mtns.append({"points": PackedVector2Array([Vector2(0, 1600), Vector2(200, 1100), Vector2(450, 1050), Vector2(700, 1200), Vector2(1080, 1600)]),
+		 "color": Color("#a8c97a"), "alpha": 0.4})
+	mtns.append({"points": PackedVector2Array([Vector2(0, 1600), Vector2(250, 1000), Vector2(540, 850), Vector2(750, 1050), Vector2(1080, 1600)]),
+		 "color": Color("#5e8a3c"), "alpha": 0.7})
+	draw_layer.mountains = mtns
 
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 42
@@ -158,6 +160,30 @@ func _create_hopa_button() -> void:
 	$VBox.add_child(hopa_btn)
 
 
+func _create_dialogue_button() -> void:
+	var dlg_btn := Button.new()
+	dlg_btn.name = "DialogueBtn"
+	dlg_btn.text = "Диалог с героем"
+	dlg_btn.custom_minimum_size = Vector2(400, 80)
+	dlg_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = ThemeManager.GOLDEN_AMBER
+	style.corner_radius_top_left = 12
+	style.corner_radius_top_right = 12
+	style.corner_radius_bottom_left = 12
+	style.corner_radius_bottom_right = 12
+	style.content_margin_left = 20.0
+	style.content_margin_right = 20.0
+	style.content_margin_top = 10.0
+	style.content_margin_bottom = 10.0
+	dlg_btn.add_theme_stylebox_override("normal", style)
+	dlg_btn.add_theme_color_override("font_color", Color.WHITE)
+
+	dlg_btn.pressed.connect(_on_dialogue)
+	$VBox.add_child(dlg_btn)
+
+
 func _animate_entrance() -> void:
 	var orig_y := title_label.position.y
 	title_label.modulate.a = 0.0
@@ -210,6 +236,10 @@ func _on_new_game() -> void:
 func _on_hopa() -> void:
 	GameState.hopa_current_level = HopaData.LEVEL_ORDER[0]
 	SceneTransition.change_scene_iris("res://scenes/hopa/hopa_scene_base.tscn")
+
+
+func _on_dialogue() -> void:
+	SceneTransition.change_scene_iris("res://scenes/hero_dialogue/mode_select.tscn")
 
 
 func _on_title_input(event: InputEvent) -> void:

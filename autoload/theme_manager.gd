@@ -1,5 +1,5 @@
 extends Node
-## Sattvic color palette and sky color interpolation.
+## Sattvic color palette, sky color interpolation, centralized Theme, button juice.
 
 # ── Sattvic palette (from bot's CSS variables) ────────────────────
 
@@ -24,6 +24,12 @@ const WARM_DANGER := Color("#c47a5a")
 
 const BASE_FONT_SCALE := 1.4
 
+var game_theme: Theme = null
+
+
+func _ready() -> void:
+	game_theme = _build_theme()
+
 
 func font_size(base: int) -> int:
 	## Returns base font size scaled by global scale factors.
@@ -31,7 +37,7 @@ func font_size(base: int) -> int:
 
 
 func apply_ui_scale_to_tree(node: Node) -> void:
-	## Recursively applies font size scaling to all Label and Button children.
+	## Recursively applies font size scaling and button juice to all children.
 	for child in node.get_children():
 		if child is Label or child is Button:
 			if not child.has_meta("_base_font_size"):
@@ -39,7 +45,102 @@ func apply_ui_scale_to_tree(node: Node) -> void:
 				child.set_meta("_base_font_size", current_size)
 			var base: int = child.get_meta("_base_font_size")
 			child.add_theme_font_size_override("font_size", font_size(base))
+		if child is Button:
+			apply_button_juice(child)
 		apply_ui_scale_to_tree(child)
+
+
+func apply_button_juice(btn: Button) -> void:
+	## Adds press animation + click sound to a button (idempotent).
+	if btn.has_meta("_button_juiced"):
+		return
+	btn.set_meta("_button_juiced", true)
+	btn.pivot_offset = btn.size * 0.5
+	btn.resized.connect(func(): btn.pivot_offset = btn.size * 0.5)
+	btn.button_down.connect(func():
+		AudioManager.play("click")
+		var tw := btn.create_tween()
+		tw.tween_property(btn, "scale", Vector2(0.93, 0.93), 0.06).set_ease(Tween.EASE_IN)
+	)
+	btn.button_up.connect(func():
+		var tw := btn.create_tween()
+		tw.tween_property(btn, "scale", Vector2.ONE, 0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	)
+
+
+func _build_theme() -> Theme:
+	## Builds a centralized Godot Theme resource with sattvic styling.
+	var t := Theme.new()
+
+	# Panel background
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.08, 0.08, 0.06, 0.88)
+	panel_style.corner_radius_top_left = 24
+	panel_style.corner_radius_top_right = 24
+	panel_style.corner_radius_bottom_left = 24
+	panel_style.corner_radius_bottom_right = 24
+	panel_style.content_margin_left = 32.0
+	panel_style.content_margin_top = 32.0
+	panel_style.content_margin_right = 32.0
+	panel_style.content_margin_bottom = 32.0
+	t.set_stylebox("panel", "PanelContainer", panel_style)
+
+	# Button normal
+	var btn_normal := StyleBoxFlat.new()
+	btn_normal.bg_color = SAGE_GREEN.darkened(0.1)
+	btn_normal.bg_color.a = 0.9
+	btn_normal.corner_radius_top_left = 16
+	btn_normal.corner_radius_top_right = 16
+	btn_normal.corner_radius_bottom_left = 16
+	btn_normal.corner_radius_bottom_right = 16
+	btn_normal.content_margin_left = 20.0
+	btn_normal.content_margin_top = 14.0
+	btn_normal.content_margin_right = 20.0
+	btn_normal.content_margin_bottom = 14.0
+	t.set_stylebox("normal", "Button", btn_normal)
+
+	# Button hover
+	var btn_hover := btn_normal.duplicate() as StyleBoxFlat
+	btn_hover.bg_color = SAGE_GREEN
+	t.set_stylebox("hover", "Button", btn_hover)
+
+	# Button pressed
+	var btn_pressed := btn_normal.duplicate() as StyleBoxFlat
+	btn_pressed.bg_color = SAGE_GREEN.darkened(0.3)
+	t.set_stylebox("pressed", "Button", btn_pressed)
+
+	# Button disabled
+	var btn_disabled := btn_normal.duplicate() as StyleBoxFlat
+	btn_disabled.bg_color = HINT_KHAKI.darkened(0.3)
+	btn_disabled.bg_color.a = 0.5
+	t.set_stylebox("disabled", "Button", btn_disabled)
+
+	# Button font colors
+	t.set_color("font_color", "Button", Color.WHITE)
+	t.set_color("font_hover_color", "Button", Color.WHITE)
+	t.set_color("font_pressed_color", "Button", LIGHT_GOLD)
+
+	# Label color
+	t.set_color("font_color", "Label", BG_CREAM)
+
+	# ProgressBar
+	var bar_fill := StyleBoxFlat.new()
+	bar_fill.bg_color = SAGE_GREEN
+	bar_fill.corner_radius_top_left = 6
+	bar_fill.corner_radius_top_right = 6
+	bar_fill.corner_radius_bottom_left = 6
+	bar_fill.corner_radius_bottom_right = 6
+	t.set_stylebox("fill", "ProgressBar", bar_fill)
+
+	var bar_bg := StyleBoxFlat.new()
+	bar_bg.bg_color = Color(0.2, 0.2, 0.15, 0.6)
+	bar_bg.corner_radius_top_left = 6
+	bar_bg.corner_radius_top_right = 6
+	bar_bg.corner_radius_bottom_left = 6
+	bar_bg.corner_radius_bottom_right = 6
+	t.set_stylebox("background", "ProgressBar", bar_bg)
+
+	return t
 
 # ── Hero dress colors per day ─────────────────────────────────────
 

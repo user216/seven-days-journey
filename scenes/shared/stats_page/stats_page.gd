@@ -92,7 +92,7 @@ func _build_content() -> void:
 	_add_section_header("Достижения (%d / %d)" % [GameState.achievements_earned.size(), GameData.ACHIEVEMENTS.size()])
 
 	for a in GameData.ACHIEVEMENTS:
-		var earned := a.key in GameState.achievements_earned
+		var earned: bool = a.key in GameState.achievements_earned
 		_add_achievement_row(a, earned)
 
 	# Bottom spacing

@@ -37,6 +37,9 @@ func _show_next() -> void:
 	toast_panel.visible = true
 	toast_panel.modulate.a = 0.0
 	toast_panel.position.y = 60.0
+	AudioManager.play("achievement")
+	SceneTransition.flash_screen(Color.WHITE)
+	GameState.vibrate(80)
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(toast_panel, "position:y", 0.0, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

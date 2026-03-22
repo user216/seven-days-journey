@@ -14,6 +14,10 @@ var _current_day_cards: Array[Dictionary] = []
 var _time_windows: Dictionary = {}  # slot_id -> {start: float, end: float}
 var _last_checked_minute: int = -1
 var _check_timer: float = 0.0
+var _day_ended_fired: bool = false
+var _day_start_time: float = 0.0
+
+const DAY_END_GRACE_SECONDS := 60.0
 
 const MIN_WINDOW_MINUTES := 10.0
 
@@ -41,7 +45,9 @@ func _process(delta: float) -> void:
 			_triggered_slots[card.slot_id] = true
 			activity_time_reached.emit(card.slot_id, card)
 
-	if now >= 1320.0:
+	var elapsed := Time.get_ticks_msec() / 1000.0 - _day_start_time
+	if now >= 1320.0 and not _day_ended_fired and not GameState.developer_mode and elapsed >= DAY_END_GRACE_SECONDS:
+		_day_ended_fired = true
 		day_ended.emit()
 
 
@@ -52,6 +58,8 @@ func start_day(day_num: int) -> void:
 	_current_day_cards = GameData.get_all_cards_for_day(day_num)
 	_compute_time_windows()
 	_last_checked_minute = -1
+	_day_ended_fired = false
+	_day_start_time = Time.get_ticks_msec() / 1000.0
 	paused = false
 
 	var now := _get_real_minutes()

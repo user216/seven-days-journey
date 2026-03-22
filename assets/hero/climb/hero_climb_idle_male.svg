@@ -51,16 +51,18 @@
   <ellipse cx="74" cy="183" rx="14" ry="8" fill="url(#shoe)" filter="url(#shadow)"/>
   <ellipse cx="74" cy="181" rx="10" ry="4" fill="#c8b088" opacity="0.25"/>
 
-  <!-- === PANTS (trousers) === -->
-  <polygon points="30,160 40,106 80,106 90,160" fill="url(#pants)" filter="url(#shadow)"/>
-  <!-- Center seam -->
-  <line x1="60" y1="106" x2="60" y2="160" stroke="#d4d0c8" stroke-width="1.2" opacity="0.4"/>
+  <!-- === PANTS (two separate legs) === -->
+  <polygon points="36,160 40,106 58,106 54,160" fill="url(#pants)" filter="url(#shadow)"/>
+  <polygon points="66,160 62,106 80,106 84,160" fill="url(#pants)" filter="url(#shadow)"/>
   <!-- Side creases -->
-  <line x1="50" y1="112" x2="46" y2="156" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
-  <line x1="70" y1="112" x2="74" y2="156" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
+  <line x1="48" y1="112" x2="44" y2="156" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
+  <line x1="72" y1="112" x2="76" y2="156" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
+  <!-- Inseam lines -->
+  <line x1="56" y1="110" x2="53" y2="158" stroke="#d4d0c8" stroke-width="1" opacity="0.3"/>
+  <line x1="64" y1="110" x2="67" y2="158" stroke="#d4d0c8" stroke-width="1" opacity="0.3"/>
   <!-- Hem lines -->
-  <line x1="32" y1="158" x2="58" y2="158" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
-  <line x1="62" y1="158" x2="88" y2="158" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
+  <line x1="37" y1="158" x2="53" y2="158" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
+  <line x1="67" y1="158" x2="83" y2="158" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
   <!-- Waistband -->
   <rect x="38" y="104" width="44" height="5" rx="2.5" fill="#e8dcd0" opacity="0.5"/>
 
@@ -77,16 +79,14 @@
   <circle cx="60" cy="100" r="2" fill="#d4cec4"/>
 
   <!-- === ARMS === -->
-  <!-- Left arm -->
   <line x1="38" y1="82" x2="22" y2="124" stroke="#d8b898" stroke-width="10" stroke-linecap="round" opacity="0.15"/>
   <line x1="38" y1="80" x2="22" y2="122" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
   <circle cx="22" cy="122" r="6.5" fill="url(#skin)"/>
   <circle cx="20" cy="120" r="2.5" fill="#fce4cc" opacity="0.35"/>
-  <!-- Right arm -->
   <line x1="82" y1="80" x2="98" y2="122" stroke="url(#skin)" stroke-width="10" stroke-linecap="round"/>
   <circle cx="98" cy="122" r="6.5" fill="url(#skin)"/>
   <circle cx="96" cy="120" r="2.5" fill="#fce4cc" opacity="0.35"/>
-  <!-- Sleeves (fitted, not puffy) -->
+  <!-- Sleeves (fitted) -->
   <ellipse cx="38" cy="80" rx="12" ry="10" fill="url(#shirt)" filter="url(#inner_shadow)"/>
   <ellipse cx="38" cy="78" rx="7" ry="4" fill="white" opacity="0.12"/>
   <ellipse cx="82" cy="80" rx="12" ry="10" fill="url(#shirt)" filter="url(#inner_shadow)"/>
@@ -95,50 +95,55 @@
   <!-- === NECK === -->
   <rect x="53" y="58" width="14" height="18" fill="url(#skin)" rx="5"/>
 
-  <!-- === HEAD (chibi — larger, rounder) === -->
+  <!-- === HAIR BACK (BEFORE head so skin shows on top) === -->
+  <path d="M28,40 L30,16 L60,5 L90,16 L92,40 L90,63 L84,66 L36,66 L30,63 Z" fill="#2a1808" opacity="0.35"/>
+  <path d="M30,38 L32,18 L60,8 L88,18 L90,38 L88,60 L82,62 L38,62 L32,60 Z" fill="url(#hair)"/>
+
+  <!-- === HEAD === -->
   <ellipse cx="60" cy="40" rx="30" ry="32" fill="url(#skin)" filter="url(#shadow)"/>
-  <!-- Cheek blush (subtle for male) -->
   <ellipse cx="36" cy="50" rx="7" ry="4" fill="#ffb0a0" opacity="0.12"/>
   <ellipse cx="84" cy="50" rx="7" ry="4" fill="#ffb0a0" opacity="0.12"/>
-  <!-- Forehead highlight -->
   <ellipse cx="58" cy="22" rx="16" ry="10" fill="white" opacity="0.07"/>
 
-  <!-- === HAIR (short male style — back stops at ~y=60) === -->
-  <!-- Back volume -->
-  <path d="M30,38 L32,18 L60,8 L88,18 L90,38 L88,60 L82,62 L38,62 L32,60 Z" fill="url(#hair)"/>
-  <!-- Crown shape -->
+  <!-- === HAIR TOP (crown + edges, AFTER head, BEFORE face) === -->
   <path d="M30,44 L34,18 L60,8 L86,18 L90,44" fill="url(#hair)"/>
-  <!-- Side volume (shorter) -->
-  <path d="M30,44 Q28,52 30,58 Q32,60 36,58" fill="url(#hair)" opacity="0.9"/>
-  <path d="M90,44 Q92,52 90,58 Q88,60 84,58" fill="url(#hair)" opacity="0.9"/>
-  <!-- Hair texture strands -->
+  <path d="M36,20 Q48,10 60,8 Q72,10 84,20" fill="url(#hair)" opacity="0.6"/>
+  <!-- Side volume (stops at y=54, above eye line) -->
+  <path d="M30,44 Q28,50 30,54 Q32,56 36,54" fill="url(#hair)" opacity="0.9"/>
+  <path d="M90,44 Q92,50 90,54 Q88,56 84,54" fill="url(#hair)" opacity="0.9"/>
+  <path d="M30,44 Q27,49 29,53 Q30,55 33,53" fill="#3a2010" opacity="0.25"/>
+  <path d="M90,44 Q93,49 91,53 Q90,55 87,53" fill="#3a2010" opacity="0.25"/>
+  <!-- Part line -->
+  <path d="M40,16 Q44,12 50,11" stroke="#2a1808" stroke-width="1.5" fill="none" opacity="0.35"/>
+  <path d="M42,12 Q54,6 66,8 Q78,10 84,16" stroke="#4a2a14" stroke-width="1.2" fill="none" opacity="0.2"/>
+  <!-- Hair strands (shortened to stay above face) -->
   <path d="M44,14 Q52,10 60,12" stroke="#7a5030" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.4"/>
-  <path d="M48,22 L46,42" stroke="#6a4428" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
-  <path d="M72,22 L76,42" stroke="#6a4428" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M48,22 L46,36" stroke="#6a4428" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M72,22 L76,36" stroke="#6a4428" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M38,26 Q40,32 38,38" stroke="#5a3420" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/>
+  <path d="M56,16 Q58,24 56,32" stroke="#6a4428" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M66,18 Q68,26 70,34" stroke="#5a3420" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.15"/>
+  <path d="M82,24 Q84,32 82,38" stroke="#6a4428" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.2"/>
   <!-- Hair shine -->
-  <path d="M50,14 Q54,18 52,32" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.1"/>
-  <path d="M68,16 Q70,22 68,30" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.07"/>
+  <path d="M50,14 Q54,18 52,28" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.1"/>
+  <path d="M68,16 Q70,22 68,28" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.07"/>
+  <path d="M42,18 Q46,24 44,32" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.08"/>
+  <path d="M76,18 Q78,24 76,32" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.06"/>
+  <path d="M60,10 Q62,16 60,22" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.12"/>
 
   <!-- === EYES === -->
-  <!-- Eye whites -->
   <ellipse cx="46" cy="44" rx="10" ry="9" fill="white" stroke="#e0d4c8" stroke-width="0.5"/>
   <ellipse cx="74" cy="44" rx="10" ry="9" fill="white" stroke="#e0d4c8" stroke-width="0.5"/>
-  <!-- Iris -->
   <circle cx="48" cy="44" r="6.5" fill="url(#iris)"/>
   <circle cx="76" cy="44" r="6.5" fill="url(#iris)"/>
-  <!-- Pupil -->
   <circle cx="48" cy="44" r="3.2" fill="#0a0800"/>
   <circle cx="76" cy="44" r="3.2" fill="#0a0800"/>
-  <!-- Main highlight -->
   <circle cx="51" cy="42" r="2.8" fill="white" opacity="0.92"/>
   <circle cx="79" cy="42" r="2.8" fill="white" opacity="0.92"/>
-  <!-- Secondary highlight -->
   <circle cx="46" cy="47" r="1.5" fill="white" opacity="0.5"/>
   <circle cx="74" cy="47" r="1.5" fill="white" opacity="0.5"/>
-  <!-- Upper eyelid (NO eyelashes) -->
   <path d="M36,39 Q46,33 56,39" stroke="#7a5a3a" stroke-width="2.2" fill="none"/>
   <path d="M64,39 Q74,33 84,39" stroke="#7a5a3a" stroke-width="2.2" fill="none"/>
-  <!-- Lower lash line -->
   <path d="M40,50 Q46,52 52,50" stroke="#c4a888" stroke-width="0.8" fill="none" opacity="0.3"/>
   <path d="M68,50 Q74,52 80,50" stroke="#c4a888" stroke-width="0.8" fill="none" opacity="0.3"/>
   <!-- Eyebrows — thicker for male -->
@@ -149,7 +154,7 @@
   <path d="M59,50 Q60.5,55 59.5,56" stroke="#d4b89a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
   <circle cx="57.5" cy="56" r="1" fill="#d4b89a" opacity="0.35"/>
 
-  <!-- Mouth — confident smile -->
+  <!-- Mouth -->
   <path d="M51,60 Q60,67 69,60" stroke="#c07858" stroke-width="2.5" fill="none" stroke-linecap="round"/>
   <path d="M53,63 Q60,65 67,63" stroke="#d8988a" stroke-width="1" fill="none" opacity="0.35"/>
 

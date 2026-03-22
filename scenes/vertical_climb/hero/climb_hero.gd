@@ -52,7 +52,6 @@ func _ready() -> void:
 	_sprite = Sprite2D.new()
 	_sprite.texture = _idle_tex
 	_sprite.scale = Vector2(BASE_SCALE, BASE_SCALE)
-	_sprite.self_modulate = dress_color
 	_sprite.position = Vector2(0, -50)
 
 	# Apply hero tint shader
@@ -68,7 +67,7 @@ func _ready() -> void:
 		var ghost := Sprite2D.new()
 		ghost.texture = _jump_tex
 		ghost.scale = Vector2(BASE_SCALE, BASE_SCALE)
-		ghost.self_modulate = Color(dress_color.r, dress_color.g, dress_color.b, 0.0)
+		ghost.self_modulate = Color(1.0, 1.0, 1.0, 0.0)
 		ghost.position = Vector2(0, -50)
 		ghost.z_index = -1
 		add_child(ghost)
@@ -85,6 +84,7 @@ func _apply_hero_tints() -> void:
 	if _hero_shader:
 		_hero_shader.set_shader_parameter("skin_tint", GameState.get_skin_tint())
 		_hero_shader.set_shader_parameter("hair_tint", GameState.get_hair_tint())
+		_hero_shader.set_shader_parameter("dress_tint", dress_color)
 		_hero_shader.set_shader_parameter("glow_intensity", 0.35)
 		_hero_shader.set_shader_parameter("glow_color", dress_color.lightened(0.4))
 

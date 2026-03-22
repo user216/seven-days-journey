@@ -51,16 +51,20 @@
   <ellipse cx="82" cy="177" rx="14" ry="8" fill="url(#shoe)" filter="url(#shadow)"/>
   <ellipse cx="82" cy="175" rx="10" ry="4" fill="#c8b088" opacity="0.25"/>
 
-  <!-- === PANTS — dynamic spread === -->
-  <polygon points="24,148 38,94 82,94 96,148" fill="url(#pants)" filter="url(#shadow)"/>
-  <!-- Center seam -->
-  <line x1="60" y1="94" x2="60" y2="148" stroke="#d4d0c8" stroke-width="1.2" opacity="0.4"/>
+  <!-- === PANTS — two separate legs === -->
+  <!-- Left pant leg -->
+  <polygon points="30,148 38,94 58,94 50,148" fill="url(#pants)" filter="url(#shadow)"/>
+  <!-- Right pant leg -->
+  <polygon points="70,148 62,94 82,94 90,148" fill="url(#pants)" filter="url(#shadow)"/>
+  <!-- Inseam lines -->
+  <line x1="58" y1="94" x2="50" y2="148" stroke="#d4d0c8" stroke-width="1.2" opacity="0.4"/>
+  <line x1="62" y1="94" x2="70" y2="148" stroke="#d4d0c8" stroke-width="1.2" opacity="0.4"/>
   <!-- Side creases -->
-  <line x1="48" y1="100" x2="40" y2="144" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
-  <line x1="72" y1="100" x2="80" y2="144" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
+  <line x1="46" y1="100" x2="38" y2="144" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
+  <line x1="74" y1="100" x2="82" y2="144" stroke="#ddd" stroke-width="1.2" opacity="0.3"/>
   <!-- Hem lines -->
-  <line x1="26" y1="146" x2="58" y2="146" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
-  <line x1="62" y1="146" x2="94" y2="146" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
+  <line x1="30" y1="146" x2="50" y2="146" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
+  <line x1="70" y1="146" x2="90" y2="146" stroke="#d0ccc4" stroke-width="1.5" opacity="0.5"/>
 
   <!-- === TORSO / SHIRT === -->
   <path d="M38,94 Q36,66 40,62 L80,62 Q84,66 82,94Z" fill="url(#shirt)" filter="url(#inner_shadow)"/>
@@ -93,6 +97,12 @@
   <!-- === NECK === -->
   <rect x="53" y="46" width="14" height="18" fill="url(#skin)" rx="5"/>
 
+  <!-- === HAIR BACK (behind head) === -->
+  <!-- Dark base shadow behind hair volume -->
+  <path d="M28,28 L30,4 L60,-7 L90,4 L92,28 L90,51 L84,54 L36,54 L30,51 Z" fill="#2a1808" opacity="0.35"/>
+  <!-- Back volume — shifted up 12 from idle -->
+  <path d="M30,26 L32,6 L60,-4 L88,6 L90,26 L88,48 L82,50 L38,50 L32,48 Z" fill="url(#hair)"/>
+
   <!-- === HEAD (chibi — larger, rounder) === -->
   <ellipse cx="60" cy="28" rx="30" ry="32" fill="url(#skin)" filter="url(#shadow)"/>
   <!-- Cheek blush (subtle for male) -->
@@ -101,25 +111,43 @@
   <!-- Forehead highlight -->
   <ellipse cx="58" cy="10" rx="16" ry="10" fill="white" opacity="0.07"/>
 
-  <!-- === HAIR (short male — with wind motion strokes) === -->
-  <!-- Back volume — shifted up 12 from idle -->
-  <path d="M30,26 L32,6 L60,-4 L88,6 L90,26 L88,48 L82,50 L38,50 L32,48 Z" fill="url(#hair)"/>
-  <!-- Crown shape -->
+  <!-- === HAIR TOP (crown, sides, strands, wind effects) === -->
+  <!-- Crown shape with strong definition -->
   <path d="M30,32 L34,6 L60,-4 L86,6 L90,32" fill="url(#hair)"/>
-  <!-- Side volume -->
-  <path d="M30,32 Q27,40 30,46 Q32,48 36,46" fill="url(#hair)" opacity="0.9"/>
-  <path d="M90,32 Q93,40 90,46 Q88,48 84,46" fill="url(#hair)" opacity="0.9"/>
+  <!-- Top volume texture layer (slight upward lift from wind) -->
+  <path d="M36,8 Q48,-2 60,-4 Q72,-2 84,8" fill="url(#hair)" opacity="0.6"/>
+  <!-- Side volume (clipped to y<=42) -->
+  <path d="M30,32 Q27,38 30,42 Q32,42 35,40" fill="url(#hair)" opacity="0.9"/>
+  <path d="M90,32 Q93,38 90,42 Q88,42 85,40" fill="url(#hair)" opacity="0.9"/>
+  <!-- Left side depth layer -->
+  <path d="M30,32 Q27,37 29,40 Q30,42 33,40" fill="#3a2010" opacity="0.25"/>
+  <!-- Right side depth layer -->
+  <path d="M90,32 Q93,37 91,40 Q90,42 87,40" fill="#3a2010" opacity="0.25"/>
+  <!-- Side-part suggestion (left) -->
+  <path d="M40,4 Q44,0 50,-1" stroke="#2a1808" stroke-width="1.5" fill="none" opacity="0.35"/>
+  <!-- Crown definition arc -->
+  <path d="M42,0 Q54,-6 66,-4 Q78,-2 84,4" stroke="#4a2a14" stroke-width="1.2" fill="none" opacity="0.2"/>
   <!-- Hair texture strands -->
   <path d="M44,2 Q52,-2 60,0" stroke="#7a5030" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.4"/>
   <path d="M48,10 L46,30" stroke="#6a4428" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
   <path d="M72,10 L76,30" stroke="#6a4428" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
-  <!-- Wind motion strokes -->
-  <path d="M32,40 Q26,44 22,42" stroke="url(#hair)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <!-- Additional layered strands -->
+  <path d="M38,14 Q40,22 38,34" stroke="#5a3420" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/>
+  <path d="M56,4 Q58,14 56,26" stroke="#6a4428" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M66,6 Q68,16 70,28" stroke="#5a3420" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.15"/>
+  <path d="M82,12 Q84,22 82,34" stroke="#6a4428" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <!-- Wind motion strokes (upward lift) -->
+  <path d="M32,40 Q28,42 24,42" stroke="url(#hair)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6"/>
   <path d="M90,38 Q96,42 100,40" stroke="url(#hair)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.5"/>
-  <path d="M34,46 Q28,50 24,48" stroke="url(#hair)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
-  <!-- Hair shine -->
+  <path d="M33,40 Q28,42 24,41" stroke="url(#hair)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <path d="M60,-4 Q62,-8 64,-6" stroke="url(#hair)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <!-- Hair shine highlights -->
   <path d="M50,2 Q54,6 52,20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.1"/>
   <path d="M68,4 Q70,10 68,18" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.07"/>
+  <!-- Additional contour highlights -->
+  <path d="M42,6 Q46,12 44,24" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.08"/>
+  <path d="M76,6 Q78,14 76,24" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.06"/>
+  <path d="M60,-2 Q62,4 60,12" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.12"/>
 
   <!-- === EYES (slightly taller — excited) === -->
   <!-- Eye whites -->

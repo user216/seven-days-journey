@@ -37,9 +37,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -400.0
-offset_top = -600.0
+offset_top = -500.0
 offset_right = 400.0
-offset_bottom = 600.0
+offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -53,7 +53,7 @@ text = "Настройте персонажа"
 horizontal_alignment = 1
 
 [node name="Preview" type="TextureRect" parent="VBox"]
-custom_minimum_size = Vector2(200, 360)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 expand_mode = 1

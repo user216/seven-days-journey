@@ -19,12 +19,14 @@ var _current_slot_id: String = ""
 var _current_interaction: Node = null
 var _interaction_completed: bool = false
 var _hide_tween: Tween = null
+var _panel_orig_y: float = 0.0
 
 
 func _ready() -> void:
 	close_btn.pressed.connect(_on_close)
 	skip_btn.pressed.connect(_on_skip)
 	done_btn.pressed.connect(_on_done)
+	_panel_orig_y = panel.position.y
 	hide_popup()
 	ThemeManager.apply_ui_scale_to_tree($"..")
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree($".."))
@@ -58,20 +60,22 @@ func show_popup(card: Dictionary, day_num: int) -> void:
 
 	popup_layer.visible = true
 	TimeSystem.pause()
+	AudioManager.play("popup_open")
+	GameState.vibrate(20)
 
 	# Animate in: dimmer fade + panel slide up with spring
 	dimmer.modulate.a = 0.0
 	panel.modulate.a = 0.0
-	panel.position.y += 80.0
-	var orig_y := panel.position.y - 80.0
+	panel.position.y = _panel_orig_y + 80.0
 	var tween := create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(dimmer, "modulate:a", 1.0, 0.25)
 	tween.tween_property(panel, "modulate:a", 1.0, 0.3).set_delay(0.05)
-	tween.tween_property(panel, "position:y", orig_y, 0.35).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(panel, "position:y", _panel_orig_y, 0.35).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 
 func hide_popup() -> void:
+	panel.position.y = _panel_orig_y
 	popup_layer.visible = false
 	if _current_interaction:
 		_current_interaction.queue_free()
@@ -82,10 +86,11 @@ func _animate_hide_and(callback: Callable) -> void:
 	if _hide_tween and _hide_tween.is_running():
 		return
 	_hide_tween = create_tween()
+	AudioManager.play("popup_close")
 	_hide_tween.set_parallel(true)
 	_hide_tween.tween_property(dimmer, "modulate:a", 0.0, 0.2)
 	_hide_tween.tween_property(panel, "modulate:a", 0.0, 0.15)
-	_hide_tween.tween_property(panel, "position:y", panel.position.y + 60.0, 0.2).set_ease(Tween.EASE_IN)
+	_hide_tween.tween_property(panel, "position:y", _panel_orig_y + 60.0, 0.2).set_ease(Tween.EASE_IN)
 	_hide_tween.chain().tween_callback(func():
 		hide_popup()
 		callback.call()

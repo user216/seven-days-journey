@@ -2,7 +2,7 @@ extends Node
 ## Save/load game state via ConfigFile to user://save_data.cfg.
 
 const SAVE_PATH := "user://save_data.cfg"
-const SAVE_VERSION := 3
+const SAVE_VERSION := 6
 
 func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
@@ -42,11 +42,20 @@ func save_game() -> void:
 	cfg.set_value("settings", "hero_skin_idx", GameState.hero_skin_idx)
 	cfg.set_value("settings", "hero_hair_idx", GameState.hero_hair_idx)
 	cfg.set_value("settings", "hero_hair_style_idx", GameState.hero_hair_style_idx)
+	cfg.set_value("settings", "audio_volume", AudioManager.get_master_volume())
+	cfg.set_value("settings", "ambient_enabled", AudioManager._ambient_enabled)
+	cfg.set_value("settings", "sfx_enabled", AudioManager.get_sfx_enabled())
+	cfg.set_value("settings", "haptic_enabled", GameState.haptic_enabled)
 
 	# HOPA progress (v3)
 	cfg.set_value("hopa", "progress", JSON.stringify(GameState.hopa_progress))
 	cfg.set_value("hopa", "inventory", ",".join(GameState.hopa_inventory))
 	cfg.set_value("hopa", "current_level", GameState.hopa_current_level)
+
+	# Dialogue progress (v6)
+	cfg.set_value("dialogue", "mode", GameState.dialogue_mode)
+	cfg.set_value("dialogue", "progress", JSON.stringify(GameState.dialogue_progress))
+	cfg.set_value("dialogue", "choices", JSON.stringify(GameState.dialogue_choices))
 
 	cfg.save(SAVE_PATH)
 
@@ -100,6 +109,12 @@ func load_game() -> bool:
 	GameState.hero_hair_idx = cfg.get_value("settings", "hero_hair_idx", 0)
 	GameState.hero_hair_style_idx = cfg.get_value("settings", "hero_hair_style_idx", 0)
 
+	# Audio settings (v4+)
+	AudioManager.set_master_volume(cfg.get_value("settings", "audio_volume", 0.7))
+	AudioManager.set_ambient_enabled(cfg.get_value("settings", "ambient_enabled", true))
+	AudioManager.set_sfx_enabled(cfg.get_value("settings", "sfx_enabled", true))
+	GameState.haptic_enabled = cfg.get_value("settings", "haptic_enabled", true)
+
 	# HOPA progress (v3 — missing keys default to empty)
 	var hopa_str: String = cfg.get_value("hopa", "progress", "{}")
 	var hopa_parsed = JSON.parse_string(hopa_str)
@@ -111,6 +126,22 @@ func load_game() -> bool:
 	else:
 		GameState.hopa_inventory = []
 	GameState.hopa_current_level = cfg.get_value("hopa", "current_level", "")
+
+	# Dialogue progress (v6 — missing keys default to empty)
+	GameState.dialogue_mode = cfg.get_value("dialogue", "mode", "")
+	var dlg_prog_str: String = cfg.get_value("dialogue", "progress", "{}")
+	var dlg_prog_parsed = JSON.parse_string(dlg_prog_str)
+	if dlg_prog_parsed is Dictionary:
+		GameState.dialogue_progress = {}
+		for day_str in dlg_prog_parsed:
+			var day_num := int(day_str)
+			GameState.dialogue_progress[day_num] = []
+			for slot in dlg_prog_parsed[day_str]:
+				GameState.dialogue_progress[day_num].append(str(slot))
+	var dlg_choices_str: String = cfg.get_value("dialogue", "choices", "{}")
+	var dlg_choices_parsed = JSON.parse_string(dlg_choices_str)
+	if dlg_choices_parsed is Dictionary:
+		GameState.dialogue_choices = dlg_choices_parsed
 
 	return true
 

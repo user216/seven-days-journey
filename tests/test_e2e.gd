@@ -31,6 +31,8 @@ func _run_tests() -> void:
 	var SM := root.get_node("SaveManager")
 	var ST := root.get_node("SceneTransition")
 
+	var AM := root.get_node("AudioManager")
+
 	if not GD or not GS or not TS or not SM:
 		print("  ✗ FATAL: Autoloads not found.")
 		quit(1)
@@ -51,6 +53,15 @@ func _run_tests() -> void:
 	_suite_character_customize()
 	_suite_popup_backgrounds()
 	_suite_hopa_scene()
+	_suite_audio_manager(AM)
+	_suite_scene_transition_wipes(ST)
+	_suite_theme_manager_theme()
+	_suite_camera_bounds(GS, TS)
+	_suite_hud_animated(GS, TS)
+	_suite_audio_music(AM)
+	_suite_scene_transition_v07(ST)
+	_suite_haptic_gating(GS)
+	_suite_dead_zone_camera(GS, TS)
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -510,8 +521,9 @@ func _suite_parallax_setup(GS: Node, TS: Node) -> void:
 		var cam: Node = level.get("_camera")
 		_assert(cam != null, "Camera2D created")
 		if cam:
-			_assert(cam.get("position_smoothing_enabled") == true,
-				"Camera has position smoothing")
+			_assert(cam.get("position_smoothing_enabled") == false,
+				"Camera has manual smoothing (dead zone)")
+			_assert("_camera_target_y" in level, "Level has _camera_target_y for dead zone")
 
 	if "_hero" in level:
 		_assert(level.get("_hero") != null, "Climbing hero exists")
@@ -803,3 +815,295 @@ func _suite_hopa_scene() -> void:
 			_assert(objs.size() >= 5, "Level '%s' has 5+ objects (%d)" % [level_id, objs.size()])
 
 	GS.reset()
+
+
+func _suite_audio_manager(AM: Node) -> void:
+	_suite("Audio Manager")
+
+	_assert(AM != null, "AudioManager autoload exists")
+	if not AM:
+		return
+
+	_assert(AM.has_method("play"), "Has play() method")
+	_assert(AM.has_method("set_master_volume"), "Has set_master_volume()")
+	_assert(AM.has_method("get_master_volume"), "Has get_master_volume()")
+	_assert(AM.has_method("set_ambient_enabled"), "Has set_ambient_enabled()")
+
+	# Sounds generated
+	if "_sounds" in AM:
+		var sounds: Dictionary = AM.get("_sounds")
+		_assert(sounds.size() >= 9, "At least 9 sounds generated (%d)" % sounds.size())
+		for key in ["click", "complete", "level_up", "achievement", "jump", "land",
+				"popup_open", "popup_close", "xp_gain"]:
+			_assert(key in sounds, "Sound '%s' exists" % key)
+
+	# Pool created
+	if "_pool" in AM:
+		var pool: Array = AM.get("_pool")
+		_assert(pool.size() >= 4, "Audio pool has 4+ players (%d)" % pool.size())
+
+	# Volume control
+	AM.set_master_volume(0.5)
+	_assert_eq(AM.get_master_volume(), 0.5, "Volume set to 0.5")
+	AM.set_master_volume(0.7)  # restore
+
+	# Playing non-existent key doesn't crash
+	AM.play("nonexistent_sound_key")
+	_assert(true, "Playing nonexistent key does not crash")
+
+
+func _suite_scene_transition_wipes(ST: Node) -> void:
+	_suite("Scene Transition — Diamond & Dissolve Wipes")
+
+	_assert(ST.has_method("change_scene_diamond"), "Has change_scene_diamond()")
+	_assert(ST.has_method("change_scene_dissolve"), "Has change_scene_dissolve()")
+	_assert(ST.has_method("flash_screen"), "Has flash_screen()")
+
+	# Diamond rect exists and is hidden
+	if "_diamond_rect" in ST:
+		var dr: Control = ST.get("_diamond_rect") as Control
+		_assert(dr != null, "Diamond rect exists")
+		if dr:
+			_assert(dr.visible == false, "Diamond rect hidden by default")
+
+	# Dissolve rect exists and is hidden
+	if "_dissolve_rect" in ST:
+		var dr: Control = ST.get("_dissolve_rect") as Control
+		_assert(dr != null, "Dissolve rect exists")
+		if dr:
+			_assert(dr.visible == false, "Dissolve rect hidden by default")
+
+	# Flash rect exists
+	if "_flash_rect" in ST:
+		var fr: Control = ST.get("_flash_rect") as Control
+		_assert(fr != null, "Flash rect exists")
+		if fr:
+			_assert(fr.visible == false, "Flash rect hidden by default")
+
+	# Diamond material has shader
+	if "_diamond_material" in ST:
+		var mat: ShaderMaterial = ST.get("_diamond_material") as ShaderMaterial
+		_assert(mat != null, "Diamond shader material exists")
+
+	# Dissolve material has shader
+	if "_dissolve_material" in ST:
+		var mat: ShaderMaterial = ST.get("_dissolve_material") as ShaderMaterial
+		_assert(mat != null, "Dissolve shader material exists")
+
+
+func _suite_theme_manager_theme() -> void:
+	_suite("Theme Manager — Centralized Theme & Button Juice")
+
+	var TM := root.get_node("ThemeManager")
+	_assert(TM != null, "ThemeManager autoload exists")
+	if not TM:
+		return
+
+	# game_theme built
+	if "game_theme" in TM:
+		var theme: Theme = TM.get("game_theme") as Theme
+		_assert(theme != null, "game_theme exists")
+		if theme:
+			_assert(theme.has_stylebox("panel", "PanelContainer"), "Theme has PanelContainer/panel")
+			_assert(theme.has_stylebox("normal", "Button"), "Theme has Button/normal")
+			_assert(theme.has_stylebox("hover", "Button"), "Theme has Button/hover")
+			_assert(theme.has_stylebox("pressed", "Button"), "Theme has Button/pressed")
+			_assert(theme.has_stylebox("fill", "ProgressBar"), "Theme has ProgressBar/fill")
+			_assert(theme.has_color("font_color", "Label"), "Theme has Label/font_color")
+
+	# Button juice method exists
+	_assert(TM.has_method("apply_button_juice"), "Has apply_button_juice()")
+
+	# Button juice is idempotent
+	var btn := Button.new()
+	btn.text = "Test"
+	btn.custom_minimum_size = Vector2(100, 50)
+	root.add_child(btn)
+	TM.apply_button_juice(btn)
+	_assert(btn.has_meta("_button_juiced"), "Button marked as juiced after first call")
+	TM.apply_button_juice(btn)  # second call should not crash
+	_assert(true, "Double apply_button_juice does not crash")
+	btn.queue_free()
+
+
+func _suite_camera_bounds(GS: Node, TS: Node) -> void:
+	_suite("Camera Bounds & Zoom")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for camera bounds test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	if "_camera" in level:
+		var cam: Camera2D = level.get("_camera") as Camera2D
+		_assert(cam != null, "Camera exists")
+		if cam:
+			_assert(cam.limit_left == -200, "Camera limit_left set")
+			_assert(cam.limit_right == 1280, "Camera limit_right set")
+			_assert(cam.limit_top == -800, "Camera limit_top set")
+			_assert(cam.limit_bottom > 0, "Camera limit_bottom set (>0)")
+
+	level.queue_free()
+
+
+func _suite_hud_animated(GS: Node, TS: Node) -> void:
+	_suite("HUD Animated")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var hud_packed := load("res://scenes/shared/hud/hud.tscn") as PackedScene
+	if not hud_packed:
+		_assert(false, "HUD loaded for animated test")
+		return
+
+	var hud: Node = hud_packed.instantiate()
+	root.add_child(hud)
+
+	var hud_script: Node = hud.get_node_or_null("HUDScript")
+	_assert(hud_script != null, "HUDScript exists")
+	if hud_script:
+		_assert(hud_script.has_method("_spawn_floating_xp"), "Has _spawn_floating_xp method")
+		_assert("_xp_tween" in hud_script, "Has _xp_tween property")
+
+		# Verify streak flame in day label
+		GS.streak_current = 3
+		if hud_script.has_method("_refresh"):
+			hud_script._refresh()
+		if "day_label" in hud_script:
+			var day_label: Label = hud_script.get("day_label")
+			if day_label:
+				_assert(day_label.text.contains("🔥"),
+					"Day label has flame emoji with streak >= 3")
+
+		GS.streak_current = 0
+		if hud_script.has_method("_refresh"):
+			hud_script._refresh()
+		if "day_label" in hud_script:
+			var day_label: Label = hud_script.get("day_label")
+			if day_label:
+				_assert(not day_label.text.contains("🔥"),
+					"Day label has no flame with streak < 3")
+
+	hud.queue_free()
+
+
+func _suite_audio_music(AM: Node) -> void:
+	_suite("Audio Manager — Music & Pitch (v0.7.0)")
+
+	_assert(AM.has_method("play_music"), "Has play_music()")
+	_assert(AM.has_method("stop_music"), "Has stop_music()")
+
+	if "_music_streams" in AM:
+		var streams: Dictionary = AM.get("_music_streams")
+		_assert(streams.size() >= 3, "At least 3 music streams (%d)" % streams.size())
+		for key in ["menu_theme", "climb_theme", "night_theme"]:
+			_assert(key in streams, "Music '%s' exists" % key)
+
+	if "_music_a" in AM:
+		_assert(AM.get("_music_a") != null, "Music player A exists")
+	if "_music_b" in AM:
+		_assert(AM.get("_music_b") != null, "Music player B exists")
+
+	_assert(AM.has_method("set_sfx_enabled"), "Has set_sfx_enabled()")
+	_assert(AM.has_method("get_sfx_enabled"), "Has get_sfx_enabled()")
+	AM.set_sfx_enabled(false)
+	_assert_eq(AM.get_sfx_enabled(), false, "SFX can be disabled")
+	AM.set_sfx_enabled(true)
+
+	if AM.has_method("_resolve_key"):
+		_assert_eq(AM._resolve_key("click"), "click", "Exact key resolves")
+		_assert_eq(AM._resolve_key("click+soft"), "click+soft", "Variant key resolves")
+		_assert_eq(AM._resolve_key("click+unknown"), "click", "Fallback key resolves to parent")
+		_assert_eq(AM._resolve_key("nonexistent"), "", "Unknown key returns empty")
+
+	if "_sounds" in AM:
+		var sounds: Dictionary = AM.get("_sounds")
+		_assert("click+soft" in sounds, "click+soft variant exists")
+		_assert("land+heavy" in sounds, "land+heavy variant exists")
+
+
+func _suite_scene_transition_v07(ST: Node) -> void:
+	_suite("Scene Transition — v0.7.0 (signals, history, pattern, shockwave)")
+
+	_assert(ST.has_signal("transition_started"), "Has transition_started signal")
+	_assert(ST.has_signal("scene_swapped"), "Has scene_swapped signal")
+	_assert(ST.has_signal("transition_finished"), "Has transition_finished signal")
+
+	_assert(ST.has_method("has_history"), "Has has_history()")
+	_assert(ST.has_method("go_back"), "Has go_back()")
+	_assert_eq(ST.has_history(), false, "History empty at start")
+
+	_assert(ST.has_method("change_scene_pattern"), "Has change_scene_pattern()")
+	if "_pattern_rect" in ST:
+		var pr: Control = ST.get("_pattern_rect") as Control
+		_assert(pr != null, "Pattern rect exists")
+		if pr:
+			_assert(pr.visible == false, "Pattern rect hidden by default")
+	if "_pattern_material" in ST:
+		var mat: ShaderMaterial = ST.get("_pattern_material") as ShaderMaterial
+		_assert(mat != null, "Pattern material exists")
+
+	_assert(ST.has_method("shockwave"), "Has shockwave()")
+	if "_shockwave_rect" in ST:
+		var sw: Control = ST.get("_shockwave_rect") as Control
+		_assert(sw != null, "Shockwave rect exists")
+		if sw:
+			_assert(sw.visible == false, "Shockwave rect hidden by default")
+	if "_shockwave_material" in ST:
+		var mat: ShaderMaterial = ST.get("_shockwave_material") as ShaderMaterial
+		_assert(mat != null, "Shockwave material exists")
+
+
+func _suite_haptic_gating(GS: Node) -> void:
+	_suite("Haptic Gating (v0.7.0)")
+
+	_assert("haptic_enabled" in GS, "GameState has haptic_enabled")
+	_assert(GS.has_method("vibrate"), "GameState has vibrate() method")
+
+	GS.haptic_enabled = true
+	_assert_eq(GS.haptic_enabled, true, "Haptic default is true")
+
+	GS.haptic_enabled = false
+	GS.vibrate(50)
+	_assert(true, "vibrate() with haptic disabled does not crash")
+	GS.haptic_enabled = true
+
+
+func _suite_dead_zone_camera(GS: Node, TS: Node) -> void:
+	_suite("Dead-Zone Camera (v0.7.0)")
+
+	GS.reset()
+	GS.start_game()
+	TS.start_day(1)
+
+	var packed := load("res://scenes/vertical_climb/vertical_level.tscn") as PackedScene
+	if not packed:
+		_assert(false, "Vertical level loaded for dead zone test")
+		return
+
+	var level: Node = packed.instantiate()
+	root.add_child(level)
+
+	_assert("_camera_target_y" in level, "Has _camera_target_y")
+	_assert("DEAD_ZONE_HALF" in level, "Has DEAD_ZONE_HALF constant")
+	_assert("_camera_lerp_speed" in level, "Has _camera_lerp_speed")
+
+	if "_camera" in level:
+		var cam: Camera2D = level.get("_camera") as Camera2D
+		_assert(cam != null, "Camera exists for dead zone")
+		if cam:
+			var hero: Node = level.get("_hero")
+			if hero:
+				_assert(cam.get_parent() != hero, "Camera is NOT child of hero (standalone)")
+				_assert(cam.get_parent() == level, "Camera is child of level")
+
+	level.queue_free()

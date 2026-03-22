@@ -14,6 +14,11 @@ var _current_platform: int = 0
 var _anim_time: float = 0.0
 var _camera: Camera2D = null
 
+# Dead-zone camera — camera stays still while hero is within center band
+const DEAD_ZONE_HALF := 0.15  # 30% of viewport height = ±15% from center
+var _camera_target_y: float = 0.0
+var _camera_lerp_speed: float = 3.5
+
 const PLATFORM_HEIGHT := 300.0
 const PLATFORM_WIDTH := 280.0
 const PLATFORM_TEX_HEIGHT := 40.0
@@ -63,15 +68,21 @@ var _near_layer: ParallaxLayer = null
 var _leaf_particles: GPUParticles2D = null
 var _firefly_particles: GPUParticles2D = null
 
-# Screen shake
-var _shake_amount: float = 0.0
-var _shake_decay: float = 8.0
+# Screen shake — trauma-based with perlin noise (Squirrel Eiserloh pattern)
+var _trauma: float = 0.0
+var _trauma_decay: float = 3.0
+var _shake_noise := FastNoiseLite.new()
+var _shake_noise_y: int = 0
+const MAX_SHAKE_OFFSET := Vector2(16.0, 10.0)
+const MAX_SHAKE_ROTATION := 0.04  # radians
 
 # Completion sparkle particles (reusable)
 var _sparkle_particles: GPUParticles2D = null
 
 
 func _ready() -> void:
+	_shake_noise.seed = randi()
+	_shake_noise.frequency = 2.0
 	_setup_sky()
 	_setup_parallax()
 	_setup_particles()
@@ -82,6 +93,8 @@ func _ready() -> void:
 	TimeSystem.time_changed.connect(_on_time_changed)
 	TimeSystem.day_ended.connect(_on_day_ended)
 	TimeSystem.start_day(GameState.current_day)
+	_refresh_platform_states()
+	AudioManager.play_music("climb_theme")
 
 
 func _setup_sky() -> void:
@@ -322,8 +335,8 @@ func _emit_sparkles(pos: Vector2) -> void:
 	_sparkle_particles.emitting = true
 
 
-func _shake_camera(amount: float) -> void:
-	_shake_amount = amount
+func _shake_camera(trauma_amount: float) -> void:
+	_trauma = minf(_trauma + trauma_amount, 1.0)
 
 
 func _build_level() -> void:
@@ -353,11 +366,16 @@ func _build_level() -> void:
 		_hero.position = platforms[0].pos + Vector2(PLATFORM_WIDTH * 0.5, -40)
 	add_child(_hero)
 
-	# Camera
+	# Camera — standalone with dead-zone following
 	_camera = Camera2D.new()
-	_camera.position_smoothing_enabled = true
-	_camera.position_smoothing_speed = 4.0
-	_hero.add_child(_camera)
+	_camera.position_smoothing_enabled = false  # we handle smoothing manually
+	_camera.limit_left = -200
+	_camera.limit_right = 1280
+	_camera.limit_bottom = int(total_height + 500)
+	_camera.limit_top = -800
+	add_child(_camera)
+	_camera.position = _hero.position
+	_camera_target_y = _hero.position.y
 	_camera.make_current()
 
 	# UI
@@ -419,10 +437,21 @@ func _process(delta: float) -> void:
 	_update_sky_colors()
 	_update_particles()
 
-	var cam_pos := _hero.position if _hero else Vector2.ZERO
-	_sky_rect.position = Vector2(-500, cam_pos.y - 1500)
-	_leaf_particles.position = Vector2(500, cam_pos.y - 500)
-	_firefly_particles.position = Vector2(500, cam_pos.y - 300)
+	var hero_pos := _hero.position if _hero else Vector2.ZERO
+
+	# Dead-zone camera: only update target when hero leaves center band
+	if _camera and _hero:
+		var vp_h: float = get_viewport_rect().size.y / _camera.zoom.y
+		var dead_zone_px: float = vp_h * DEAD_ZONE_HALF
+		var diff_y: float = hero_pos.y - _camera_target_y
+		if abs(diff_y) > dead_zone_px:
+			_camera_target_y = hero_pos.y - sign(diff_y) * dead_zone_px
+		_camera.position.x = lerpf(_camera.position.x, hero_pos.x, _camera_lerp_speed * delta)
+		_camera.position.y = lerpf(_camera.position.y, _camera_target_y, _camera_lerp_speed * delta)
+
+	_sky_rect.position = Vector2(-500, hero_pos.y - 1500)
+	_leaf_particles.position = Vector2(500, hero_pos.y - 500)
+	_firefly_particles.position = Vector2(500, hero_pos.y - 300)
 
 	# Cloud drift
 	for cloud in _cloud_sprites:
@@ -430,16 +459,21 @@ func _process(delta: float) -> void:
 		if cloud.position.x > 1300.0:
 			cloud.position.x = -400.0
 
-	# Screen shake decay
-	if _shake_amount > 0.01:
-		_shake_amount = lerpf(_shake_amount, 0.0, _shake_decay * delta)
-		if _camera:
-			_camera.offset = Vector2(
-				randf_range(-_shake_amount, _shake_amount),
-				randf_range(-_shake_amount, _shake_amount)
-			)
-	elif _camera and _camera.offset != Vector2.ZERO:
-		_camera.offset = Vector2.ZERO
+	# Screen shake — trauma-based with perlin noise
+	if _trauma > 0.001 and _camera:
+		_trauma = maxf(_trauma - _trauma_decay * delta, 0.0)
+		var intensity := _trauma * _trauma  # quadratic falloff
+		_shake_noise_y += 1
+		_camera.offset = Vector2(
+			MAX_SHAKE_OFFSET.x * intensity * _shake_noise.get_noise_2d(float(_shake_noise.seed), float(_shake_noise_y)),
+			MAX_SHAKE_OFFSET.y * intensity * _shake_noise.get_noise_2d(float(_shake_noise.seed + 100), float(_shake_noise_y))
+		)
+		_camera.rotation = MAX_SHAKE_ROTATION * intensity * _shake_noise.get_noise_2d(float(_shake_noise.seed + 200), float(_shake_noise_y))
+	elif _camera:
+		if _camera.offset != Vector2.ZERO:
+			_camera.offset = Vector2.ZERO
+		if _camera.rotation != 0.0:
+			_camera.rotation = 0.0
 
 	queue_redraw()
 
@@ -447,6 +481,11 @@ func _process(delta: float) -> void:
 func _update_particles() -> void:
 	var tf: float = TimeSystem.get_time_of_day_factor()
 	_firefly_particles.emitting = tf < 0.08 or tf > 0.88
+	# Switch to night music when dark
+	if tf > 0.85 and AudioManager._current_music_key == "climb_theme":
+		AudioManager.play_music("night_theme")
+	elif tf <= 0.85 and AudioManager._current_music_key == "night_theme":
+		AudioManager.play_music("climb_theme")
 
 
 func _refresh_platform_states() -> void:
@@ -458,7 +497,7 @@ func _refresh_platform_states() -> void:
 func _draw() -> void:
 	# Celestial body (sun/moon) — tracks camera view
 	var tf: float = TimeSystem.get_time_of_day_factor()
-	var cam_y: float = _hero.position.y if _hero else 0.0
+	var cam_y: float = _camera.position.y if _camera else 0.0
 	if tf > 0.10 and tf < 0.80:
 		# Daytime: sun arcs across sky
 		var sun_t := (tf - 0.10) / 0.70
@@ -595,8 +634,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				var rect := Rect2(p.pos.x, p.pos.y - 50, PLATFORM_WIDTH, 90)
 				if rect.has_point(world_pos):
 					_hero.jump_to(p.pos + Vector2(PLATFORM_WIDTH * 0.5, -40))
+					AudioManager.play("jump")
 					_current_platform = i
 					await get_tree().create_timer(0.3).timeout
+					AudioManager.play("land")
+					GameState.vibrate(30)
 					_activity_popup.show_popup(p.card, GameState.current_day)
 					return
 
@@ -604,6 +646,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_activity_done(slot_id: String, completed: bool) -> void:
 	if completed:
 		GameState.complete_activity(GameState.current_day, slot_id)
+		AudioManager.play("complete")
+		GameState.vibrate(50)
+		SceneTransition.flash_screen(Color(0.49, 0.64, 0.27, 1.0), 0.2)
+		SceneTransition.shockwave(Vector2(0.5, 0.5), 0.5)
 	else:
 		GameState.miss_activity(GameState.current_day, slot_id)
 
@@ -611,9 +657,13 @@ func _on_activity_done(slot_id: String, completed: bool) -> void:
 		if platforms[i].card.slot_id == slot_id:
 			if completed:
 				platforms[i].bridge_visible = true
-				# Sparkle effect + screen shake on completion
 				_emit_sparkles(platforms[i].pos + Vector2(PLATFORM_WIDTH * 0.5, 0))
-				_shake_camera(8.0)
+				_shake_camera(0.3)
+				# Camera zoom pulse on completion
+				if _camera:
+					var zw := create_tween()
+					zw.tween_property(_camera, "zoom", Vector2(1.08, 1.08), 0.15).set_ease(Tween.EASE_OUT)
+					zw.tween_property(_camera, "zoom", Vector2.ONE, 0.3).set_ease(Tween.EASE_IN_OUT)
 			break
 
 	_refresh_platform_states()
@@ -622,4 +672,5 @@ func _on_activity_done(slot_id: String, completed: bool) -> void:
 
 
 func _on_day_ended() -> void:
-	_day_summary.show_summary(GameState.current_day)
+	if _day_summary and not _day_summary.summary_layer.visible:
+		_day_summary.show_summary(GameState.current_day)

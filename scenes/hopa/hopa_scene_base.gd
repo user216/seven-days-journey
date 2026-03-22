@@ -333,7 +333,7 @@ func _on_object_tapped(obj_id: String) -> void:
 
 	# Haptic feedback
 	if OS.has_feature("mobile"):
-		Input.vibrate_handheld(50)
+		GameState.vibrate(50)
 
 	object_found.emit(obj_id)
 
@@ -427,7 +427,7 @@ func _play_discovery_burst(world_pos: Vector2) -> void:
 
 func _play_wrong_tap_feedback() -> void:
 	if OS.has_feature("mobile"):
-		Input.vibrate_handheld(30)
+		GameState.vibrate(30)
 
 	# Brief red flash overlay
 	var flash := ColorRect.new()

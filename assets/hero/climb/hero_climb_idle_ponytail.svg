@@ -91,6 +91,28 @@
   <!-- === NECK === -->
   <rect x="53" y="58" width="14" height="18" fill="url(#skin)" rx="5"/>
 
+  <!-- === HAIR BACK (renders behind head) === -->
+  <!-- Dark base shadow behind hair -->
+  <path d="M28,40 L30,16 L60,5 L90,16 L92,40 L86,58 L74,66 L62,70 L50,66 L38,58 Z" fill="#4a2a14" opacity="0.3"/>
+  <!-- Back volume (converging to gather point) -->
+  <path d="M30,38 L32,18 L60,8 L88,18 L90,38 L84,56 L72,64 L60,68 L48,64 L36,56 Z" fill="url(#hair)"/>
+  <!-- Volume at gather point — thickening before band -->
+  <path d="M46,62 Q52,68 60,70 Q68,68 74,62" fill="#7a5230" opacity="0.18"/>
+  <!-- Ponytail — flowing tail curving to the right (behind body) -->
+  <path d="M55,68 Q58,66 64,68 Q70,78 76,88 Q82,98 85,105 Q84,110 80,108 Q76,100 72,90 Q66,80 55,68 Z" fill="url(#hair)"/>
+  <!-- Ponytail shadow underneath -->
+  <path d="M58,70 Q64,76 70,86 Q76,96 80,106" stroke="#5a3820" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.15"/>
+  <!-- Ponytail texture strands -->
+  <path d="M62,72 Q68,82 74,92 Q78,100 82,106" stroke="#c49860" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M64,70 Q70,80 76,90 Q80,98 83,104" stroke="#b88a50" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M58,72 Q62,82 66,92 Q70,100 74,106" stroke="#9a7040" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.18"/>
+  <!-- Ponytail highlight -->
+  <path d="M60,74 Q64,84 70,94" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.1"/>
+  <path d="M66,76 Q72,86 76,96" stroke="white" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.07"/>
+  <!-- Ponytail tip (flared end) -->
+  <path d="M80,104 Q86,108 87,105 Q88,100 84,98" fill="url(#hair)" opacity="0.85"/>
+  <path d="M80,106 Q84,112 86,108" fill="url(#hair)" opacity="0.7"/>
+
   <!-- === HEAD (chibi — larger, rounder) === -->
   <ellipse cx="60" cy="40" rx="30" ry="32" fill="url(#skin)" filter="url(#shadow)"/>
   <!-- Cheek blush -->
@@ -99,33 +121,33 @@
   <!-- Forehead highlight -->
   <ellipse cx="58" cy="22" rx="16" ry="10" fill="white" opacity="0.07"/>
 
-  <!-- === HAIR (PONYTAIL — gathered at nape, flowing right) === -->
-  <!-- Back volume (converging to gather point) -->
-  <path d="M30,38 L32,18 L60,8 L88,18 L90,38 L84,56 L72,64 L60,68 L48,64 L36,56 Z" fill="url(#hair)"/>
+  <!-- === HAIR TOP (PONYTAIL — crown, side volume, strands — above head, before face) === -->
   <!-- Crown shape -->
   <path d="M30,44 L34,18 L60,8 L86,18 L90,44" fill="url(#hair)"/>
-  <!-- Side volume (reduced) -->
-  <path d="M30,44 Q28,52 32,56 Q34,58 36,54" fill="url(#hair)" opacity="0.9"/>
-  <path d="M90,44 Q92,52 88,56 Q86,58 84,54" fill="url(#hair)" opacity="0.9"/>
-  <!-- Ponytail — flowing tail curving to the right -->
-  <path d="M55,68 Q58,66 64,68 Q70,78 76,88 Q82,98 85,105 Q84,110 80,108 Q76,100 72,90 Q66,80 55,68 Z" fill="url(#hair)"/>
-  <!-- Ponytail highlight -->
-  <path d="M62,72 Q68,82 74,92 Q78,100 82,106" stroke="#c49860" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
-  <path d="M60,74 Q64,84 70,94" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.1"/>
-  <!-- Ponytail tip (flared end) -->
-  <path d="M80,104 Q86,108 87,105 Q88,100 84,98" fill="url(#hair)" opacity="0.85"/>
-  <path d="M80,106 Q84,112 86,108" fill="url(#hair)" opacity="0.7"/>
-  <!-- Hair band at gather point -->
+  <!-- Side volume (shortened to y<=54) -->
+  <path d="M30,44 Q28,50 32,54 Q33,54 35,52" fill="url(#hair)" opacity="0.9"/>
+  <path d="M90,44 Q92,50 88,54 Q87,54 85,52" fill="url(#hair)" opacity="0.9"/>
+  <!-- Depth layers where hair meets head (x<36 and x>84) -->
+  <path d="M32,44 Q30,50 34,54" stroke="#5a3820" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M88,44 Q90,50 86,54" stroke="#5a3820" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <!-- Wispy forehead bangs -->
+  <path d="M40,20 Q44,28 42,36" stroke="#b88a50" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M44,18 Q46,24 45,32" stroke="#9a7040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M76,18 Q74,24 75,32" stroke="#9a7040" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.18"/>
+  <!-- Hair band at gather point (stays after head) -->
   <ellipse cx="60" cy="69" rx="7" ry="3.5" fill="#d4a843" opacity="0.9"/>
   <ellipse cx="60" cy="69" rx="7" ry="3.5" fill="none" stroke="#c49430" stroke-width="0.8"/>
   <ellipse cx="59" cy="68" rx="4" ry="1.5" fill="#f5e6b8" opacity="0.3"/>
-  <!-- Hair texture strands -->
+  <!-- Hair texture strands on crown (clipped to y<=38 in face zone) -->
   <path d="M44,14 Q52,10 60,12" stroke="#c49860" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.45"/>
-  <path d="M48,22 L46,42" stroke="#b88a50" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
-  <path d="M72,22 L74,42" stroke="#b88a50" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
-  <!-- Hair shine -->
+  <path d="M62,12 Q70,10 76,14" stroke="#c49860" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M48,22 Q46,30 46,38" stroke="#b88a50" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+  <path d="M72,22 Q74,30 74,38" stroke="#b88a50" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+  <path d="M56,16 Q55,27 56,38" stroke="#9a7040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.18"/>
+  <!-- Hair shine — crown (clipped to y<=38 in face zone) -->
   <path d="M50,14 Q54,18 52,38" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.12"/>
   <path d="M68,16 Q70,22 68,34" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.08"/>
+  <path d="M46,34 Q47,36 48,38" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.06"/>
 
   <!-- === EYES (larger, more expressive) === -->
   <!-- Eye whites -->
