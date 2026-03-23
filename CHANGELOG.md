@@ -3,6 +3,13 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.22] — 2026-03-23
+
+### Added
+- **Web export support** — `build.sh --web` exports the game to HTML5 (WebGL 2.0 WASM); automated post-build `sed` patches apply sattvic theme, disable COOP/COEP enforcement, and inject Telegram WebApp SDK into `index.html`
+- **NotoEmoji.ttf font fallback** — 1.9 MB monochrome emoji font bundled in `assets/fonts/`; registered via `ThemeManager._register_emoji_fallback()` on `_ready()`; fixes empty emoji boxes in web export where no OS emoji font is available
+- `_register_emoji_fallback()` in `theme_manager.gd` — appends NotoEmoji to `ThemeDB.fallback_font.get_fallbacks()`
+
 ## [0.7.21] — 2026-03-23
 
 ### Added
