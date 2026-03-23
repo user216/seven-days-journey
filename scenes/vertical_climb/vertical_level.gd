@@ -65,8 +65,8 @@ var _mid_layer: ParallaxLayer = null
 var _near_layer: ParallaxLayer = null
 
 # Particles
-var _leaf_particles: GPUParticles2D = null
-var _firefly_particles: GPUParticles2D = null
+var _leaf_particles: CPUParticles2D = null
+var _firefly_particles: CPUParticles2D = null
 
 # Screen shake — trauma-based with perlin noise (Squirrel Eiserloh pattern)
 var _trauma: float = 0.0
@@ -77,7 +77,7 @@ const MAX_SHAKE_OFFSET := Vector2(16.0, 10.0)
 const MAX_SHAKE_ROTATION := 0.04  # radians
 
 # Completion sparkle particles (reusable)
-var _sparkle_particles: GPUParticles2D = null
+var _sparkle_particles: CPUParticles2D = null
 
 
 func _ready() -> void:
@@ -205,68 +205,52 @@ func _populate_parallax(total_h: float) -> void:
 		_near_layer.add_child(flower)
 
 
-static func _make_soft_circle(radius: int, color: Color) -> ImageTexture:
-	var size := radius * 2
-	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
-	var center := Vector2(radius, radius)
-	for y in range(size):
-		for x in range(size):
-			var dist := Vector2(x, y).distance_to(center)
-			var alpha := clampf(1.0 - dist / float(radius), 0.0, 1.0)
-			alpha *= alpha  # quadratic falloff for soft edge
-			img.set_pixel(x, y, Color(color.r, color.g, color.b, alpha))
-	return ImageTexture.create_from_image(img)
-
 
 func _setup_particles() -> void:
 	# Falling leaves
-	_leaf_particles = GPUParticles2D.new()
+	_leaf_particles = CPUParticles2D.new()
 	_leaf_particles.z_index = 4
 	_leaf_particles.amount = 30
 	_leaf_particles.lifetime = 8.0
-	_leaf_particles.visibility_rect = Rect2(-600, -1500, 2200, 3500)
-	_leaf_particles.process_material = _create_leaf_material()
-	_leaf_particles.texture = _make_soft_circle(6, Color(0.5, 0.7, 0.3))
+	_apply_leaf_properties(_leaf_particles)
+	_leaf_particles.texture = PlaceholderFactory.make_soft_circle(6, Color(0.5, 0.7, 0.3))
 	add_child(_leaf_particles)
 
 	# Fireflies
-	_firefly_particles = GPUParticles2D.new()
+	_firefly_particles = CPUParticles2D.new()
 	_firefly_particles.z_index = 4
 	_firefly_particles.amount = 25
 	_firefly_particles.lifetime = 5.0
-	_firefly_particles.visibility_rect = Rect2(-600, -1500, 2200, 3500)
-	_firefly_particles.process_material = _create_firefly_material()
-	_firefly_particles.texture = _make_soft_circle(5, Color(0.95, 1.0, 0.5))
+	_apply_firefly_properties(_firefly_particles)
+	_firefly_particles.texture = PlaceholderFactory.make_soft_circle(5, Color(0.95, 1.0, 0.5))
 	_firefly_particles.emitting = false
 	add_child(_firefly_particles)
 
 
 func _setup_sparkles() -> void:
-	_sparkle_particles = GPUParticles2D.new()
+	_sparkle_particles = CPUParticles2D.new()
 	_sparkle_particles.z_index = 8
 	_sparkle_particles.amount = 20
 	_sparkle_particles.lifetime = 1.0
 	_sparkle_particles.one_shot = true
 	_sparkle_particles.emitting = false
-	_sparkle_particles.visibility_rect = Rect2(-200, -200, 400, 400)
-	_sparkle_particles.process_material = _create_sparkle_material()
-	_sparkle_particles.texture = _make_soft_circle(5, Color(1.0, 0.95, 0.5))
+	_apply_sparkle_properties(_sparkle_particles)
+	_sparkle_particles.texture = PlaceholderFactory.make_soft_circle(5, Color(1.0, 0.95, 0.5))
 	add_child(_sparkle_particles)
 
 
-func _create_leaf_material() -> ParticleProcessMaterial:
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0.4, 1, 0)
-	mat.spread = 40.0
-	mat.initial_velocity_min = 15.0
-	mat.initial_velocity_max = 40.0
-	mat.gravity = Vector3(0, 12, 0)
-	mat.angular_velocity_min = -120.0
-	mat.angular_velocity_max = 120.0
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	mat.emission_box_extents = Vector3(900, 10, 0)
-	mat.scale_min = 0.8
-	mat.scale_max = 2.0
+func _apply_leaf_properties(p: CPUParticles2D) -> void:
+	p.direction = Vector2(0.4, 1)
+	p.spread = 40.0
+	p.initial_velocity_min = 15.0
+	p.initial_velocity_max = 40.0
+	p.gravity = Vector2(0, 12)
+	p.angular_velocity_min = -120.0
+	p.angular_velocity_max = 120.0
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(900, 10)
+	p.scale_amount_min = 0.8
+	p.scale_amount_max = 2.0
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
 	ramp.set_color(0, Color(0.45, 0.65, 0.25, 0.0))
@@ -275,23 +259,19 @@ func _create_leaf_material() -> ParticleProcessMaterial:
 	ramp.add_point(0.85, Color(0.6, 0.45, 0.15, 0.4))
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.5, 0.35, 0.1, 0.0))
-	var tex := GradientTexture1D.new()
-	tex.gradient = ramp
-	mat.color_ramp = tex
-	return mat
+	p.color_ramp = ramp
 
 
-func _create_firefly_material() -> ParticleProcessMaterial:
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, -0.3, 0)
-	mat.spread = 180.0
-	mat.initial_velocity_min = 8.0
-	mat.initial_velocity_max = 25.0
-	mat.gravity = Vector3(0, -2, 0)
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	mat.emission_box_extents = Vector3(700, 900, 0)
-	mat.scale_min = 0.6
-	mat.scale_max = 1.5
+func _apply_firefly_properties(p: CPUParticles2D) -> void:
+	p.direction = Vector2(0, -0.3)
+	p.spread = 180.0
+	p.initial_velocity_min = 8.0
+	p.initial_velocity_max = 25.0
+	p.gravity = Vector2(0, -2)
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(700, 900)
+	p.scale_amount_min = 0.6
+	p.scale_amount_max = 1.5
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
 	ramp.set_color(0, Color(0.95, 1.0, 0.5, 0.0))
@@ -300,33 +280,26 @@ func _create_firefly_material() -> ParticleProcessMaterial:
 	ramp.add_point(0.8, Color(0.85, 0.9, 0.35, 0.5))
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.8, 0.85, 0.3, 0.0))
-	var tex := GradientTexture1D.new()
-	tex.gradient = ramp
-	mat.color_ramp = tex
-	return mat
+	p.color_ramp = ramp
 
 
-func _create_sparkle_material() -> ParticleProcessMaterial:
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, -1, 0)
-	mat.spread = 180.0
-	mat.initial_velocity_min = 80.0
-	mat.initial_velocity_max = 200.0
-	mat.gravity = Vector3(0, 100, 0)
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	mat.emission_sphere_radius = 30.0
-	mat.scale_min = 0.5
-	mat.scale_max = 1.5
+func _apply_sparkle_properties(p: CPUParticles2D) -> void:
+	p.direction = Vector2(0, -1)
+	p.spread = 180.0
+	p.initial_velocity_min = 80.0
+	p.initial_velocity_max = 200.0
+	p.gravity = Vector2(0, 100)
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+	p.emission_sphere_radius = 30.0
+	p.scale_amount_min = 0.5
+	p.scale_amount_max = 1.5
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
 	ramp.set_color(0, Color(1.0, 0.95, 0.5, 1.0))
 	ramp.add_point(0.4, Color(1.0, 0.85, 0.3, 0.8))
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.9, 0.6, 0.1, 0.0))
-	var tex := GradientTexture1D.new()
-	tex.gradient = ramp
-	mat.color_ramp = tex
-	return mat
+	p.color_ramp = ramp
 
 
 func _emit_sparkles(pos: Vector2) -> void:
@@ -482,9 +455,9 @@ func _update_particles() -> void:
 	var tf: float = TimeSystem.get_time_of_day_factor()
 	_firefly_particles.emitting = tf < 0.08 or tf > 0.88
 	# Switch to night music when dark
-	if tf > 0.85 and AudioManager._current_music_key == "climb_theme":
+	if tf > 0.85 and AudioManager.get_current_music_key() == "climb_theme":
 		AudioManager.play_music("night_theme")
-	elif tf <= 0.85 and AudioManager._current_music_key == "night_theme":
+	elif tf <= 0.85 and AudioManager.get_current_music_key() == "night_theme":
 		AudioManager.play_music("climb_theme")
 
 
@@ -565,14 +538,14 @@ func _draw() -> void:
 		# Activity marker
 		var emoji_text: String = card.get("emoji", "")
 		var title_text: String = card.get("title", "")
-		if title_text.length() > 14:
-			title_text = title_text.substr(0, 14) + "…"
+		if title_text.length() > 18:
+			title_text = title_text.substr(0, 18) + "…"
 
 		if p.state == "locked":
 			draw_string(font, pos + Vector2(12, PLATFORM_TEX_HEIGHT + 22), "🔒",
 				HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(22))
 			draw_string(font, pos + Vector2(52, PLATFORM_TEX_HEIGHT + 22), title_text,
-				HORIZONTAL_ALIGNMENT_LEFT, 200, ThemeManager.font_size(15), Color(0.5, 0.5, 0.5, 0.55))
+				HORIZONTAL_ALIGNMENT_LEFT, 160, ThemeManager.font_size(15), Color(0.5, 0.5, 0.5, 0.55))
 			var time_str: String = card.get("time", "")
 			draw_string(font, pos + Vector2(PLATFORM_WIDTH - 65, PLATFORM_TEX_HEIGHT + 22), time_str,
 				HORIZONTAL_ALIGNMENT_RIGHT, 65, ThemeManager.font_size(13), Color(0.5, 0.5, 0.5, 0.7))
@@ -585,7 +558,7 @@ func _draw() -> void:
 			elif p.state == "available_late":
 				title_color = ThemeManager.TEXT_BROWN.darkened(0.15)
 			draw_string(font, pos + Vector2(52, PLATFORM_TEX_HEIGHT + 22), title_text,
-				HORIZONTAL_ALIGNMENT_LEFT, 220, ThemeManager.font_size(15), title_color)
+				HORIZONTAL_ALIGNMENT_LEFT, 260, ThemeManager.font_size(15), title_color)
 			if p.state == "completed":
 				draw_string(font, pos + Vector2(PLATFORM_WIDTH - 35, PLATFORM_TEX_HEIGHT + 22), "✅",
 					HORIZONTAL_ALIGNMENT_LEFT, -1, ThemeManager.font_size(18))

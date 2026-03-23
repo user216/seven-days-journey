@@ -128,7 +128,7 @@ func _draw() -> void:
 
 		# Active glow
 		if r.active_slot.length() > 0 and r.active_slot not in r.completed_slots:
-			var pulse := 0.2 + sin(TimeSystem.game_time_minutes * 0.1) * 0.1
+			var pulse := 0.2 + sin(TimeSystem.get_real_minutes() * 0.1) * 0.1
 			draw_rect(rect, Color(ThemeManager.GOLDEN_AMBER.r, ThemeManager.GOLDEN_AMBER.g,
 				ThemeManager.GOLDEN_AMBER.b, pulse))
 			# Activity emoji

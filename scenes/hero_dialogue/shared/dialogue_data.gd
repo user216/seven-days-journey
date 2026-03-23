@@ -40,8 +40,10 @@ static func get_dialogue(day: int, slot_id: String) -> Array:
 
 
 static func _make_fallback(day: int, slot_id: String) -> Array:
-	var game_data := Engine.get_main_loop().root.get_node_or_null("/root/GameData")
-	var card: Dictionary = game_data.get_card(day, slot_id) if game_data else {}
+	var tree: SceneTree = Engine.get_main_loop() as SceneTree
+	var card: Dictionary = {}
+	if tree and tree.root.has_node("GameData"):
+		card = tree.root.get_node("GameData").get_card(day, slot_id)
 	if card.is_empty():
 		return [say("Продолжаем наш путь...")]
 	return [

@@ -101,6 +101,9 @@ func _on_interaction_completed() -> void:
 	_interaction_completed = true
 	skip_btn.visible = false
 	done_btn.text = "Готово ✓"
+	# Juice: squash-stretch on done button + brief hit-stop
+	ThemeManager.squash_stretch_control(done_btn, 0.15)
+	ThemeManager.hit_stop(50)
 
 
 func _on_done() -> void:

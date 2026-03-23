@@ -39,7 +39,7 @@ var _dialog: CanvasLayer
 var _hint_system: HopaHintSystem
 var _burst_rect: ColorRect
 var _burst_layer: CanvasLayer
-var _ambient_particles: GPUParticles2D
+var _ambient_particles: CPUParticles2D
 
 # ── Gameplay state ───────────────────────────────────────────────
 
@@ -232,23 +232,21 @@ func _create_burst_layer() -> void:
 # ── Ambient particles ────────────────────────────────────────────
 
 func _create_ambient_particles() -> void:
-	_ambient_particles = GPUParticles2D.new()
+	_ambient_particles = CPUParticles2D.new()
 	_ambient_particles.amount = 30
 	_ambient_particles.lifetime = 4.0
 	_ambient_particles.z_index = 5
 
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, -1, 0)
-	mat.initial_velocity_min = 10.0
-	mat.initial_velocity_max = 25.0
-	mat.gravity = Vector3(0, -8, 0)
-	mat.spread = 180.0
-	mat.scale_min = 0.3
-	mat.scale_max = 0.8
-	mat.color = Color(0.99, 0.98, 0.93, 0.2)
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	mat.emission_box_extents = Vector3(540, 960, 0)
-	_ambient_particles.process_material = mat
+	_ambient_particles.direction = Vector2(0, -1)
+	_ambient_particles.initial_velocity_min = 10.0
+	_ambient_particles.initial_velocity_max = 25.0
+	_ambient_particles.gravity = Vector2(0, -8)
+	_ambient_particles.spread = 180.0
+	_ambient_particles.scale_amount_min = 0.3
+	_ambient_particles.scale_amount_max = 0.8
+	_ambient_particles.color = Color(0.99, 0.98, 0.93, 0.2)
+	_ambient_particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	_ambient_particles.emission_rect_extents = Vector2(540, 960)
 
 	_ambient_particles.texture = PlaceholderFactory.make_soft_circle(8, Color(1, 1, 1, 0.3))
 	_ambient_particles.position = Vector2(540, 960)
@@ -372,23 +370,21 @@ func _play_reveal(sprite: Sprite2D, world_pos: Vector2, obj_id: String) -> void:
 
 
 func _spawn_sparkles(pos: Vector2) -> void:
-	var particles := GPUParticles2D.new()
+	var particles := CPUParticles2D.new()
 	particles.one_shot = true
 	particles.emitting = true
 	particles.amount = 20
 	particles.lifetime = 0.8
 	particles.position = pos
 
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, -1, 0)
-	mat.spread = 180.0
-	mat.initial_velocity_min = 40.0
-	mat.initial_velocity_max = 100.0
-	mat.gravity = Vector3(0, 50, 0)
-	mat.scale_min = 0.5
-	mat.scale_max = 1.2
-	mat.color = Color(0.83, 0.66, 0.26, 0.8)  # gold
-	particles.process_material = mat
+	particles.direction = Vector2(0, -1)
+	particles.spread = 180.0
+	particles.initial_velocity_min = 40.0
+	particles.initial_velocity_max = 100.0
+	particles.gravity = Vector2(0, 50)
+	particles.scale_amount_min = 0.5
+	particles.scale_amount_max = 1.2
+	particles.color = Color(0.83, 0.66, 0.26, 0.8)  # gold
 	particles.texture = PlaceholderFactory.make_soft_circle(6, Color(0.83, 0.66, 0.26))
 
 	add_child(particles)

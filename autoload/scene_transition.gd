@@ -27,6 +27,7 @@ const MAX_HISTORY := 5
 
 
 func _ready() -> void:
+	CrashLogger.breadcrumb("SceneTransition._ready")
 	layer = 100
 
 	_color_rect = ColorRect.new()
@@ -52,18 +53,15 @@ func _ready() -> void:
 	_pattern_material = _pattern_rect.material as ShaderMaterial
 	add_child(_pattern_rect)
 
-	# Shockwave post-process overlay
+	# Shockwave post-process overlay — deferred loading
+	# The shockwave shader uses hint_screen_texture which crashes Mali-G57
+	# when loaded before rendering is stable. Load lazily on first use.
 	_shockwave_rect = ColorRect.new()
 	_shockwave_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_shockwave_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_shockwave_rect.visible = false
-	var sw_shader := load("res://shaders/shockwave.gdshader") as Shader
-	if sw_shader:
-		_shockwave_material = ShaderMaterial.new()
-		_shockwave_material.shader = sw_shader
-		_shockwave_material.set_shader_parameter("size", 0.0)
-		_shockwave_rect.material = _shockwave_material
 	add_child(_shockwave_rect)
+	# _shockwave_material is created lazily in shockwave()
 
 	_flash_rect = ColorRect.new()
 	_flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -231,8 +229,15 @@ func reload_scene(duration: float = 0.4) -> void:
 
 
 func shockwave(center: Vector2, duration: float = 0.6) -> void:
+	# Lazy-load shockwave shader on first use (hint_screen_texture crashes Mali on early load)
 	if not _shockwave_material:
-		return
+		var sw_shader := load("res://shaders/shockwave.gdshader") as Shader
+		if not sw_shader:
+			return
+		_shockwave_material = ShaderMaterial.new()
+		_shockwave_material.shader = sw_shader
+		_shockwave_material.set_shader_parameter("size", 0.0)
+		_shockwave_rect.material = _shockwave_material
 	_shockwave_rect.visible = true
 	_shockwave_material.set_shader_parameter("center", center)
 	_shockwave_material.set_shader_parameter("size", 0.0)

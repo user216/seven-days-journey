@@ -43,6 +43,7 @@ horizontal_alignment = 1
 
 [node name="TitleLabel" type="Label" parent="VBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.239, 0.224, 0.161, 1)
 theme_override_font_sizes/font_size = 28
 text = "Выберите персонажа"
 horizontal_alignment = 1

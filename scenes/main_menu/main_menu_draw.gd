@@ -1,11 +1,14 @@
 extends Control
 ## Procedural background drawing for main menu — mountains, trees, clouds, sun.
 ## This node has mouse_filter=IGNORE so it never blocks button input.
+## Redraws at ~20fps (every 3rd frame) to reduce Vulkan command buffer pressure on Mali.
 
 var mountains: Array[Dictionary] = []
 var clouds: Array[Dictionary] = []
 var trees: Array[Dictionary] = []
 var anim_time: float = 0.0
+var _redraw_accum: float = 0.0
+const REDRAW_INTERVAL := 0.05  # ~20fps for draw layer (clouds move slowly)
 
 
 func _process(delta: float) -> void:
@@ -14,7 +17,10 @@ func _process(delta: float) -> void:
 		c.x += c.speed * delta
 		if c.x > 1300:
 			c.x = -250.0
-	queue_redraw()
+	_redraw_accum += delta
+	if _redraw_accum >= REDRAW_INTERVAL:
+		_redraw_accum = 0.0
+		queue_redraw()
 
 
 func _draw() -> void:
@@ -37,12 +43,13 @@ func _draw() -> void:
 		draw_circle(Vector2(c.x - c.rx * 0.3, c.y + 5), c.rx * 0.4, cc)
 		draw_circle(Vector2(c.x + c.rx * 0.35, c.y + 3), c.rx * 0.45, cc)
 
-	# Sun with rotating rays
+	# Sun with glow + rotating rays
 	var sun_x := 540.0
 	var sun_y := 250.0 + sin(anim_time * 0.3) * 20.0
-	for i in range(5):
-		var r := 120.0 - float(i) * 20.0
-		var a := 0.04 + float(i) * 0.03
+	# 3 glow rings (reduced from 5 to lower draw calls on Mali)
+	for i in range(3):
+		var r := 100.0 - float(i) * 22.0
+		var a := 0.05 + float(i) * 0.04
 		draw_circle(Vector2(sun_x, sun_y), r, Color(0.83, 0.66, 0.26, a))
 	draw_circle(Vector2(sun_x, sun_y), 50.0, Color(0.83, 0.66, 0.26, 0.85))
 	draw_circle(Vector2(sun_x, sun_y), 36.0, Color(0.96, 0.9, 0.72, 0.5))

@@ -12,6 +12,7 @@ var _ambient_player: AudioStreamPlayer = null
 var _master_volume: float = 0.7
 var _sfx_enabled: bool = true
 var _ambient_enabled: bool = true
+var _headless: bool = false
 
 # Music crossfade
 var _music_a: AudioStreamPlayer = null
@@ -22,15 +23,43 @@ var _music_volume: float = 0.15
 
 
 func _ready() -> void:
+	_headless = DisplayServer.get_name() == "headless"
+	CrashLogger.breadcrumb("AudioManager._ready (headless=%s)" % str(_headless))
 	_generate_all_sounds()
 	_generate_music()
 	_create_pool(4)
-	_create_ambient()
 	_create_music_players()
+	if not _headless:
+		_create_ambient()
+	CrashLogger.breadcrumb("AudioManager._ready.done")
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_EXIT_TREE:
+		stop_all()
+
+
+func stop_all() -> void:
+	## Stop all audio players and release stream references. Called on exit.
+	for p in _pool:
+		if is_instance_valid(p):
+			p.stop()
+			p.stream = null
+	if is_instance_valid(_ambient_player):
+		_ambient_player.stop()
+		_ambient_player.stream = null
+	if is_instance_valid(_music_a):
+		_music_a.stop()
+		_music_a.stream = null
+	if is_instance_valid(_music_b):
+		_music_b.stop()
+		_music_b.stream = null
+	_sounds.clear()
+	_music_streams.clear()
 
 
 func play(key: String) -> void:
-	if not _sfx_enabled or _master_volume <= 0.0:
+	if _headless or not _sfx_enabled or _master_volume <= 0.0:
 		return
 	var resolved := _resolve_key(key)
 	if resolved.is_empty():
@@ -57,6 +86,8 @@ func _resolve_key(key: String) -> String:
 
 
 func play_music(key: String, fade_duration: float = 1.0) -> void:
+	if _headless:
+		return
 	if key == _current_music_key:
 		return
 	if key not in _music_streams:
@@ -77,6 +108,10 @@ func play_music(key: String, fade_duration: float = 1.0) -> void:
 		_music_a = _music_b
 		_music_b = tmp
 	)
+
+
+func get_current_music_key() -> String:
+	return _current_music_key
 
 
 func stop_music(fade_duration: float = 0.5) -> void:

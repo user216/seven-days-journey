@@ -259,6 +259,60 @@ func _ready() -> void:
 	changes_label.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
 	_about_panel.add_child(changes_label)
 
+	# Device info line
+	var device_label := Label.new()
+	device_label.text = CrashLogger.get_device_summary()
+	device_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	device_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	device_label.custom_minimum_size = Vector2(380, 0)
+	device_label.add_theme_font_size_override("font_size", ThemeManager.font_size(11))
+	device_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+	_about_panel.add_child(device_label)
+
+	# Copy Logs button
+	var copy_btn := Button.new()
+	copy_btn.text = "📋 Скопировать логи"
+	copy_btn.custom_minimum_size = Vector2(0, 60)
+	copy_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
+	var copy_style := StyleBoxFlat.new()
+	copy_style.bg_color = ThemeManager.EARTHY_BROWN
+	copy_style.bg_color.a = 0.8
+	copy_style.corner_radius_top_left = 10
+	copy_style.corner_radius_top_right = 10
+	copy_style.corner_radius_bottom_left = 10
+	copy_style.corner_radius_bottom_right = 10
+	copy_style.content_margin_left = 16.0
+	copy_style.content_margin_right = 16.0
+	copy_style.content_margin_top = 8.0
+	copy_style.content_margin_bottom = 8.0
+	copy_btn.add_theme_stylebox_override("normal", copy_style)
+	copy_btn.add_theme_color_override("font_color", Color.WHITE)
+	copy_btn.pressed.connect(_on_copy_logs.bind(copy_btn))
+	ThemeManager.apply_button_juice(copy_btn)
+	_about_panel.add_child(copy_btn)
+
+	# Email Logs button
+	var email_btn := Button.new()
+	email_btn.text = "📧 Отправить логи"
+	email_btn.custom_minimum_size = Vector2(0, 60)
+	email_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
+	var email_style := StyleBoxFlat.new()
+	email_style.bg_color = ThemeManager.SAGE_GREEN.darkened(0.1)
+	email_style.bg_color.a = 0.85
+	email_style.corner_radius_top_left = 10
+	email_style.corner_radius_top_right = 10
+	email_style.corner_radius_bottom_left = 10
+	email_style.corner_radius_bottom_right = 10
+	email_style.content_margin_left = 16.0
+	email_style.content_margin_right = 16.0
+	email_style.content_margin_top = 8.0
+	email_style.content_margin_bottom = 8.0
+	email_btn.add_theme_stylebox_override("normal", email_style)
+	email_btn.add_theme_color_override("font_color", Color.WHITE)
+	email_btn.pressed.connect(_on_email_logs)
+	ThemeManager.apply_button_juice(email_btn)
+	_about_panel.add_child(email_btn)
+
 	$"../ScrollContainer/CenterContainer/VBox".add_child(_about_panel)
 
 	ThemeManager.apply_ui_scale_to_tree($"..")
@@ -275,6 +329,19 @@ func _on_about_toggle() -> void:
 	if _about_panel:
 		_about_panel.visible = not _about_panel.visible
 		_update_about_btn_text(_about_panel.visible)
+
+
+func _on_copy_logs(btn: Button) -> void:
+	var logs := CrashLogger.get_full_log()
+	DisplayServer.clipboard_set(logs)
+	btn.text = "✅ Скопировано!"
+	# Reset after 2 seconds
+	var tw := btn.create_tween()
+	tw.tween_callback(func(): btn.text = "📋 Скопировать логи").set_delay(2.0)
+
+
+func _on_email_logs() -> void:
+	CrashLogger.send_logs_via_email()
 
 
 func show_menu() -> void:

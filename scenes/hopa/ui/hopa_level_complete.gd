@@ -7,7 +7,7 @@ signal menu_pressed
 # ── Nodes ────────────────────────────────────────────────────────
 
 var _panel: PanelContainer
-var _confetti: GPUParticles2D
+var _confetti: CPUParticles2D
 
 
 func _ready() -> void:
@@ -120,29 +120,27 @@ func _animate_entrance() -> void:
 
 
 func _spawn_confetti() -> void:
-	_confetti = GPUParticles2D.new()
+	_confetti = CPUParticles2D.new()
 	_confetti.one_shot = true
 	_confetti.emitting = true
 	_confetti.amount = 80
 	_confetti.lifetime = 2.5
 	_confetti.position = Vector2(540, 200)
 
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, 1, 0)
-	mat.spread = 60.0
-	mat.initial_velocity_min = 150.0
-	mat.initial_velocity_max = 350.0
-	mat.gravity = Vector3(0, 400, 0)
-	mat.scale_min = 0.4
-	mat.scale_max = 1.5
-	mat.angular_velocity_min = -180.0
-	mat.angular_velocity_max = 180.0
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	mat.emission_box_extents = Vector3(400, 10, 0)
+	_confetti.direction = Vector2(0, 1)
+	_confetti.spread = 60.0
+	_confetti.initial_velocity_min = 150.0
+	_confetti.initial_velocity_max = 350.0
+	_confetti.gravity = Vector2(0, 400)
+	_confetti.scale_amount_min = 0.4
+	_confetti.scale_amount_max = 1.5
+	_confetti.angular_velocity_min = -180.0
+	_confetti.angular_velocity_max = 180.0
+	_confetti.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	_confetti.emission_rect_extents = Vector2(400, 10)
 
 	# Multi-color: gold, sage, cream
-	mat.color = ThemeManager.GOLDEN_AMBER
-	_confetti.process_material = mat
+	_confetti.color = ThemeManager.GOLDEN_AMBER
 
 	_confetti.texture = PlaceholderFactory.make_soft_circle(6, Color.WHITE)
 	add_child(_confetti)

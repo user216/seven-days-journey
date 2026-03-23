@@ -16,9 +16,9 @@ func _ready() -> void:
 
 
 func _load_generated() -> void:
-	var scene := load(_generated_scene_path)
+	var scene: PackedScene = load(_generated_scene_path) as PackedScene
 	if scene:
-		var instance := scene.instantiate()
+		var instance: Node = scene.instantiate()
 		add_child(instance)
 	else:
 		_show_placeholder()

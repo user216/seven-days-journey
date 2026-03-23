@@ -12,17 +12,21 @@ var _title_tap_count: int = 0
 var _title_tap_timer: float = 0.0
 var _anim_time: float = 0.0
 var _sky_material: ShaderMaterial = null
+var _heartbeat_counter: int = 0
 
 
 func _ready() -> void:
+	CrashLogger.breadcrumb("MainMenu._ready")
 	continue_btn.visible = SaveManager.has_save()
 	continue_btn.pressed.connect(_on_continue)
 	new_game_btn.pressed.connect(_on_new_game)
 	title_label.gui_input.connect(_on_title_input)
 	_create_hopa_button()
 	_create_dialogue_button()
+	_create_send_logs_button()
 	_update_dev_indicator()
 	_setup_background()
+	CrashLogger.breadcrumb("MainMenu.background_ready")
 	ThemeManager.apply_ui_scale_to_tree(self)
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree(self))
 	_animate_entrance()
@@ -73,24 +77,22 @@ func _setup_background() -> void:
 		})
 	draw_layer.trees = trees_data
 
-	# Leaf particles
-	var leaf_p := GPUParticles2D.new()
+	# Leaf particles (CPUParticles2D — Mali-safe, no compute shaders)
+	var leaf_p := CPUParticles2D.new()
 	leaf_p.z_index = 1
 	leaf_p.amount = 15
 	leaf_p.lifetime = 10.0
-	leaf_p.visibility_rect = Rect2(-200, -200, 1480, 2120)
-	var leaf_mat := ParticleProcessMaterial.new()
-	leaf_mat.direction = Vector3(0.3, 1, 0)
-	leaf_mat.spread = 35.0
-	leaf_mat.initial_velocity_min = 10.0
-	leaf_mat.initial_velocity_max = 30.0
-	leaf_mat.gravity = Vector3(0, 10, 0)
-	leaf_mat.angular_velocity_min = -90.0
-	leaf_mat.angular_velocity_max = 90.0
-	leaf_mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	leaf_mat.emission_box_extents = Vector3(600, 10, 0)
-	leaf_mat.scale_min = 0.6
-	leaf_mat.scale_max = 1.8
+	leaf_p.direction = Vector2(0.3, 1)
+	leaf_p.spread = 35.0
+	leaf_p.initial_velocity_min = 10.0
+	leaf_p.initial_velocity_max = 30.0
+	leaf_p.gravity = Vector2(0, 10)
+	leaf_p.angular_velocity_min = -90.0
+	leaf_p.angular_velocity_max = 90.0
+	leaf_p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	leaf_p.emission_rect_extents = Vector2(600, 10)
+	leaf_p.scale_amount_min = 0.6
+	leaf_p.scale_amount_max = 1.8
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
 	ramp.set_color(0, Color(0.45, 0.65, 0.25, 0.0))
@@ -98,29 +100,24 @@ func _setup_background() -> void:
 	ramp.add_point(0.8, Color(0.55, 0.6, 0.2, 0.4))
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.5, 0.35, 0.1, 0.0))
-	var grad_tex := GradientTexture1D.new()
-	grad_tex.gradient = ramp
-	leaf_mat.color_ramp = grad_tex
-	leaf_p.process_material = leaf_mat
-	leaf_p.texture = _make_soft_circle(6, Color(0.5, 0.7, 0.3))
+	leaf_p.color_ramp = ramp
+	leaf_p.texture = PlaceholderFactory.make_soft_circle(6, Color(0.5, 0.7, 0.3))
 	add_child(leaf_p)
 
-	# Golden sparkle particles
-	var sparkle_p := GPUParticles2D.new()
+	# Golden sparkle particles (CPUParticles2D — Mali-safe)
+	var sparkle_p := CPUParticles2D.new()
 	sparkle_p.z_index = 2
 	sparkle_p.amount = 12
 	sparkle_p.lifetime = 6.0
-	sparkle_p.visibility_rect = Rect2(-200, -200, 1480, 2120)
-	var ff_mat := ParticleProcessMaterial.new()
-	ff_mat.direction = Vector3(0, -0.3, 0)
-	ff_mat.spread = 180.0
-	ff_mat.initial_velocity_min = 5.0
-	ff_mat.initial_velocity_max = 15.0
-	ff_mat.gravity = Vector3(0, -2, 0)
-	ff_mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	ff_mat.emission_box_extents = Vector3(500, 600, 0)
-	ff_mat.scale_min = 0.5
-	ff_mat.scale_max = 1.2
+	sparkle_p.direction = Vector2(0, -0.3)
+	sparkle_p.spread = 180.0
+	sparkle_p.initial_velocity_min = 5.0
+	sparkle_p.initial_velocity_max = 15.0
+	sparkle_p.gravity = Vector2(0, -2)
+	sparkle_p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	sparkle_p.emission_rect_extents = Vector2(500, 600)
+	sparkle_p.scale_amount_min = 0.5
+	sparkle_p.scale_amount_max = 1.2
 	var ff_ramp := Gradient.new()
 	ff_ramp.set_offset(0, 0.0)
 	ff_ramp.set_color(0, Color(0.95, 0.9, 0.5, 0.0))
@@ -128,11 +125,8 @@ func _setup_background() -> void:
 	ff_ramp.add_point(0.75, Color(0.95, 0.85, 0.4, 0.5))
 	ff_ramp.set_offset(ff_ramp.get_point_count() - 1, 1.0)
 	ff_ramp.set_color(ff_ramp.get_point_count() - 1, Color(0.85, 0.75, 0.3, 0.0))
-	var ff_tex := GradientTexture1D.new()
-	ff_tex.gradient = ff_ramp
-	ff_mat.color_ramp = ff_tex
-	sparkle_p.process_material = ff_mat
-	sparkle_p.texture = _make_soft_circle(5, Color(1.0, 0.95, 0.5))
+	sparkle_p.color_ramp = ff_ramp
+	sparkle_p.texture = PlaceholderFactory.make_soft_circle(5, Color(1.0, 0.95, 0.5))
 	add_child(sparkle_p)
 
 
@@ -144,7 +138,7 @@ func _create_hopa_button() -> void:
 	hopa_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
 
 	var style := StyleBoxFlat.new()
-	style.bg_color = ThemeManager.SOFT_TEAL
+	style.bg_color = ThemeManager.DEEP_LEAF
 	style.corner_radius_top_left = 12
 	style.corner_radius_top_right = 12
 	style.corner_radius_bottom_left = 12
@@ -184,6 +178,30 @@ func _create_dialogue_button() -> void:
 	$VBox.add_child(dlg_btn)
 
 
+func _create_send_logs_button() -> void:
+	var log_btn := Button.new()
+	log_btn.name = "SendLogsBtn"
+	log_btn.text = "Отправить логи"
+	log_btn.custom_minimum_size = Vector2(400, 64)
+	log_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(16))
+
+	var style := StyleBoxFlat.new()
+	style.bg_color = ThemeManager.HINT_KHAKI
+	style.corner_radius_top_left = 12
+	style.corner_radius_top_right = 12
+	style.corner_radius_bottom_left = 12
+	style.corner_radius_bottom_right = 12
+	style.content_margin_left = 16.0
+	style.content_margin_right = 16.0
+	style.content_margin_top = 8.0
+	style.content_margin_bottom = 8.0
+	log_btn.add_theme_stylebox_override("normal", style)
+	log_btn.add_theme_color_override("font_color", Color.WHITE)
+
+	log_btn.pressed.connect(_on_send_logs)
+	$VBox.add_child(log_btn)
+
+
 func _animate_entrance() -> void:
 	var orig_y := title_label.position.y
 	title_label.modulate.a = 0.0
@@ -210,6 +228,12 @@ func _animate_entrance() -> void:
 
 func _process(delta: float) -> void:
 	_anim_time += delta
+
+	# Heartbeat breadcrumb every 1 second for crash diagnosis
+	var sec := int(_anim_time)
+	if sec > _heartbeat_counter:
+		_heartbeat_counter = sec
+		CrashLogger.breadcrumb("MainMenu.heartbeat %ds" % sec)
 
 	if _title_tap_timer > 0.0:
 		_title_tap_timer -= delta
@@ -242,6 +266,10 @@ func _on_dialogue() -> void:
 	SceneTransition.change_scene_iris("res://scenes/hero_dialogue/mode_select.tscn")
 
 
+func _on_send_logs() -> void:
+	CrashLogger.send_logs_via_email()
+
+
 func _on_title_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		_title_tap_count += 1
@@ -258,16 +286,3 @@ func _update_dev_indicator() -> void:
 		subtitle_label.text = "🔧 Режим разработчика"
 	else:
 		subtitle_label.text = "Путь гармонии и осознанности"
-
-
-static func _make_soft_circle(radius: int, color: Color) -> ImageTexture:
-	var size := radius * 2
-	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
-	var center := Vector2(radius, radius)
-	for y in range(size):
-		for x in range(size):
-			var dist := Vector2(x, y).distance_to(center)
-			var alpha := clampf(1.0 - dist / float(radius), 0.0, 1.0)
-			alpha *= alpha
-			img.set_pixel(x, y, Color(color.r, color.g, color.b, alpha))
-	return ImageTexture.create_from_image(img)

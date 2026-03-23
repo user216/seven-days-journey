@@ -28,6 +28,7 @@ var game_theme: Theme = null
 
 
 func _ready() -> void:
+	CrashLogger.breadcrumb("ThemeManager._ready")
 	game_theme = _build_theme()
 
 
@@ -235,3 +236,56 @@ func get_dress_color(day: int) -> Color:
 	if day >= 1 and day <= 7:
 		return DAY_DRESS_COLORS[day - 1]
 	return LIGHT_SAGE
+
+
+# ── Juice / Game Feel ────────────────────────────────────────────
+
+func hit_stop(duration_ms: int = 60) -> void:
+	## Brief time freeze for impact feel. Safe to call from anywhere.
+	Engine.time_scale = 0.0
+	await get_tree().create_timer(duration_ms / 1000.0, true, false, true).timeout
+	Engine.time_scale = 1.0
+
+
+func squash_stretch(node: Node2D, intensity: float = 0.15) -> void:
+	## Quick squash-stretch pop on a Node2D. Intensity 0.0-0.5.
+	if not is_instance_valid(node):
+		return
+	var orig_scale := node.scale
+	var squash := Vector2(orig_scale.x * (1.0 + intensity), orig_scale.y * (1.0 - intensity))
+	var stretch := Vector2(orig_scale.x * (1.0 - intensity * 0.5), orig_scale.y * (1.0 + intensity * 0.5))
+	var tw := node.create_tween()
+	tw.tween_property(node, "scale", squash, 0.06).set_ease(Tween.EASE_OUT)
+	tw.tween_property(node, "scale", stretch, 0.08).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(node, "scale", orig_scale, 0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+
+
+func squash_stretch_control(ctrl: Control, intensity: float = 0.12) -> void:
+	## Quick squash-stretch pop on a Control node via pivot.
+	if not is_instance_valid(ctrl):
+		return
+	ctrl.pivot_offset = ctrl.size * 0.5
+	var squash := Vector2(1.0 + intensity, 1.0 - intensity)
+	var stretch := Vector2(1.0 - intensity * 0.5, 1.0 + intensity * 0.5)
+	var tw := ctrl.create_tween()
+	tw.tween_property(ctrl, "scale", squash, 0.06).set_ease(Tween.EASE_OUT)
+	tw.tween_property(ctrl, "scale", stretch, 0.08).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(ctrl, "scale", Vector2.ONE, 0.12).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+
+
+func screen_shake(camera: Node2D, amplitude: float = 6.0, duration: float = 0.2) -> void:
+	## Exponentially decaying screen shake on a camera or parent node.
+	if not is_instance_valid(camera):
+		return
+	var orig_offset := camera.position
+	var elapsed := 0.0
+	var tw := camera.create_tween()
+	var steps := int(duration / 0.02)
+	for i in range(steps):
+		var decay := pow(1.0 - float(i) / float(steps), 2.0)
+		var offset := Vector2(
+			randf_range(-amplitude, amplitude) * decay,
+			randf_range(-amplitude, amplitude) * decay
+		)
+		tw.tween_property(camera, "position", orig_offset + offset, 0.02)
+	tw.tween_property(camera, "position", orig_offset, 0.04)

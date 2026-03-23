@@ -35,7 +35,8 @@ func _build_hero() -> void:
 	_sprite = Sprite2D.new()
 	var hero_gender := GameState.gender
 	var hair_suffix := GameState.get_hair_style_suffix()
-	var svg_path := "res://assets/hero/%s%s.svg" % [hero_gender, hair_suffix]
+	var gender_suffix := "_male" if hero_gender == "male" else ""
+	var svg_path := "res://assets/hero/climb/hero_climb_idle%s%s.svg" % [gender_suffix, hair_suffix]
 	var hero_tex := load(svg_path) as Texture2D
 	if hero_tex:
 		_sprite.texture = hero_tex

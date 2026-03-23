@@ -293,6 +293,7 @@ const EP_INTERACTION_MAP: Dictionary = {
 # ── Helpers ───────────────────────────────────────────────────────
 
 func _ready() -> void:
+	CrashLogger.breadcrumb("GameData._ready")
 	_build_slot_titles()
 
 

@@ -9,7 +9,7 @@ signal action_requested(action_id: String)
 # ── Config ───────────────────────────────────────────────────────
 
 const CHAR_DELAY := 0.03
-const TEXT_BOX_HEIGHT := 340.0
+const TEXT_BOX_HEIGHT := 400.0
 const PORTRAIT_SIZE := 160.0
 const CHOICE_BTN_HEIGHT := 60.0
 
@@ -26,6 +26,7 @@ var _dialogue_key: String = ""
 
 # ── UI Nodes ─────────────────────────────────────────────────────
 
+var _root: Control  # full-rect wrapper so anchors work inside CanvasLayer
 var _dimmer: ColorRect
 var _text_panel: PanelContainer
 var _speaker_label: Label
@@ -224,50 +225,36 @@ func _clear_choices() -> void:
 	_choice_container.visible = false
 
 
+func _resize_root() -> void:
+	var vp_size := get_viewport().get_visible_rect().size
+	_root.position = Vector2.ZERO
+	_root.size = vp_size
+
+
 # ── UI Construction ──────────────────────────────────────────────
 
 func _build_ui() -> void:
+	# Full-rect Control wrapper — CanvasLayer is NOT a Control, so anchors
+	# on direct children never resolve (parent size is 0). We must size
+	# _root explicitly to the viewport and update it on resize.
+	_root = Control.new()
+	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_root)
+	_resize_root()
+	get_viewport().size_changed.connect(_resize_root)
+
 	# Dimmer
 	_dimmer = ColorRect.new()
-	_dimmer.anchors_preset = Control.PRESET_FULL_RECT
+	_dimmer.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_dimmer.color = Color(0, 0, 0, 0.5)
 	_dimmer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_dimmer)
-
-	# Portrait container on left
-	_portrait_container = PanelContainer.new()
-	_portrait_container.position = Vector2(20, -TEXT_BOX_HEIGHT - PORTRAIT_SIZE - 20)
-	_portrait_container.anchors_preset = Control.PRESET_BOTTOM_LEFT
-	_portrait_container.custom_minimum_size = Vector2(PORTRAIT_SIZE, PORTRAIT_SIZE)
-
-	var portrait_style := StyleBoxFlat.new()
-	portrait_style.bg_color = ThemeManager.BG_CREAM.darkened(0.05)
-	portrait_style.corner_radius_top_left = 16
-	portrait_style.corner_radius_top_right = 16
-	portrait_style.corner_radius_bottom_left = 16
-	portrait_style.corner_radius_bottom_right = 16
-	portrait_style.border_color = ThemeManager.SAGE_GREEN
-	portrait_style.border_width_bottom = 2
-	portrait_style.border_width_left = 2
-	portrait_style.border_width_right = 2
-	portrait_style.border_width_top = 2
-	portrait_style.content_margin_left = 8.0
-	portrait_style.content_margin_right = 8.0
-	portrait_style.content_margin_top = 8.0
-	portrait_style.content_margin_bottom = 8.0
-	_portrait_container.add_theme_stylebox_override("panel", portrait_style)
-
-	_portrait_rect = TextureRect.new()
-	_portrait_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-	_portrait_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_portrait_container.add_child(_portrait_rect)
-	_portrait_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_portrait_container)
+	_root.add_child(_dimmer)
 
 	# Text panel at bottom
 	_text_panel = PanelContainer.new()
-	_text_panel.anchors_preset = Control.PRESET_BOTTOM_WIDE
+	_text_panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	_text_panel.offset_top = -TEXT_BOX_HEIGHT
+	_text_panel.offset_bottom = 0.0
 
 	var panel_style := StyleBoxFlat.new()
 	panel_style.bg_color = ThemeManager.BG_CREAM
@@ -319,6 +306,38 @@ func _build_ui() -> void:
 
 	_text_panel.add_child(vbox)
 	_text_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_text_panel)
+	_root.add_child(_text_panel)
+
+	# Portrait container — anchored bottom-left, above text panel
+	_portrait_container = PanelContainer.new()
+	_portrait_container.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	_portrait_container.offset_left = 20.0
+	_portrait_container.offset_right = 20.0 + PORTRAIT_SIZE
+	_portrait_container.offset_top = -(TEXT_BOX_HEIGHT + PORTRAIT_SIZE + 20.0)
+	_portrait_container.offset_bottom = -(TEXT_BOX_HEIGHT + 20.0)
+
+	var portrait_style := StyleBoxFlat.new()
+	portrait_style.bg_color = ThemeManager.BG_CREAM.darkened(0.05)
+	portrait_style.corner_radius_top_left = 16
+	portrait_style.corner_radius_top_right = 16
+	portrait_style.corner_radius_bottom_left = 16
+	portrait_style.corner_radius_bottom_right = 16
+	portrait_style.border_color = ThemeManager.SAGE_GREEN
+	portrait_style.border_width_bottom = 2
+	portrait_style.border_width_left = 2
+	portrait_style.border_width_right = 2
+	portrait_style.border_width_top = 2
+	portrait_style.content_margin_left = 8.0
+	portrait_style.content_margin_right = 8.0
+	portrait_style.content_margin_top = 8.0
+	portrait_style.content_margin_bottom = 8.0
+	_portrait_container.add_theme_stylebox_override("panel", portrait_style)
+
+	_portrait_rect = TextureRect.new()
+	_portrait_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	_portrait_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_portrait_container.add_child(_portrait_rect)
+	_portrait_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_root.add_child(_portrait_container)
 
 	visible = false

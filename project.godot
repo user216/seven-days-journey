@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+CrashLogger="*res://autoload/crash_logger.gd"
+ShaderWarmup="*res://autoload/shader_warmup.gd"
 ThemeManager="*res://autoload/theme_manager.gd"
 GameData="*res://autoload/game_data.gd"
 GameState="*res://autoload/game_state.gd"
@@ -56,3 +58,9 @@ environment/defaults/default_clear_color=Color(0.996, 0.988, 0.953, 1)
 show_image=true
 image="res://icon.svg"
 bg_color=Color(0.996, 0.988, 0.953, 1)
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/godot.log"
+file_logging/max_log_files=3

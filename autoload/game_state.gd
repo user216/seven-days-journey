@@ -72,11 +72,13 @@ func reset() -> void:
 	dialogue_choices = {}
 	# gender, ui_scale preserved across resets, developer_mode reset
 	developer_mode = false
+	_invalidate_xp()
 	for d in range(1, 8):
 		completed_activities[d] = []
 
 
 func _ready() -> void:
+	CrashLogger.breadcrumb("GameState._ready")
 	reset()
 
 
@@ -89,6 +91,7 @@ func complete_activity(day: int, slot_id: String) -> void:
 		return
 
 	completed_activities[day].append(slot_id)
+	_invalidate_xp()
 	activity_completed.emit(day, slot_id)
 
 	# Award XP
@@ -103,7 +106,8 @@ func complete_activity(day: int, slot_id: String) -> void:
 
 	# Check level up
 	var old_level := _get_level_before_last()
-	var xp_data := calculate_xp()
+	var xp_data := get_cached_xp()
+	_prev_level = xp_data.level
 	if xp_data.level > old_level:
 		level_up.emit(xp_data.level, xp_data.level_name)
 
@@ -182,6 +186,7 @@ func _update_streak(day: int) -> void:
 	if day == current_day:
 		streak_current += 1
 		streak_best = maxi(streak_best, streak_current)
+		_invalidate_xp()
 		streak_updated.emit(streak_current, streak_best)
 
 
@@ -226,6 +231,7 @@ func _check_achievements(day: int, slot_id: String) -> void:
 
 func _earn_achievement(key: String) -> void:
 	achievements_earned.append(key)
+	_invalidate_xp()
 	for a in GameData.ACHIEVEMENTS:
 		if a.key == key:
 			achievement_earned.emit(a)
@@ -236,13 +242,22 @@ func _earn_achievement(key: String) -> void:
 # ── Internal ──────────────────────────────────────────────────────
 
 var _prev_level: int = 1
+var _cached_xp: Dictionary = {}
+var _xp_dirty: bool = true
 
 func _get_level_before_last() -> int:
 	return _prev_level
 
 
-func _process(_delta: float) -> void:
-	_prev_level = calculate_xp().level
+func _invalidate_xp() -> void:
+	_xp_dirty = true
+
+
+func get_cached_xp() -> Dictionary:
+	if _xp_dirty:
+		_cached_xp = calculate_xp()
+		_xp_dirty = false
+	return _cached_xp
 
 
 # ── HOPA completion ─────────────────────────────────────────────
@@ -254,6 +269,7 @@ func complete_hopa_level(scene_id: String, time_seconds: float, objects_found: i
 		"objects_found": objects_found,
 		"hints_used": hints_used,
 	}
+	_invalidate_xp()
 	# Award XP per object found
 	var xp_amount := objects_found * GameData.XP_PER_REACTION
 	xp_gained.emit(xp_amount, "hopa_level")

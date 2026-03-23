@@ -84,6 +84,22 @@ echo "Importing project..."
 cd "$PROJECT_DIR"
 "$GODOT" --headless --import 2>&1 | tail -3
 
+# --- Run tests before build ---
+echo "Running tests..."
+"$GODOT" --headless --script tests/test_runner.gd 2>&1 | tail -5
+RUNNER_EXIT=$?
+if [ $RUNNER_EXIT -ne 0 ]; then
+    echo "ERROR: Unit tests failed (exit code $RUNNER_EXIT). Build aborted."
+    exit 1
+fi
+"$GODOT" --headless --script tests/test_e2e.gd 2>&1 | tail -5
+E2E_EXIT=$?
+if [ $E2E_EXIT -ne 0 ]; then
+    echo "ERROR: E2E tests failed (exit code $E2E_EXIT). Build aborted."
+    exit 1
+fi
+echo "All tests passed."
+
 # --- Export APK ---
 TIMESTAMP=$(date +%s)
 APK_PATH="${EXPORT_DIR}/${APK_NAME}-v${VERSION}-${TIMESTAMP}.apk"

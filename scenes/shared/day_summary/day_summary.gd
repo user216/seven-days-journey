@@ -13,7 +13,7 @@ signal game_finished
 @onready var streak_label: Label = $"../Panel/VBox/StreakLabel"
 @onready var next_btn: Button = $"../Panel/VBox/NextBtn"
 
-var _confetti: GPUParticles2D = null
+var _confetti: CPUParticles2D = null
 
 
 func _ready() -> void:
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 
 func _setup_confetti() -> void:
-	_confetti = GPUParticles2D.new()
+	_confetti = CPUParticles2D.new()
 	_confetti.emitting = false
 	_confetti.one_shot = true
 	_confetti.amount = 60
@@ -34,18 +34,17 @@ func _setup_confetti() -> void:
 	_confetti.z_index = 10
 	_confetti.position = Vector2(540, 200)
 
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, 1, 0)
-	mat.spread = 80.0
-	mat.initial_velocity_min = 200.0
-	mat.initial_velocity_max = 500.0
-	mat.gravity = Vector3(0, 400, 0)
-	mat.angular_velocity_min = -200.0
-	mat.angular_velocity_max = 200.0
-	mat.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
-	mat.emission_box_extents = Vector3(400, 10, 0)
-	mat.scale_min = 0.6
-	mat.scale_max = 2.0
+	_confetti.direction = Vector2(0, 1)
+	_confetti.spread = 80.0
+	_confetti.initial_velocity_min = 200.0
+	_confetti.initial_velocity_max = 500.0
+	_confetti.gravity = Vector2(0, 400)
+	_confetti.angular_velocity_min = -200.0
+	_confetti.angular_velocity_max = 200.0
+	_confetti.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	_confetti.emission_rect_extents = Vector2(400, 10)
+	_confetti.scale_amount_min = 0.6
+	_confetti.scale_amount_max = 2.0
 
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
@@ -55,10 +54,7 @@ func _setup_confetti() -> void:
 	ramp.add_point(0.8, Color(0.72, 0.81, 0.48, 0.5))  # light sage
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.96, 0.9, 0.72, 0.0))
-	var tex := GradientTexture1D.new()
-	tex.gradient = ramp
-	mat.color_ramp = tex
-	_confetti.process_material = mat
+	_confetti.color_ramp = ramp
 
 	# Soft circle texture
 	var sz := 8

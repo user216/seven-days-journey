@@ -17,7 +17,6 @@ var _anim_time: float = 0.0
 func _ready() -> void:
 	_current_day = GameState.current_day
 	_cards = GameData.get_all_cards_for_day(_current_day)
-	# Resume from last completed card
 	_card_idx = _get_resume_index()
 	_build_scene()
 	ThemeManager.apply_ui_scale_to_tree(self)
@@ -36,7 +35,7 @@ func _process(delta: float) -> void:
 func _build_scene() -> void:
 	# Sky background
 	_bg = ColorRect.new()
-	_bg.anchors_preset = Control.PRESET_FULL_RECT
+	_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_bg.z_index = -2
 	var shader := load("res://shaders/sky_gradient.gdshader") as Shader
 	if shader:
@@ -50,9 +49,14 @@ func _build_scene() -> void:
 		_bg.color = ThemeManager.BG_CREAM
 	add_child(_bg)
 
+	# Hero portrait — large, centered above the dialog box
+	var portrait := _create_hero_portrait()
+	if portrait:
+		add_child(portrait)
+
 	# Top HUD bar
 	var hud := HBoxContainer.new()
-	hud.anchors_preset = Control.PRESET_TOP_WIDE
+	hud.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	hud.offset_top = 40
 	hud.offset_left = 30
 	hud.offset_right = -30
@@ -97,7 +101,7 @@ func _build_scene() -> void:
 
 	# Progress bar
 	_progress_bar = ProgressBar.new()
-	_progress_bar.anchors_preset = Control.PRESET_TOP_WIDE
+	_progress_bar.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	_progress_bar.offset_top = 110
 	_progress_bar.offset_left = 30
 	_progress_bar.offset_right = -30
@@ -136,6 +140,11 @@ func _build_scene() -> void:
 		_dialog.dialog_finished.connect(_on_dialog_finished)
 		_dialog.choice_made.connect(_on_choice_made)
 		_dialog.action_requested.connect(_on_action_requested)
+		# Set hero portrait in dialog box
+		var portrait_tex := _load_hero_texture()
+		if portrait_tex:
+			_dialog.set_portrait_texture(portrait_tex)
+			_dialog.set_portrait_visible(true)
 
 	_update_counter()
 
@@ -290,3 +299,39 @@ func _update_counter() -> void:
 func _on_back() -> void:
 	SaveManager.save_game()
 	SceneTransition.change_scene("res://scenes/hero_dialogue/mode_select.tscn")
+
+
+func _load_hero_texture() -> Texture2D:
+	## Load the hero idle SVG matching the player's gender and hairstyle.
+	var suffix := GameState.get_hair_style_suffix()
+	var gender_suffix := "_male" if GameState.gender == "male" else ""
+	var path := "res://assets/hero/climb/hero_climb_idle%s%s.svg" % [gender_suffix, suffix]
+	return load(path) as Texture2D
+
+
+func _create_hero_portrait() -> TextureRect:
+	## Create a large hero portrait centered in the upper part of the screen.
+	var tex := _load_hero_texture()
+	if not tex:
+		return null
+	var rect := TextureRect.new()
+	rect.texture = tex
+	rect.expand_mode = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
+	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	rect.set_anchors_preset(Control.PRESET_CENTER)
+	rect.offset_left = -150
+	rect.offset_right = 150
+	rect.offset_top = -280
+	rect.offset_bottom = 220
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Apply hero_tint shader for skin/hair colors
+	var tint_shader := load("res://shaders/hero_tint.gdshader") as Shader
+	if tint_shader:
+		var mat := ShaderMaterial.new()
+		mat.shader = tint_shader
+		mat.set_shader_parameter("skin_tint", GameState.get_skin_tint())
+		mat.set_shader_parameter("hair_tint", GameState.get_hair_tint())
+		mat.set_shader_parameter("dress_tint", Color.WHITE)
+		mat.set_shader_parameter("glow_intensity", 0.0)
+		rect.material = mat
+	return rect

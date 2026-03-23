@@ -27,7 +27,7 @@ const TRAIL_COUNT := 3
 var _trail_timer: float = 0.0
 
 # Landing dust particles
-var _dust_particles: GPUParticles2D = null
+var _dust_particles: CPUParticles2D = null
 
 # Ambient glow behind hero
 var _glow_sprite: Sprite2D = null
@@ -111,7 +111,7 @@ func _setup_glow() -> void:
 
 
 func _setup_dust_particles() -> void:
-	_dust_particles = GPUParticles2D.new()
+	_dust_particles = CPUParticles2D.new()
 	_dust_particles.emitting = false
 	_dust_particles.one_shot = true
 	_dust_particles.amount = 12
@@ -119,23 +119,19 @@ func _setup_dust_particles() -> void:
 	_dust_particles.explosiveness = 0.9
 	_dust_particles.z_index = -1
 
-	var mat := ParticleProcessMaterial.new()
-	mat.direction = Vector3(0, -1, 0)
-	mat.spread = 75.0
-	mat.initial_velocity_min = 40.0
-	mat.initial_velocity_max = 100.0
-	mat.gravity = Vector3(0, 200, 0)
-	mat.scale_min = 0.8
-	mat.scale_max = 2.0
+	_dust_particles.direction = Vector2(0, -1)
+	_dust_particles.spread = 75.0
+	_dust_particles.initial_velocity_min = 40.0
+	_dust_particles.initial_velocity_max = 100.0
+	_dust_particles.gravity = Vector2(0, 200)
+	_dust_particles.scale_amount_min = 0.8
+	_dust_particles.scale_amount_max = 2.0
 	var ramp := Gradient.new()
 	ramp.set_offset(0, 0.0)
 	ramp.set_color(0, Color(0.85, 0.78, 0.65, 0.7))
 	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
 	ramp.set_color(ramp.get_point_count() - 1, Color(0.9, 0.85, 0.75, 0.0))
-	var tex := GradientTexture1D.new()
-	tex.gradient = ramp
-	mat.color_ramp = tex
-	_dust_particles.process_material = mat
+	_dust_particles.color_ramp = ramp
 
 	# Soft circle texture for dust
 	var sz := 8

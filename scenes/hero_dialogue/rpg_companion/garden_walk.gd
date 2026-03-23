@@ -34,9 +34,15 @@ func _build_scene() -> void:
 	sky_layer.layer = -10
 	add_child(sky_layer)
 
+	# Sky bg needs explicit sizing — it's a child of CanvasLayer, not Control, so anchors won't resolve
+	var sky_root := Control.new()
+	sky_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sky_layer.add_child(sky_root)
+	sky_root.size = get_viewport().get_visible_rect().size
+	get_viewport().size_changed.connect(func(): sky_root.size = get_viewport().get_visible_rect().size)
+
 	_sky_bg = ColorRect.new()
-	_sky_bg.anchors_preset = Control.PRESET_FULL_RECT
-	_sky_bg.size = Vector2(1080, 1920)
+	_sky_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var shader := load("res://shaders/sky_gradient.gdshader") as Shader
 	if shader:
 		_sky_material = ShaderMaterial.new()
@@ -47,7 +53,7 @@ func _build_scene() -> void:
 		_sky_bg.material = _sky_material
 	else:
 		_sky_bg.color = ThemeManager.BG_CREAM
-	sky_layer.add_child(_sky_bg)
+	sky_root.add_child(_sky_bg)
 
 	# Ground
 	_draw_ground()
@@ -84,18 +90,22 @@ func _build_scene() -> void:
 	# HUD overlay
 	_build_hud()
 
-	# Branching dialog
+	# Branching dialog — it's already a CanvasLayer (layer 50), add directly
 	var dialog_scene := load("res://scenes/hero_dialogue/shared/branching_dialog.tscn")
 	if dialog_scene:
 		_dialog = dialog_scene.instantiate()
-		# Add to a CanvasLayer so it's screen-fixed
-		var dlg_layer := CanvasLayer.new()
-		dlg_layer.layer = 40
-		add_child(dlg_layer)
-		dlg_layer.add_child(_dialog)
+		add_child(_dialog)
 		_dialog.dialog_finished.connect(_on_dialog_finished)
 		_dialog.choice_made.connect(_on_choice_made)
 		_dialog.action_requested.connect(_on_action_requested)
+		# Set hero portrait in dialog box
+		var gender_suffix := "_male" if GameState.gender == "male" else ""
+		var hair_suffix := GameState.get_hair_style_suffix()
+		var portrait_path := "res://assets/hero/climb/hero_climb_idle%s%s.svg" % [gender_suffix, hair_suffix]
+		var portrait_tex := load(portrait_path) as Texture2D
+		if portrait_tex:
+			_dialog.set_portrait_texture(portrait_tex)
+			_dialog.set_portrait_visible(true)
 
 
 func _build_stations() -> void:
@@ -216,12 +226,12 @@ func _draw_path() -> void:
 		return
 	# Draw dotted path between stations
 	for i in range(_stations.size() - 1):
-		var from := _stations[i].pos
-		var to := _stations[i + 1].pos
+		var from: Vector2 = _stations[i].pos
+		var to: Vector2 = _stations[i + 1].pos
 		var dots := 6
 		for d in range(dots):
 			var t := float(d + 1) / float(dots + 1)
-			var dot_pos := from.lerp(to, t)
+			var dot_pos: Vector2 = from.lerp(to, t)
 			var dot := ColorRect.new()
 			dot.position = dot_pos - Vector2(3, 3)
 			dot.size = Vector2(6, 6)
@@ -235,15 +245,22 @@ func _build_hud() -> void:
 	hud_layer.layer = 30
 	add_child(hud_layer)
 
+	# HUD root wrapper — CanvasLayer is not a Control, so anchors won't resolve
+	var hud_root := Control.new()
+	hud_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud_layer.add_child(hud_root)
+	hud_root.size = get_viewport().get_visible_rect().size
+	get_viewport().size_changed.connect(func(): hud_root.size = get_viewport().get_visible_rect().size)
+
 	# Top bar
 	var top_bar := HBoxContainer.new()
-	top_bar.anchors_preset = Control.PRESET_TOP_WIDE
+	top_bar.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	top_bar.offset_top = 30
 	top_bar.offset_left = 20
 	top_bar.offset_right = -20
 	top_bar.offset_bottom = 90
 	top_bar.add_theme_constant_override("separation", 12)
-	hud_layer.add_child(top_bar)
+	hud_root.add_child(top_bar)
 
 	# Back
 	var back_btn := Button.new()

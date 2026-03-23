@@ -31,6 +31,7 @@ func _run_tests() -> void:
 		print("  ✗ FATAL: Autoloads not found. Ensure project.godot has them registered.")
 		print("    GameData=%s GameState=%s TimeSystem=%s SaveManager=%s" % [
 			str(GD != null), str(GS != null), str(TS != null), str(SM != null)])
+		await process_frame
 		quit(1)
 		return
 
@@ -44,7 +45,11 @@ func _run_tests() -> void:
 	_suite_hopa_data()
 	_suite_hopa_save(GS, SM)
 	_suite_dialogue_data(GD)
+	_suite_dialogue_integrity(GD)
 	_suite_dialogue_save(GS, SM)
+	_suite_color_utils()
+	_suite_touch_utils()
+	_suite_xp_cache(GS, GD)
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -54,6 +59,8 @@ func _run_tests() -> void:
 		print("  %d passed, %d FAILED out of %d tests" % [_pass_count, _fail_count, _test_count])
 	print("══════════════════════════════════════════════\n")
 
+	# Process frames so all queue_free() calls complete before exit
+	await process_frame
 	quit(0 if _fail_count == 0 else 1)
 
 
@@ -303,7 +310,7 @@ func _suite_save_manager(GS: Node, SM: Node, GD: Node) -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(SM.SAVE_PATH)
 	var version: int = cfg.get_value("meta", "version", 0)
-	_assert_eq(version, 4, "Save version is 4")
+	_assert_eq(version, 6, "Save version is 6")
 
 	cfg.set_value("meta", "version", 1)
 	cfg.save(SM.SAVE_PATH)
@@ -634,6 +641,117 @@ func _suite_dialogue_data(GD: Node) -> void:
 					_assert(opt.has("text"), "Option in %s has text" % key)
 
 
+# ── Dialogue Integrity Tests ──────────────────────────────────────
+
+func _suite_dialogue_integrity(GD: Node) -> void:
+	_suite("Dialogue Integrity")
+
+	# Helper methods produce correct node types
+	var say_node := DialogueData.say("hello", "hero")
+	_assert_eq(say_node.type, "say", "say() produces say type")
+	_assert_eq(say_node.speaker, "hero", "say() sets speaker")
+	_assert_eq(say_node.text, "hello", "say() sets text")
+
+	var say_player := DialogueData.say("yes", "player")
+	_assert_eq(say_player.speaker, "player", "say() accepts player speaker")
+
+	var choice_node := DialogueData.choice("Pick one", [
+		DialogueData.opt("A", "branch_a"),
+		DialogueData.opt("B"),
+	])
+	_assert_eq(choice_node.type, "choice", "choice() produces choice type")
+	_assert_eq(choice_node.prompt, "Pick one", "choice() sets prompt")
+	_assert_eq(choice_node.options.size(), 2, "choice() has 2 options")
+	_assert_eq(choice_node.options[0].text, "A", "opt() text set")
+	_assert_eq(choice_node.options[0].next, "branch_a", "opt() next set")
+	_assert_eq(choice_node.options[1].next, "", "opt() next defaults empty")
+
+	var action_node := DialogueData.action("breathe")
+	_assert_eq(action_node.type, "action", "action() produces action type")
+	_assert_eq(action_node.action, "breathe", "action() sets action_id")
+
+	# All nodes in DIALOGUES have valid types
+	var valid_types := ["say", "choice", "action"]
+	for key in DialogueData.DIALOGUES:
+		var nodes: Array = DialogueData.DIALOGUES[key]
+		for node in nodes:
+			var t: String = node.get("type", "")
+			_assert(t in valid_types, "Node type '%s' valid in %s" % [t, key])
+
+	# say nodes have non-empty text
+	for key in DialogueData.DIALOGUES:
+		var nodes: Array = DialogueData.DIALOGUES[key]
+		for node in nodes:
+			if node.get("type", "") == "say":
+				_assert(node.get("text", "").length() > 0, "Say node in %s has text" % key)
+
+	# action nodes have non-empty action id
+	for key in DialogueData.DIALOGUES:
+		var nodes: Array = DialogueData.DIALOGUES[key]
+		for node in nodes:
+			if node.get("type", "") == "action":
+				_assert(node.get("action", "").length() > 0, "Action in %s has id" % key)
+
+	# Choice "next" keys that are non-empty should reference existing dialogues
+	for key in DialogueData.DIALOGUES:
+		var nodes: Array = DialogueData.DIALOGUES[key]
+		for node in nodes:
+			if node.get("type", "") == "choice":
+				for o in node.get("options", []):
+					var nxt: String = o.get("next", "")
+					if nxt.length() > 0:
+						_assert(nxt in DialogueData.DIALOGUES, "Choice next '%s' in %s exists" % [nxt, key])
+
+	# Day 1 routine slot IDs all have dialogues (wk, wp, mp, etc.)
+	var day1_routine: Array = GD.ROUTINE_SLOT_IDS if "ROUTINE_SLOT_IDS" in GD else []
+	for sid in day1_routine:
+		_assert("day1_%s" % sid in DialogueData.DIALOGUES, "Day 1 routine slot %s has dialogue" % sid)
+
+	# Days 2-7 day-specific slots have dialogues
+	for day in range(2, 8):
+		for sid in GD.DAY_SLOT_IDS:
+			var k := "day%d_%s" % [day, sid]
+			_assert(k in DialogueData.DIALOGUES or DialogueData.get_dialogue(day, sid).size() > 0,
+				"Day %d slot %s has dialogue or fallback" % [day, sid])
+
+	# Fallback for totally unknown slot returns non-empty
+	var fb := DialogueData.get_dialogue(99, "zzz")
+	_assert(fb.size() > 0, "Fallback for unknown day/slot returns nodes")
+	_assert_eq(fb[0].get("type", ""), "say", "Fallback starts with say node")
+
+	# Multi-day save round-trip
+	var GS := root.get_node("GameState")
+	var SM := root.get_node("SaveManager")
+	GS.reset()
+	GS.dialogue_mode = "rpg_companion"
+	GS.dialogue_progress = {1: ["wk", "wp"], 3: ["mp", "nc", "dc"], 7: ["ep"]}
+	GS.dialogue_choices = {"day1_wk": "day1_wk_detail", "day3_mp": "day3_mp_why"}
+	SM.save_game()
+	GS.reset()
+	SM.load_game()
+	_assert_eq(GS.dialogue_mode, "rpg_companion", "RPG mode persisted")
+	_assert(1 in GS.dialogue_progress, "Day 1 progress loaded")
+	_assert(3 in GS.dialogue_progress, "Day 3 progress loaded")
+	_assert(7 in GS.dialogue_progress, "Day 7 progress loaded")
+	_assert_eq(GS.dialogue_progress[3].size(), 3, "Day 3 has 3 slots")
+	_assert_eq(GS.dialogue_choices.size(), 2, "2 choices persisted")
+
+	# Empty progress round-trip
+	GS.reset()
+	GS.dialogue_mode = "visual_novel"
+	GS.dialogue_progress = {}
+	GS.dialogue_choices = {}
+	SM.save_game()
+	GS.reset()
+	SM.load_game()
+	_assert_eq(GS.dialogue_mode, "visual_novel", "VN mode with empty progress")
+	_assert_eq(GS.dialogue_progress.size(), 0, "Empty progress stays empty")
+	_assert_eq(GS.dialogue_choices.size(), 0, "Empty choices stays empty")
+
+	SM.delete_save()
+	GS.reset()
+
+
 # ── Dialogue Save/Load Tests ────────────────────────────────────
 
 func _suite_dialogue_save(GS: Node, SM: Node) -> void:
@@ -657,4 +775,119 @@ func _suite_dialogue_save(GS: Node, SM: Node) -> void:
 	_assert_eq(GS.dialogue_choices["day1_wk"], "day1_wk_detail", "Choice value correct")
 
 	SM.delete_save()
+	GS.reset()
+
+
+# ── ColorUtils Tests ────────────────────────────────────────────
+
+func _suite_color_utils() -> void:
+	_suite("ColorUtils")
+
+	# Empty array returns white
+	var empty_result: Color = ColorUtils.lerp_color_array([], 0.5)
+	_assert_eq(empty_result, Color.WHITE, "Empty array returns WHITE")
+
+	# Single color returns that color
+	var single: Color = ColorUtils.lerp_color_array([Color.RED], 0.5)
+	_assert_eq(single, Color.RED, "Single color returns that color")
+
+	# Two colors at extremes
+	var at_zero: Color = ColorUtils.lerp_color_array([Color.RED, Color.BLUE], 0.0)
+	_assert(absf(at_zero.r - 1.0) < 0.01, "t=0 returns first color (red)")
+
+	var at_one: Color = ColorUtils.lerp_color_array([Color.RED, Color.BLUE], 0.99)
+	_assert(absf(at_one.b - 0.99) < 0.05, "t=0.99 near last color (blue)")
+
+	# Midpoint
+	var mid: Color = ColorUtils.lerp_color_array([Color.RED, Color.BLUE], 0.5)
+	_assert(absf(mid.r - 0.5) < 0.05, "t=0.5 red component ~0.5")
+	_assert(absf(mid.b - 0.5) < 0.05, "t=0.5 blue component ~0.5")
+
+	# Three colors
+	var three_mid: Color = ColorUtils.lerp_color_array(
+		[Color.RED, Color.GREEN, Color.BLUE], 0.5)
+	_assert(absf(three_mid.g - 1.0) < 0.01, "3 colors t=0.5 = middle color (green)")
+
+	# hex_to_color
+	var red_hex: Color = ColorUtils.hex_to_color("#ff0000")
+	_assert(absf(red_hex.r - 1.0) < 0.01, "hex #ff0000 red channel = 1")
+	_assert(absf(red_hex.g) < 0.01, "hex #ff0000 green channel = 0")
+
+
+# ── TouchUtils Tests ────────────────────────────────────────────
+
+func _suite_touch_utils() -> void:
+	_suite("TouchUtils")
+
+	var tu := TouchUtils.new()
+
+	# TAP: short distance, short time
+	tu.on_touch_start(Vector2(100, 100), 0.0)
+	var tap_result: int = tu.on_touch_end(Vector2(105, 105), 0.1)
+	_assert_eq(tap_result, TouchUtils.GestureType.TAP, "Short touch = TAP")
+
+	# SWIPE_RIGHT
+	tu.on_touch_start(Vector2(100, 100), 0.0)
+	var swipe_r: int = tu.on_touch_end(Vector2(200, 110), 0.2)
+	_assert_eq(swipe_r, TouchUtils.GestureType.SWIPE_RIGHT, "Right swipe detected")
+
+	# SWIPE_LEFT
+	tu.on_touch_start(Vector2(200, 100), 0.0)
+	var swipe_l: int = tu.on_touch_end(Vector2(50, 105), 0.2)
+	_assert_eq(swipe_l, TouchUtils.GestureType.SWIPE_LEFT, "Left swipe detected")
+
+	# SWIPE_DOWN
+	tu.on_touch_start(Vector2(100, 100), 0.0)
+	var swipe_d: int = tu.on_touch_end(Vector2(110, 250), 0.2)
+	_assert_eq(swipe_d, TouchUtils.GestureType.SWIPE_DOWN, "Down swipe detected")
+
+	# SWIPE_UP
+	tu.on_touch_start(Vector2(100, 250), 0.0)
+	var swipe_u: int = tu.on_touch_end(Vector2(110, 100), 0.2)
+	_assert_eq(swipe_u, TouchUtils.GestureType.SWIPE_UP, "Up swipe detected")
+
+	# HOLD: same position, long time
+	tu.on_touch_start(Vector2(100, 100), 0.0)
+	var hold: int = tu.on_touch_end(Vector2(105, 105), 0.5)
+	_assert_eq(hold, TouchUtils.GestureType.HOLD, "Long hold detected")
+
+	# get_hold_duration
+	tu.on_touch_start(Vector2(100, 100), 1.0)
+	var dur: float = tu.get_hold_duration(2.5)
+	_assert(absf(dur - 1.5) < 0.01, "Hold duration = 1.5s")
+
+	# get_swipe_velocity
+	tu.on_touch_start(Vector2(0, 0), 0.0)
+	var vel: Vector2 = tu.get_swipe_velocity(Vector2(100, 0), 0.5)
+	_assert(absf(vel.x - 200.0) < 0.1, "Swipe velocity x = 200 px/s")
+
+	# Constants exist
+	_assert_eq(TouchUtils.SWIPE_MIN_DISTANCE, 50.0, "SWIPE_MIN_DISTANCE = 50")
+	_assert_eq(TouchUtils.HOLD_MIN_DURATION, 0.3, "HOLD_MIN_DURATION = 0.3")
+
+
+# ── XP Cache Tests ───────────────────────────────────────────────
+
+func _suite_xp_cache(GS: Node, GD: Node) -> void:
+	_suite("XP Cache")
+
+	GS.reset()
+	# After reset, cache should be dirty
+	var xp0: Dictionary = GS.get_cached_xp()
+	_assert_eq(xp0.total, 0, "Cached XP starts at 0")
+	_assert_eq(xp0.level, 1, "Cached level starts at 1")
+
+	# Complete activity should invalidate and return updated XP
+	GS.complete_activity(1, "wk")
+	var xp1: Dictionary = GS.get_cached_xp()
+	_assert(xp1.total > 0, "Cached XP > 0 after activity completion")
+
+	# Calling get_cached_xp again should return same result (cached)
+	var xp2: Dictionary = GS.get_cached_xp()
+	_assert_eq(xp1.total, xp2.total, "Second call returns cached value")
+
+	# calculate_xp and get_cached_xp should agree
+	var xp_direct: Dictionary = GS.calculate_xp()
+	_assert_eq(xp_direct.total, xp2.total, "Cached matches direct calculation")
+
 	GS.reset()

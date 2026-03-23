@@ -32,7 +32,7 @@ func _refresh() -> void:
 	var streak_icon := "🔥" if GameState.streak_current >= 3 else ""
 	day_label.text = "%sДень %d/7" % [streak_icon, GameState.current_day]
 
-	var xp_data := GameState.calculate_xp()
+	var xp_data := GameState.get_cached_xp()
 	xp_bar.value = xp_data.progress_pct
 	level_label.text = "Ур. %d" % xp_data.level
 
@@ -53,7 +53,7 @@ func _on_energy_changed(new_val: float) -> void:
 
 
 func _on_xp_gained(amount: int, _source: String) -> void:
-	var xp_data := GameState.calculate_xp()
+	var xp_data := GameState.get_cached_xp()
 
 	# Animate XP bar smoothly
 	if _xp_tween and _xp_tween.is_running():
@@ -76,10 +76,17 @@ func _spawn_floating_xp(amount: int) -> void:
 	float_label.add_theme_color_override("font_color", ThemeManager.GOLDEN_AMBER)
 	float_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	float_label.position = xp_bar.global_position + Vector2(xp_bar.size.x * 0.5 - 40, -10)
+	float_label.pivot_offset = Vector2(40, 10)
+	float_label.scale = Vector2(0.5, 0.5)
 	$"..".add_child(float_label)
 
 	var tw := create_tween()
 	tw.set_parallel(true)
+	# Scale pop: small → large → normal
+	tw.tween_property(float_label, "scale", Vector2(1.3, 1.3), 0.15).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tw.tween_property(float_label, "scale", Vector2(1.0, 1.0), 0.2).set_delay(0.15).set_ease(Tween.EASE_IN_OUT)
+	# Float up
 	tw.tween_property(float_label, "position:y", float_label.position.y - 60.0, 0.8).set_ease(Tween.EASE_OUT)
+	# Fade out
 	tw.tween_property(float_label, "modulate:a", 0.0, 0.8).set_delay(0.3)
 	tw.chain().tween_callback(func(): float_label.queue_free())

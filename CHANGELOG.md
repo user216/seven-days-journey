@@ -3,6 +3,41 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.11] — 2026-03-23
+
+### Fixed
+- **Mali-G57 crash (GPUParticles2D)** — replaced all 14 GPUParticles2D instances with CPUParticles2D across 10 files; GPUParticles2D uses Vulkan compute shaders that crash Mali-G57 MC2 with Vulkan 1.1.177 driver after particle buffer cycles (~10-12s); CPUParticles2D is visually identical, no compute shaders
+
+### Changed
+- All particle systems now use CPUParticles2D (leaf, sparkle, confetti, dust, firefly, ambient, discovery burst)
+
+## [0.7.10] — 2026-03-23
+
+### Added
+- **CrashLogger breadcrumb trail** — `CrashLogger.breadcrumb("label")` writes timestamped markers to `user://breadcrumbs.txt`; each autoload and key startup step writes a breadcrumb; on crash, the trail shows exactly which step was executing when the native crash happened
+- Breadcrumbs in all 9 autoloads + MainMenu (15 total markers across initialization sequence)
+
+## [0.7.9] — 2026-03-23
+
+### Fixed
+- **Mali shader warmup crash** — staggered shader compilation from 16-at-once to 4 per frame; excluded `background_blur` and `shockwave` shaders (use `hint_screen_texture` which doesn't exist before first frame renders)
+- **hopa_object_highlight shader** — replaced 169-fetch dynamic loop (13×13) with 8 fixed directional samples; dynamic loops with texture fetches in non-uniform control flow crash Mali Vulkan drivers
+- **sprite_outline shader** — moved all texture fetches to unconditional code path; texture sampling inside branching causes undefined behavior on Mali tile-based renderers
+- **VERSION file not exported** — added `VERSION` to `include_filter` in export_presets.cfg (was showing "App version: ?" in crash reports)
+
+## [0.7.8] — 2026-03-23
+
+### Added
+- **CrashLogger autoload** — NewPipe-style crash recovery: session state tracking, post-crash dialog with device diagnostics (GPU, model, VRAM, renderer), engine log capture, email report with clipboard backup
+- **Send logs button** in main menu — "Отправить логи" button calling `CrashLogger.send_logs_via_email()`
+
+### Fixed
+- **ObjectDB/RID leak warnings in tests** — added `await process_frame` before `quit()` in test_runner.gd and test_e2e.gd so `queue_free()` calls complete before exit
+- **AudioStreamWAV leak in headless mode** — skip audio playback in headless mode (`_headless` flag) while keeping sound generation for E2E tests
+- **crash_logger.gd parse error** — fixed Variant type inference with explicit `Vector2` type annotation
+- **godogen_scene.gd parse error** — fixed "Cannot infer type of instance" with explicit `PackedScene`/`Node` types
+- **top_down_level.gd script error** — changed `TimeSystem.game_time_minutes` (non-existent property) to `TimeSystem.get_real_minutes()`
+
 ## [0.7.1] — 2026-03-22
 
 ### Fixed

@@ -1,6 +1,7 @@
 shader_type canvas_item;
 // Pulsing outline highlight for findable HOPA objects.
 // Applied to transparent PNG sprites — draws glowing edge around non-transparent pixels.
+// Uses 8 fixed directional samples (Mali-safe: no dynamic loops, no non-uniform branching).
 
 uniform vec4 highlight_color : source_color = vec4(0.83, 0.66, 0.26, 0.6);
 uniform float pulse_speed : hint_range(0.5, 8.0) = 3.0;
@@ -9,20 +10,18 @@ uniform float time_offset : hint_range(0.0, 6.28) = 0.0;
 
 void fragment() {
 	vec4 tex = texture(TEXTURE, UV);
-	vec2 pixel_size = TEXTURE_PIXEL_SIZE;
+	vec2 ps = TEXTURE_PIXEL_SIZE * outline_width;
 
-	// Sample neighboring pixels to detect edges of non-transparent regions
+	// 8 fixed directional samples — cardinal + diagonal
 	float neighbors = 0.0;
-	for (float dx = -outline_width; dx <= outline_width; dx += 1.0) {
-		for (float dy = -outline_width; dy <= outline_width; dy += 1.0) {
-			if (dx == 0.0 && dy == 0.0) continue;
-			float dist = length(vec2(dx, dy));
-			if (dist > outline_width) continue;
-			vec2 offset_uv = UV + vec2(dx, dy) * pixel_size;
-			float sample_a = texture(TEXTURE, offset_uv).a;
-			neighbors = max(neighbors, sample_a);
-		}
-	}
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2( ps.x,  0.0)).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2(-ps.x,  0.0)).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2( 0.0,  ps.y)).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2( 0.0, -ps.y)).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2( ps.x,  ps.y) * 0.707).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2(-ps.x,  ps.y) * 0.707).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2( ps.x, -ps.y) * 0.707).a);
+	neighbors = max(neighbors, texture(TEXTURE, UV + vec2(-ps.x, -ps.y) * 0.707).a);
 
 	// Edge = neighbor is opaque but current pixel is transparent (or near edge)
 	float edge = neighbors * (1.0 - tex.a);
