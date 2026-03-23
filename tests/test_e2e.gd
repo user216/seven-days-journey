@@ -566,7 +566,7 @@ func _suite_main_menu() -> void:
 	var draw_layer := mm.get_node_or_null("DrawLayer")
 	_assert(draw_layer != null, "DrawLayer node exists")
 
-	var vbox := mm.get_node_or_null("VBox")
+	var vbox := mm.get_node_or_null("Scroll/VBox")
 	_assert(vbox != null, "VBox node exists")
 
 	# DrawLayer must not eat input
@@ -575,10 +575,10 @@ func _suite_main_menu() -> void:
 			"DrawLayer has MOUSE_FILTER_IGNORE")
 
 	# Buttons exist and are wired
-	var continue_btn := mm.get_node_or_null("VBox/ContinueBtn")
+	var continue_btn := mm.get_node_or_null("Scroll/VBox/ContinueBtn")
 	_assert(continue_btn != null, "ContinueBtn exists")
 
-	var new_game_btn := mm.get_node_or_null("VBox/NewGameBtn")
+	var new_game_btn := mm.get_node_or_null("Scroll/VBox/NewGameBtn")
 	_assert(new_game_btn != null, "NewGameBtn exists")
 
 	if new_game_btn:
@@ -594,21 +594,22 @@ func _suite_main_menu() -> void:
 			"ContinueBtn.pressed has connections (%d)" % connections.size())
 
 	# Title and subtitle exist
-	var title := mm.get_node_or_null("VBox/TitleLabel")
+	var title := mm.get_node_or_null("Scroll/VBox/TitleLabel")
 	_assert(title != null, "TitleLabel exists")
 	if title:
 		_assert(title.text == "7 Days Journey", "Title text is correct")
 
-	var subtitle := mm.get_node_or_null("VBox/SubtitleLabel")
+	var subtitle := mm.get_node_or_null("Scroll/VBox/SubtitleLabel")
 	_assert(subtitle != null, "SubtitleLabel exists")
 
 	# Z-ordering: DrawLayer must be between Background and VBox
 	if bg and draw_layer and vbox:
 		var bg_idx := bg.get_index()
 		var dl_idx := draw_layer.get_index()
-		var vbox_idx := vbox.get_index()
-		_assert(bg_idx < dl_idx and dl_idx < vbox_idx,
-			"Z-order: Background(%d) < DrawLayer(%d) < VBox(%d)" % [bg_idx, dl_idx, vbox_idx])
+		var scroll := mm.get_node_or_null("Scroll")
+		var scroll_idx := scroll.get_index() if scroll else -1
+		_assert(bg_idx < dl_idx and dl_idx < scroll_idx,
+			"Z-order: Background(%d) < DrawLayer(%d) < Scroll(%d)" % [bg_idx, dl_idx, scroll_idx])
 
 	# Script references correct scene paths
 	var mm_script := mm.get_script() as Script

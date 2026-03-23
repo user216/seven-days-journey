@@ -69,14 +69,7 @@ func _build_scene() -> void:
 	back_btn.text = "←"
 	back_btn.custom_minimum_size = Vector2(60, 60)
 	back_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(24))
-	var back_style := StyleBoxFlat.new()
-	back_style.bg_color = Color(0, 0, 0, 0.3)
-	back_style.corner_radius_top_left = 12
-	back_style.corner_radius_top_right = 12
-	back_style.corner_radius_bottom_left = 12
-	back_style.corner_radius_bottom_right = 12
-	back_btn.add_theme_stylebox_override("normal", back_style)
-	back_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(back_btn, Color(0.15, 0.15, 0.1, 0.7), 12, false)
 	back_btn.pressed.connect(_on_back)
 	ThemeManager.apply_button_juice(back_btn)
 	hud.add_child(back_btn)

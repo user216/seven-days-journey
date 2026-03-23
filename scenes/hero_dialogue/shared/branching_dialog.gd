@@ -15,6 +15,7 @@ const CHOICE_BTN_HEIGHT := 60.0
 
 # ── State ────────────────────────────────────────────────────────
 
+var skip_actions: bool = false  ## When true, "action" nodes are silently skipped (mini-game already done).
 var _nodes: Array = []  # current dialogue tree nodes
 var _node_idx: int = 0
 var _typewriter_timer: float = 0.0
@@ -113,9 +114,12 @@ func _process_current_node() -> void:
 		"choice":
 			_show_choices(node)
 		"action":
-			var action_id: String = node.get("action", "")
-			action_requested.emit(action_id)
-			_advance()
+			if skip_actions:
+				_advance()
+			else:
+				var action_id: String = node.get("action", "")
+				action_requested.emit(action_id)
+				_advance()
 
 
 func _show_say(node: Dictionary) -> void:
@@ -182,6 +186,11 @@ func _show_choices(node: Dictionary) -> void:
 		var hover_style := style.duplicate() as StyleBoxFlat
 		hover_style.bg_color = ThemeManager.SAGE_GREEN
 		btn.add_theme_stylebox_override("hover", hover_style)
+
+		var pressed_style := style.duplicate() as StyleBoxFlat
+		pressed_style.bg_color = ThemeManager.SAGE_GREEN.darkened(0.2)
+		btn.add_theme_stylebox_override("pressed", pressed_style)
+		btn.add_theme_color_override("font_pressed_color", ThemeManager.LIGHT_GOLD)
 
 		var opt_copy := opt  # capture for lambda
 		btn.pressed.connect(func():

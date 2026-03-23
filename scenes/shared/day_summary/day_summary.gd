@@ -18,6 +18,7 @@ var _confetti: CPUParticles2D = null
 
 func _ready() -> void:
 	next_btn.pressed.connect(_on_next)
+	ThemeManager.style_button(next_btn, ThemeManager.SAGE_GREEN, 16)
 	hide_summary()
 	ThemeManager.apply_ui_scale_to_tree($"..")
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree($".."))

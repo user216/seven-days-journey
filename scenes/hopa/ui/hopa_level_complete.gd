@@ -92,6 +92,7 @@ func _build_ui() -> void:
 	menu_btn.text = "Меню"
 	menu_btn.custom_minimum_size = Vector2(160, 80)
 	menu_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(18))
+	ThemeManager.style_button(menu_btn, ThemeManager.EARTHY_BROWN, 16)
 	menu_btn.pressed.connect(func(): menu_pressed.emit())
 	btn_container.add_child(menu_btn)
 
@@ -99,6 +100,7 @@ func _build_ui() -> void:
 	next_btn.text = "Далее"
 	next_btn.custom_minimum_size = Vector2(200, 80)
 	next_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
+	ThemeManager.style_button(next_btn, ThemeManager.SAGE_GREEN, 16)
 	next_btn.pressed.connect(func(): next_level_pressed.emit())
 	btn_container.add_child(next_btn)
 

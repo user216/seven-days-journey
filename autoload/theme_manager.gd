@@ -51,6 +51,36 @@ func apply_ui_scale_to_tree(node: Node) -> void:
 		apply_ui_scale_to_tree(child)
 
 
+func style_button(btn: Button, color: Color, corner_radius: int = 16, with_shadow: bool = true) -> void:
+	## Creates 3-state (normal/hover/pressed) StyleBoxFlat on a button with font colors.
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = color.darkened(0.05)
+	normal.bg_color.a = 0.95
+	for prop in ["corner_radius_top_left", "corner_radius_top_right", "corner_radius_bottom_left", "corner_radius_bottom_right"]:
+		normal.set(prop, corner_radius)
+	normal.content_margin_left = 20.0
+	normal.content_margin_right = 20.0
+	normal.content_margin_top = 14.0
+	normal.content_margin_bottom = 14.0
+	if with_shadow:
+		normal.shadow_color = Color(0, 0, 0, 0.15)
+		normal.shadow_size = 4
+		normal.shadow_offset = Vector2(0, 3)
+	btn.add_theme_stylebox_override("normal", normal)
+
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.bg_color = color
+	btn.add_theme_stylebox_override("hover", hover)
+
+	var pressed := normal.duplicate() as StyleBoxFlat
+	pressed.bg_color = color.darkened(0.2)
+	btn.add_theme_stylebox_override("pressed", pressed)
+
+	btn.add_theme_color_override("font_color", Color.WHITE)
+	btn.add_theme_color_override("font_hover_color", Color.WHITE)
+	btn.add_theme_color_override("font_pressed_color", LIGHT_GOLD)
+
+
 func apply_button_juice(btn: Button) -> void:
 	## Adds press animation + click sound to a button (idempotent).
 	if btn.has_meta("_button_juiced"):

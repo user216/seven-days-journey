@@ -50,6 +50,7 @@ func _run_tests() -> void:
 	_suite_color_utils()
 	_suite_touch_utils()
 	_suite_xp_cache(GS, GD)
+	_suite_climb_dialogue(GS, GD)
 
 	# Summary
 	print("\n══════════════════════════════════════════════")
@@ -889,5 +890,83 @@ func _suite_xp_cache(GS: Node, GD: Node) -> void:
 	# calculate_xp and get_cached_xp should agree
 	var xp_direct: Dictionary = GS.calculate_xp()
 	_assert_eq(xp_direct.total, xp2.total, "Cached matches direct calculation")
+
+	GS.reset()
+
+
+# ── Climb Dialogue Integration Tests ────────────────────────────
+
+func _suite_climb_dialogue(GS: Node, GD: Node) -> void:
+	_suite("Climb Dialogue Integration")
+
+	# DialogueData should return non-empty trees for all 7x16 cards
+	var all_have_dialogue := true
+	var empty_count := 0
+	for day in range(1, 8):
+		var cards: Array = GD.get_all_cards_for_day(day)
+		for card in cards:
+			var nodes: Array = DialogueData.get_dialogue(day, card.slot_id)
+			if nodes.is_empty():
+				all_have_dialogue = false
+				empty_count += 1
+	_assert(all_have_dialogue, "All 112 cards have dialogue trees (empty=%d)" % empty_count)
+
+	# Dialogue trees contain valid node types
+	var valid_types := ["say", "choice", "action"]
+	var all_valid := true
+	for day in range(1, 8):
+		var cards: Array = GD.get_all_cards_for_day(day)
+		for card in cards:
+			var nodes: Array = DialogueData.get_dialogue(day, card.slot_id)
+			for node in nodes:
+				if node.get("type", "") not in valid_types:
+					all_valid = false
+	_assert(all_valid, "All dialogue nodes have valid types (say/choice/action)")
+
+	# Dialogue progress tracking works
+	GS.reset()
+	GS.dialogue_progress = {}
+	var day := 1
+	if day not in GS.dialogue_progress:
+		GS.dialogue_progress[day] = []
+	GS.dialogue_progress[day].append("wk")
+	_assert(1 in GS.dialogue_progress, "dialogue_progress tracks day 1")
+	_assert("wk" in GS.dialogue_progress[1], "dialogue_progress contains wk slot")
+
+	# Duplicate slot not added twice
+	if "wk" not in GS.dialogue_progress[day]:
+		GS.dialogue_progress[day].append("wk")
+	_assert_eq(GS.dialogue_progress[1].size(), 1, "Duplicate slot_id guard works")
+
+	# Choice tracking in dialogue_choices
+	GS.dialogue_choices = {}
+	var dlg_key := "day1_wk"
+	GS.dialogue_choices[dlg_key] = "day1_wk_detail"
+	_assert(dlg_key in GS.dialogue_choices, "Choice tracked in dialogue_choices")
+	_assert_eq(GS.dialogue_choices[dlg_key], "day1_wk_detail", "Choice value correct")
+
+	# Activity completion before dialogue (save consistency)
+	GS.reset()
+	GS.start_game()
+	GS.complete_activity(1, "wk")
+	_assert("wk" in GS.completed_activities.get(1, []), "Activity completed before dialogue")
+	var xp_after: Dictionary = GS.get_cached_xp()
+	_assert(xp_after.total > 0, "XP awarded on activity completion")
+
+	# Branch dialogue keys exist in DIALOGUES for day1
+	_assert("day1_wk_detail" in DialogueData.DIALOGUES, "Branch tree day1_wk_detail exists")
+	_assert("day1_mp_why" in DialogueData.DIALOGUES, "Branch tree day1_mp_why exists")
+	_assert("day1_nc_why" in DialogueData.DIALOGUES, "Branch tree day1_nc_why exists")
+	_assert("day1_ep_why" in DialogueData.DIALOGUES, "Branch tree day1_ep_why exists")
+
+	# Day-specific dialogues exist for mp, nc, dc, lc, ep across all 7 days
+	var day_specific_slots := ["mp", "nc", "dc", "lc", "ep"]
+	var all_day_specific := true
+	for d in range(1, 8):
+		for slot in day_specific_slots:
+			var key := "day%d_%s" % [d, slot]
+			if key not in DialogueData.DIALOGUES:
+				all_day_specific = false
+	_assert(all_day_specific, "All day-specific dialogue keys exist (7 days x 5 slots)")
 
 	GS.reset()

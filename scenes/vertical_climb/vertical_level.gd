@@ -14,6 +14,11 @@ var _current_platform: int = 0
 var _anim_time: float = 0.0
 var _camera: Camera2D = null
 
+# Post-activity VN dialogue
+var _branching_dialog: Node = null
+var _pending_dialogue_slot: String = ""
+var _pending_effects_platform_idx: int = -1
+
 # Dead-zone camera — camera stays still while hero is within center band
 const DEAD_ZONE_HALF := 0.15  # 30% of viewport height = ±15% from center
 var _camera_target_y: float = 0.0
@@ -372,6 +377,19 @@ func _build_level() -> void:
 	add_child(preload("res://scenes/shared/level_up/level_up.tscn").instantiate())
 	add_child(preload("res://scenes/shared/achievement_toast/achievement_toast.tscn").instantiate())
 
+	# Branching dialogue overlay for post-activity VN conversation
+	var dialog_scene := load("res://scenes/hero_dialogue/shared/branching_dialog.tscn")
+	if dialog_scene:
+		_branching_dialog = dialog_scene.instantiate()
+		_branching_dialog.skip_actions = true
+		add_child(_branching_dialog)
+		_branching_dialog.dialog_finished.connect(_on_climb_dialogue_finished)
+		_branching_dialog.choice_made.connect(_on_climb_choice_made)
+		var portrait_tex := _load_hero_portrait_texture()
+		if portrait_tex:
+			_branching_dialog.set_portrait_texture(portrait_tex)
+			_branching_dialog.set_portrait_visible(true)
+
 	# Pause menu
 	var pause_inst := preload("res://scenes/shared/pause_menu/pause_menu.tscn").instantiate()
 	add_child(pause_inst)
@@ -599,6 +617,8 @@ func _on_time_changed(_real_time_minutes: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _branching_dialog and _branching_dialog.visible:
+		return
 	if event is InputEventMouseButton and event.pressed:
 		var world_pos := get_global_mouse_position()
 		for i in range(platforms.size()):
@@ -621,29 +641,96 @@ func _on_activity_done(slot_id: String, completed: bool) -> void:
 		GameState.complete_activity(GameState.current_day, slot_id)
 		AudioManager.play("complete")
 		GameState.vibrate(50)
-		SceneTransition.flash_screen(Color(0.49, 0.64, 0.27, 1.0), 0.2)
-		SceneTransition.shockwave(Vector2(0.5, 0.5), 0.5)
+
+		# Store slot and platform index for deferred visual effects
+		_pending_dialogue_slot = slot_id
+		_pending_effects_platform_idx = -1
+		for i in range(platforms.size()):
+			if platforms[i].card.slot_id == slot_id:
+				_pending_effects_platform_idx = i
+				break
+
+		# Keep time paused during dialogue
+		TimeSystem.pause()
+		_start_climb_dialogue(slot_id)
 	else:
 		GameState.miss_activity(GameState.current_day, slot_id)
+		_refresh_platform_states()
+		SaveManager.save_game()
+		queue_redraw()
 
-	for i in range(platforms.size()):
-		if platforms[i].card.slot_id == slot_id:
-			if completed:
-				platforms[i].bridge_visible = true
-				_emit_sparkles(platforms[i].pos + Vector2(PLATFORM_WIDTH * 0.5, 0))
-				_shake_camera(0.3)
-				# Camera zoom pulse on completion
-				if _camera:
-					var zw := create_tween()
-					zw.tween_property(_camera, "zoom", Vector2(1.08, 1.08), 0.15).set_ease(Tween.EASE_OUT)
-					zw.tween_property(_camera, "zoom", Vector2.ONE, 0.3).set_ease(Tween.EASE_IN_OUT)
-			break
 
+func _start_climb_dialogue(slot_id: String) -> void:
+	if not _branching_dialog:
+		_play_completion_effects()
+		return
+
+	var nodes: Array = DialogueData.get_dialogue(GameState.current_day, slot_id)
+	if nodes.is_empty():
+		_play_completion_effects()
+		return
+
+	var key := "day%d_%s" % [GameState.current_day, slot_id]
+	_branching_dialog.show_dialogue(key, nodes)
+
+
+func _on_climb_dialogue_finished() -> void:
+	# Record dialogue progress
+	var day := GameState.current_day
+	if day not in GameState.dialogue_progress:
+		GameState.dialogue_progress[day] = []
+	if _pending_dialogue_slot.length() > 0 and _pending_dialogue_slot not in GameState.dialogue_progress[day]:
+		GameState.dialogue_progress[day].append(_pending_dialogue_slot)
+
+	GameState.dialogue_node_completed.emit(day, _pending_dialogue_slot)
+	_play_completion_effects()
+
+
+func _on_climb_choice_made(choice_key: String) -> void:
+	if choice_key.length() > 0:
+		var dlg_key := "day%d_%s" % [GameState.current_day, _pending_dialogue_slot]
+		GameState.dialogue_choices[dlg_key] = choice_key
+
+		# Branch to a different dialogue tree if it exists
+		var branch_nodes: Array = []
+		if choice_key in DialogueData.DIALOGUES:
+			branch_nodes = DialogueData.DIALOGUES[choice_key]
+		if branch_nodes.size() > 0 and _branching_dialog:
+			_branching_dialog.show_dialogue(choice_key, branch_nodes)
+
+
+func _play_completion_effects() -> void:
+	TimeSystem.resume()
+	_pending_dialogue_slot = ""
+
+	SceneTransition.flash_screen(Color(0.49, 0.64, 0.27, 1.0), 0.2)
+	SceneTransition.shockwave(Vector2(0.5, 0.5), 0.5)
+
+	if _pending_effects_platform_idx >= 0 and _pending_effects_platform_idx < platforms.size():
+		var i := _pending_effects_platform_idx
+		platforms[i].bridge_visible = true
+		_emit_sparkles(platforms[i].pos + Vector2(PLATFORM_WIDTH * 0.5, 0))
+		_shake_camera(0.3)
+		if _camera:
+			var zw := create_tween()
+			zw.tween_property(_camera, "zoom", Vector2(1.08, 1.08), 0.15).set_ease(Tween.EASE_OUT)
+			zw.tween_property(_camera, "zoom", Vector2.ONE, 0.3).set_ease(Tween.EASE_IN_OUT)
+
+	_pending_effects_platform_idx = -1
 	_refresh_platform_states()
 	SaveManager.save_game()
 	queue_redraw()
 
 
 func _on_day_ended() -> void:
+	if _branching_dialog and _branching_dialog.visible:
+		return
 	if _day_summary and not _day_summary.summary_layer.visible:
 		_day_summary.show_summary(GameState.current_day)
+
+
+func _load_hero_portrait_texture() -> Texture2D:
+	var suffix := GameState.get_hair_style_suffix()
+	var gender_suffix := "_male" if GameState.gender == "male" else ""
+	var path := "res://assets/hero/climb/hero_climb_idle%s%s.svg" % [gender_suffix, suffix]
+	return load(path) as Texture2D

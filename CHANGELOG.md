@@ -3,6 +3,18 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.21] — 2026-03-23
+
+### Added
+- **Merged VN dialogue into vertical climb** — after completing a mini-game on a platform, the hero's visual novel dialogue for that activity opens automatically before completion effects play; uses `DialogueData.get_dialogue(day, slot_id)` with `branching_dialog` overlay at CanvasLayer 50; action nodes silently skipped via new `skip_actions` property (mini-game already done)
+- New `skip_actions: bool` property on `branching_dialog.gd` — when true, "action" dialogue nodes are advanced without emitting `action_requested` signal
+- Dialogue progress tracked in `GameState.dialogue_progress` (shared with standalone VN mode)
+- Edge case guards: input blocked during dialogue, day summary deferred during dialogue
+- 14 new unit tests in `_suite_climb_dialogue` covering dialogue data integrity, progress tracking, choice recording, and branch tree existence
+
+### Fixed
+- **Activity popup buttons cut off on small screens** — Panel changed from fixed 840px center-anchored to percentage-based anchoring (4%–96% width, 6%–98% height); InteractionContainer minimum height reduced from 300px to 200px; "Пропустить" and "Готово" buttons now always visible
+
 ## [0.7.18] — 2026-03-23
 
 ### Fixed

@@ -109,18 +109,7 @@ func _build_ui() -> void:
 	back_btn.text = "← Назад"
 	back_btn.custom_minimum_size = Vector2(200, 60)
 	back_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(16))
-	var back_style := StyleBoxFlat.new()
-	back_style.bg_color = ThemeManager.EARTHY_BROWN
-	back_style.corner_radius_top_left = 12
-	back_style.corner_radius_top_right = 12
-	back_style.corner_radius_bottom_left = 12
-	back_style.corner_radius_bottom_right = 12
-	back_style.content_margin_left = 16.0
-	back_style.content_margin_right = 16.0
-	back_style.content_margin_top = 8.0
-	back_style.content_margin_bottom = 8.0
-	back_btn.add_theme_stylebox_override("normal", back_style)
-	back_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(back_btn, ThemeManager.EARTHY_BROWN, 12)
 	back_btn.pressed.connect(_on_back)
 	ThemeManager.apply_button_juice(back_btn)
 	vbox.add_child(back_btn)

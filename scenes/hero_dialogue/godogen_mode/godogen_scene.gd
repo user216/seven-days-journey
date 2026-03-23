@@ -25,11 +25,44 @@ func _load_generated() -> void:
 
 
 func _show_placeholder() -> void:
-	# Background
+	# Background with sky gradient shader
 	var bg := ColorRect.new()
 	bg.anchors_preset = Control.PRESET_FULL_RECT
 	bg.color = ThemeManager.BG_CREAM
+	var shader := load("res://shaders/sky_gradient.gdshader") as Shader
+	if shader:
+		var mat := ShaderMaterial.new()
+		mat.shader = shader
+		mat.set_shader_parameter("color_top", Color("#87CEEB"))
+		mat.set_shader_parameter("color_bottom", Color("#f5e6b8"))
+		mat.set_shader_parameter("star_density", 0.0)
+		bg.material = mat
 	add_child(bg)
+
+	# Golden sparkle particles
+	var sparkle := CPUParticles2D.new()
+	sparkle.z_index = 2
+	sparkle.amount = 6
+	sparkle.lifetime = 8.0
+	sparkle.direction = Vector2(0, -0.3)
+	sparkle.spread = 180.0
+	sparkle.initial_velocity_min = 3.0
+	sparkle.initial_velocity_max = 10.0
+	sparkle.gravity = Vector2(0, -2)
+	sparkle.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	sparkle.emission_rect_extents = Vector2(500, 800)
+	sparkle.scale_amount_min = 0.4
+	sparkle.scale_amount_max = 1.0
+	var ramp := Gradient.new()
+	ramp.set_offset(0, 0.0)
+	ramp.set_color(0, Color(0.95, 0.9, 0.5, 0.0))
+	ramp.add_point(0.25, Color(0.95, 0.88, 0.45, 0.5))
+	ramp.add_point(0.75, Color(0.95, 0.85, 0.4, 0.3))
+	ramp.set_offset(ramp.get_point_count() - 1, 1.0)
+	ramp.set_color(ramp.get_point_count() - 1, Color(0.85, 0.75, 0.3, 0.0))
+	sparkle.color_ramp = ramp
+	sparkle.texture = PlaceholderFactory.make_soft_circle(4, Color(1.0, 0.95, 0.5))
+	add_child(sparkle)
 
 	# Main container
 	var scroll := ScrollContainer.new()
@@ -97,18 +130,7 @@ func _show_placeholder() -> void:
 	back_btn.text = "← Назад к выбору режима"
 	back_btn.custom_minimum_size = Vector2(400, 70)
 	back_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(18))
-	var style := StyleBoxFlat.new()
-	style.bg_color = ThemeManager.EARTHY_BROWN
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
-	style.content_margin_left = 20.0
-	style.content_margin_right = 20.0
-	style.content_margin_top = 12.0
-	style.content_margin_bottom = 12.0
-	back_btn.add_theme_stylebox_override("normal", style)
-	back_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(back_btn, ThemeManager.EARTHY_BROWN, 12)
 	back_btn.pressed.connect(_on_back)
 	ThemeManager.apply_button_juice(back_btn)
 	vbox.add_child(back_btn)

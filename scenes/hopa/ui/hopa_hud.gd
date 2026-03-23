@@ -193,6 +193,7 @@ func _build_ui() -> void:
 	_hint_btn.text = "Подсказка"
 	_hint_btn.custom_minimum_size = Vector2(200, 80)
 	_hint_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(18))
+	ThemeManager.style_button(_hint_btn, ThemeManager.GOLDEN_AMBER, 12)
 	_hint_btn.pressed.connect(func(): hint_requested.emit())
 	bottom_hbox.add_child(_hint_btn)
 
@@ -223,6 +224,7 @@ func _build_ui() -> void:
 	_pause_btn.text = "||"
 	_pause_btn.custom_minimum_size = Vector2(80, 80)
 	_pause_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
+	ThemeManager.style_button(_pause_btn, ThemeManager.EARTHY_BROWN, 12)
 	_pause_btn.pressed.connect(func(): pause_requested.emit())
 	bottom_hbox.add_child(_pause_btn)
 

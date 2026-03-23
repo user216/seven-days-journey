@@ -33,6 +33,11 @@ func _ready() -> void:
 	main_menu_btn.pressed.connect(_on_main_menu)
 	title_label.gui_input.connect(_on_title_input)
 
+	# Style scene-defined buttons
+	ThemeManager.style_button(resume_btn, ThemeManager.SAGE_GREEN, 16)
+	ThemeManager.style_button(save_btn, ThemeManager.GOLDEN_AMBER, 16)
+	ThemeManager.style_button(main_menu_btn, ThemeManager.WARM_DANGER, 16)
+
 	# Settings section
 	var sep := HSeparator.new()
 	$"../ScrollContainer/CenterContainer/VBox".add_child(sep)
@@ -56,6 +61,7 @@ func _ready() -> void:
 	var minus_btn := Button.new()
 	minus_btn.text = " − "
 	minus_btn.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(minus_btn, ThemeManager.EARTHY_BROWN, 10, false)
 	minus_btn.pressed.connect(_on_scale_minus)
 	scale_row.add_child(minus_btn)
 
@@ -68,6 +74,7 @@ func _ready() -> void:
 	var plus_btn := Button.new()
 	plus_btn.text = " + "
 	plus_btn.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(plus_btn, ThemeManager.EARTHY_BROWN, 10, false)
 	plus_btn.pressed.connect(_on_scale_plus)
 	scale_row.add_child(plus_btn)
 
@@ -83,6 +90,7 @@ func _ready() -> void:
 	var vol_minus := Button.new()
 	vol_minus.text = " − "
 	vol_minus.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(vol_minus, ThemeManager.EARTHY_BROWN, 10, false)
 	vol_minus.pressed.connect(_on_vol_minus)
 	vol_row.add_child(vol_minus)
 	_volume_label = Label.new()
@@ -93,6 +101,7 @@ func _ready() -> void:
 	var vol_plus := Button.new()
 	vol_plus.text = " + "
 	vol_plus.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(vol_plus, ThemeManager.EARTHY_BROWN, 10, false)
 	vol_plus.pressed.connect(_on_vol_plus)
 	vol_row.add_child(vol_plus)
 	$"../ScrollContainer/CenterContainer/VBox".add_child(vol_row)
@@ -100,6 +109,7 @@ func _ready() -> void:
 	# SFX toggle
 	_sfx_btn = Button.new()
 	_sfx_btn.custom_minimum_size = Vector2(0, 60)
+	ThemeManager.style_button(_sfx_btn, ThemeManager.EARTHY_BROWN, 12, false)
 	_sfx_btn.pressed.connect(_on_sfx_toggle)
 	_update_sfx_btn()
 	$"../ScrollContainer/CenterContainer/VBox".add_child(_sfx_btn)
@@ -107,6 +117,7 @@ func _ready() -> void:
 	# Haptic toggle
 	_haptic_btn = Button.new()
 	_haptic_btn.custom_minimum_size = Vector2(0, 60)
+	ThemeManager.style_button(_haptic_btn, ThemeManager.EARTHY_BROWN, 12, false)
 	_haptic_btn.pressed.connect(_on_haptic_toggle)
 	_update_haptic_btn()
 	$"../ScrollContainer/CenterContainer/VBox".add_child(_haptic_btn)
@@ -123,6 +134,7 @@ func _ready() -> void:
 	var skin_prev := Button.new()
 	skin_prev.text = " < "
 	skin_prev.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(skin_prev, ThemeManager.EARTHY_BROWN, 10, false)
 	skin_prev.pressed.connect(_on_skin_prev)
 	skin_row.add_child(skin_prev)
 
@@ -134,6 +146,7 @@ func _ready() -> void:
 	var skin_next := Button.new()
 	skin_next.text = " > "
 	skin_next.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(skin_next, ThemeManager.EARTHY_BROWN, 10, false)
 	skin_next.pressed.connect(_on_skin_next)
 	skin_row.add_child(skin_next)
 
@@ -152,6 +165,7 @@ func _ready() -> void:
 	var hair_prev := Button.new()
 	hair_prev.text = " < "
 	hair_prev.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(hair_prev, ThemeManager.EARTHY_BROWN, 10, false)
 	hair_prev.pressed.connect(_on_hair_prev)
 	hair_row.add_child(hair_prev)
 
@@ -163,6 +177,7 @@ func _ready() -> void:
 	var hair_next := Button.new()
 	hair_next.text = " > "
 	hair_next.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(hair_next, ThemeManager.EARTHY_BROWN, 10, false)
 	hair_next.pressed.connect(_on_hair_next)
 	hair_row.add_child(hair_next)
 
@@ -181,6 +196,7 @@ func _ready() -> void:
 	var style_prev := Button.new()
 	style_prev.text = " < "
 	style_prev.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(style_prev, ThemeManager.EARTHY_BROWN, 10, false)
 	style_prev.pressed.connect(_on_style_prev)
 	style_row.add_child(style_prev)
 
@@ -192,6 +208,7 @@ func _ready() -> void:
 	var style_next := Button.new()
 	style_next.text = " > "
 	style_next.custom_minimum_size = Vector2(80, 80)
+	ThemeManager.style_button(style_next, ThemeManager.EARTHY_BROWN, 10, false)
 	style_next.pressed.connect(_on_style_next)
 	style_row.add_child(style_next)
 
@@ -202,6 +219,7 @@ func _ready() -> void:
 	_dev_btn = Button.new()
 	_dev_btn.custom_minimum_size = Vector2(0, 60)
 	_dev_btn.visible = GameState.developer_mode
+	ThemeManager.style_button(_dev_btn, ThemeManager.HINT_KHAKI, 12, false)
 	_dev_btn.pressed.connect(_on_dev_toggle)
 	_update_dev_btn_text()
 	$"../ScrollContainer/CenterContainer/VBox".add_child(_dev_btn)
@@ -213,6 +231,7 @@ func _ready() -> void:
 	_about_btn = Button.new()
 	_about_btn.custom_minimum_size = Vector2(0, 50)
 	_about_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(18))
+	ThemeManager.style_button(_about_btn, ThemeManager.HINT_KHAKI, 12, false)
 	_about_btn.pressed.connect(_on_about_toggle)
 	_update_about_btn_text(false)
 	$"../ScrollContainer/CenterContainer/VBox".add_child(_about_btn)
@@ -274,19 +293,7 @@ func _ready() -> void:
 	copy_btn.text = "📋 Скопировать логи"
 	copy_btn.custom_minimum_size = Vector2(0, 60)
 	copy_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
-	var copy_style := StyleBoxFlat.new()
-	copy_style.bg_color = ThemeManager.EARTHY_BROWN
-	copy_style.bg_color.a = 0.8
-	copy_style.corner_radius_top_left = 10
-	copy_style.corner_radius_top_right = 10
-	copy_style.corner_radius_bottom_left = 10
-	copy_style.corner_radius_bottom_right = 10
-	copy_style.content_margin_left = 16.0
-	copy_style.content_margin_right = 16.0
-	copy_style.content_margin_top = 8.0
-	copy_style.content_margin_bottom = 8.0
-	copy_btn.add_theme_stylebox_override("normal", copy_style)
-	copy_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(copy_btn, ThemeManager.EARTHY_BROWN, 10)
 	copy_btn.pressed.connect(_on_copy_logs.bind(copy_btn))
 	ThemeManager.apply_button_juice(copy_btn)
 	_about_panel.add_child(copy_btn)
@@ -296,19 +303,7 @@ func _ready() -> void:
 	email_btn.text = "📧 Отправить логи"
 	email_btn.custom_minimum_size = Vector2(0, 60)
 	email_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
-	var email_style := StyleBoxFlat.new()
-	email_style.bg_color = ThemeManager.SAGE_GREEN.darkened(0.1)
-	email_style.bg_color.a = 0.85
-	email_style.corner_radius_top_left = 10
-	email_style.corner_radius_top_right = 10
-	email_style.corner_radius_bottom_left = 10
-	email_style.corner_radius_bottom_right = 10
-	email_style.content_margin_left = 16.0
-	email_style.content_margin_right = 16.0
-	email_style.content_margin_top = 8.0
-	email_style.content_margin_bottom = 8.0
-	email_btn.add_theme_stylebox_override("normal", email_style)
-	email_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(email_btn, ThemeManager.SAGE_GREEN, 10)
 	email_btn.pressed.connect(_on_email_logs)
 	ThemeManager.apply_button_juice(email_btn)
 	_about_panel.add_child(email_btn)

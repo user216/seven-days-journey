@@ -8,11 +8,12 @@ extends Control
 ##   Rendering ON/OFF — DrawLayer + particles
 ## Changes take effect on next app restart. Flags persisted to user://diag_flags.txt.
 
-@onready var title_label: Label = $VBox/TitleLabel
-@onready var subtitle_label: Label = $VBox/SubtitleLabel
-@onready var continue_btn: Button = $VBox/ContinueBtn
-@onready var new_game_btn: Button = $VBox/NewGameBtn
+@onready var title_label: Label = $Scroll/VBox/TitleLabel
+@onready var subtitle_label: Label = $Scroll/VBox/SubtitleLabel
+@onready var continue_btn: Button = $Scroll/VBox/ContinueBtn
+@onready var new_game_btn: Button = $Scroll/VBox/NewGameBtn
 @onready var draw_layer: Control = $DrawLayer
+@onready var vbox: VBoxContainer = $Scroll/VBox
 
 var _title_tap_count: int = 0
 var _title_tap_timer: float = 0.0
@@ -163,21 +164,10 @@ func _create_hopa_button() -> void:
 	hopa_btn.custom_minimum_size = Vector2(400, 80)
 	hopa_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
 
-	var style := StyleBoxFlat.new()
-	style.bg_color = ThemeManager.DEEP_LEAF
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
-	style.content_margin_left = 20.0
-	style.content_margin_right = 20.0
-	style.content_margin_top = 10.0
-	style.content_margin_bottom = 10.0
-	hopa_btn.add_theme_stylebox_override("normal", style)
-	hopa_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(hopa_btn, ThemeManager.DEEP_LEAF, 12)
 
 	hopa_btn.pressed.connect(_on_hopa)
-	$VBox.add_child(hopa_btn)
+	vbox.add_child(hopa_btn)
 
 
 func _create_dialogue_button() -> void:
@@ -187,21 +177,10 @@ func _create_dialogue_button() -> void:
 	dlg_btn.custom_minimum_size = Vector2(400, 80)
 	dlg_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(20))
 
-	var style := StyleBoxFlat.new()
-	style.bg_color = ThemeManager.GOLDEN_AMBER
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
-	style.content_margin_left = 20.0
-	style.content_margin_right = 20.0
-	style.content_margin_top = 10.0
-	style.content_margin_bottom = 10.0
-	dlg_btn.add_theme_stylebox_override("normal", style)
-	dlg_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(dlg_btn, ThemeManager.GOLDEN_AMBER, 12)
 
 	dlg_btn.pressed.connect(_on_dialogue)
-	$VBox.add_child(dlg_btn)
+	vbox.add_child(dlg_btn)
 
 
 func _create_send_logs_button() -> void:
@@ -211,21 +190,10 @@ func _create_send_logs_button() -> void:
 	log_btn.custom_minimum_size = Vector2(400, 64)
 	log_btn.add_theme_font_size_override("font_size", ThemeManager.font_size(16))
 
-	var style := StyleBoxFlat.new()
-	style.bg_color = ThemeManager.HINT_KHAKI
-	style.corner_radius_top_left = 12
-	style.corner_radius_top_right = 12
-	style.corner_radius_bottom_left = 12
-	style.corner_radius_bottom_right = 12
-	style.content_margin_left = 16.0
-	style.content_margin_right = 16.0
-	style.content_margin_top = 8.0
-	style.content_margin_bottom = 8.0
-	log_btn.add_theme_stylebox_override("normal", style)
-	log_btn.add_theme_color_override("font_color", Color.WHITE)
+	ThemeManager.style_button(log_btn, ThemeManager.HINT_KHAKI, 12)
 
 	log_btn.pressed.connect(_on_send_logs)
-	$VBox.add_child(log_btn)
+	vbox.add_child(log_btn)
 
 
 func _create_diag_switches() -> void:
@@ -233,19 +201,19 @@ func _create_diag_switches() -> void:
 	## Changes are saved immediately but take full effect on next restart.
 	var spacer := Control.new()
 	spacer.custom_minimum_size = Vector2(0, 20)
-	$VBox.add_child(spacer)
+	vbox.add_child(spacer)
 
 	var header := Label.new()
 	header.text = "Диагностика (перезапустите после изменений)"
 	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	header.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
 	header.add_theme_color_override("font_color", Color(0.49, 0.45, 0.34, 0.7))
-	$VBox.add_child(header)
+	vbox.add_child(header)
 
 	var grid := HBoxContainer.new()
 	grid.alignment = BoxContainer.ALIGNMENT_CENTER
 	grid.add_theme_constant_override("separation", 24)
-	$VBox.add_child(grid)
+	vbox.add_child(grid)
 
 	_add_switch(grid, "Звук", _diag_audio, func(on: bool):
 		_diag_audio = on
@@ -263,6 +231,10 @@ func _create_diag_switches() -> void:
 		CrashLogger.breadcrumb("Diag: rendering=%s" % str(on))
 	)
 
+	var bottom_spacer := Control.new()
+	bottom_spacer.custom_minimum_size = Vector2(0, 40)
+	vbox.add_child(bottom_spacer)
+
 
 func _add_switch(parent: Control, label_text: String, initial: bool, callback: Callable) -> void:
 	var vb := VBoxContainer.new()
@@ -277,6 +249,7 @@ func _add_switch(parent: Control, label_text: String, initial: bool, callback: C
 
 	var toggle := CheckButton.new()
 	toggle.button_pressed = initial
+	toggle.custom_minimum_size = Vector2(80, 50)
 	toggle.toggled.connect(callback)
 	vb.add_child(toggle)
 
