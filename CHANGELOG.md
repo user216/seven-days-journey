@@ -3,6 +3,19 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.13] — 2026-03-23
+
+### Fixed
+- **Shader warmup cleanup crash** — warmup rects (14 invisible 1px nodes) are no longer freed; on Mali Vulkan, freeing shader material resources while the GPU command buffer still references them causes deferred native crash
+- Heartbeat breadcrumbs now fire every 1 second (was 3s) for precise crash timing
+
+## [0.7.12] — 2026-03-23
+
+### Fixed
+- **SceneTransition shockwave early-load crash** — lazy-load `shockwave.gdshader` (uses `hint_screen_texture`) on first `shockwave()` call instead of at boot; having the material in the scene tree at startup corrupts Mali's internal screen texture binding
+- **DrawLayer Vulkan command buffer pressure** — throttled `queue_redraw()` from 60fps to ~20fps; reduced sun glow rings from 5 to 3; cuts Vulkan draw calls by 66%
+- Added 1-second heartbeat breadcrumbs during MainMenu rendering for crash timing diagnosis
+
 ## [0.7.11] — 2026-03-23
 
 ### Fixed
