@@ -1,6 +1,12 @@
 extends Control
 ## Main menu — animated background with sky gradient, particles, entrance animations.
 ## Procedural drawing is delegated to DrawLayer child (mouse_filter=IGNORE).
+##
+## Diagnostic switches (visible on screen):
+##   Audio ON/OFF — music, ambient, SFX
+##   Shaders ON/OFF — shader warmup + sky gradient
+##   Rendering ON/OFF — DrawLayer + particles
+## Changes take effect on next app restart. Flags persisted to user://diag_flags.txt.
 
 @onready var title_label: Label = $VBox/TitleLabel
 @onready var subtitle_label: Label = $VBox/SubtitleLabel
@@ -14,9 +20,18 @@ var _anim_time: float = 0.0
 var _sky_material: ShaderMaterial = null
 var _heartbeat_counter: int = 0
 
+# Diagnostic flags (loaded from disk at startup)
+var _diag_audio: bool = true
+var _diag_shaders: bool = true
+var _diag_rendering: bool = true
+
+const DIAG_FLAGS_PATH := "user://diag_flags.txt"
+
 
 func _ready() -> void:
-	CrashLogger.breadcrumb("MainMenu._ready")
+	_load_diag_flags()
+	CrashLogger.breadcrumb("MainMenu._ready (audio=%s, shaders=%s, rendering=%s)" % [
+		str(_diag_audio), str(_diag_shaders), str(_diag_rendering)])
 	continue_btn.visible = SaveManager.has_save()
 	continue_btn.pressed.connect(_on_continue)
 	new_game_btn.pressed.connect(_on_new_game)
@@ -25,24 +40,35 @@ func _ready() -> void:
 	_create_dialogue_button()
 	_create_send_logs_button()
 	_update_dev_indicator()
-	_setup_background()
+	if _diag_rendering:
+		_setup_background()
+	else:
+		$Background.color = Color(0.996, 0.988, 0.953)
+		draw_layer.set_process(false)
+		draw_layer.visible = false
 	CrashLogger.breadcrumb("MainMenu.background_ready")
 	ThemeManager.apply_ui_scale_to_tree(self)
 	GameState.ui_scale_changed.connect(func(_s): ThemeManager.apply_ui_scale_to_tree(self))
-	_animate_entrance()
-	AudioManager.play_music("menu_theme")
+	if _diag_rendering:
+		_animate_entrance()
+	if _diag_audio:
+		AudioManager.play_music("menu_theme")
+	_create_diag_switches()
 
 
 func _setup_background() -> void:
 	var bg := $Background
-	var shader := load("res://shaders/sky_gradient.gdshader") as Shader
-	if shader:
-		_sky_material = ShaderMaterial.new()
-		_sky_material.shader = shader
-		_sky_material.set_shader_parameter("color_top", Color("#87CEEB"))
-		_sky_material.set_shader_parameter("color_bottom", Color("#f5e6b8"))
-		_sky_material.set_shader_parameter("star_density", 0.0)
-		bg.material = _sky_material
+	if _diag_shaders:
+		var shader := load("res://shaders/sky_gradient.gdshader") as Shader
+		if shader:
+			_sky_material = ShaderMaterial.new()
+			_sky_material.shader = shader
+			_sky_material.set_shader_parameter("color_top", Color("#87CEEB"))
+			_sky_material.set_shader_parameter("color_bottom", Color("#f5e6b8"))
+			_sky_material.set_shader_parameter("star_density", 0.0)
+			bg.material = _sky_material
+	else:
+		bg.color = Color("#d4e8f0")
 
 	# Populate draw layer data
 	var mtns: Array[Dictionary] = []
@@ -202,6 +228,61 @@ func _create_send_logs_button() -> void:
 	$VBox.add_child(log_btn)
 
 
+func _create_diag_switches() -> void:
+	## Visible diagnostic toggle switches at the bottom of the menu.
+	## Changes are saved immediately but take full effect on next restart.
+	var spacer := Control.new()
+	spacer.custom_minimum_size = Vector2(0, 20)
+	$VBox.add_child(spacer)
+
+	var header := Label.new()
+	header.text = "Диагностика (перезапустите после изменений)"
+	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	header.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
+	header.add_theme_color_override("font_color", Color(0.49, 0.45, 0.34, 0.7))
+	$VBox.add_child(header)
+
+	var grid := HBoxContainer.new()
+	grid.alignment = BoxContainer.ALIGNMENT_CENTER
+	grid.add_theme_constant_override("separation", 24)
+	$VBox.add_child(grid)
+
+	_add_switch(grid, "Звук", _diag_audio, func(on: bool):
+		_diag_audio = on
+		_save_diag_flags()
+		CrashLogger.breadcrumb("Diag: audio=%s" % str(on))
+	)
+	_add_switch(grid, "Шейдеры", _diag_shaders, func(on: bool):
+		_diag_shaders = on
+		_save_diag_flags()
+		CrashLogger.breadcrumb("Diag: shaders=%s" % str(on))
+	)
+	_add_switch(grid, "Рендер", _diag_rendering, func(on: bool):
+		_diag_rendering = on
+		_save_diag_flags()
+		CrashLogger.breadcrumb("Diag: rendering=%s" % str(on))
+	)
+
+
+func _add_switch(parent: Control, label_text: String, initial: bool, callback: Callable) -> void:
+	var vb := VBoxContainer.new()
+	vb.alignment = BoxContainer.ALIGNMENT_CENTER
+
+	var lbl := Label.new()
+	lbl.text = label_text
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", ThemeManager.font_size(14))
+	lbl.add_theme_color_override("font_color", Color(0.35, 0.32, 0.25, 0.85))
+	vb.add_child(lbl)
+
+	var toggle := CheckButton.new()
+	toggle.button_pressed = initial
+	toggle.toggled.connect(callback)
+	vb.add_child(toggle)
+
+	parent.add_child(vb)
+
+
 func _animate_entrance() -> void:
 	var orig_y := title_label.position.y
 	title_label.modulate.a = 0.0
@@ -286,3 +367,31 @@ func _update_dev_indicator() -> void:
 		subtitle_label.text = "🔧 Режим разработчика"
 	else:
 		subtitle_label.text = "Путь гармонии и осознанности"
+
+
+# -- Diagnostic flag persistence --
+
+func _load_diag_flags() -> void:
+	if not FileAccess.file_exists(DIAG_FLAGS_PATH):
+		return  # defaults: all true
+	var f := FileAccess.open(DIAG_FLAGS_PATH, FileAccess.READ)
+	if not f:
+		return
+	while not f.eof_reached():
+		var line := f.get_line().strip_edges()
+		if line.begins_with("audio="):
+			_diag_audio = line.get_slice("=", 1) == "1"
+		elif line.begins_with("shaders="):
+			_diag_shaders = line.get_slice("=", 1) == "1"
+		elif line.begins_with("rendering="):
+			_diag_rendering = line.get_slice("=", 1) == "1"
+	f.close()
+
+
+func _save_diag_flags() -> void:
+	var f := FileAccess.open(DIAG_FLAGS_PATH, FileAccess.WRITE)
+	if f:
+		f.store_string("audio=%s\n" % ("1" if _diag_audio else "0"))
+		f.store_string("shaders=%s\n" % ("1" if _diag_shaders else "0"))
+		f.store_string("rendering=%s\n" % ("1" if _diag_rendering else "0"))
+		f.close()

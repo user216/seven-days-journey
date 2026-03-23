@@ -29,10 +29,32 @@ const SHADER_PATHS: Array[String] = [
 const BATCH_SIZE := 4  # shaders per frame
 
 var _index: int = 0
+var _skip: bool = false
 
 
 func _ready() -> void:
+	if not _read_diag_flag("shaders", true):
+		_skip = true
+		set_process(false)
+		CrashLogger.breadcrumb("ShaderWarmup._ready SKIPPED (shaders=off)")
+		return
 	CrashLogger.breadcrumb("ShaderWarmup._ready (staggered, %d shaders)" % SHADER_PATHS.size())
+
+
+func _read_diag_flag(key: String, default_val: bool) -> bool:
+	var path := "user://diag_flags.txt"
+	if not FileAccess.file_exists(path):
+		return default_val
+	var f := FileAccess.open(path, FileAccess.READ)
+	if not f:
+		return default_val
+	while not f.eof_reached():
+		var line := f.get_line().strip_edges()
+		if line.begins_with(key + "="):
+			f.close()
+			return line.get_slice("=", 1) == "1"
+	f.close()
+	return default_val
 
 
 func _process(_delta: float) -> void:

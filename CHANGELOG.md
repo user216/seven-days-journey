@@ -3,6 +3,22 @@
 All notable changes to the game are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.18] — 2026-03-23
+
+### Fixed
+- **AudioStreamWAV LOOP_FORWARD crash (SIGSEGV in AudioTrack)** — removed native `loop_mode = LOOP_FORWARD` from all procedural audio streams (ambient drone, 3 music tracks); native AudioTrack thread was accessing GC-managed PackedByteArray buffer at loop boundary, causing ARM MTE `SEGV_ACCERR` on Infinix X6853 (exactly at 4.0s ambient drone loop point); now loops via GDScript `finished` signal (main thread, no cross-thread buffer access)
+- Added `finished` signal to both music players (was only on player A) for proper crossfade loop handling
+
+### Added
+- v0.7.16: Visible diagnostic toggle switches on main menu (Audio, Shaders, Rendering) — replaces hidden triple-tap; flags persisted to `user://diag_flags.txt`
+- v0.7.16: Android logcat capture in CrashLogger — on restart after crash, captures last 500 logcat lines with native crash stacktrace filtering
+
+## [0.7.14] — 2026-03-23
+
+### Changed
+- **Switched renderer from Vulkan Mobile to GL Compatibility (OpenGL ES 3.0)** — Mali-G57 MC2 (Vulkan 1.1.177) still crashes after 4-5 seconds of steady-state rendering despite all Vulkan-specific mitigations (staggered shader warmup, CPUParticles2D, lazy screen-texture shaders, no warmup rect cleanup, throttled draw calls); 2D game does not use any Vulkan-specific rendering features; OpenGL ES 3.0 is universally supported on target devices and eliminates all Vulkan driver compatibility issues
+- Updated `config/features` from `Mobile` to `GL Compatibility`
+
 ## [0.7.13] — 2026-03-23
 
 ### Fixed

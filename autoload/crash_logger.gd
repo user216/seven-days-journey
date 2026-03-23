@@ -12,6 +12,7 @@ const LOG_PATH := "user://crash_log.txt"
 const SESSION_STATE_PATH := "user://session_state.txt"
 const BREADCRUMB_PATH := "user://breadcrumbs.txt"
 const PREV_BREADCRUMB_PATH := "user://prev_breadcrumbs.txt"
+const LOGCAT_DUMP_PATH := "user://prev_logcat.txt"
 const MAX_ERRORS := 50
 
 var _errors: Array[String] = []
@@ -33,6 +34,7 @@ func _ready() -> void:
 	# Start fresh breadcrumb trail for this session
 	breadcrumb("CrashLogger._ready")
 	if _previous_crash_detected:
+		_capture_logcat()  # Grab Android logcat before it rolls over
 		_crash_report_text = _build_crash_report_from_previous()
 		# Defer dialog to next frame so the scene tree is fully ready
 		call_deferred("_show_crash_report_dialog")
@@ -201,6 +203,18 @@ func _build_crash_report_from_previous() -> String:
 			parts.append("--- Engine log (last 100 lines) ---")
 			parts.append("\n".join(lines))
 			parts.append("--- End engine log ---")
+			parts.append("")
+
+	# Android logcat (captured on restart after crash)
+	if FileAccess.file_exists(LOGCAT_DUMP_PATH):
+		var f := FileAccess.open(LOGCAT_DUMP_PATH, FileAccess.READ)
+		if f:
+			var logcat := f.get_as_text().strip_edges()
+			f.close()
+			if logcat.length() > 0:
+				parts.append("--- Android logcat (crash-relevant) ---")
+				parts.append(logcat)
+				parts.append("--- End logcat ---")
 
 	return "\n".join(parts)
 
@@ -213,6 +227,63 @@ func _read_previous_breadcrumbs() -> String:
 			f.close()
 			return content
 	return ""
+
+
+func _capture_logcat() -> void:
+	## Try to capture Android logcat output for native crash diagnosis.
+	## On Android, OS.execute("logcat", ["-d"]) dumps the circular logcat buffer
+	## which typically still contains the previous crash's native stacktrace.
+	## On non-Android platforms, this is a no-op.
+	if OS.get_name() != "Android":
+		return
+	var output: Array = []
+	# -d = dump and exit, -t 500 = last 500 lines, -v threadtime = detailed format
+	var exit_code := OS.execute("logcat", ["-d", "-t", "500", "-v", "threadtime"], output)
+	if exit_code != 0 or output.is_empty():
+		# Fallback: try without -v flag
+		output.clear()
+		exit_code = OS.execute("logcat", ["-d", "-t", "500"], output)
+	if exit_code == 0 and not output.is_empty():
+		var raw: String = output[0] if output[0] is String else str(output[0])
+		# Filter for crash-relevant lines: FATAL, signal, backtrace, Godot, GPU, Mali
+		var all_lines := raw.split("\n")
+		var crash_lines := PackedStringArray()
+		var capture := false
+		for line in all_lines:
+			var upper := line.to_upper()
+			if upper.contains("FATAL") or upper.contains("SIGNAL") or \
+					upper.contains("BACKTRACE") or upper.contains("CRASH") or \
+					upper.contains("TOMBSTONE") or upper.contains("SIGSEGV") or \
+					upper.contains("SIGABRT") or upper.contains("SIGBUS") or \
+					upper.contains("SIGFPE") or upper.contains("SIGILL"):
+				capture = true
+			if upper.contains("DEBUG") and upper.contains("GODOT"):
+				capture = true
+			if upper.contains("LIBC") or upper.contains("LIBGODOT") or \
+					upper.contains("LIBVULKAN") or upper.contains("MALI") or \
+					upper.contains("GPU") or upper.contains("EGL"):
+				capture = true
+			if capture:
+				crash_lines.append(line)
+			# Also always include if line mentions our package
+			elif upper.contains("SEVENDAYSJOURNEY") or upper.contains("7DAYS"):
+				crash_lines.append(line)
+		# Save filtered output, or full output if no crash lines found
+		var to_save: String
+		if crash_lines.size() > 0:
+			to_save = "\n".join(crash_lines)
+		elif all_lines.size() > 0:
+			# No specific crash lines found — save last 200 lines unfiltered
+			var start := maxi(0, all_lines.size() - 200)
+			var tail := all_lines.slice(start)
+			to_save = "(no crash-specific lines found, showing last %d raw lines)\n" % tail.size()
+			to_save += "\n".join(tail)
+		else:
+			to_save = "(logcat returned empty output)"
+		var f := FileAccess.open(LOGCAT_DUMP_PATH, FileAccess.WRITE)
+		if f:
+			f.store_string(to_save)
+			f.close()
 
 
 func _show_crash_report_dialog() -> void:
@@ -426,7 +497,18 @@ func get_full_log() -> String:
 	if _errors.size() > 0:
 		result += "--- Session errors (%d) ---\n" % _errors.size()
 		result += "\n".join(_errors)
-		result += "\n--- End errors ---\n"
+		result += "\n--- End errors ---\n\n"
+
+	# Logcat dump (if available)
+	if FileAccess.file_exists(LOGCAT_DUMP_PATH):
+		var lf := FileAccess.open(LOGCAT_DUMP_PATH, FileAccess.READ)
+		if lf:
+			var logcat := lf.get_as_text().strip_edges()
+			lf.close()
+			if logcat.length() > 0:
+				result += "--- Android logcat ---\n"
+				result += logcat
+				result += "\n--- End logcat ---\n"
 
 	return result
 

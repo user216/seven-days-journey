@@ -24,6 +24,10 @@ var _music_volume: float = 0.15
 
 func _ready() -> void:
 	_headless = DisplayServer.get_name() == "headless"
+	if not _read_diag_flag("audio", true):
+		_headless = true  # reuse headless flag to skip all playback
+		CrashLogger.breadcrumb("AudioManager._ready SKIPPED (audio=off)")
+		return
 	CrashLogger.breadcrumb("AudioManager._ready (headless=%s)" % str(_headless))
 	_generate_all_sounds()
 	_generate_music()
@@ -32,6 +36,22 @@ func _ready() -> void:
 	if not _headless:
 		_create_ambient()
 	CrashLogger.breadcrumb("AudioManager._ready.done")
+
+
+func _read_diag_flag(key: String, default_val: bool) -> bool:
+	var path := "user://diag_flags.txt"
+	if not FileAccess.file_exists(path):
+		return default_val
+	var f := FileAccess.open(path, FileAccess.READ)
+	if not f:
+		return default_val
+	while not f.eof_reached():
+		var line := f.get_line().strip_edges()
+		if line.begins_with(key + "="):
+			f.close()
+			return line.get_slice("=", 1) == "1"
+	f.close()
+	return default_val
 
 
 func _notification(what: int) -> void:
@@ -186,14 +206,18 @@ func _create_music_players() -> void:
 	_music_a.bus = "Master"
 	_music_a.volume_db = -80.0
 	add_child(_music_a)
-	_music_a.finished.connect(func():
-		if _current_music_key in _music_streams:
-			_music_a.play()
-	)
+	_music_a.finished.connect(_on_music_finished.bind(_music_a))
 	_music_b = AudioStreamPlayer.new()
 	_music_b.bus = "Master"
 	_music_b.volume_db = -80.0
 	add_child(_music_b)
+	_music_b.finished.connect(_on_music_finished.bind(_music_b))
+
+
+func _on_music_finished(player: AudioStreamPlayer) -> void:
+	# Only re-loop if this player is the current active one (post-crossfade swap)
+	if player == _music_a and _current_music_key in _music_streams:
+		player.play()
 
 
 # -- Ambient --
@@ -455,10 +479,7 @@ func _gen_ambient_drone(duration: float) -> AudioStreamWAV:
 		var sample := int(clampf(val, -1.0, 1.0) * 32767.0)
 		buf[i * 2] = sample & 0xFF
 		buf[i * 2 + 1] = (sample >> 8) & 0xFF
-	var stream := _make_stream(buf, duration)
-	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	stream.loop_end = count
-	return stream
+	return _make_stream(buf, duration)
 
 
 # -- Music generation --
@@ -481,10 +502,7 @@ func _gen_music_calm(duration: float) -> AudioStreamWAV:
 		var sample := int(clampf(val, -1.0, 1.0) * 32767.0)
 		buf[i * 2] = sample & 0xFF
 		buf[i * 2 + 1] = (sample >> 8) & 0xFF
-	var stream := _make_stream(buf, duration)
-	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	stream.loop_end = count
-	return stream
+	return _make_stream(buf, duration)
 
 
 func _gen_music_hopeful(duration: float) -> AudioStreamWAV:
@@ -508,10 +526,7 @@ func _gen_music_hopeful(duration: float) -> AudioStreamWAV:
 		var sample := int(clampf(val, -1.0, 1.0) * 32767.0)
 		buf[i * 2] = sample & 0xFF
 		buf[i * 2 + 1] = (sample >> 8) & 0xFF
-	var stream := _make_stream(buf, duration)
-	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	stream.loop_end = count
-	return stream
+	return _make_stream(buf, duration)
 
 
 func _gen_music_night(duration: float) -> AudioStreamWAV:
@@ -532,7 +547,4 @@ func _gen_music_night(duration: float) -> AudioStreamWAV:
 		var sample := int(clampf(val, -1.0, 1.0) * 32767.0)
 		buf[i * 2] = sample & 0xFF
 		buf[i * 2 + 1] = (sample >> 8) & 0xFF
-	var stream := _make_stream(buf, duration)
-	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	stream.loop_end = count
-	return stream
+	return _make_stream(buf, duration)
