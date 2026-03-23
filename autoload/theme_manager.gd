@@ -29,7 +29,22 @@ var game_theme: Theme = null
 
 func _ready() -> void:
 	CrashLogger.breadcrumb("ThemeManager._ready")
+	_register_emoji_fallback()
 	game_theme = _build_theme()
+
+
+func _register_emoji_fallback() -> void:
+	## Add NotoEmoji as a fallback so emoji glyphs render on web export.
+	var emoji_font := load("res://assets/fonts/NotoEmoji.ttf") as Font
+	if not emoji_font:
+		return
+	var fb: Font = ThemeDB.fallback_font
+	if fb and fb.get_fallbacks().size() == 0:
+		fb.set_fallbacks([emoji_font])
+	elif fb:
+		var arr := fb.get_fallbacks()
+		arr.append(emoji_font)
+		fb.set_fallbacks(arr)
 
 
 func font_size(base: int) -> int:
